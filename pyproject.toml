@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thermotwin"
+version = "0.1.0"
+description = "Physics-informed digital twin and experiment planner for thermoelectric heat pumps"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "ThermoTwin contributors"}]
+dependencies = []
+
+[project.optional-dependencies]
+reports = ["matplotlib>=3.7"]
+pinn = ["torch>=2.0"]
+all = ["matplotlib>=3.7", "torch>=2.0"]
+dev = ["matplotlib>=3.7", "torch>=2.0"]
+
+[project.scripts]
+thermotwin-contact-report = "thermotwin.reports.contact_model:main"
+thermotwin-cop-map = "thermotwin.reports.cop_map:main"
+thermotwin-pulse-map = "thermotwin.reports.pulse_map:main"
+thermotwin-pwm = "thermotwin.reports.pwm_power_electronics:main"
+thermotwin-codesign = "thermotwin.reports.material_codesign:main"
+thermotwin-pinn-showcase = "thermotwin.reports.pinn_showcase:main"
+thermotwin-engineering-showcase = "thermotwin.reports.engineering_showcase:main"
+thermotwin-dataset-quality = "thermotwin.reports.dataset_quality:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["thermotwin*"]
+exclude = ["thermotwin.figures*"]
+
+[tool.setuptools.package-data]
+thermotwin = ["*.md", "requirements-pinn.txt"]
