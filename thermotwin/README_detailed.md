@@ -1093,3 +1093,13 @@ The recommended scientific sequence is:
 | Withheld regime | A complete current schedule excluded from fitting and used for transfer evaluation |
 | Candidate-pool optimum | Best tested design in a finite declared pool, not a proof of a global optimum |
 | Hardware validation | Comparison with calibrated physical measurements; not yet performed |
+
+---
+
+## 17. License and third-party material
+
+ThermoTwin's original code and documentation are available under the
+[MIT License](../LICENSE). The license does not replace the terms that apply to
+third-party datasets, literature-derived material records, or publication
+content. Their source-specific licenses, citations, and provenance remain in
+the corresponding experiment documentation.

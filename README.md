@@ -301,3 +301,10 @@ The authoritative status and remaining work are in
 
 ThermoTwin models a generic thermoelectric heat pump using public equations and
 published material data. It does not reproduce proprietary hardware.
+
+## License
+
+ThermoTwin's original code and documentation are available under the
+[MIT License](LICENSE). Third-party datasets, literature-derived records, and
+publication content retain their respective licenses and attribution
+requirements; source-specific provenance is documented with each study.
