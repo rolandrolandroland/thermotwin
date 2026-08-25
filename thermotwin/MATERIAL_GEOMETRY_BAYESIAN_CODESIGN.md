@@ -13,6 +13,12 @@ The most important qualification is this:
 > validated commercial design, a manufacturing-process model, a dollar cost model,
 > or evidence that the selected virtual module will match hardware.
 
+A published process-optimization study can learn **process → property** from
+composition, synthesis, and sintering data; this campaign evaluates
+**property → device** under geometry, interface, electronics, and application
+constraints. The two stages compose into a future closed loop, but ThermoTwin
+does not invent the missing paired process/property/cost data.
+
 ## 1. Questions asked
 
 The campaign contains three linked experiments.

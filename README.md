@@ -57,6 +57,8 @@ and application constraints determine whether the material advantage survives.
 | Can finished assemblies be ranked by hidden interface quality? | [Assembly fingerprinting](thermotwin/ASSEMBLY_FINGERPRINT_EXPERIMENT.md) |
 | What does a PINN add beyond a conventional solver? | [PINN showcase](thermotwin/PINN_SHOWCASE.md) |
 | How should material choice and leg geometry change with the application? | [Material/geometry co-design](thermotwin/MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md) |
+| What electrical contact resistivity must a process achieve for a chosen leg length and application? | [Electrical-contact process window](thermotwin/ELECTRICAL_CONTACT_PROCESS_WINDOW.md) |
+| Does a published Ag₂Se n leg improve the same designs when everything else is held fixed? | [Matched Ag₂Se substitution](thermotwin/AG2SE_SUBSTITUTION_EXPERIMENT.md) |
 | What would a real hardware comparison require? | [Hardware-validation protocol](thermotwin/HARDWARE_VALIDATION_PROTOCOL.md) |
 
 ---
@@ -98,6 +100,8 @@ Installed command | Equivalent module command
 `thermotwin-contact-report` | `python3 -m thermotwin.contact_report`
 `thermotwin-pinn-showcase` | `python3 -m thermotwin.pinn_showcase`
 `thermotwin-dataset-quality` | `python3 -m thermotwin.dataset_quality`
+`thermotwin-contact-process-window` | `python3 -m thermotwin.contact_process_window`
+`thermotwin-ag2se-substitution` | `python3 -m thermotwin.ag2se_substitution`
 
 Reports write reproducible images to `thermotwin/figures/` by default. That
 directory is ignored by Git. Most report commands accept `--output PATH` when a
@@ -151,11 +155,17 @@ more than simply collecting more samples.
 | 25 K co-design utility: Bayesian optimization versus random-search median | 6.4268 vs 3.9015 |
 | Bayesian-optimization improvement on either 10 K application | none; the initial screen already contained the tested-pool winner |
 | Requirement pass rate of the nominal 10 K efficiency winner under assumed as-built spread | 55.3% |
+| [Published-unicouple electrical contact translation](thermotwin/ELECTRICAL_CONTACT_PROCESS_WINDOW.md) | 50% crossover at $1.1069\times10^{-8}$ Ω·m²; paper-derived point is 60.07% contact resistance and 39.93% zero-contact $ZT$ retention |
 
 The final two results are deliberately uncomfortable. Reporting the null
 optimization result avoids inventing value where the initial design already
 won, and the 55.3% pass rate shows that optimizing nominal COP can select a
 design that is difficult to manufacture reliably.
+
+The matched Ag₂Se extension is similarly candid: it improves the utility of
+most fixed designs at the good-interface baseline but does not create a new
+best feasible design in any application. The process-window and substitution
+walkthroughs separate that material result from interface quality and geometry.
 
 ---
 
@@ -222,7 +232,7 @@ and extension pattern are documented in
 
 ## How the evidence is checked
 
-The current suite contains 374 tests. It covers:
+The current suite contains 392 tests. It covers:
 
 - units, signs, algebraic identities, and positive/zero/negative current;
 - limiting cases such as passive conduction and absent identifiability;

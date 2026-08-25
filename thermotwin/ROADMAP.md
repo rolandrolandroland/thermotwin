@@ -549,7 +549,17 @@ requirements in one reproducible design-selection loop.
 - Three 300-trial fixed-current robustness studies show 55.3%, 100.0%, and
   100.0% requirement pass rates. The fragile efficiency winner demonstrates
   why nominal COP optimization is not sufficient for commercialization.
+- A separate cost-free process window now maps 0.05--2.5 mm leg length and
+  electrical contact resistivity through $5\times10^{-8}$ ohm m2 under both
+  the existing 1 A/mm2 campaign constraint and an exploratory 3 A/mm2
+  sensitivity. Cooling-target failures are attributed separately to the
+  selected current cap or to the finite modeled cooling maximum.
+- An opt-in optimized Ag2Se record is tested by replacing only the n material
+  in all 204 frozen-pool designs. It improves many matched designs but creates
+  no new best feasible design, so the null system-level result is retained.
 - Walkthrough: `MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md`.
+- Extensions: `ELECTRICAL_CONTACT_PROCESS_WINDOW.md` and
+  `AG2SE_SUBSTITUTION_EXPERIMENT.md`.
 
 ### Exit criteria
 

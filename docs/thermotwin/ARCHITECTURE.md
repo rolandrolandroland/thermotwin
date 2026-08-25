@@ -67,6 +67,10 @@ The former single `material_geometry_codesign.py` implementation is split into:
 | `design/codesign/optimization.py` | Gaussian process, expected improvement, BO/random comparison |
 | `design/codesign/robustness.py` | Fixed-current as-built perturbation study |
 | `design/codesign/campaign.py` | End-to-end orchestration and text report |
+| `design/literature_materials.py` | Opt-in DOI-backed records that must not alter the indexed baseline catalog |
+| `design/material_pair.py` | Explicit p/n pair evaluation shared by source-specific design studies |
+| `design/contact_process_window.py` | Cost-free geometry/contact/application process window |
+| `design/ag2se_substitution.py` | One-variable matched substitution over the frozen design pool |
 
 This division prevents changes to the optimizer from silently changing module
 physics, and makes the scientific assumptions easier to test independently.

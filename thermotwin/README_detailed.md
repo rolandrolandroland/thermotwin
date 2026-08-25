@@ -17,6 +17,7 @@ you where its code lives — and where new work should go.
 | Understand what the PINNs contribute | §7 and §9.1 | [`PINN_SHOWCASE.md`](PINN_SHOWCASE.md) |
 | Explore efficiency and controls | §8.1–§8.3 and §9.3 | [`COP_OPERATING_MAP_EXPERIMENT.md`](COP_OPERATING_MAP_EXPERIMENT.md) |
 | Explore product-oriented co-design | §2, §8.4, and §9.4 | [`MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md`](MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md) |
+| Translate material and contact measurements into process targets | §2, §8.5–§8.6, and §9.5 | [`ELECTRICAL_CONTACT_PROCESS_WINDOW.md`](ELECTRICAL_CONTACT_PROCESS_WINDOW.md) |
 | Extend the package | §13–§15 | [`docs/thermotwin/ARCHITECTURE.md`](../docs/thermotwin/ARCHITECTURE.md) |
 
 Each technical chapter follows the same logic: physical question, equations and
@@ -244,9 +245,11 @@ Together they set where the geometric optimum sits.
 The baseline uses ρ<sub>c</sub> = 2.0 × 10⁻¹⁰ Ω·m², anchored to a 298 K
 Ti/Bi₂Te₃ transfer-length measurement of 1.94 × 10⁻¹⁰ Ω·m²
 ([AIP Advances 15, 035351](https://doi.org/10.1063/5.0253218)). It is one
-literature-anchored baseline, not a claim about typical production quality. A
-future process-quality sensitivity should also test 1.0 × 10⁻⁹ Ω·m², five times
-the baseline; that experiment has not yet been implemented.
+literature-anchored baseline, not a claim about typical production quality. The
+implemented [electrical-contact process window](ELECTRICAL_CONTACT_PROCESS_WINDOW.md)
+now sweeps zero plus $10^{-11}$ through $5\times10^{-8}$ Ω·m² across 0.05–2.5 mm
+legs. This deliberately includes interfaces from better than the baseline
+through contact-dominated operation.
 
 Material records come from a curated same-row extract of the fixed StarryData
 snapshot (Figshare DOI `10.6084/m9.figshare.11340935.v1`, CC BY 4.0): twelve
@@ -568,6 +571,51 @@ contained the pool winner. The nominal 10 K efficiency winner then passes only
 — a nominal optimizer can select a design that looks efficient and is difficult
 to build reliably. The objective is not retroactively changed to hide this.
 
+### 8.5 Electrical-contact process window
+
+The process-window study removes the synthetic cost objective and asks for the
+lowest rising-branch current that meets each application's cooling requirement.
+It sweeps 61 logarithmic leg lengths from 0.05 to 2.5 mm, a zero-contact
+reference plus 61 logarithmic contact-resistivity values through
+$5\times10^{-8}$ Ω·m², with the existing 1 A/mm² campaign constraint and an
+exploratory 3 A/mm² sensitivity reported side by side. Failed cooling targets
+are separated into current-cap-limited and physics-limited cases by repeating
+the reachability check without the selected current-density cap.
+
+For $N$ couples with four interfaces per p/n couple,
+
+$$
+R_{\mathrm{contact}}=4N\frac{\rho_c}{A},
+\qquad
+\rho_{c,50}=\frac{L(\rho_p+\rho_n)}{4}.
+$$
+
+The crossover is independent of $N$ and $A$, while its position moves linearly
+with leg length. Short legs are penalized twice: contact share grows relative
+to bulk electrical resistance, and leg thermal conductance grows as $1/L$.
+
+An electrical-only translation of a published 1.5 mm Ag₂Se unicouple gives a
+50% crossover at $1.1069\times10^{-8}$ Ω·m². Its reported 7.4 mΩ per contact
+and 2.25 mm² area imply $R_cA\approx1.6650\times10^{-8}$ Ω·m², corresponding
+to 60.07% modeled contact share and 39.93% zero-contact device-$ZT$ retention.
+That source device is a generator; the separate system panels use declared
+$N=120$, 1.6 mm² cooling assumptions.
+
+### 8.6 Matched Ag₂Se substitution
+
+The optimized room-temperature Ag₂Se triplet—−153.3 µV/K, 117,400 S/m, and
+0.85 W/(m·K)—is an opt-in DOI-backed record outside the indexed StarryData
+catalog. The study takes all 204 frozen designs, holds the p material, geometry,
+interfaces, exchangers, electronics, and application fixed, replaces only the
+n material, and repeats the same current-grid optimization.
+
+At the $2.0\times10^{-10}$ Ω·m² baseline, Ag₂Se improves scalar utility in
+69.6–76.5% of matched designs. At the paper-derived contact landmark that range
+falls to 50.0–54.9%. It produces no new best feasible design in any application
+at either contact level. This null result is retained: a promising material can
+improve much of the design space without beating the best existing complete
+system.
+
 ---
 
 ## 9. Flagship evidence
@@ -732,6 +780,33 @@ synthetic property and interface spreads; they are not measured manufacturing
 capability. See
 [`MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md`](MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md).
 
+### 9.5 Contact process target and matched material substitution
+
+The electrical-contact experiment converts reported unicouple resistance into
+a geometry-scaled process target, then passes contact quality through the
+four-node cooling model. Near 1.5 mm, the maximum feasible $\rho_c$ across the
+six Ag₂Se/p-type pairings is:
+
+| Application | Maximum-feasible $\rho_c$ range |
+| --- | ---: |
+| 10 K efficiency-first | $9.1028\times10^{-9}$ to $1.6061\times10^{-8}$ Ω·m² |
+| 25 K balanced | $3.8840\times10^{-9}$ to $9.1028\times10^{-9}$ Ω·m² |
+| 10 K capacity-first | $6.8529\times10^{-9}$ to $1.3936\times10^{-8}$ Ω·m² |
+
+The p-type envelope matters: Ag₂Se alone is not a module. The high-lift case is
+the most restrictive under these assumptions. The full surface, failure
+regions, and generator-versus-cooler boundary are in
+[`ELECTRICAL_CONTACT_PROCESS_WINDOW.md`](ELECTRICAL_CONTACT_PROCESS_WINDOW.md).
+
+The matched substitution audit then shows where the material record changes a
+decision without changing the design pool. At the good-interface baseline, the
+25 K median changes are +0.3401 W cooling and +0.1075 COP, and 26 designs gain
+feasibility with none losing it. Even there, the best Ag₂Se utility is 5.9425
+versus 6.4268 for the best original pair. At the paper-derived contact level,
+median improvements nearly vanish and the best utilities fall. Full matched
+counts and all six application/contact summaries are in
+[`AG2SE_SUBSTITUTION_EXPERIMENT.md`](AG2SE_SUBSTITUTION_EXPERIMENT.md).
+
 ---
 
 ## 10. Validation levels and what they mean
@@ -807,7 +882,7 @@ evidence that a trajectory is correct.
 
 ## 12. What the tests cover
 
-The suite runs 374 tests with `python3 -m unittest discover -s tests`. Optional
+The suite runs 392 tests with `python3 -m unittest discover -s tests`. Optional
 learned-model and figure tests skip when PyTorch or Matplotlib are absent.
 
 By category rather than by file, the tests check:
@@ -930,6 +1005,8 @@ The installed console names and their exact historical module equivalents are:
 | Contact model | `thermotwin-contact-report` | `python3 -m thermotwin.contact_report` |
 | PINN showcase | `thermotwin-pinn-showcase` | `python3 -m thermotwin.pinn_showcase` |
 | Dataset audit | `thermotwin-dataset-quality` | `python3 -m thermotwin.dataset_quality` |
+| Electrical-contact process window | `thermotwin-contact-process-window` | `python3 -m thermotwin.contact_process_window` |
+| Matched Ag₂Se substitution | `thermotwin-ag2se-substitution` | `python3 -m thermotwin.ag2se_substitution` |
 
 These module names are intentionally listed individually: replacing the command
 name with a guessed `thermotwin.<name>` module is not reliable.

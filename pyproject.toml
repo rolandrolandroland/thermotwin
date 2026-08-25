@@ -26,6 +26,8 @@ thermotwin-codesign = "thermotwin.reports.material_codesign:main"
 thermotwin-pinn-showcase = "thermotwin.reports.pinn_showcase:main"
 thermotwin-engineering-showcase = "thermotwin.reports.engineering_showcase:main"
 thermotwin-dataset-quality = "thermotwin.reports.dataset_quality:main"
+thermotwin-contact-process-window = "thermotwin.reports.contact_process_window:main"
+thermotwin-ag2se-substitution = "thermotwin.reports.ag2se_substitution:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

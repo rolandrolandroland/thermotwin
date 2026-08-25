@@ -83,13 +83,15 @@ class MaterialSample:
         return self.power_factor * self.temperature / self.thermal_conductivity
 
 
-# Selection rule used for this compact catalog:
+# Selection rule used for the frozen compact StarryData baseline catalog:
 # * exact 300 K interpolated row;
 # * complete canonical S, sigma, and k columns on that same row;
 # * Bi/Te-family composition with no fabricated cross-row property mixing;
 # * plausible cooling-material envelope of 50--400 uV/K, 10--500 kS/m,
 #   and 0.3--4 W/(m K);
 # * six records of each carrier sign retained to span property trade-offs.
+# Source-specific extensions such as the 2026 optimized Ag2Se sample live in
+# ``literature_materials.py`` and do not alter these indexed tuples.
 P_TYPE_SAMPLES: Tuple[MaterialSample, ...] = (
     MaterialSample(
         9107,
