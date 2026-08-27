@@ -34,6 +34,9 @@ flowchart LR
     C --> G["COP maps and control"]
     B --> H["Material/geometry co-design"]
     C --> I["Forward and inverse PINNs"]
+    A --> J["Distributed property curves"]
+    J --> K["Hidden 1-D temperature field"]
+    K --> D
 ```
 
 ### Important materials boundary
@@ -59,6 +62,7 @@ and application constraints determine whether the material advantage survives.
 | How should material choice and leg geometry change with the application? | [Material/geometry co-design](thermotwin/MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md) |
 | What electrical contact resistivity must a process achieve for a chosen leg length and application? | [Electrical-contact process window](thermotwin/ELECTRICAL_CONTACT_PROCESS_WINDOW.md) |
 | Does a published Ag₂Se n leg improve the same designs when everything else is held fixed? | [Matched Ag₂Se substitution](thermotwin/AG2SE_SUBSTITUTION_EXPERIMENT.md) |
+| Can terminal measurements recover temperature-dependent properties and a hidden internal field? | [Distributed constitutive inference](thermotwin/DISTRIBUTED_CONSTITUTIVE_INFERENCE.md) |
 | What would a real hardware comparison require? | [Hardware-validation protocol](thermotwin/HARDWARE_VALIDATION_PROTOCOL.md) |
 
 ---
@@ -102,6 +106,7 @@ Installed command | Equivalent module command
 `thermotwin-dataset-quality` | `python3 -m thermotwin.dataset_quality`
 `thermotwin-contact-process-window` | `python3 -m thermotwin.contact_process_window`
 `thermotwin-ag2se-substitution` | `python3 -m thermotwin.ag2se_substitution`
+`thermotwin-distributed-properties` | `python3 -m thermotwin.distributed_property_report`
 
 Reports write reproducible images to `thermotwin/figures/` by default. That
 directory is ignored by Git. Most report commands accept `--output PATH` when a
@@ -131,6 +136,17 @@ it recovers 0.250000002 K/W in 42 loss evaluations. The PINN result matters not
 because it beats that optimizer, but because one differentiable representation
 combines governing equations, partial observations, positive parameters, hidden
 states, and switched controls.
+
+The [distributed constitutive-inference study](thermotwin/DISTRIBUTED_CONSTITUTIVE_INFERENCE.md)
+moves beyond those lumped ODEs. A conservative 1-D finite-volume model stores
+energy inside a temperature-dependent leg, and a PDE PINN reconstructs the
+hidden field without finite-volume temperature labels. In the frozen CPU case,
+the forward distributed PINN reaches 0.006420 K internal-field RMSE and 0.015116
+K maximum error. A local observation-first gate is full rank for three knots of
+each of `alpha(T)`, `rho_e(T)`, and `kappa(T)` under the declared synthetic
+sensor precision, but the resistivity curve is substantially less well
+conditioned than the other families. This is a local synthetic result, not a
+hardware identifiability claim.
 
 ### Sensors, inference, and experiment design
 
@@ -198,6 +214,18 @@ the module faces from the exchanger nodes, making interface temperature drops
 and hidden contact resistance explicit. Use the two-node model when contacts
 are intentionally omitted; no zero-resistance workaround is required.
 
+The distributed extension resolves one leg along the cold-to-hot coordinate:
+
+```text
+E = rho_e(T) J + alpha(T) dT/dx
+q = alpha(T) T J - kappa(T) dT/dx
+rho_m c_p dT/dt = -dq/dx + J E
+```
+
+It includes the Thomson term through `tau(T) = T d(alpha)/dT`, stores internal
+leg energy, and couples both boundary temperatures to dynamic face nodes. The
+original two- and four-node models remain the fast default for system sweeps.
+
 ---
 
 ## Model and software layers
@@ -205,7 +233,7 @@ are intentionally omitted; no zero-resistance workaround is required.
 ```text
 thermotwin/
 ├── core/          current-control types shared across the package
-├── physics/       thermoelectric relations, balances, steady states, RK4 solvers
+├── physics/       lumped relations plus conservative distributed leg physics
 ├── numerics/      interpolation, discontinuous-power integration, matrices, statistics
 ├── simulation/    frozen experiments and diagnostic histories
 ├── observations/  sensors, noise, bias, lag, dropout, provenance, data quality
@@ -232,7 +260,7 @@ and extension pattern are documented in
 
 ## How the evidence is checked
 
-The current suite contains 392 tests. It covers:
+The current suite contains 426 tests. It covers:
 
 - units, signs, algebraic identities, and positive/zero/negative current;
 - limiting cases such as passive conduction and absent identifiability;
@@ -258,9 +286,12 @@ true. Neither result shows that those equations match a physical device.
 ## Known limitations
 
 - No hardware dataset has been used.
-- Material properties are constant with temperature and current.
-- The thermoelectric module is quasi-steady and lumped; Thomson heating,
-  radiation, and distributed temperature fields are omitted.
+- The established two- and four-node models use constant effective properties
+  and a quasi-steady module. The separate 1-D leg extension supports
+  temperature-dependent properties, internal storage, and Thomson heating.
+- The distributed extension is one homogeneous leg, not a p/n unicouple or
+  complete module; lateral heat flow, radiation, spreading resistance, and
+  spatial defects remain omitted.
 - Material properties are inputs. There is no process-to-property model for
   doping, sintering, or lattice design.
 - Most inverse results use data generated by the same model used for fitting.
@@ -296,6 +327,9 @@ The authoritative status and remaining work are in
   — the application and commercialization-facing design study.
 - [`thermotwin/HARDWARE_VALIDATION_PROTOCOL.md`](thermotwin/HARDWARE_VALIDATION_PROTOCOL.md) — the
   boundary between synthetic evidence and a physical claim.
+- [`thermotwin/DISTRIBUTED_CONSTITUTIVE_INFERENCE.md`](thermotwin/DISTRIBUTED_CONSTITUTIVE_INFERENCE.md)
+  — the PDE, finite-volume, function-identifiability, inverse, and
+  next-experiment extension.
 
 ## Scope statement
 

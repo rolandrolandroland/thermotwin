@@ -663,25 +663,96 @@ Measure the synthetic-to-real gap with a safe benchtop Peltier experiment.
 - At least one genuinely withheld experiment is predicted.
 - Disagreement is analyzed rather than hidden by refitting every case.
 
+## Milestone 9 — Distributed constitutive inference
+
+**Status: Partial. Conservative reference physics, local identifiability,
+continuous conventional inference, first forward/inverse PINNs, local
+uncertainty, and candidate selection are implemented.**
+
+### Goal
+
+Recover a hidden one-dimensional temperature field and thermodynamically
+consistent temperature-dependent transport functions from sparse terminal and
+face measurements, while stating which coefficient combinations the
+instrumentation cannot support.
+
+### Implemented foundation
+
+- One homogeneous leg with `alpha(T)`, `rho_e(T)`, and `kappa(T)` represented
+  as constant or piecewise-linear functions.
+- Conservative finite-volume heat and electrical fluxes coupled to dynamic
+  cold and hot face nodes.
+- Thomson heating through `tau(T) = T d(alpha)/dT` and a roundoff-level
+  semidiscrete energy audit.
+- Zero-current, passive-conduction, current-reversal, steady half-Joule,
+  positive-kelvin, RK4-refinement, and switch-timing tests.
+- Sparse face-temperature, voltage, and optional heat-rate observations with
+  discontinuity-aware diagnostic evaluation.
+- A four-regime, noise-normalized finite-difference Jacobian and local singular
+  spectrum before neural training.
+- Continuous conventional one-function fitting with damped Gauss–Newton polish.
+- A forward `(x,t) -> T` PINN with exact initial profile and dynamic boundary
+  residuals, validated against withheld finite-volume fields.
+- A multi-experiment inverse PINN with one hidden temperature network per
+  regime and one shared property curve.
+- Local Gaussian coefficient uncertainty and D-optimal pulse/lift selection.
+- A public walkthrough, report command, generated figure, and private exercise
+  sheet.
+
+### Current result
+
+- The declared synthetic four-regime observation model is locally full rank for
+  each three-knot curve and for all nine coefficients jointly; this is not a
+  global or hardware-identifiability claim.
+- The forward PINN reaches 0.006420 K internal-field RMSE and 0.015116 K maximum
+  error after 800 CPU epochs.
+- In a noise-free same-model resistivity case, the conventional solver recovers
+  truth multipliers `(1.04, 1.07, 1.03)` to numerical precision; the inverse
+  PINN returns `(1.051672, 1.066605, 1.048003)`.
+- The selected finite candidate is a 20 K, -0.8 A, 0.5 s pulse with 6.0338 nats
+  of local information gain.
+
+### Remaining exit criteria
+
+- Repeat one-function recovery across realistic noise and multiple neural
+  seeds; predeclare failure criteria and report all failures.
+- Check nonlinear interval coverage rather than relying only on local Gaussian
+  covariance.
+- Validate a recovered curve on a complete temperature/current regime excluded
+  from fitting.
+- Generate synthetic truth with an independent discretization or constitutive
+  representation to measure inverse crime and model discrepancy.
+- Demonstrate an intentionally underdetermined observation set and show that
+  the inference reports the loss of rank rather than inventing a curve.
+- Add a p/n unicouple and internal interface conditions only after the
+  single-leg observation model is stable.
+- Treat switched-current PINNs through explicit time-domain decomposition.
+- Attempt hardware inference only after sensor precision and boundary
+  conditions are measured.
+
+---
+
 ## Recommended execution order from the current state
 
-1. Finish Milestone 3 with PINN energy closure and a matched data-only
+1. Complete Milestone 9's noisy, multi-seed, withheld-regime one-function
+   recovery before attempting a joint three-function inverse PINN.
+2. Finish Milestone 3 with PINN energy closure and a matched data-only
    sparse/missing-data comparison.
-2. Finish Milestone 4 by training the inverse PINN on selected imperfect
+3. Finish Milestone 4 by training the inverse PINN on selected imperfect
    datasets and comparing it fairly with the conventional estimator.
-3. Extend Milestone 5's local joint inference to nonlinear repeated-fit
+4. Extend Milestone 5's local joint inference to nonlinear repeated-fit
    coverage and an explicitly underdetermined multi-parameter case.
-4. Finish Milestone 6B with complete nonlinear refits of selected and naive
+5. Finish Milestone 6B with complete nonlinear refits of selected and naive
    experiments over repeated synthetic trials.
-5. Extend Milestone 6C to chance-constrained optimization only after measured
+6. Extend Milestone 6C to chance-constrained optimization only after measured
    process-capability or hardware uncertainty data replace the current virtual
    spreads.
-6. Refine Milestone 6A only when new validated physics—such as flowing-fluid
+7. Refine Milestone 6A only when new validated physics—such as flowing-fluid
    states, a calibrated converter loss map, or multi-assembly staging—changes
    the control question.
-7. Finalize Milestone 7 deliverables throughout, rather than postponing all
+8. Finalize Milestone 7 deliverables throughout, rather than postponing all
    documentation until the end.
-8. Attempt Milestone 8 only if safe hardware and sufficient time are available.
+9. Attempt Milestone 8 only if safe hardware and sufficient time are available.
 
 ## Final project claim
 

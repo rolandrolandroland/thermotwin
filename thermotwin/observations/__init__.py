@@ -27,3 +27,26 @@ __all__ = [
     "apply_gaussian_temperature_noise",
     "load_hardware_csv",
 ]
+from .distributed import (
+    DISTRIBUTED_CHANNELS,
+    DistributedObservation,
+    DistributedObservationChannels,
+    DistributedObservationSet,
+    add_distributed_gaussian_noise,
+    interpolate_distributed_state,
+    observe_distributed_trajectory,
+    regular_distributed_observation_times,
+    run_distributed_virtual_experiment,
+)
+
+__all__ = [
+    "DISTRIBUTED_CHANNELS",
+    "DistributedObservation",
+    "DistributedObservationChannels",
+    "DistributedObservationSet",
+    "add_distributed_gaussian_noise",
+    "interpolate_distributed_state",
+    "observe_distributed_trajectory",
+    "regular_distributed_observation_times",
+    "run_distributed_virtual_experiment",
+]

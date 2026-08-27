@@ -32,6 +32,21 @@ from .four_node import (
     integrate_four_node_contact,
     thermal_contact_heat,
 )
+from .distributed import (
+    ConstantProperty,
+    DistributedFaceThermalParameters,
+    DistributedLegGeometry,
+    DistributedStateDiagnostics,
+    DistributedTemperatureRates,
+    DistributedThermoelectricMaterial,
+    PiecewiseLinearProperty,
+    distributed_leg_fluxes_and_voltage_drops,
+    distributed_leg_rhs,
+    distributed_stored_energy,
+    evaluate_distributed_state,
+    linear_cell_temperatures,
+    recommended_explicit_time_step,
+)
 
 __all__ = [
     "ThermoelectricParameters",
@@ -60,4 +75,17 @@ __all__ = [
     "two_node_rhs",
     "two_node_steady_state",
     "voltage",
+    "ConstantProperty",
+    "DistributedFaceThermalParameters",
+    "DistributedLegGeometry",
+    "DistributedStateDiagnostics",
+    "DistributedTemperatureRates",
+    "DistributedThermoelectricMaterial",
+    "PiecewiseLinearProperty",
+    "distributed_leg_fluxes_and_voltage_drops",
+    "distributed_leg_rhs",
+    "distributed_stored_energy",
+    "evaluate_distributed_state",
+    "linear_cell_temperatures",
+    "recommended_explicit_time_step",
 ]

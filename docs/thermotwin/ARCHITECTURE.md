@@ -23,7 +23,7 @@ The allowed responsibilities are:
 | Package | Responsibility | Optional dependency? |
 | --- | --- | --- |
 | `thermotwin.core` | Shared current-input structures with no scientific-layer dependencies | No |
-| `thermotwin.physics` | Thermoelectric equations and two-/four-node thermal models | No |
+| `thermotwin.physics` | Lumped thermoelectric equations plus the conservative 1-D leg model | No |
 | `thermotwin.numerics` | Small matrices, interpolation, integration, bracketing, quantiles | No |
 | `thermotwin.simulation` | Diagnostics and reproducible reference simulations | No |
 | `thermotwin.observations` | Sensor schemas, noise, bias, lag, missingness, quality, hardware CSV | No |
@@ -75,11 +75,27 @@ The former single `material_geometry_codesign.py` implementation is split into:
 This division prevents changes to the optimizer from silently changing module
 physics, and makes the scientific assumptions easier to test independently.
 
+## Distributed constitutive-inference decomposition
+
+The function-valued PDE extension follows the same dependency direction:
+
+| Module | Ownership |
+| --- | --- |
+| `physics/distributed.py` | Property curves, local constitutive laws, conservative fluxes, face and cell balances |
+| `simulation/distributed.py` | Transition-split RK4 and frozen distributed regimes |
+| `observations/distributed.py` | Sparse face, voltage, and heat-rate measurements |
+| `inference/distributed_identifiability.py` | Noise-normalized sensitivities and singular spectrum |
+| `inference/distributed_properties.py` | Conventional continuous property-curve fitting |
+| `inference/distributed_experiment_selection.py` | Local uncertainty and D-optimal candidates |
+| `pinn/distributed_forward.py` | Forward PDE PINN with dynamic face boundaries |
+| `pinn/distributed_inverse.py` | Shared-property single- and multi-experiment inverse PINNs |
+| `reports/distributed_properties.py` | Reproducible text and figure report |
+
 ## Documentation and generated artifacts
 
-The concise and detailed READMEs, frozen experiment walkthroughs, and learning
-notes remain at their established paths to preserve hundreds of working links.
-They are documentation assets, not runtime dependencies. Generated figures
+The concise and detailed READMEs and frozen public experiment walkthroughs
+remain at their established paths. Private learning notes under
+`thermotwin/notes/` are intentionally ignored by Git. Generated figures
 remain under `thermotwin/figures/`, are ignored by Git, and are never imported.
 
 ## Adding a feature

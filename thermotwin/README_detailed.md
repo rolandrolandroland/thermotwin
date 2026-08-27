@@ -18,6 +18,7 @@ you where its code lives — and where new work should go.
 | Explore efficiency and controls | §8.1–§8.3 and §9.3 | [`COP_OPERATING_MAP_EXPERIMENT.md`](COP_OPERATING_MAP_EXPERIMENT.md) |
 | Explore product-oriented co-design | §2, §8.4, and §9.4 | [`MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md`](MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md) |
 | Translate material and contact measurements into process targets | §2, §8.5–§8.6, and §9.5 | [`ELECTRICAL_CONTACT_PROCESS_WINDOW.md`](ELECTRICAL_CONTACT_PROCESS_WINDOW.md) |
+| Infer temperature-dependent properties and a hidden internal field | §1.9, §3, §6, and §7 | [`DISTRIBUTED_CONSTITUTIVE_INFERENCE.md`](DISTRIBUTED_CONSTITUTIVE_INFERENCE.md) |
 | Extend the package | §13–§15 | [`docs/thermotwin/ARCHITECTURE.md`](../docs/thermotwin/ARCHITECTURE.md) |
 
 Each technical chapter follows the same logic: physical question, equations and
@@ -212,6 +213,28 @@ toward zero the tested four-node/two-node discrepancy decreases. That convergenc
 is a validation check, not a usage pattern or a claim of a fitted convergence
 order.
 
+### 1.9 Distributed thermoelectric leg
+
+The lumped models remain the fast system-level default. A separate 1-D model
+resolves temperature along one homogeneous leg from cold face to hot face. Its
+local constitutive laws are
+
+```text
+E = rho_e(T) J + alpha(T) dT/dx
+q = alpha(T) T J - kappa(T) dT/dx
+rho_m c_p dT/dt = -dq/dx + J E.
+```
+
+Expanding the conservative energy equation produces conduction, Joule heating,
+and Thomson heating with the Kelvin relation `tau(T) = T d(alpha)/dT`. The face
+temperatures remain dynamic states coupled to reservoir-linked face masses, so
+they can be observed rather than prescribed. During a transient the leg stores
+energy and the correct balance is `dU_leg/dt = Q_c - Q_h + VI`; the lumped
+identity `Q_h - Q_c = VI` reappears at steady state.
+
+The complete derivation, frozen values, inverse setup, results, and limits are
+in [`DISTRIBUTED_CONSTITUTIVE_INFERENCE.md`](DISTRIBUTED_CONSTITUTIVE_INFERENCE.md).
+
 ---
 
 ## 2. Module geometry and interfaces
@@ -320,6 +343,16 @@ so both endpoint powers use that interval's current and the left and right
 limits are preserved. On an analytically integrable case it is exact to ~1e-14 J
 in the tested case, including an output grid that does not contain every switch.
 
+### 3.5 Conservative finite volumes
+
+The distributed reference uses cell-centred finite volumes. Heat fluxes and
+electrical voltage drops are assembled at cell faces, so summing all cell and
+face-node equations cancels internal exchanges and closes the whole-system
+energy balance to roundoff. A second-order one-sided boundary gradient exactly
+reproduces constant-property quadratic steady profiles. The explicit step
+recommendation scales with cell width squared, and the test suite checks both
+that scaling and RK4 refinement.
+
 ---
 
 ## 4. Simulation and diagnostics
@@ -356,6 +389,13 @@ whole-system energy residual. That residual is computed from the assembled
 right-hand side, so it verifies the balance assembly and the energy identity —
 **not** the accuracy of the time integration. Time-step convergence is a
 separate check.
+
+The distributed simulator adds the complete internal cell profile, terminal
+voltage, both boundary heat rates, stored internal energy, and an instantaneous
+semidiscrete energy audit. It supports piecewise-constant current and ends RK4
+steps exactly at switches. The first distributed PINNs intentionally use
+constant-current regimes; extending them across switches requires the same
+domain-decomposition logic used by the lumped piecewise PINNs.
 
 ---
 
@@ -404,6 +444,12 @@ audits record counts, completeness, ranges, provenance, and whole-regime split
 integrity. `observations/hardware.py` defines the CSV contract
 (`time_s,current_A,cold_exchanger_K,hot_exchanger_K,voltage_V`) for future
 benchtop data; no hardware data exist in this repository.
+
+For the distributed model, sparse observations may include both face
+temperatures, voltage, and either boundary heat rate. Only continuous
+temperatures are interpolated. Voltage and heat flux are recomputed using the
+right-continuous current at the requested time, so a current switch is not
+silently replaced by a linear ramp.
 
 ---
 
@@ -478,6 +524,23 @@ carrying:
   of −0.048 that is roughly eight times the random spread. Repetition
   characterizes random variation; it does not correct a wrong measurement model.
 
+### 6.6 Function-valued property inference
+
+The distributed workflow perturbs piecewise-linear coefficients of `alpha(T)`,
+`rho_e(T)`, or `kappa(T)` in continuous log-magnitude coordinates. A
+noise-normalized finite-difference Jacobian is inspected before fitting; its
+singular spectrum reports which coefficient combinations are locally visible.
+The conventional baseline uses a bounded coordinate search followed by a
+damped Gauss–Newton polish. This avoids truth-grid locking and, on the frozen
+noise-free same-model resistivity case, recovers multipliers `(1.04, 1.07,
+1.03)` to numerical precision. That exactness is an inverse-crime software
+check, not a hardware forecast.
+
+The same information matrix supplies local log-coefficient intervals and ranks
+candidate current/lift experiments by posterior entropy reduction. The frozen
+three-coefficient resistivity selection chooses a 20 K, -0.8 A, 0.5 s pulse
+from twelve declared candidates, with 6.0338 nats of local information gain.
+
 ---
 
 ## 7. Learned models
@@ -517,6 +580,21 @@ unobserved states are reconstructed without being used as labels; and the
 inferred parameter transfers to unseen control schedules. Those are the
 properties that matter when several states or parameters are unknown — not a
 speed or accuracy win on this lumped model.
+
+The distributed forward PINN maps `(x,t)` to `T` and enforces the full initial
+profile exactly. Its loss contains the interior thermoelectric PDE plus two
+dynamic face-node balances. In the frozen 800-epoch CPU case, withheld
+finite-volume validation gives 0.006420 K internal-field RMSE and 0.015116 K
+maximum error.
+
+For inverse work, one temperature network is assigned to each constant-current
+regime while all networks share one property curve. This is necessary because
+one narrow-temperature experiment does not identify the endpoints of a
+function basis. For resistivity truth multipliers `(1.04, 1.07, 1.03)`, the
+frozen inverse PINN returns `(1.051672, 1.066605, 1.048003)`. Smoothness
+regularization contributes to the endpoint estimates, and the conventional
+solver is more accurate on this ideal problem. The result demonstrates a
+function-valued, field-constrained inverse representation—not PINN superiority.
 
 ---
 
@@ -807,6 +885,27 @@ median improvements nearly vanish and the best utilities fall. Full matched
 counts and all six application/contact summaries are in
 [`AG2SE_SUBSTITUTION_EXPERIMENT.md`](AG2SE_SUBSTITUTION_EXPERIMENT.md).
 
+### 9.6 Distributed constitutive inference
+
+The distributed extension is the first ThermoTwin PINN problem in which the
+hidden state is a spatial field and the unknown is a temperature-dependent
+function. A conservative finite-volume solver provides the reference, and a
+four-regime sensitivity gate is evaluated before training.
+
+Under the declared 0.01 K temperature and 10 µV voltage noise scales, each
+three-knot property curve is locally full rank. Condition numbers are 74.2 for
+`alpha(T)`, 318 for `rho_e(T)`, and 9.55 for `kappa(T)`; the joint nine-variable
+condition number is 392. The forward PDE PINN reaches 0.006420 K hidden-field
+RMSE. For resistivity truth multipliers `(1.04, 1.07, 1.03)`, the noise-free
+conventional fit returns the truth to numerical precision and the shared-field
+inverse PINN returns `(1.051672, 1.066605, 1.048003)`.
+
+Those results are deliberately ordered: observation model, local rank,
+conventional baseline, then PINN. The full-rank statement is local to the
+synthetic experiment and noise assumptions, and the conventional exactness is
+same-model/noise-free. See
+[`DISTRIBUTED_CONSTITUTIVE_INFERENCE.md`](DISTRIBUTED_CONSTITUTIVE_INFERENCE.md).
+
 ---
 
 ## 10. Validation levels and what they mean
@@ -836,45 +935,52 @@ evidence that a trajectory is correct.
 
 **Physical**
 
-1. α, *R*, and *K* are constant with temperature and current. This is the
-   largest fidelity gap.
-2. Face heat-rate relations are quasi-steady; the module stores no energy.
+1. In the two- and four-node models, α, *R*, and *K* are constant with
+   temperature and current.
+2. In those lumped models, face heat-rate relations are quasi-steady and the
+   module stores no energy.
 3. Temperatures are uniform within each lumped node.
-4. Joule heat divides equally between the faces.
-5. Thomson heating is neglected — consistent with constant α, since the Thomson
-   coefficient is *T*·dα/d*T*.
-6. Radiation is not modeled.
-7. Reservoir temperatures and external heat inputs are constant within a run.
-8. Electrical contact resistance enters as a single symmetric areal term; there
+4. The lumped model divides Joule heat equally between the faces.
+5. The lumped model neglects Thomson heating, consistently with constant α.
+6. The separate distributed extension supports `alpha(T)`, `rho_e(T)`, and
+   `kappa(T)`, internal energy storage, and Thomson heating, but represents only
+   one homogeneous 1-D leg rather than a p/n unicouple or complete module.
+7. Radiation and lateral heat spreading are not modeled.
+8. Reservoir temperatures and external heat inputs are constant within a run.
+9. Electrical contact resistance enters as a single symmetric areal term; there
    is no separate metallization stack, intermetallic growth, or thermal-cycling
    evolution.
-9. Package parasitic conduction is one fixed 0.04 W/K path.
+10. Package parasitic conduction is one fixed 0.04 W/K path.
 
 **Numerical**
 
-10. Current is scalar or piecewise constant.
-11. Explicit fixed-step RK4 is conditionally stable; small contact resistances
+11. Current is scalar or piecewise constant.
+12. Explicit fixed-step RK4 is conditionally stable; small contact resistances
     require proportionally smaller steps.
-12. Optimization over current, geometry, and pulse shape is performed on
+13. Optimization over current, geometry, and pulse shape is performed on
     declared grids; reported optima are grid optima, and where a constraint is
     active the reports say so.
 
 **Measurement**
 
-13. Sensors are ideal apart from the explicitly modeled noise, bias, first-order
-    lag, and deterministic dropout. Current is recorded without error, and the
-    voltage channel is ingested but not yet used in any inverse loss.
-14. Sensor models are output filters with no thermal feedback and no physical
+14. Sensors are ideal apart from the explicitly modeled noise, bias, first-order
+    lag, and deterministic dropout. Current is recorded without error. The
+    lumped contact inverse does not use voltage; the distributed property
+    inverse does.
+15. Sensor models are output filters with no thermal feedback and no physical
     sensor geometry.
-15. Outages are deterministic intervals, not random or value-dependent failures.
+16. Outages are deterministic intervals, not random or value-dependent failures.
 
 **Inference**
 
-16. Inverse problems are same-model: the equations generating the data are the
+17. Inverse problems are same-model: the equations generating the data are the
     equations being fitted. This is an inverse crime by construction and is
     stated wherever a recovery result appears.
-17. One unknown parameter at a time, except the sparse-sensor study.
-18. Material records are literature values for the Bi/Te family at 300 K, not
+18. The established lumped studies release one parameter at a time except for
+    the sparse-sensor study. The distributed extension releases one complete
+    property curve at a time and uses local joint analysis before any proposed
+    nine-coefficient fit.
+19. Material records are literature values for the Bi/Te family at 300 K, not
     measurements of any device modeled here, and there is no
     processing-to-property model.
 
@@ -882,7 +988,7 @@ evidence that a trajectory is correct.
 
 ## 12. What the tests cover
 
-The suite runs 392 tests with `python3 -m unittest discover -s tests`. Optional
+The suite runs 426 tests with `python3 -m unittest discover -s tests`. Optional
 learned-model and figure tests skip when PyTorch or Matplotlib are absent.
 
 By category rather than by file, the tests check:
@@ -1007,6 +1113,7 @@ The installed console names and their exact historical module equivalents are:
 | Dataset audit | `thermotwin-dataset-quality` | `python3 -m thermotwin.dataset_quality` |
 | Electrical-contact process window | `thermotwin-contact-process-window` | `python3 -m thermotwin.contact_process_window` |
 | Matched Ag₂Se substitution | `thermotwin-ag2se-substitution` | `python3 -m thermotwin.ag2se_substitution` |
+| Distributed constitutive inference | `thermotwin-distributed-properties` | `python3 -m thermotwin.distributed_property_report` |
 
 These module names are intentionally listed individually: replacing the command
 name with a guessed `thermotwin.<name>` module is not reliable.
@@ -1048,6 +1155,7 @@ is a reading aid, not a replacement for that document.
 | 6C — Material/product co-design | Complete for the public-data-seeded virtual method | Temperature-dependent properties, measured process/cost distributions, and hardware calibration |
 | 7 — Research artifact | Partial and continuous | Final narrative, evidence audit, and reproducible presentation package |
 | 8 — Hardware validation | Optional; not run | Safe hardware, calibrated sensors, uncertainty records, and protocol execution |
+| 9 — Distributed constitutive inference | Partial with a validated reference, local gate, and first forward/inverse PINNs | Noisy multi-seed coverage, independent truth, and withheld-range transfer |
 
 The recommended scientific sequence is:
 
@@ -1090,6 +1198,9 @@ The recommended scientific sequence is:
 | Information gain | Local Gaussian reduction in parameter uncertainty predicted for an experiment |
 | PINN | Neural state representation trained partly or entirely through governing-equation residuals |
 | Hidden state | A modeled temperature that is not supplied as an observation label |
+| Constitutive function | A material law such as `alpha(T)`, `rho_e(T)`, or `kappa(T)`, represented over temperature rather than by one scalar |
+| Thomson coefficient | `tau(T) = T d(alpha)/dT`; couples current and a temperature gradient when the Seebeck coefficient varies with temperature |
+| Distributed model | One-dimensional leg model with internal energy storage and a spatial temperature field |
 | Withheld regime | A complete current schedule excluded from fitting and used for transfer evaluation |
 | Candidate-pool optimum | Best tested design in a finite declared pool, not a proof of a global optimum |
 | Hardware validation | Comparison with calibrated physical measurements; not yet performed |
