@@ -705,6 +705,12 @@ instrumentation cannot support.
   experiment, freezes each recovered curve, and scores face temperatures,
   hidden internal temperatures, terminal voltage, pointwise error, and energy
   closure without refitting.
+- An independent numerical truth generator with nodal temperatures, SSPRK3,
+  independently assembled voltage/fluxes, and a smooth cubic resistivity law
+  outside the fitted three-knot representation.
+- A paired comparison of unregularized and identically curvature-regularized
+  conventional/PINN estimators across constant, pulsed, and outside-support
+  transfer regimes.
 - Local Gaussian coefficient uncertainty and D-optimal pulse/lift selection.
 - A public walkthrough, report command, generated figure, and private exercise
   sheet.
@@ -736,19 +742,27 @@ instrumentation cannot support.
   worst pointwise temperature error is 0.000155 K. This is within-model
   operating-regime transfer: truth and prediction still share the equations,
   grid, and three-knot representation.
+- Under independent nodal/SSPRK3/cubic truth, both unregularized and matched-
+  curvature PINNs pass the in-support property-and-transfer gate in 3/3 paired
+  noisy trials. The conventional estimator passes 1/3 both without and with
+  the same explicit curvature weight. Mean maximum in-support property error
+  is 0.0335--0.0338 for the PINNs versus 0.1561--0.1694 for the conventional
+  fits. Matching curvature does not match implicit neural/field bias, and three
+  trials do not support a general estimator-superiority or failure-rate claim.
 
 ### Remaining exit criteria
 
-- Expand the five-trial synthetic-noise result to enough repetitions for
-  interval/failure-rate estimation and compare estimators under matched priors
-  or regularization.
+- Expand the five-trial same-model and three-trial independent-truth results to
+  enough repetitions for interval/failure-rate estimation. Compare
+  shrinkage-plus-curvature priors, conventional multi-start/profile methods,
+  and PINN ablations; matching curvature alone leaves implicit neural bias
+  unmatched.
 - Check nonlinear interval coverage rather than relying only on local Gaussian
   covariance.
-- Validate a recovered curve on additional complete temperature/current
-  regimes excluded from fitting, including non-synthetic truth and temperature
-  ranges outside the training support.
-- Generate synthetic truth with an independent discretization or constitutive
-  representation to measure inverse crime and model discrepancy.
+- Validate on additional complete temperature/current regimes and materially
+  different continuum/boundary models. One constant, one pulsed, and one
+  outside-support regime now use independent numerical/constitutive truth, but
+  the truth is still synthetic and shares the continuum equations.
 - Demonstrate an intentionally underdetermined observation set and show that
   the inference reports the loss of rank rather than inventing a curve.
 - Add a p/n unicouple and internal interface conditions only after the
@@ -761,9 +775,10 @@ instrumentation cannot support.
 
 ## Recommended execution order from the current state
 
-1. Extend Milestone 9 with independent truth generation, matched-regularization
-   comparisons, and additional withheld regimes before attempting a joint
-   three-function inverse PINN.
+1. Extend Milestone 9 with interval-scale paired trials, nonlinear coverage,
+   multi-start/profile conventional baselines, and an intentionally
+   underdetermined observation set before attempting a joint three-function
+   inverse PINN.
 2. Finish Milestone 3 with PINN energy closure and a matched data-only
    sparse/missing-data comparison.
 3. Finish Milestone 4 by training the inverse PINN on selected imperfect

@@ -12,6 +12,7 @@ from ..observations.distributed import (
 from ..physics.distributed import PiecewiseLinearProperty
 from ..simulation.distributed import DistributedLegExperiment
 from ..numerics.matrices import inverse_and_determinant
+from .distributed_regularization import second_difference_roughness
 
 
 @dataclass(frozen=True)
@@ -31,6 +32,7 @@ class DistributedPropertyFitConfig:
     temperature_standard_deviation: float = 0.01
     voltage_standard_deviation: float = 1.0e-5
     heat_rate_standard_deviation: float = 5.0e-4
+    smoothness_weight: float = 0.0
 
     def __post_init__(self) -> None:
         if self.property_name not in {
@@ -65,6 +67,8 @@ class DistributedPropertyFitConfig:
         ):
             if not math.isfinite(value) or value <= 0.0:
                 raise ValueError(f"{name} must be finite and positive")
+        if not math.isfinite(self.smoothness_weight) or self.smoothness_weight < 0.0:
+            raise ValueError("smoothness weight must be finite and nonnegative")
 
     def scale(self, channel: str) -> float:
         if channel.endswith("temperature"):
@@ -147,7 +151,8 @@ def fit_distributed_property(
     expected_keys = tuple(dataset.keys() for dataset in observations)
     expected_values = tuple(dataset.values() for dataset in observations)
     evaluations = []
-    cache = {}
+    data_loss_cache = {}
+    objective_cache = {}
     residual_cache = {}
 
     def normalized_residuals(offsets: Sequence[float]) -> Tuple[float, ...]:
@@ -177,16 +182,38 @@ def fit_distributed_property(
             residuals.extend(experiment_residuals)
             squared.extend(value * value for value in experiment_residuals)
         loss = sum(squared) / len(squared)
-        cache[key] = loss
+        data_loss_cache[key] = loss
         residual_cache[key] = tuple(residuals)
         evaluations.append(DistributedPropertyFitEvaluation(key, loss))
         return tuple(residuals)
 
     def objective(offsets: Sequence[float]) -> float:
         key = tuple(float(value) for value in offsets)
-        if key not in cache:
+        if key not in data_loss_cache:
             normalized_residuals(key)
-        return cache[key]
+        if key not in objective_cache:
+            objective_cache[key] = (
+                data_loss_cache[key]
+                + config.smoothness_weight * second_difference_roughness(key)
+            )
+        return objective_cache[key]
+
+    def optimization_residuals(offsets: Sequence[float]) -> Tuple[float, ...]:
+        """Return data residuals plus pseudo-residuals for the shared prior."""
+
+        data = normalized_residuals(offsets)
+        if config.smoothness_weight == 0.0 or coefficient_count < 3:
+            return data
+        difference_count = coefficient_count - 2
+        scale = math.sqrt(
+            len(data) * config.smoothness_weight / difference_count
+        )
+        values = tuple(float(value) for value in offsets)
+        return data + tuple(
+            scale
+            * (values[index + 2] - 2.0 * values[index + 1] + values[index])
+            for index in range(difference_count)
+        )
 
     objective(current)
     golden_ratio = (math.sqrt(5.0) - 1.0) / 2.0
@@ -222,7 +249,7 @@ def fit_distributed_property(
 
     damping = config.gauss_newton_damping
     for _ in range(config.gauss_newton_iterations):
-        residual = normalized_residuals(current)
+        residual = optimization_residuals(current)
         derivative_columns = []
         for index in range(coefficient_count):
             minus = list(current)
@@ -233,8 +260,8 @@ def fit_distributed_property(
             if denominator <= 0.0:
                 derivative_columns.append((0.0,) * len(residual))
                 continue
-            minus_residual = normalized_residuals(minus)
-            plus_residual = normalized_residuals(plus)
+            minus_residual = optimization_residuals(minus)
+            plus_residual = optimization_residuals(plus)
             derivative_columns.append(
                 tuple(
                     (right - left) / denominator
@@ -292,7 +319,8 @@ def fit_distributed_property(
         value * math.exp(offset)
         for value, offset in zip(baseline.values, current)
     )
-    final_loss = objective(current)
+    objective(current)
+    final_loss = data_loss_cache[tuple(float(value) for value in current)]
     return DistributedPropertyFitResult(
         property_name=config.property_name,
         temperatures=baseline.temperatures,

@@ -13,6 +13,7 @@ from ..physics.distributed import (
     PiecewiseLinearProperty,
 )
 from ..simulation.distributed import DistributedLegExperiment
+from ..inference.distributed_regularization import second_difference_roughness
 from .distributed_forward import (
     DistributedForwardPINN,
     DistributedForwardPINNConfig,
@@ -465,15 +466,9 @@ def train_inverse_distributed_property_pinn(
             voltage_space_points=config.voltage_space_points,
         )
         observation_loss = ((predicted - observed) / scales).square().mean()
-        if model.raw_log_multipliers.numel() >= 3:
-            second_difference = (
-                model.raw_log_multipliers[2:]
-                - 2.0 * model.raw_log_multipliers[1:-1]
-                + model.raw_log_multipliers[:-2]
-            )
-            smoothness_loss = second_difference.square().mean()
-        else:
-            smoothness_loss = model.raw_log_multipliers.square().sum() * 0.0
+        smoothness_loss = second_difference_roughness(
+            model.raw_log_multipliers
+        )
         total_loss = (
             config.physics_weight * physics_loss
             + config.observation_weight * observation_loss
@@ -627,15 +622,9 @@ def train_multi_experiment_inverse_distributed_property_pinn(
             observation_terms.append(((predicted - observed) / scales).square().mean())
         physics_loss = torch.stack(physics_terms).mean()
         observation_loss = torch.stack(observation_terms).mean()
-        if model.raw_log_multipliers.numel() >= 3:
-            second_difference = (
-                model.raw_log_multipliers[2:]
-                - 2.0 * model.raw_log_multipliers[1:-1]
-                + model.raw_log_multipliers[:-2]
-            )
-            smoothness_loss = second_difference.square().mean()
-        else:
-            smoothness_loss = model.raw_log_multipliers.square().sum() * 0.0
+        smoothness_loss = second_difference_roughness(
+            model.raw_log_multipliers
+        )
         total_loss = (
             config.physics_weight * physics_loss
             + config.observation_weight * observation_loss

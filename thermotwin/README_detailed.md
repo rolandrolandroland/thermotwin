@@ -549,6 +549,16 @@ bound contact rather than retaining only favorable runs. The conventional and
 PINN estimators see identical noisy observations, but their regularization is
 not matched; the public walkthrough treats that as a limitation.
 
+The next independent-truth study changes the spatial grid, time integrator,
+voltage quadrature, and resistivity representation. It also applies the exact
+same explicit log-curvature term to matched conventional and PINN variants.
+Across three paired trials, the two PINN variants pass 3/3 and the two
+conventional variants pass 1/3. The matched penalty does not explain the PINN's
+stability: it barely changes either PINN curve, while the conventional prior
+still permits an inaccurate nearly linear log-slope. This narrows—but does not
+eliminate—the regularization caveat because implicit neural and hidden-field
+bias remain unmatched.
+
 ---
 
 ## 7. Learned models
@@ -950,6 +960,18 @@ within-model operating-regime transfer, not extrapolation to an independent
 truth or hardware. See
 [`DISTRIBUTED_WITHHELD_VALIDATION.md`](DISTRIBUTED_WITHHELD_VALIDATION.md).
 
+The independent-truth follow-on replaces the truth grid, RK4 integrator, and
+piecewise-linear truth curve with a 25-node nodal method, SSPRK3, and a smooth
+cubic resistivity law. Three fits use noisy constant-current observations; the
+frozen curves predict an excluded 20 K constant regime, a 20 K current pulse,
+and a diagnostic 40 K case outside the fitted temperature support. Both PINN
+variants pass 3/3 in-support gates with mean maximum property errors of about
+0.0335--0.0338. Both conventional variants pass 1/3; applying the same explicit
+curvature penalty improves voltage prediction but not continuous property
+recovery. This is synthetic continuum-model transfer, not hardware validation,
+and three trials are not a failure-rate estimate. See
+[`DISTRIBUTED_INDEPENDENT_VALIDATION.md`](DISTRIBUTED_INDEPENDENT_VALIDATION.md).
+
 ---
 
 ## 10. Validation levels and what they mean
@@ -1032,7 +1054,7 @@ evidence that a trajectory is correct.
 
 ## 12. What the tests cover
 
-The suite runs 445 tests with `python3 -m unittest discover -s tests`. Optional
+The suite runs 459 tests with `python3 -m unittest discover -s tests`. Optional
 learned-model and figure tests skip when PyTorch or Matplotlib are absent.
 
 By category rather than by file, the tests check:
@@ -1160,6 +1182,7 @@ The installed console names and their exact historical module equivalents are:
 | Distributed constitutive inference | `thermotwin-distributed-properties` | `python3 -m thermotwin.distributed_property_report` |
 | Distributed inverse robustness | `thermotwin-distributed-robustness` | `python3 -m thermotwin.distributed_inverse_robustness` |
 | Distributed withheld-regime transfer | `thermotwin-distributed-withheld` | `python3 -m thermotwin.distributed_withheld_validation` |
+| Distributed independent-truth validation | `thermotwin-distributed-independent` | `python3 -m thermotwin.distributed_independent_validation` |
 
 These module names are intentionally listed individually: replacing the command
 name with a guessed `thermotwin.<name>` module is not reliable.
@@ -1201,12 +1224,13 @@ is a reading aid, not a replacement for that document.
 | 6C — Material/product co-design | Complete for the public-data-seeded virtual method | Temperature-dependent properties, measured process/cost distributions, and hardware calibration |
 | 7 — Research artifact | Partial and continuous | Final narrative, evidence audit, and reproducible presentation package |
 | 8 — Hardware validation | Optional; not run | Safe hardware, calibrated sensors, uncertainty records, and protocol execution |
-| 9 — Distributed constitutive inference | Partial with a validated reference, local gate, forward/inverse PINNs, noisy repeatability, and withheld-regime transfer | Independent truth, matched regularization, nonlinear coverage, and broader transfer |
+| 9 — Distributed constitutive inference | Partial with a validated reference, local gate, forward/inverse PINNs, noisy repeatability, withheld-regime transfer, and independent-numerics/matched-curvature validation | Interval-scale nonlinear coverage, underdetermined observation studies, richer matched priors, and broader model discrepancy |
 
 The recommended scientific sequence is:
 
-1. finish the matched PINN-versus-data-only comparison and independent PINN
-   energy closure;
+1. expand the distributed independent-truth comparison to interval-scale
+   trials, nonlinear coverage, richer matched priors, and an explicitly
+   underdetermined observation set;
 2. test inverse PINNs on selected imperfect datasets with identical visible
    observations;
 3. extend local identifiability results to representative nonlinear repeated

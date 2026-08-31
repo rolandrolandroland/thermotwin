@@ -176,6 +176,18 @@ is within-model regime transfer for a synthetic experiment, not evidence
 of extrapolation to a new material law or hardware. See the [withheld-regime
 walkthrough](thermotwin/DISTRIBUTED_WITHHELD_VALIDATION.md).
 
+The next benchmark removes the exact numerical/property-basis inverse crime:
+truth uses a 25-node nodal discretization, SSPRK3, and a smooth cubic
+`rho_e(T)`, while both inference methods retain the established finite-volume
+and three-knot model. It also compares unregularized and identically weighted
+curvature-penalty versions of both estimators. Across three paired noisy
+trials, both PINN variants pass the in-support property-and-transfer gate in
+3/3 trials; both conventional variants pass 1/3. Matching the explicit penalty
+does not explain the PINN's stability and does not make the estimators fully
+equivalent because implicit neural and field regularization remain. This is a
+small synthetic model-mismatch result, not a failure-rate or hardware claim.
+See the [independent-truth walkthrough](thermotwin/DISTRIBUTED_INDEPENDENT_VALIDATION.md).
+
 ### Sensors, inference, and experiment design
 
 | Result | Value |
@@ -288,7 +300,7 @@ and extension pattern are documented in
 
 ## How the evidence is checked
 
-The current suite contains 445 tests. It covers:
+The current suite contains 459 tests. It covers:
 
 - units, signs, algebraic identities, and positive/zero/negative current;
 - limiting cases such as passive conduction and absent identifiability;
@@ -358,6 +370,9 @@ The authoritative status and remaining work are in
 - [`thermotwin/DISTRIBUTED_CONSTITUTIVE_INFERENCE.md`](thermotwin/DISTRIBUTED_CONSTITUTIVE_INFERENCE.md)
   — the PDE, finite-volume, function-identifiability, inverse, and
   next-experiment extension.
+- [`thermotwin/DISTRIBUTED_INDEPENDENT_VALIDATION.md`](thermotwin/DISTRIBUTED_INDEPENDENT_VALIDATION.md)
+  — independent discretization/property truth, matched explicit regularization,
+  and excluded-regime transfer.
 
 ## Scope statement
 

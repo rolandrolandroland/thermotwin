@@ -150,8 +150,9 @@ methods.
 - Boundary conditions and all non-resistivity properties are known exactly.
 - The conventional and PINN estimators do not use matched priors or
   regularization.
-- The follow-on complete-regime transfer study withholds one regime; broader
-  transfer and independent truth validation remain open.
+- The follow-on complete-regime transfer study withholds one regime. A later
+  independent-truth study changes the numerical grid, integrator, voltage
+  quadrature, and property representation; broader transfer remains open.
 - No hardware data are used.
 
 ## Reproduce
@@ -188,8 +189,10 @@ The generated figure is written to
 
 ## Next scientific step
 
-The complete-regime transfer step is now implemented in
-[`DISTRIBUTED_WITHHELD_VALIDATION.md`](DISTRIBUTED_WITHHELD_VALIDATION.md).
-Next, repeat it across additional withheld regimes and temperature ranges,
-then replace the same-model truth with an independent property representation
-or finer discretization.
+The complete-regime transfer step is implemented in
+[`DISTRIBUTED_WITHHELD_VALIDATION.md`](DISTRIBUTED_WITHHELD_VALIDATION.md), and
+the independent-numerics/matched-curvature step is implemented in
+[`DISTRIBUTED_INDEPENDENT_VALIDATION.md`](DISTRIBUTED_INDEPENDENT_VALIDATION.md).
+Next, expand the paired trial count, compare richer priors and multi-start
+profiles, and deliberately remove informative observations to test whether the
+inference reports non-identifiability.

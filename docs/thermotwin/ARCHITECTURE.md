@@ -83,17 +83,21 @@ The function-valued PDE extension follows the same dependency direction:
 | --- | --- |
 | `physics/distributed.py` | Property curves, local constitutive laws, conservative fluxes, face and cell balances |
 | `simulation/distributed.py` | Transition-split RK4 and frozen distributed regimes |
+| `simulation/distributed_independent.py` | Nodal/SSPRK3 synthetic truth that is numerically separate from the inference reference |
 | `observations/distributed.py` | Sparse face, voltage, and heat-rate measurements |
 | `inference/distributed_identifiability.py` | Noise-normalized sensitivities and singular spectrum |
 | `inference/distributed_properties.py` | Conventional continuous property-curve fitting |
+| `inference/distributed_regularization.py` | Explicit coefficient roughness shared by conventional and neural estimators |
 | `inference/distributed_experiment_selection.py` | Local uncertainty and D-optimal candidates |
 | `pinn/distributed_forward.py` | Forward PDE PINN with dynamic face boundaries |
 | `pinn/distributed_inverse.py` | Shared-property single- and multi-experiment inverse PINNs |
 | `studies/distributed_inverse_robustness.py` | Noisy seed trials, predeclared failure gate, and complete-trial summary |
 | `studies/distributed_withheld_validation.py` | Whole-regime exclusion, frozen-curve transfer scoring, and predeclared prediction gate |
+| `studies/distributed_independent_validation.py` | Independent truth, paired priors, model-mismatch holdouts, and complete-trial retention |
 | `reports/distributed_properties.py` | Reproducible text and figure report |
 | `reports/distributed_inverse_robustness.py` | Multi-seed robustness report and comparison figure |
 | `reports/distributed_withheld_validation.py` | Trial-level transfer report, prediction metrics, and comparison figure |
+| `reports/distributed_independent_validation.py` | Independent-truth and matched-regularization report and figure |
 
 ## Documentation and generated artifacts
 

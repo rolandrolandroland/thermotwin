@@ -179,3 +179,9 @@ family. The conventional estimator's temperature predictions are also good;
 its failures arise from the stricter voltage criterion. Independent truth
 generation, matched priors, more repetitions, nonlinear uncertainty coverage,
 and hardware data are still required for a stronger claim.
+
+The numerical/property-basis part of that next step is now implemented in
+[`DISTRIBUTED_INDEPENDENT_VALIDATION.md`](DISTRIBUTED_INDEPENDENT_VALIDATION.md).
+It uses nodal/SSPRK3 cubic truth and applies the same explicit curvature term
+to paired conventional and PINN variants. It remains synthetic, uses only
+three trials, and does not match implicit neural regularization.

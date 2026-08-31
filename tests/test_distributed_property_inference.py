@@ -75,6 +75,11 @@ class DistributedPropertyInferenceTests(unittest.TestCase):
         self.assertNotEqual(fit.log_multipliers[1], truth_offsets[1])
 
     def test_mismatched_observation_count_is_rejected(self):
+        with self.assertRaises(ValueError):
+            DistributedPropertyFitConfig(
+                property_name="thermal_conductivity",
+                smoothness_weight=-1.0,
+            )
         experiment = distributed_reference_experiment(
             temperature_dependent=True,
             duration=0.01,
