@@ -19,6 +19,7 @@ you where its code lives — and where new work should go.
 | Explore product-oriented co-design | §2, §8.4, and §9.4 | [`MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md`](MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md) |
 | Translate material and contact measurements into process targets | §2, §8.5–§8.6, and §9.5 | [`ELECTRICAL_CONTACT_PROCESS_WINDOW.md`](ELECTRICAL_CONTACT_PROCESS_WINDOW.md) |
 | Infer temperature-dependent properties and a hidden internal field | §1.9, §3, §6, and §7 | [`DISTRIBUTED_CONSTITUTIVE_INFERENCE.md`](DISTRIBUTED_CONSTITUTIVE_INFERENCE.md) |
+| Test transfer to a complete regime withheld from fitting | §6, §7, and §9.6 | [`DISTRIBUTED_WITHHELD_VALIDATION.md`](DISTRIBUTED_WITHHELD_VALIDATION.md) |
 | Extend the package | §13–§15 | [`docs/thermotwin/ARCHITECTURE.md`](../docs/thermotwin/ARCHITECTURE.md) |
 
 Each technical chapter follows the same logic: physical question, equations and
@@ -532,14 +533,21 @@ noise-normalized finite-difference Jacobian is inspected before fitting; its
 singular spectrum reports which coefficient combinations are locally visible.
 The conventional baseline uses a bounded coordinate search followed by a
 damped Gauss–Newton polish. This avoids truth-grid locking and, on the frozen
-noise-free same-model resistivity case, recovers multipliers `(1.04, 1.07,
-1.03)` to numerical precision. That exactness is an inverse-crime software
-check, not a hardware forecast.
+noise-free same-model one-function cases, recovers all declared Seebeck,
+resistivity, and conductivity multipliers to the report's printed precision.
+That exactness is an inverse-crime software check, not a hardware forecast.
 
 The same information matrix supplies local log-coefficient intervals and ranks
 candidate current/lift experiments by posterior entropy reduction. The frozen
 three-coefficient resistivity selection chooses a 20 K, -0.8 A, 0.5 s pulse
 from twelve declared candidates, with 6.0338 nats of local information gain.
+
+`studies/distributed_inverse_robustness.py` then repeats the resistivity fit
+under independent temperature/voltage noise and neural seeds. It stores every
+trial, applies fixed coefficient-and-loss failure criteria, and reports search-
+bound contact rather than retaining only favorable runs. The conventional and
+PINN estimators see identical noisy observations, but their regularization is
+not matched; the public walkthrough treats that as a limitation.
 
 ---
 
@@ -590,11 +598,15 @@ maximum error.
 For inverse work, one temperature network is assigned to each constant-current
 regime while all networks share one property curve. This is necessary because
 one narrow-temperature experiment does not identify the endpoints of a
-function basis. For resistivity truth multipliers `(1.04, 1.07, 1.03)`, the
-frozen inverse PINN returns `(1.051672, 1.066605, 1.048003)`. Smoothness
-regularization contributes to the endpoint estimates, and the conventional
-solver is more accurate on this ideal problem. The result demonstrates a
-function-valued, field-constrained inverse representation—not PINN superiority.
+function basis. Separate frozen fits now release `alpha(T)`, `rho_e(T)`, or
+`kappa(T)` while holding the other curves fixed. Temperature and voltage are
+enough for the first two ideal demonstrations, but the terminal-only
+conductivity fit is wrong despite its falling loss. Adding idealized face
+heat-rate observations cuts the maximum conductivity multiplier error from
+0.2799 to 0.0515. Smoothness regularization contributes to endpoint estimates,
+and the conventional solver is more accurate on every ideal case. The result
+demonstrates both a function-valued, field-constrained inverse representation
+and why optimization loss is not a recovery metric—not PINN superiority.
 
 ---
 
@@ -896,15 +908,47 @@ Under the declared 0.01 K temperature and 10 µV voltage noise scales, each
 three-knot property curve is locally full rank. Condition numbers are 74.2 for
 `alpha(T)`, 318 for `rho_e(T)`, and 9.55 for `kappa(T)`; the joint nine-variable
 condition number is 392. The forward PDE PINN reaches 0.006420 K hidden-field
-RMSE. For resistivity truth multipliers `(1.04, 1.07, 1.03)`, the noise-free
-conventional fit returns the truth to numerical precision and the shared-field
-inverse PINN returns `(1.051672, 1.066605, 1.048003)`.
+RMSE. The inverse study then releases only one curve at a time while keeping the
+other two at their baselines. With face temperatures and voltage, the
+noise-free inverse PINN's maximum knot-multiplier errors are about 0.0165 for
+`alpha(T)` and 0.0180 for `rho_e(T)`. The same terminal-only fit is not reliable
+for `kappa(T)`. Adding idealized cold- and hot-side heat-rate observations
+reduces the conductivity error to about 0.0515, which is improved but still
+weaker than the other families. The conventional same-model estimator returns
+all four declared cases to numerical precision.
 
 Those results are deliberately ordered: observation model, local rank,
 conventional baseline, then PINN. The full-rank statement is local to the
 synthetic experiment and noise assumptions, and the conventional exactness is
-same-model/noise-free. See
+same-model/noise-free. Falling PINN loss is not treated as successful property
+recovery; the conductivity comparison is retained specifically to expose that
+distinction. See
 [`DISTRIBUTED_CONSTITUTIVE_INFERENCE.md`](DISTRIBUTED_CONSTITUTIVE_INFERENCE.md).
+
+The follow-on noisy resistivity study varies both observation noise and neural
+initialization across five collision-free seed blocks. Its predeclared gate
+requires at most 0.10 maximum knot-multiplier error, at least 90% loss
+reduction, and final normalized loss no greater than 5.0. The inverse PINN
+passes 5/5 trials with 0.015370 coefficient RMSE and 0.025435 worst-trial error;
+the unregularized conventional fit passes 2/5 with 0.102054 RMSE and 0.211269
+worst-trial error. All trials are retained. Because the PINN has a smoothness
+term and implicit neural regularization while the conventional fit does not,
+this is a repeatability result for the implemented estimators—not a general
+PINN-superiority result. See
+[`DISTRIBUTED_INVERSE_ROBUSTNESS.md`](DISTRIBUTED_INVERSE_ROBUSTNESS.md).
+
+The complete-regime transfer study withholds the entire
+`positive_0.4A_20K_lift` experiment from every fit. The inferred resistivity
+curve is frozen and inserted into the trusted solver, which predicts the
+withheld face temperatures, hidden internal field, and terminal voltage. With
+the same 0.01 K/10 microvolt observation noise and five fixed seed trials, the
+inverse PINN passes all six prediction criteria in 5/5 trials. The conventional
+fit passes 2/5; its three failures are voltage-gate failures even though its
+temperature errors remain small. Mean inverse-PINN hidden-field RMSE is
+0.000070 K and the worst pointwise temperature error is 0.000155 K. This is
+within-model operating-regime transfer, not extrapolation to an independent
+truth or hardware. See
+[`DISTRIBUTED_WITHHELD_VALIDATION.md`](DISTRIBUTED_WITHHELD_VALIDATION.md).
 
 ---
 
@@ -988,7 +1032,7 @@ evidence that a trajectory is correct.
 
 ## 12. What the tests cover
 
-The suite runs 426 tests with `python3 -m unittest discover -s tests`. Optional
+The suite runs 445 tests with `python3 -m unittest discover -s tests`. Optional
 learned-model and figure tests skip when PyTorch or Matplotlib are absent.
 
 By category rather than by file, the tests check:
@@ -1114,6 +1158,8 @@ The installed console names and their exact historical module equivalents are:
 | Electrical-contact process window | `thermotwin-contact-process-window` | `python3 -m thermotwin.contact_process_window` |
 | Matched Ag₂Se substitution | `thermotwin-ag2se-substitution` | `python3 -m thermotwin.ag2se_substitution` |
 | Distributed constitutive inference | `thermotwin-distributed-properties` | `python3 -m thermotwin.distributed_property_report` |
+| Distributed inverse robustness | `thermotwin-distributed-robustness` | `python3 -m thermotwin.distributed_inverse_robustness` |
+| Distributed withheld-regime transfer | `thermotwin-distributed-withheld` | `python3 -m thermotwin.distributed_withheld_validation` |
 
 These module names are intentionally listed individually: replacing the command
 name with a guessed `thermotwin.<name>` module is not reliable.
@@ -1155,7 +1201,7 @@ is a reading aid, not a replacement for that document.
 | 6C — Material/product co-design | Complete for the public-data-seeded virtual method | Temperature-dependent properties, measured process/cost distributions, and hardware calibration |
 | 7 — Research artifact | Partial and continuous | Final narrative, evidence audit, and reproducible presentation package |
 | 8 — Hardware validation | Optional; not run | Safe hardware, calibrated sensors, uncertainty records, and protocol execution |
-| 9 — Distributed constitutive inference | Partial with a validated reference, local gate, and first forward/inverse PINNs | Noisy multi-seed coverage, independent truth, and withheld-range transfer |
+| 9 — Distributed constitutive inference | Partial with a validated reference, local gate, forward/inverse PINNs, noisy repeatability, and withheld-regime transfer | Independent truth, matched regularization, nonlinear coverage, and broader transfer |
 
 The recommended scientific sequence is:
 

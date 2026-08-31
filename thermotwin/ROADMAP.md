@@ -695,6 +695,16 @@ instrumentation cannot support.
   residuals, validated against withheld finite-volume fields.
 - A multi-experiment inverse PINN with one hidden temperature network per
   regime and one shared property curve.
+- Independent noise-free inverse checks for `alpha(T)`, `rho_e(T)`, and
+  `kappa(T)`, including a terminal-only versus heat-assisted conductivity
+  comparison.
+- A five-trial resistivity study with independent observation/neural seeds,
+  fixed coefficient-and-loss failure criteria, complete trial retention, and
+  an explicit unmatched-regularization caveat.
+- A complete-regime transfer study that withholds one entire constant-current
+  experiment, freezes each recovered curve, and scores face temperatures,
+  hidden internal temperatures, terminal voltage, pointwise error, and energy
+  closure without refitting.
 - Local Gaussian coefficient uncertainty and D-optimal pulse/lift selection.
 - A public walkthrough, report command, generated figure, and private exercise
   sheet.
@@ -706,20 +716,37 @@ instrumentation cannot support.
   global or hardware-identifiability claim.
 - The forward PINN reaches 0.006420 K internal-field RMSE and 0.015116 K maximum
   error after 800 CPU epochs.
-- In a noise-free same-model resistivity case, the conventional solver recovers
-  truth multipliers `(1.04, 1.07, 1.03)` to numerical precision; the inverse
-  PINN returns `(1.051672, 1.066605, 1.048003)`.
+- In noise-free same-model one-function cases, maximum inverse-PINN
+  knot-multiplier error is 0.0165 for `alpha(T)` and 0.0180 for `rho_e(T)`.
+  Terminal-only `kappa(T)` recovery fails with 0.2799 maximum error despite a
+  falling loss; adding idealized face heat-rate observations reduces that error
+  to 0.0515. The conventional estimator recovers each truth essentially
+  exactly.
 - The selected finite candidate is a 20 K, -0.8 A, 0.5 s pulse with 6.0338 nats
   of local information gain.
+- Under 0.01 K and 10 µV independent Gaussian noise, the inverse PINN passes
+  the predeclared recovery gate in 5/5 seed trials with 0.0254 worst-trial
+  knot-multiplier error. The unregularized conventional fit passes 2/5 with
+  0.2113 worst-trial error. This is a same-model five-trial repeatability result,
+  not a failure-rate estimate or matched-prior superiority comparison.
+- With the complete `positive_0.4A_20K_lift` regime withheld, the inverse PINN
+  passes all six predeclared transfer criteria in 5/5 trials. The conventional
+  fit passes 2/5 because three transferred voltage errors exceed the fixed
+  30 microvolt limit. Mean inverse-PINN hidden-field RMSE is 0.000070 K and
+  worst pointwise temperature error is 0.000155 K. This is within-model
+  operating-regime transfer: truth and prediction still share the equations,
+  grid, and three-knot representation.
 
 ### Remaining exit criteria
 
-- Repeat one-function recovery across realistic noise and multiple neural
-  seeds; predeclare failure criteria and report all failures.
+- Expand the five-trial synthetic-noise result to enough repetitions for
+  interval/failure-rate estimation and compare estimators under matched priors
+  or regularization.
 - Check nonlinear interval coverage rather than relying only on local Gaussian
   covariance.
-- Validate a recovered curve on a complete temperature/current regime excluded
-  from fitting.
+- Validate a recovered curve on additional complete temperature/current
+  regimes excluded from fitting, including non-synthetic truth and temperature
+  ranges outside the training support.
 - Generate synthetic truth with an independent discretization or constitutive
   representation to measure inverse crime and model discrepancy.
 - Demonstrate an intentionally underdetermined observation set and show that
@@ -734,8 +761,9 @@ instrumentation cannot support.
 
 ## Recommended execution order from the current state
 
-1. Complete Milestone 9's noisy, multi-seed, withheld-regime one-function
-   recovery before attempting a joint three-function inverse PINN.
+1. Extend Milestone 9 with independent truth generation, matched-regularization
+   comparisons, and additional withheld regimes before attempting a joint
+   three-function inverse PINN.
 2. Finish Milestone 3 with PINN energy closure and a matched data-only
    sparse/missing-data comparison.
 3. Finish Milestone 4 by training the inverse PINN on selected imperfect

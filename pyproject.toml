@@ -30,6 +30,8 @@ thermotwin-dataset-quality = "thermotwin.reports.dataset_quality:main"
 thermotwin-contact-process-window = "thermotwin.reports.contact_process_window:main"
 thermotwin-ag2se-substitution = "thermotwin.reports.ag2se_substitution:main"
 thermotwin-distributed-properties = "thermotwin.reports.distributed_properties:main"
+thermotwin-distributed-robustness = "thermotwin.reports.distributed_inverse_robustness:main"
+thermotwin-distributed-withheld = "thermotwin.reports.distributed_withheld_validation:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

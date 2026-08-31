@@ -46,6 +46,28 @@ class DistributedInversePINNTests(unittest.TestCase):
         self.assertTrue(torch.all(model.property_values > 0.0))
         self.assertEqual(tuple(model.property_values.shape), (3,))
 
+    def test_all_three_property_curves_can_be_released_independently(self):
+        for property_name in (
+            "seebeck_coefficient",
+            "electrical_resistivity",
+            "thermal_conductivity",
+        ):
+            with self.subTest(property_name=property_name):
+                model = InverseDistributedPropertyPINN(
+                    self.experiment,
+                    property_name=property_name,
+                    baseline_material=self.experiment.material,
+                    initial_log_multipliers=(0.0, 0.0, 0.0),
+                    hidden_width=8,
+                    hidden_layers=1,
+                    temperature_scale=5.0,
+                )
+                self.assertEqual(
+                    tuple(model.property_overrides()),
+                    (property_name,),
+                )
+                self.assertEqual(tuple(model.property_values.shape), (3,))
+
     def test_short_inverse_training_reduces_joint_loss(self):
         baseline_property = self.experiment.material.electrical_resistivity
         self.assertIsInstance(baseline_property, PiecewiseLinearProperty)

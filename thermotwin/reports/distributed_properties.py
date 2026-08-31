@@ -29,6 +29,66 @@ from ..simulation.distributed import (
 
 
 @dataclass(frozen=True)
+class DistributedInversePropertyValidation:
+    """One-function recovery result under a declared synthetic truth."""
+
+    property_name: str
+    truth_multipliers: Tuple[float, ...]
+    conventional_multipliers: Tuple[float, ...]
+    inverse_pinn_multipliers: Tuple[float, ...]
+    inverse_pinn_initial_loss: float
+    inverse_pinn_final_loss: float
+    observation_channels: Tuple[str, ...] = ()
+    observation_design: str = "terminal_only"
+
+    def __post_init__(self) -> None:
+        if self.property_name not in {
+            "seebeck_coefficient",
+            "electrical_resistivity",
+            "thermal_conductivity",
+        }:
+            raise ValueError("unknown inverse-validation property")
+        lengths = {
+            len(self.truth_multipliers),
+            len(self.conventional_multipliers),
+            len(self.inverse_pinn_multipliers),
+        }
+        if lengths != {3}:
+            raise ValueError("inverse validation requires three matching knots")
+        values = (
+            *self.truth_multipliers,
+            *self.conventional_multipliers,
+            *self.inverse_pinn_multipliers,
+            self.inverse_pinn_initial_loss,
+            self.inverse_pinn_final_loss,
+        )
+        if any(not math.isfinite(value) for value in values):
+            raise ValueError("inverse-validation values must be finite")
+        if self.inverse_pinn_initial_loss < 0.0 or self.inverse_pinn_final_loss < 0.0:
+            raise ValueError("inverse-validation losses must be nonnegative")
+        if not self.observation_design:
+            raise ValueError("inverse-validation observation design cannot be empty")
+
+    @property
+    def conventional_maximum_absolute_multiplier_error(self) -> float:
+        return max(
+            abs(fitted - truth)
+            for fitted, truth in zip(
+                self.conventional_multipliers, self.truth_multipliers
+            )
+        )
+
+    @property
+    def inverse_pinn_maximum_absolute_multiplier_error(self) -> float:
+        return max(
+            abs(fitted - truth)
+            for fitted, truth in zip(
+                self.inverse_pinn_multipliers, self.truth_multipliers
+            )
+        )
+
+
+@dataclass(frozen=True)
 class DistributedPropertyStudyResult:
     reference: DistributedExperimentResult
     family_identifiability: Tuple[Tuple[str, DistributedIdentifiabilityResult], ...]
@@ -43,6 +103,24 @@ class DistributedPropertyStudyResult:
     inverse_pinn_multipliers: Optional[Tuple[float, ...]]
     inverse_pinn_initial_loss: Optional[float]
     inverse_pinn_final_loss: Optional[float]
+    inverse_property_validations: Tuple[
+        DistributedInversePropertyValidation, ...
+    ] = ()
+
+
+_INVERSE_TRUTH_MULTIPLIERS = {
+    "seebeck_coefficient": (1.03, 1.06, 1.02),
+    "electrical_resistivity": (1.04, 1.07, 1.03),
+    "thermal_conductivity": (0.96, 1.03, 1.08),
+}
+
+
+def _inverse_property_label(property_name: str) -> str:
+    return {
+        "seebeck_coefficient": "alpha(T)",
+        "electrical_resistivity": "rho_e(T)",
+        "thermal_conductivity": "kappa(T)",
+    }[property_name]
 
 
 def _property_parameters(property_name: str) -> Tuple[DistributedPropertyCoefficient, ...]:
@@ -58,9 +136,30 @@ def run_distributed_property_study(
     pinn_epochs: int = 800,
     run_inverse_pinn: bool = False,
     inverse_pinn_epochs: int = 800,
+    inverse_properties: Sequence[str] = (
+        "seebeck_coefficient",
+        "electrical_resistivity",
+        "thermal_conductivity",
+    ),
     quick: bool = False,
 ) -> DistributedPropertyStudyResult:
     """Run the conventional gate, next-experiment ranking, and optional PINN."""
+
+    inverse_properties = tuple(inverse_properties)
+    if run_inverse_pinn:
+        if not inverse_properties:
+            raise ValueError("at least one inverse property must be selected")
+        unknown_properties = tuple(
+            name
+            for name in inverse_properties
+            if name not in _INVERSE_TRUTH_MULTIPLIERS
+        )
+        if unknown_properties:
+            raise ValueError(
+                "unknown inverse properties: " + ", ".join(unknown_properties)
+            )
+        if len(set(inverse_properties)) != len(inverse_properties):
+            raise ValueError("inverse properties must not contain duplicates")
 
     reference_experiment = distributed_reference_experiment(
         temperature_dependent=True,
@@ -156,6 +255,7 @@ def run_distributed_property_study(
     inverse_pinn = None
     inverse_initial_loss = None
     inverse_final_loss = None
+    inverse_validations = []
     if run_inverse_pinn:
         from ..inference.distributed_properties import (
             DistributedPropertyFitConfig,
@@ -176,88 +276,130 @@ def run_distributed_property_study(
         if inverse_pinn_epochs <= 0:
             raise ValueError("inverse PINN epochs must be positive")
         baseline_experiments = distributed_inverse_constant_experiments()
-        baseline_property = (
-            baseline_experiments[0].material.electrical_resistivity
-        )
-        inverse_truth = (1.04, 1.07, 1.03)
-        truth_property = baseline_property.with_values(
-            tuple(
-                value * multiplier
-                for value, multiplier in zip(
-                    baseline_property.values, inverse_truth
+        for property_name in inverse_properties:
+            heat_rate_options = (
+                (False, True)
+                if property_name == "thermal_conductivity"
+                else (False,)
+            )
+            for include_heat_rates in heat_rate_options:
+                inverse_channels = DistributedObservationChannels(
+                    cold_side_heat=include_heat_rates,
+                    hot_side_heat=include_heat_rates,
                 )
-            )
-        )
-        truth_experiments = tuple(
-            replace(
-                experiment,
-                material=replace(
-                    experiment.material,
-                    electrical_resistivity=truth_property,
-                ),
-            )
-            for experiment in baseline_experiments
-        )
-        inverse_channels = DistributedObservationChannels()
-        inverse_observations = tuple(
-            run_distributed_virtual_experiment(
-                experiment,
-                observation_interval=0.08,
-                channels=inverse_channels,
-            )
-            for experiment in truth_experiments
-        )
-        conventional_fit = fit_distributed_property(
-            baseline_experiments,
-            inverse_observations,
-            DistributedPropertyFitConfig(
-                property_name="electrical_resistivity",
-                observation_interval=0.08,
-                channels=inverse_channels,
-                initial_log_multipliers=(math.log(0.9),) * 3,
-                log_multiplier_bounds=(-0.2, 0.2),
-                coordinate_passes=2,
-                golden_section_iterations=8,
-                gauss_newton_iterations=6,
+                baseline_property = getattr(
+                    baseline_experiments[0].material, property_name
+                )
+                truth_multipliers = _INVERSE_TRUTH_MULTIPLIERS[property_name]
+                truth_property = baseline_property.with_values(
+                    tuple(
+                        value * multiplier
+                        for value, multiplier in zip(
+                            baseline_property.values, truth_multipliers
+                        )
+                    )
+                )
+                truth_experiments = tuple(
+                    replace(
+                        experiment,
+                        material=replace(
+                            experiment.material,
+                            **{property_name: truth_property},
+                        ),
+                    )
+                    for experiment in baseline_experiments
+                )
+                inverse_observations = tuple(
+                    run_distributed_virtual_experiment(
+                        experiment,
+                        observation_interval=0.08,
+                        channels=inverse_channels,
+                    )
+                    for experiment in truth_experiments
+                )
+                conventional_fit = fit_distributed_property(
+                    baseline_experiments,
+                    inverse_observations,
+                    DistributedPropertyFitConfig(
+                        property_name=property_name,
+                        observation_interval=0.08,
+                        channels=inverse_channels,
+                        initial_log_multipliers=(math.log(0.9),) * 3,
+                        log_multiplier_bounds=(-0.2, 0.2),
+                        coordinate_passes=1 if quick else 2,
+                        golden_section_iterations=4 if quick else 8,
+                        gauss_newton_iterations=2 if quick else 6,
+                    ),
+                )
+                conventional_multipliers = tuple(
+                    value / baseline
+                    for value, baseline in zip(
+                        conventional_fit.fitted_values, baseline_property.values
+                    )
+                )
+                inverse_training = (
+                    train_multi_experiment_inverse_distributed_property_pinn(
+                        truth_experiments,
+                        inverse_observations,
+                        InverseDistributedPropertyConfig(
+                            property_name=property_name,
+                            hidden_width=20,
+                            hidden_layers=3,
+                            interior_space_points=7,
+                            time_points=18,
+                            voltage_space_points=16,
+                            epochs=inverse_pinn_epochs,
+                            network_learning_rate=2.0e-3,
+                            property_learning_rate=2.0e-3,
+                            initial_log_multipliers=(math.log(0.9),) * 3,
+                            smoothness_weight=1.0e-4,
+                            seed=19,
+                            device="cpu",
+                        ),
+                        baseline_material=baseline_experiments[0].material,
+                    )
+                )
+                inverse_pinn_multipliers = tuple(
+                    value / baseline
+                    for value, baseline in zip(
+                        inverse_training.history.property_values[-1],
+                        baseline_property.values,
+                    )
+                )
+                inverse_validations.append(
+                    DistributedInversePropertyValidation(
+                        property_name=property_name,
+                        truth_multipliers=truth_multipliers,
+                        conventional_multipliers=conventional_multipliers,
+                        inverse_pinn_multipliers=inverse_pinn_multipliers,
+                        inverse_pinn_initial_loss=(
+                            inverse_training.history.total_loss[0]
+                        ),
+                        inverse_pinn_final_loss=(
+                            inverse_training.history.total_loss[-1]
+                        ),
+                        observation_channels=inverse_channels.names(),
+                        observation_design=(
+                            "terminal_plus_heat_rates"
+                            if include_heat_rates
+                            else "terminal_only"
+                        ),
+                    )
+                )
+        resistivity_validation = next(
+            (
+                item
+                for item in inverse_validations
+                if item.property_name == "electrical_resistivity"
             ),
+            None,
         )
-        conventional_inverse = tuple(
-            value / baseline
-            for value, baseline in zip(
-                conventional_fit.fitted_values, baseline_property.values
-            )
-        )
-        inverse_training = (
-            train_multi_experiment_inverse_distributed_property_pinn(
-                truth_experiments,
-                inverse_observations,
-                InverseDistributedPropertyConfig(
-                    property_name="electrical_resistivity",
-                    hidden_width=20,
-                    hidden_layers=3,
-                    interior_space_points=7,
-                    time_points=18,
-                    voltage_space_points=16,
-                    epochs=inverse_pinn_epochs,
-                    network_learning_rate=2.0e-3,
-                    property_learning_rate=2.0e-3,
-                    initial_log_multipliers=(math.log(0.9),) * 3,
-                    smoothness_weight=1.0e-4,
-                    seed=19,
-                    device="cpu",
-                ),
-                baseline_material=baseline_experiments[0].material,
-            )
-        )
-        inverse_pinn = tuple(
-            value / baseline
-            for value, baseline in zip(
-                inverse_training.history.property_values[-1],
-                baseline_property.values,
-            )
-        )
-        inverse_initial_loss = inverse_training.history.total_loss[0]
-        inverse_final_loss = inverse_training.history.total_loss[-1]
+        if resistivity_validation is not None:
+            inverse_truth = resistivity_validation.truth_multipliers
+            conventional_inverse = resistivity_validation.conventional_multipliers
+            inverse_pinn = resistivity_validation.inverse_pinn_multipliers
+            inverse_initial_loss = resistivity_validation.inverse_pinn_initial_loss
+            inverse_final_loss = resistivity_validation.inverse_pinn_final_loss
     return DistributedPropertyStudyResult(
         reference=reference,
         family_identifiability=family_results,
@@ -272,6 +414,7 @@ def run_distributed_property_study(
         inverse_pinn_multipliers=inverse_pinn,
         inverse_pinn_initial_loss=inverse_initial_loss,
         inverse_pinn_final_loss=inverse_final_loss,
+        inverse_property_validations=tuple(inverse_validations),
     )
 
 
@@ -323,30 +466,46 @@ def format_distributed_property_study(
                 f"{validation.maximum_absolute_temperature_error:.6f} K",
             )
         )
-    if result.inverse_pinn_multipliers is None:
-        lines.extend(("", "Inverse distributed PINN: not trained (use --train-inverse-pinn)."))
+    if not result.inverse_property_validations:
+        lines.extend(
+            ("", "Inverse distributed PINN: not trained (use --train-inverse-pinn).")
+        )
     else:
+        lines.extend(("", "Independent one-function inverse validations:"))
+        for validation in result.inverse_property_validations:
+            lines.extend(
+                (
+                    f"  {_inverse_property_label(validation.property_name)} "
+                    f"[{validation.observation_design}]:",
+                    "    observation channels: "
+                    + ", ".join(validation.observation_channels),
+                    "    truth multipliers: "
+                    + ", ".join(
+                        f"{value:.6f}" for value in validation.truth_multipliers
+                    ),
+                    "    conventional multipliers: "
+                    + ", ".join(
+                        f"{value:.6f}"
+                        for value in validation.conventional_multipliers
+                    ),
+                    "    inverse-PINN multipliers: "
+                    + ", ".join(
+                        f"{value:.6f}"
+                        for value in validation.inverse_pinn_multipliers
+                    ),
+                    "    maximum absolute multiplier error: "
+                    f"conventional={validation.conventional_maximum_absolute_multiplier_error:.6f}, "
+                    f"PINN={validation.inverse_pinn_maximum_absolute_multiplier_error:.6f}",
+                    f"    inverse-PINN loss: {validation.inverse_pinn_initial_loss:.6e} -> "
+                    f"{validation.inverse_pinn_final_loss:.6e}",
+                )
+            )
         lines.extend(
             (
-                "",
-                "Shared rho_e(T) inverse across four constant regimes:",
-                "  truth multipliers: "
-                + ", ".join(
-                    f"{value:.6f}" for value in result.inverse_truth_multipliers
-                ),
-                "  conventional multipliers: "
-                + ", ".join(
-                    f"{value:.6f}"
-                    for value in result.conventional_inverse_multipliers
-                ),
-                "  inverse-PINN multipliers: "
-                + ", ".join(
-                    f"{value:.6f}" for value in result.inverse_pinn_multipliers
-                ),
-                f"  inverse-PINN loss: {result.inverse_pinn_initial_loss:.6e} -> "
-                f"{result.inverse_pinn_final_loss:.6e}",
-                "  conventional exactness is same-model/noise-free and is not a "
-                "hardware claim.",
+                "  Each fit releases only the named curve; the other two curves "
+                "remain fixed.",
+                "  Conventional near-exactness is same-model/noise-free and is "
+                "not a hardware claim.",
             )
         )
     lines.extend(
@@ -372,7 +531,7 @@ def save_distributed_property_figure(
 
     output_path = Path(output).expanduser().resolve()
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    figure, axes = plt.subplots(2, 2, figsize=(12, 8), constrained_layout=True)
+    figure, axes = plt.subplots(2, 3, figsize=(16, 8), constrained_layout=True)
     reference = result.reference
     profile_axis = axes[0, 0]
     cell_count = len(reference.trajectory.cells[0])
@@ -456,6 +615,80 @@ def save_distributed_property_figure(
     selection_axis.legend()
     selection_axis.grid(alpha=0.25)
 
+    inverse_error_axis = axes[0, 2]
+    conductivity_axis = axes[1, 2]
+    if result.inverse_property_validations:
+        labels = tuple(
+            _inverse_property_label(item.property_name).split("(")[0]
+            + (" + heat" if item.observation_design.endswith("heat_rates") else "")
+            for item in result.inverse_property_validations
+        )
+        positions = tuple(range(len(labels)))
+        width = 0.38
+        inverse_error_axis.bar(
+            tuple(position - width / 2.0 for position in positions),
+            tuple(
+                item.conventional_maximum_absolute_multiplier_error
+                for item in result.inverse_property_validations
+            ),
+            width=width,
+            label="conventional",
+        )
+        inverse_error_axis.bar(
+            tuple(position + width / 2.0 for position in positions),
+            tuple(
+                item.inverse_pinn_maximum_absolute_multiplier_error
+                for item in result.inverse_property_validations
+            ),
+            width=width,
+            label="inverse PINN",
+        )
+        inverse_error_axis.set_xticks(positions, labels, rotation=20)
+        inverse_error_axis.set_title("One-function recovery error")
+        inverse_error_axis.set_ylabel("Maximum absolute multiplier error")
+        inverse_error_axis.legend(fontsize=8)
+        inverse_error_axis.grid(axis="y", alpha=0.25)
+
+        conductivity_validations = tuple(
+            item
+            for item in result.inverse_property_validations
+            if item.property_name == "thermal_conductivity"
+        )
+        if conductivity_validations:
+            knot_indices = (1, 2, 3)
+            conductivity_axis.plot(
+                knot_indices,
+                conductivity_validations[0].truth_multipliers,
+                marker="o",
+                linewidth=2.5,
+                label="truth",
+            )
+            for item in conductivity_validations:
+                conductivity_axis.plot(
+                    knot_indices,
+                    item.inverse_pinn_multipliers,
+                    marker="o",
+                    label=item.observation_design.replace("_", " "),
+                )
+            conductivity_axis.set_xticks(knot_indices, ("285 K", "300 K", "315 K"))
+            conductivity_axis.set_title("Conductivity observation-model effect")
+            conductivity_axis.set_ylabel("kappa multiplier")
+            conductivity_axis.legend(fontsize=8)
+            conductivity_axis.grid(alpha=0.25)
+        else:
+            conductivity_axis.axis("off")
+    else:
+        for axis in (inverse_error_axis, conductivity_axis):
+            axis.text(
+                0.5,
+                0.5,
+                "Run with --train-inverse-pinn\nfor inverse validation",
+                ha="center",
+                va="center",
+                transform=axis.transAxes,
+            )
+            axis.axis("off")
+
     figure.savefig(output_path, dpi=180)
     plt.close(figure)
     return output_path
@@ -482,12 +715,25 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         help="also compare conventional and shared-property inverse recovery",
     )
     parser.add_argument("--inverse-pinn-epochs", type=int, default=800)
+    parser.add_argument(
+        "--inverse-property",
+        action="append",
+        choices=tuple(_INVERSE_TRUTH_MULTIPLIERS),
+        help=(
+            "property curve to validate; repeat for several (default: all three)"
+        ),
+    )
     args = parser.parse_args(argv)
     result = run_distributed_property_study(
         run_forward_pinn=args.train_pinn,
         pinn_epochs=args.pinn_epochs,
         run_inverse_pinn=args.train_inverse_pinn,
         inverse_pinn_epochs=args.inverse_pinn_epochs,
+        inverse_properties=(
+            tuple(args.inverse_property)
+            if args.inverse_property is not None
+            else tuple(_INVERSE_TRUTH_MULTIPLIERS)
+        ),
     )
     output = save_distributed_property_figure(result, args.output)
     print(format_distributed_property_study(result))

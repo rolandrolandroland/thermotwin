@@ -89,7 +89,11 @@ The function-valued PDE extension follows the same dependency direction:
 | `inference/distributed_experiment_selection.py` | Local uncertainty and D-optimal candidates |
 | `pinn/distributed_forward.py` | Forward PDE PINN with dynamic face boundaries |
 | `pinn/distributed_inverse.py` | Shared-property single- and multi-experiment inverse PINNs |
+| `studies/distributed_inverse_robustness.py` | Noisy seed trials, predeclared failure gate, and complete-trial summary |
+| `studies/distributed_withheld_validation.py` | Whole-regime exclusion, frozen-curve transfer scoring, and predeclared prediction gate |
 | `reports/distributed_properties.py` | Reproducible text and figure report |
+| `reports/distributed_inverse_robustness.py` | Multi-seed robustness report and comparison figure |
+| `reports/distributed_withheld_validation.py` | Trial-level transfer report, prediction metrics, and comparison figure |
 
 ## Documentation and generated artifacts
 

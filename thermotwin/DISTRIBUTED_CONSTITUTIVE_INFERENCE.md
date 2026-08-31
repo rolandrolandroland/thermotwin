@@ -226,22 +226,22 @@ bounded coordinate search and finishes with a damped Gauss–Newton update using
 continuous finite-difference sensitivities. There is no coefficient grid, so
 truth cannot be recovered merely because it lies on a search node.
 
-For the frozen inverse demonstration, the resistivity multipliers at 285, 300,
-and 315 K are changed to
+The frozen study now perturbs each curve separately at the 285, 300, and 315 K
+knots:
 
-```text
-truth = (1.04, 1.07, 1.03).
-```
+| Released curve | Truth multipliers |
+| --- | --- |
+| `alpha(T)` | `(1.03, 1.06, 1.02)` |
+| `rho_e(T)` | `(1.04, 1.07, 1.03)` |
+| `kappa(T)` | `(0.96, 1.03, 1.08)` |
 
-Four constant-current/temperature-lift experiments are fitted jointly. The
-noise-free same-model conventional solution is
-
-```text
-(1.040000001, 1.070000000, 1.029999999).
-```
-
-That near-exact result checks the optimizer and observation mapping. It is an
-inverse-crime result, not a realistic uncertainty claim.
+Four constant-current/temperature-lift experiments are fitted jointly in each
+case. The other two constitutive curves remain fixed at baseline. The
+noise-free same-model conventional estimator returns every truth to the six
+decimal places printed by the report, using both terminal-only and
+heat-assisted observation sets for conductivity. This checks the optimizer and
+observation mapping. It is an inverse-crime result, not a realistic uncertainty
+claim.
 
 ## Forward distributed PINN
 
@@ -275,21 +275,73 @@ A single experiment does not span the property basis. The code therefore uses
 one temperature network per experiment while sharing one trainable property
 curve across all experiments. This prevents a single network from confusing
 different initial and boundary conditions, while every regime updates the same
-`rho_e(T)` coefficients.
+three spline coefficients.
 
-For the same noise-free resistivity truth above, 800 CPU epochs produce
+Each 800-epoch CPU fit starts from multiplier `0.9` at every knot and uses the
+same neural seed. No curve sees the finite-volume internal temperatures. The
+results are:
 
-```text
-inverse PINN = (1.051672, 1.066605, 1.048003).
-```
+| Released curve and observations | Inverse-PINN multipliers | Maximum absolute multiplier error |
+| --- | --- | ---: |
+| `alpha(T)`: face temperatures + voltage | `(1.046513, 1.058114, 1.014536)` | 0.016513 |
+| `rho_e(T)`: face temperatures + voltage | `(1.051672, 1.066605, 1.048003)` | 0.018003 |
+| `kappa(T)`: face temperatures + voltage | `(0.850175, 0.838626, 0.800058)` | 0.279942 |
+| `kappa(T)`: same channels + both face heat rates | `(0.997626, 1.026726, 1.028525)` | 0.051475 |
 
-The absolute multiplier errors are approximately 0.0117, 0.0034, and 0.0180.
-The central coefficient is best constrained. The endpoint estimates still
-reflect both data and the declared smoothness regularization. The conventional
-solver remains markedly more accurate for this small ideal inverse problem.
-The PINN's value is its joint differentiable representation of hidden fields,
-PDE constraints, dynamic boundaries, and a function-valued unknown—not superior
-accuracy on an inverse crime.
+The conductivity comparison is intentionally retained. Its terminal-only loss
+falls from `9.556869e3` to `1.284848`, yet the recovered curve is badly wrong.
+A falling loss is therefore not a recovery criterion. Adding idealized cold-
+and hot-side heat-rate observations materially improves the result, but the hot
+endpoint remains pulled toward the smoother interior solution. Direct heat
+rates are also harder to measure than temperature or voltage, so the
+heat-assisted case is a diagnostic about instrumentation, not a free solution.
+
+The conventional solver remains markedly more accurate for all four small
+ideal inverse problems. The PINN's value is its joint differentiable
+representation of hidden fields, PDE constraints, dynamic boundaries, and a
+function-valued unknown—not superior accuracy on an inverse crime. Noise,
+multiple seeds, and independent truth remain necessary before any robustness
+claim.
+
+## Noisy multi-seed follow-on
+
+The next frozen study repeats the resistivity inverse with 0.01 K temperature
+noise, 10 µV voltage noise, and five independent neural/noise seed blocks. The
+inverse PINN passes all five predeclared coefficient-and-loss gates; the
+unregularized conventional fit passes two. Because their regularization is not
+matched and truth still uses the inference model, this is a repeatability result
+rather than evidence of general PINN superiority. The full trial table, seed
+allocation, caveats, and command are in
+[`DISTRIBUTED_INVERSE_ROBUSTNESS.md`](DISTRIBUTED_INVERSE_ROBUSTNESS.md).
+
+## Complete-regime transfer validation
+
+The next validation withholds one entire experiment rather than merely holding
+out scattered time rows. The fit sees the zero-current relaxation, positive
+0.8 A/10 K, and negative 0.8 A/10 K regimes; it does not see the complete
+positive 0.4 A/20 K regime. After fitting, the resistivity curve is frozen and
+transferred through the conventional distributed solver. Face temperatures,
+the hidden internal field, terminal voltage, maximum temperature error, and
+energy closure are then compared with the noise-free held-out truth. No
+withheld observations are used for refitting.
+
+The frozen five-trial run uses 0.01 K temperature noise, 10 microvolt voltage
+noise, 600 CPU inverse-PINN epochs, and the six prediction limits printed by
+the report. The inverse PINN passes all six limits in 5/5 trials. The
+unregularized conventional fit passes 2/5; its three failures are voltage
+RMSE failures above 30 microvolts, not divergent temperature trajectories.
+The inverse PINN's mean hidden-field RMSE is 0.000070 K and its worst
+pointwise temperature error is 0.000155 K. The conventional mean voltage RMSE
+is 34.24744 microvolts, above the fixed limit, despite small mean temperature
+errors.
+
+This experiment establishes transfer across one operating regime within the
+same synthetic equations, finite-volume grid, time integrator, and three-knot
+curve basis. It does not establish extrapolation to a new material law or an
+independent discretization. The regularization is also not matched between the
+two estimators, and only one curve family and one held-out regime are tested.
+The complete setup, every trial, exact thresholds, and reproduction command
+are in [`DISTRIBUTED_WITHHELD_VALIDATION.md`](DISTRIBUTED_WITHHELD_VALIDATION.md).
 
 ## Next-experiment selection
 
@@ -329,6 +381,16 @@ thermotwin-distributed-properties \
   --train-inverse-pinn
 ```
 
+By default, inverse training runs `alpha(T)`, `rho_e(T)`, terminal-only
+`kappa(T)`, and heat-assisted `kappa(T)`. To isolate one family, repeat only the
+desired selector, for example:
+
+```bash
+thermotwin-distributed-properties \
+  --train-inverse-pinn \
+  --inverse-property thermal_conductivity
+```
+
 The figure is written to
 `thermotwin/figures/distributed_property_study.png` by default. Generated
 figures are ignored by Git.
@@ -345,7 +407,11 @@ python3 -m unittest \
   tests.test_distributed_experiment_selection \
   tests.test_distributed_forward_pinn \
   tests.test_distributed_inverse_pinn \
-  tests.test_distributed_property_report
+  tests.test_distributed_property_report \
+  tests.test_distributed_inverse_robustness \
+  tests.test_distributed_inverse_robustness_report \
+  tests.test_distributed_withheld_validation \
+  tests.test_distributed_withheld_validation_report
 ```
 
 ## Code ownership
@@ -361,6 +427,10 @@ python3 -m unittest \
 | Forward distributed PINN | `thermotwin.pinn.distributed_forward` |
 | Single- and multi-experiment inverse PINNs | `thermotwin.pinn.distributed_inverse` |
 | Text and figure report | `thermotwin.reports.distributed_properties` |
+| Noisy multi-seed study | `thermotwin.studies.distributed_inverse_robustness` |
+| Noisy multi-seed report | `thermotwin.reports.distributed_inverse_robustness` |
+| Withheld-regime transfer study | `thermotwin.studies.distributed_withheld_validation` |
+| Withheld-regime transfer report | `thermotwin.reports.distributed_withheld_validation` |
 
 ## Limits and next steps
 
@@ -373,17 +443,23 @@ python3 -m unittest \
   varying defects are omitted.
 - The identifiability result is local and uses optimistic declared sensor
   precision.
-- The reported inverse data are noise-free and generated by the same model.
+- The first family-comparison inverse data are noise-free; the robustness and
+  withheld-transfer studies add synthetic Gaussian noise. All are still
+  generated by the same model used for inference.
 - Smoothness regularization contributes to inverse-PINN endpoint estimates.
+- Terminal-only conductivity recovery fails in the frozen neural run even
+  though the local Jacobian is full rank; idealized heat-rate observations
+  improve but do not eliminate the error.
 - Multiple switched-current segments are supported by the finite-volume
   reference, but the first distributed PINNs use constant-current experiments;
   switched PINNs require domain decomposition at each discontinuity.
 - Nonlinear multi-start recovery, noisy coverage, missing observations, and
-  model-mismatch studies remain before any robust inference claim.
+  model-mismatch studies remain before any robust inference claim. One
+  same-model complete-regime transfer has now been demonstrated; independent
+  truth and broader transfer remain open.
 - Hardware validation remains unstarted.
 
 The next scientific step is not to release all three property curves at once.
-It is to repeat the one-function recovery with realistic noise, withheld
-temperature ranges, multiple neural seeds, and a genuinely independent
-property representation, then test whether the recovered curve predicts a
-complete experiment excluded from fitting.
+It is to repeat the one-function recovery across more withheld regimes and
+temperature ranges, then use an independent property representation or finer
+discretization to measure inverse crime and model discrepancy.

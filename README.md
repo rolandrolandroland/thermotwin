@@ -63,6 +63,8 @@ and application constraints determine whether the material advantage survives.
 | What electrical contact resistivity must a process achieve for a chosen leg length and application? | [Electrical-contact process window](thermotwin/ELECTRICAL_CONTACT_PROCESS_WINDOW.md) |
 | Does a published Ag₂Se n leg improve the same designs when everything else is held fixed? | [Matched Ag₂Se substitution](thermotwin/AG2SE_SUBSTITUTION_EXPERIMENT.md) |
 | Can terminal measurements recover temperature-dependent properties and a hidden internal field? | [Distributed constitutive inference](thermotwin/DISTRIBUTED_CONSTITUTIVE_INFERENCE.md) |
+| Does distributed resistivity recovery repeat under measurement noise and new neural initializations? | [Noisy multi-seed distributed inverse](thermotwin/DISTRIBUTED_INVERSE_ROBUSTNESS.md) |
+| Does a noisy distributed inverse recover a complete operating regime withheld from fitting? | [Withheld-regime transfer validation](thermotwin/DISTRIBUTED_WITHHELD_VALIDATION.md) |
 | What would a real hardware comparison require? | [Hardware-validation protocol](thermotwin/HARDWARE_VALIDATION_PROTOCOL.md) |
 
 ---
@@ -107,6 +109,8 @@ Installed command | Equivalent module command
 `thermotwin-contact-process-window` | `python3 -m thermotwin.contact_process_window`
 `thermotwin-ag2se-substitution` | `python3 -m thermotwin.ag2se_substitution`
 `thermotwin-distributed-properties` | `python3 -m thermotwin.distributed_property_report`
+`thermotwin-distributed-robustness` | `python3 -m thermotwin.distributed_inverse_robustness`
+`thermotwin-distributed-withheld` | `python3 -m thermotwin.distributed_withheld_validation`
 
 Reports write reproducible images to `thermotwin/figures/` by default. That
 directory is ignored by Git. Most report commands accept `--output PATH` when a
@@ -146,7 +150,31 @@ K maximum error. A local observation-first gate is full rank for three knots of
 each of `alpha(T)`, `rho_e(T)`, and `kappa(T)` under the declared synthetic
 sensor precision, but the resistivity curve is substantially less well
 conditioned than the other families. This is a local synthetic result, not a
-hardware identifiability claim.
+hardware identifiability claim. Independent noise-free inverse-PINN checks now
+release each curve separately. The maximum knot-multiplier errors are about
+0.0165 for `alpha(T)` and 0.0180 for `rho_e(T)`. Conductivity is the cautionary
+case: face temperatures and voltage alone do not recover `kappa(T)` reliably;
+adding idealized cold- and hot-side heat-rate observations reduces its maximum
+error to about 0.0515. The conventional same-model estimator recovers all
+declared truths essentially exactly, so these are optimizer/observation-model
+results rather than evidence of hardware accuracy. In the follow-on noisy
+five-seed resistivity study, the inverse PINN passes the predeclared recovery
+gate in 5/5 trials with 0.0254 worst-case knot-multiplier error. The
+unregularized conventional fit passes 2/5 and has 0.2113 worst-case error. This
+is evidence of repeatability only under a same-model synthetic setup; the PINN
+also has explicit and implicit regularization that the conventional baseline
+does not share.
+
+The next transfer check withholds one complete 20 K, +0.4 A regime from every
+fit, freezes the inferred curve, and scores the resulting noise-free prediction
+including hidden internal temperatures and terminal voltage. Across five fixed
+noise/neural seed trials, the inverse PINN passes all six prediction criteria in
+5/5 trials; the conventional unregularized fit passes 2/5 because its voltage
+error exceeds the fixed limit in three trials. Mean inverse-PINN hidden-field
+RMSE is 0.000070 K and worst pointwise temperature error is 0.000155 K. This
+is within-model regime transfer for a synthetic experiment, not evidence
+of extrapolation to a new material law or hardware. See the [withheld-regime
+walkthrough](thermotwin/DISTRIBUTED_WITHHELD_VALIDATION.md).
 
 ### Sensors, inference, and experiment design
 
@@ -260,7 +288,7 @@ and extension pattern are documented in
 
 ## How the evidence is checked
 
-The current suite contains 426 tests. It covers:
+The current suite contains 445 tests. It covers:
 
 - units, signs, algebraic identities, and positive/zero/negative current;
 - limiting cases such as passive conduction and absent identifiability;
