@@ -94,10 +94,12 @@ The function-valued PDE extension follows the same dependency direction:
 | `studies/distributed_inverse_robustness.py` | Noisy seed trials, predeclared failure gate, and complete-trial summary |
 | `studies/distributed_withheld_validation.py` | Whole-regime exclusion, frozen-curve transfer scoring, and predeclared prediction gate |
 | `studies/distributed_independent_validation.py` | Independent truth, paired priors, model-mismatch holdouts, and complete-trial retention |
+| `studies/distributed_observation_identifiability.py` | Sensor/current ablations, pre-fit rank decisions, multistart diagnostics, and fit rejection |
 | `reports/distributed_properties.py` | Reproducible text and figure report |
 | `reports/distributed_inverse_robustness.py` | Multi-seed robustness report and comparison figure |
 | `reports/distributed_withheld_validation.py` | Trial-level transfer report, prediction metrics, and comparison figure |
 | `reports/distributed_independent_validation.py` | Independent-truth and matched-regularization report and figure |
+| `reports/distributed_observation_identifiability.py` | Observation-sufficiency decisions, diagnostic fits, and comparison figure |
 
 ## Documentation and generated artifacts
 

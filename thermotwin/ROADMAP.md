@@ -711,6 +711,10 @@ instrumentation cannot support.
 - A paired comparison of unregularized and identically curvature-regularized
   conventional/PINN estimators across constant, pulsed, and outside-support
   transfer regimes.
+- An intentionally underdetermined observation study with a pre-fit practical
+  singular-value gate, an exact zero-current structural rejection, weak-sensor
+  ablations, multistart conventional/PINN diagnostics, and explicit refusal to
+  promote unsupported optimizer output to a property estimate.
 - Local Gaussian coefficient uncertainty and D-optimal pulse/lift selection.
 - A public walkthrough, report command, generated figure, and private exercise
   sheet.
@@ -749,6 +753,12 @@ instrumentation cannot support.
   is 0.0335--0.0338 for the PINNs versus 0.1561--0.1694 for the conventional
   fits. Matching curvature does not match implicit neural/field bias, and three
   trials do not support a general estimator-superiority or failure-rate claim.
+- Under the frozen observation-sufficiency rule, the bidirectional
+  temperature-plus-voltage set supports 3/3 local resistivity directions, zero
+  current supports 0/3 exactly, positive-current temperatures support 0/3 at
+  the declared noise scale, and adding one-direction voltage supports 2/3. A
+  stable, accurate-looking PINN curve in the 2/3 case is retained as a warning,
+  not reported as identified.
 
 ### Remaining exit criteria
 
@@ -763,8 +773,6 @@ instrumentation cannot support.
   different continuum/boundary models. One constant, one pulsed, and one
   outside-support regime now use independent numerical/constitutive truth, but
   the truth is still synthetic and shares the continuum equations.
-- Demonstrate an intentionally underdetermined observation set and show that
-  the inference reports the loss of rank rather than inventing a curve.
 - Add a p/n unicouple and internal interface conditions only after the
   single-leg observation model is stable.
 - Treat switched-current PINNs through explicit time-domain decomposition.
@@ -776,9 +784,8 @@ instrumentation cannot support.
 ## Recommended execution order from the current state
 
 1. Extend Milestone 9 with interval-scale paired trials, nonlinear coverage,
-   multi-start/profile conventional baselines, and an intentionally
-   underdetermined observation set before attempting a joint three-function
-   inverse PINN.
+   shrinkage-plus-curvature priors, and profile-likelihood conventional
+   baselines before attempting a joint three-function inverse PINN.
 2. Finish Milestone 3 with PINN energy closure and a matched data-only
    sparse/missing-data comparison.
 3. Finish Milestone 4 by training the inverse PINN on selected imperfect

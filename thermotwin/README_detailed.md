@@ -972,6 +972,21 @@ recovery. This is synthetic continuum-model transfer, not hardware validation,
 and three trials are not a failure-rate estimate. See
 [`DISTRIBUTED_INDEPENDENT_VALIDATION.md`](DISTRIBUTED_INDEPENDENT_VALIDATION.md).
 
+The next study asks whether the observation set deserves a fitted curve at all.
+A frozen local gate combines the noise-normalized singular spectrum with the
+allowed +/-0.3 log-coefficient neighborhood and requires every direction to
+create at least a one-standard-deviation signal. The bidirectional
+temperature-plus-voltage suite supports 3/3 resistivity directions. Zero
+current supports exactly 0/3 because both Joule heating and ohmic voltage lose
+their resistivity dependence. Positive-current face temperatures support 0/3
+at the declared 0.01 K precision; adding voltage supports 2/3, identifying an
+average-resistance-like direction much more strongly than the final shape
+direction. Multistart fits are retained for diagnosis but rejected whenever the
+pre-fit gate fails. In particular, the one-direction inverse PINN returns a
+stable, accurate-looking synthetic curve even though only 2/3 directions are
+supported; implicit estimator bias is not treated as measured information. See
+[`DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md`](DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md).
+
 ---
 
 ## 10. Validation levels and what they mean
@@ -1054,7 +1069,7 @@ evidence that a trajectory is correct.
 
 ## 12. What the tests cover
 
-The suite runs 459 tests with `python3 -m unittest discover -s tests`. Optional
+The suite runs 469 tests with `python3 -m unittest discover -s tests`. Optional
 learned-model and figure tests skip when PyTorch or Matplotlib are absent.
 
 By category rather than by file, the tests check:
@@ -1183,6 +1198,7 @@ The installed console names and their exact historical module equivalents are:
 | Distributed inverse robustness | `thermotwin-distributed-robustness` | `python3 -m thermotwin.distributed_inverse_robustness` |
 | Distributed withheld-regime transfer | `thermotwin-distributed-withheld` | `python3 -m thermotwin.distributed_withheld_validation` |
 | Distributed independent-truth validation | `thermotwin-distributed-independent` | `python3 -m thermotwin.distributed_independent_validation` |
+| Distributed observation-sufficiency gate | `thermotwin-distributed-identifiability` | `python3 -m thermotwin.distributed_observation_identifiability` |
 
 These module names are intentionally listed individually: replacing the command
 name with a guessed `thermotwin.<name>` module is not reliable.
@@ -1218,19 +1234,19 @@ is a reading aid, not a replacement for that document.
 | 2 — Reproducible virtual test stand | Complete | Hardware-backed sensor behavior remains outside this milestone |
 | 3 — Forward PINNs | Partial | Independent PINN energy-closure history and a matched observation-only baseline |
 | 4 — Inverse parameter estimation | Partial | Selected imperfect-data inverse-PINN comparisons and neural-seed failure criteria |
-| 5 — Identifiability and uncertainty | Partial | Broader nonlinear multi-start/coverage studies and explicit underdetermined regions |
+| 5 — Identifiability and uncertainty | Partial | Broader nonlinear multi-start/coverage studies and profile-likelihood intervals |
 | 6A — Control comparison | Complete for the current generic scope | Extend only with validated new physics or hardware conditions |
 | 6B — Next-experiment selection | Partial | Repeated complete nonlinear refits of selected versus naive experiments |
 | 6C — Material/product co-design | Complete for the public-data-seeded virtual method | Temperature-dependent properties, measured process/cost distributions, and hardware calibration |
 | 7 — Research artifact | Partial and continuous | Final narrative, evidence audit, and reproducible presentation package |
 | 8 — Hardware validation | Optional; not run | Safe hardware, calibrated sensors, uncertainty records, and protocol execution |
-| 9 — Distributed constitutive inference | Partial with a validated reference, local gate, forward/inverse PINNs, noisy repeatability, withheld-regime transfer, and independent-numerics/matched-curvature validation | Interval-scale nonlinear coverage, underdetermined observation studies, richer matched priors, and broader model discrepancy |
+| 9 — Distributed constitutive inference | Partial with a validated reference, local and practical gates, forward/inverse PINNs, noisy repeatability, withheld-regime transfer, independent-numerics validation, and explicit observation ablations | Interval-scale nonlinear coverage, richer matched priors, profile likelihood, and broader model discrepancy |
 
 The recommended scientific sequence is:
 
 1. expand the distributed independent-truth comparison to interval-scale
-   trials, nonlinear coverage, richer matched priors, and an explicitly
-   underdetermined observation set;
+   trials, nonlinear coverage, shrinkage-plus-curvature priors, and profile
+   likelihood intervals;
 2. test inverse PINNs on selected imperfect datasets with identical visible
    observations;
 3. extend local identifiability results to representative nonlinear repeated

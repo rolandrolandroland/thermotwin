@@ -494,5 +494,6 @@ python3 -m unittest \
 The next scientific step is not to release all three property curves at once.
 It is to expand the independent-truth campaign to interval-scale repetitions,
 compare shrinkage-plus-curvature priors and conventional multi-start profiles,
-and construct an intentionally underdetermined observation set that must
-produce broad or nonunique conclusions.
+and compute nonlinear profile-likelihood intervals. The intentionally
+underdetermined observation gate is now complete; see
+[`DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md`](DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md).

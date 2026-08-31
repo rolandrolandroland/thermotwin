@@ -255,5 +255,8 @@ Git.
 
 The next step is to expand this benchmark to enough paired trials for interval
 estimation, add a shrinkage-plus-curvature prior and conventional multi-start
-profiles, and construct an intentionally underdetermined observation set that
-must produce broad or nonunique property conclusions.
+profiles, and compute nonlinear profile-likelihood intervals. The
+intentionally underdetermined follow-on is now implemented in
+[`DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md`](DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md):
+it distinguishes exact zero-current structural blindness from practical
+sensor-noise limits and retains weak-case optimizer output only as a diagnostic.

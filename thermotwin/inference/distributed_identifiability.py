@@ -93,6 +93,107 @@ class DistributedIdentifiabilityResult(NamedTuple):
     temperature_range: Tuple[float, float]
 
 
+@dataclass(frozen=True)
+class DistributedIdentifiabilityGateConfig:
+    """Turn a local singular spectrum into a declared inference decision.
+
+    The Jacobian is already normalized by the declared sensor noise.  The
+    product ``singular_value * maximum_log_displacement`` therefore estimates
+    the largest noise-normalized signal available along one right-singular
+    direction inside the allowed coefficient neighborhood.
+    """
+
+    maximum_log_displacement: float = 0.3
+    required_noise_normalized_signal: float = 1.0
+    structural_zero_tolerance: float = 1.0e-12
+
+    def __post_init__(self) -> None:
+        for name, value in (
+            ("maximum log displacement", self.maximum_log_displacement),
+            (
+                "required noise-normalized signal",
+                self.required_noise_normalized_signal,
+            ),
+            ("structural-zero tolerance", self.structural_zero_tolerance),
+        ):
+            if not math.isfinite(value) or value <= 0.0:
+                raise ValueError(f"{name} must be finite and positive")
+
+
+class DistributedIdentifiabilityAssessment(NamedTuple):
+    """Decision returned before fitting a distributed property curve."""
+
+    status: str
+    supported_rank: int
+    coefficient_count: int
+    minimum_required_singular_value: float
+    weakest_resolvable_log_displacement: float
+    explanation: str
+
+
+def assess_distributed_identifiability(
+    result: DistributedIdentifiabilityResult,
+    config: DistributedIdentifiabilityGateConfig = (
+        DistributedIdentifiabilityGateConfig()
+    ),
+) -> DistributedIdentifiabilityAssessment:
+    """Classify structural and practical non-identifiability before fitting.
+
+    ``supported`` does not mean globally identifiable.  It means only that all
+    local coefficient directions clear the declared one-sigma signal gate
+    within the stated log-coefficient neighborhood.
+    """
+
+    coefficient_count = len(result.parameter_names)
+    if coefficient_count == 0 or len(result.singular_values) != coefficient_count:
+        raise ValueError("identifiability spectrum must match the parameter count")
+    minimum_required = (
+        config.required_noise_normalized_signal / config.maximum_log_displacement
+    )
+    largest = result.singular_values[0]
+    if largest <= config.structural_zero_tolerance:
+        return DistributedIdentifiabilityAssessment(
+            status="structurally_non_identifiable",
+            supported_rank=0,
+            coefficient_count=coefficient_count,
+            minimum_required_singular_value=minimum_required,
+            weakest_resolvable_log_displacement=math.inf,
+            explanation=(
+                "the selected observations have zero local sensitivity to every "
+                "fitted coefficient"
+            ),
+        )
+    supported_rank = sum(
+        value >= minimum_required for value in result.singular_values
+    )
+    smallest = result.singular_values[-1]
+    weakest_displacement = (
+        config.required_noise_normalized_signal / smallest
+        if smallest > config.structural_zero_tolerance
+        else math.inf
+    )
+    if supported_rank < coefficient_count:
+        explanation = (
+            f"only {supported_rank} of {coefficient_count} local coefficient "
+            "directions clear the declared noise-resolution gate"
+        )
+        status = "practically_non_identifiable"
+    else:
+        explanation = (
+            "all local coefficient directions clear the declared "
+            "noise-resolution gate"
+        )
+        status = "supported"
+    return DistributedIdentifiabilityAssessment(
+        status=status,
+        supported_rank=supported_rank,
+        coefficient_count=coefficient_count,
+        minimum_required_singular_value=minimum_required,
+        weakest_resolvable_log_displacement=weakest_displacement,
+        explanation=explanation,
+    )
+
+
 def _replace_coefficient(
     material: DistributedThermoelectricMaterial,
     parameter: DistributedPropertyCoefficient,

@@ -4,9 +4,12 @@ from .contact_resistance import fit_cold_contact_resistance
 from .sparse_sensors import fit_sparse_sensor_parameters
 from .distributed_identifiability import (
     DistributedIdentifiabilityConfig,
+    DistributedIdentifiabilityAssessment,
+    DistributedIdentifiabilityGateConfig,
     DistributedIdentifiabilityResult,
     DistributedPropertyCoefficient,
     analyze_distributed_identifiability,
+    assess_distributed_identifiability,
 )
 from .distributed_properties import (
     DistributedPropertyFitConfig,
@@ -28,9 +31,12 @@ __all__ = [
     "fit_cold_contact_resistance",
     "fit_sparse_sensor_parameters",
     "DistributedIdentifiabilityConfig",
+    "DistributedIdentifiabilityAssessment",
+    "DistributedIdentifiabilityGateConfig",
     "DistributedIdentifiabilityResult",
     "DistributedPropertyCoefficient",
     "analyze_distributed_identifiability",
+    "assess_distributed_identifiability",
     "DistributedPropertyFitConfig",
     "DistributedPropertyFitEvaluation",
     "DistributedPropertyFitResult",

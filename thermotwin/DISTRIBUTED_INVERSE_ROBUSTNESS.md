@@ -193,6 +193,7 @@ The complete-regime transfer step is implemented in
 [`DISTRIBUTED_WITHHELD_VALIDATION.md`](DISTRIBUTED_WITHHELD_VALIDATION.md), and
 the independent-numerics/matched-curvature step is implemented in
 [`DISTRIBUTED_INDEPENDENT_VALIDATION.md`](DISTRIBUTED_INDEPENDENT_VALIDATION.md).
-Next, expand the paired trial count, compare richer priors and multi-start
-profiles, and deliberately remove informative observations to test whether the
-inference reports non-identifiability.
+The deliberate observation-removal step is implemented in
+[`DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md`](DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md).
+Next, expand the paired trial count and compare richer priors, multistart
+profiles, and nonlinear interval coverage.

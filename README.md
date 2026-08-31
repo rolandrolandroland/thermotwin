@@ -65,6 +65,7 @@ and application constraints determine whether the material advantage survives.
 | Can terminal measurements recover temperature-dependent properties and a hidden internal field? | [Distributed constitutive inference](thermotwin/DISTRIBUTED_CONSTITUTIVE_INFERENCE.md) |
 | Does distributed resistivity recovery repeat under measurement noise and new neural initializations? | [Noisy multi-seed distributed inverse](thermotwin/DISTRIBUTED_INVERSE_ROBUSTNESS.md) |
 | Does a noisy distributed inverse recover a complete operating regime withheld from fitting? | [Withheld-regime transfer validation](thermotwin/DISTRIBUTED_WITHHELD_VALIDATION.md) |
+| Can the sensors and current regimes actually support a unique distributed resistivity curve? | [Distributed observation-sufficiency gate](thermotwin/DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md) |
 | What would a real hardware comparison require? | [Hardware-validation protocol](thermotwin/HARDWARE_VALIDATION_PROTOCOL.md) |
 
 ---
@@ -111,6 +112,8 @@ Installed command | Equivalent module command
 `thermotwin-distributed-properties` | `python3 -m thermotwin.distributed_property_report`
 `thermotwin-distributed-robustness` | `python3 -m thermotwin.distributed_inverse_robustness`
 `thermotwin-distributed-withheld` | `python3 -m thermotwin.distributed_withheld_validation`
+`thermotwin-distributed-independent` | `python3 -m thermotwin.distributed_independent_validation`
+`thermotwin-distributed-identifiability` | `python3 -m thermotwin.distributed_observation_identifiability`
 
 Reports write reproducible images to `thermotwin/figures/` by default. That
 directory is ignored by Git. Most report commands accept `--output PATH` when a
@@ -187,6 +190,17 @@ does not explain the PINN's stability and does not make the estimators fully
 equivalent because implicit neural and field regularization remain. This is a
 small synthetic model-mismatch result, not a failure-rate or hardware claim.
 See the [independent-truth walkthrough](thermotwin/DISTRIBUTED_INDEPENDENT_VALIDATION.md).
+
+The observation-sufficiency follow-on deliberately removes informative current
+regimes and sensors before fitting. With the frozen 0.01 K/10 microvolt noise
+model, the full zero/positive/negative-current temperature-plus-voltage set
+supports 3/3 local resistivity-curve directions. Zero current supports exactly
+0/3, positive-current temperatures support 0/3 under the practical gate, and
+positive-current temperatures plus voltage support 2/3. The last case is the
+important warning: the PINN still returns a stable, accurate-looking synthetic
+curve, but ThermoTwin rejects it because optimizer stability cannot replace a
+missing information direction. See the [observation-sufficiency
+walkthrough](thermotwin/DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md).
 
 ### Sensors, inference, and experiment design
 
@@ -300,7 +314,7 @@ and extension pattern are documented in
 
 ## How the evidence is checked
 
-The current suite contains 459 tests. It covers:
+The current suite contains 469 tests. It covers:
 
 - units, signs, algebraic identities, and positive/zero/negative current;
 - limiting cases such as passive conduction and absent identifiability;
