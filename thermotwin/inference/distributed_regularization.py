@@ -24,3 +24,11 @@ def second_difference_roughness(values: Sequence[Scalar]):
         for index in range(len(values) - 2)
     )
     return sum(value * value for value in differences) / len(differences)
+
+
+def mean_square_magnitude(values: Sequence[Scalar]):
+    """Return the mean squared coefficient magnitude for zero-centred shrinkage."""
+
+    if len(values) == 0:
+        return 0.0
+    return sum(value * value for value in values) / len(values)

@@ -46,6 +46,13 @@ class DistributedInversePINNTests(unittest.TestCase):
         self.assertTrue(torch.all(model.property_values > 0.0))
         self.assertEqual(tuple(model.property_values.shape), (3,))
 
+    def test_configuration_rejects_negative_shrinkage(self):
+        with self.assertRaises(ValueError):
+            InverseDistributedPropertyConfig(
+                property_name="electrical_resistivity",
+                shrinkage_weight=-0.1,
+            )
+
     def test_all_three_property_curves_can_be_released_independently(self):
         for property_name in (
             "seebeck_coefficient",
@@ -105,6 +112,7 @@ class DistributedInversePINNTests(unittest.TestCase):
                 network_learning_rate=3e-3,
                 property_learning_rate=2e-3,
                 initial_log_multipliers=(math.log(0.9),) * 3,
+                shrinkage_weight=0.2,
                 residual_rate_scale=1.0,
                 seed=12,
                 device="cpu",
@@ -121,6 +129,13 @@ class DistributedInversePINNTests(unittest.TestCase):
         self.assertNotEqual(
             training.history.property_values[-1],
             training.history.property_values[0],
+        )
+        self.assertEqual(
+            len(training.history.shrinkage_loss),
+            len(training.history.total_loss),
+        )
+        self.assertTrue(
+            all(value >= 0.0 for value in training.history.shrinkage_loss)
         )
 
     def test_two_experiments_share_one_property_curve(self):

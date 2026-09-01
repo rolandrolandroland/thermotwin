@@ -302,3 +302,11 @@ The figure directory is ignored by Git because the artifact is reproducible.
 | Multi-experiment inverse PINN | `thermotwin.pinn.distributed_inverse` |
 | Frozen observation-ablation study | `thermotwin.studies.distributed_observation_identifiability` |
 | Text and figure report | `thermotwin.reports.distributed_observation_identifiability` |
+
+## 14. Follow-on uncertainty audit
+
+The supported full-data case now has representative fixed-coefficient nonlinear
+profiles and a 20-trial independent-truth local-interval coverage audit. The
+weak one-direction case is also profiled as a contrast, but its failed pre-fit
+gate still prevents promotion to a property estimate. See
+[`DISTRIBUTED_PROFILE_COVERAGE.md`](DISTRIBUTED_PROFILE_COVERAGE.md).

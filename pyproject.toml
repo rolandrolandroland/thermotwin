@@ -34,6 +34,7 @@ thermotwin-distributed-robustness = "thermotwin.reports.distributed_inverse_robu
 thermotwin-distributed-withheld = "thermotwin.reports.distributed_withheld_validation:main"
 thermotwin-distributed-independent = "thermotwin.reports.distributed_independent_validation:main"
 thermotwin-distributed-identifiability = "thermotwin.reports.distributed_observation_identifiability:main"
+thermotwin-distributed-profile-coverage = "thermotwin.reports.distributed_profile_coverage:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

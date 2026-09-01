@@ -195,5 +195,8 @@ the independent-numerics/matched-curvature step is implemented in
 [`DISTRIBUTED_INDEPENDENT_VALIDATION.md`](DISTRIBUTED_INDEPENDENT_VALIDATION.md).
 The deliberate observation-removal step is implemented in
 [`DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md`](DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md).
-Next, expand the paired trial count and compare richer priors, multistart
-profiles, and nonlinear interval coverage.
+Richer shrinkage-plus-curvature priors, multistart profiles, and a 20-trial
+local-interval coverage audit are implemented in
+[`DISTRIBUTED_PROFILE_COVERAGE.md`](DISTRIBUTED_PROFILE_COVERAGE.md). The next
+step is to test whether the locally selected experiment improves complete
+nonlinear refits over naive alternatives.

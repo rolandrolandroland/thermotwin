@@ -438,7 +438,9 @@ python3 -m unittest \
   tests.test_distributed_withheld_validation_report \
   tests.test_distributed_independent \
   tests.test_distributed_independent_validation \
-  tests.test_distributed_independent_validation_report
+  tests.test_distributed_independent_validation_report \
+  tests.test_distributed_profile_coverage \
+  tests.test_distributed_profile_coverage_report
 ```
 
 ## Code ownership
@@ -460,8 +462,11 @@ python3 -m unittest \
 | Withheld-regime transfer report | `thermotwin.reports.distributed_withheld_validation` |
 | Independent nodal/SSPRK3 truth | `thermotwin.simulation.distributed_independent` |
 | Shared explicit coefficient roughness | `thermotwin.inference.distributed_regularization` |
+| Fixed-coefficient profiles and repeated local intervals | `thermotwin.inference.distributed_profile_likelihood` |
 | Independent-truth paired study | `thermotwin.studies.distributed_independent_validation` |
 | Independent-truth report | `thermotwin.reports.distributed_independent_validation` |
+| Nonlinear-profile and coverage study | `thermotwin.studies.distributed_profile_coverage` |
+| Profile and coverage report | `thermotwin.reports.distributed_profile_coverage` |
 
 ## Limits and next steps
 
@@ -485,15 +490,16 @@ python3 -m unittest \
 - Multiple switched-current segments are supported by the finite-volume
   reference, but the first distributed PINNs use constant-current experiments;
   switched PINNs require domain decomposition at each discontinuity.
-- Nonlinear multi-start recovery, noisy coverage, missing observations, and
-  broader model discrepancy remain before any robust inference claim. One
-  same-model complete-regime transfer and one three-trial independent-numerics
-  model-mismatch campaign have now been demonstrated.
+- Missing observations and broader model discrepancy remain before any robust
+  inference claim. Nonlinear multistart recovery, representative profiles, and
+  a 20-trial independent-truth local-interval audit are now implemented for
+  `rho_e(T)`; the trial budget remains too small for precise coverage estimates.
 - Hardware validation remains unstarted.
 
 The next scientific step is not to release all three property curves at once.
-It is to expand the independent-truth campaign to interval-scale repetitions,
-compare shrinkage-plus-curvature priors and conventional multi-start profiles,
-and compute nonlinear profile-likelihood intervals. The intentionally
-underdetermined observation gate is now complete; see
-[`DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md`](DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md).
+It is to validate the current local D-optimal experiment recommendation with
+complete nonlinear refits against naive candidates. The intentionally
+underdetermined observation gate is documented in
+[`DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md`](DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md),
+and the completed one-property uncertainty follow-on is in
+[`DISTRIBUTED_PROFILE_COVERAGE.md`](DISTRIBUTED_PROFILE_COVERAGE.md).

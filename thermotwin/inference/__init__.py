@@ -17,6 +17,17 @@ from .distributed_properties import (
     DistributedPropertyFitResult,
     fit_distributed_property,
 )
+from .distributed_profile_likelihood import (
+    DistributedCoefficientProfile,
+    DistributedProfileInterval,
+    DistributedProfileLikelihoodConfig,
+    DistributedProfileLikelihoodResult,
+    DistributedLocalProfileApproximation,
+    DistributedProfilePoint,
+    fit_distributed_property_profile_likelihood,
+    local_profile_approximation,
+    profile_interval_contains,
+)
 from .distributed_experiment_selection import (
     DistributedExperimentCandidateScore,
     DistributedExperimentSelectionConfig,
@@ -41,6 +52,15 @@ __all__ = [
     "DistributedPropertyFitEvaluation",
     "DistributedPropertyFitResult",
     "fit_distributed_property",
+    "DistributedCoefficientProfile",
+    "DistributedProfileInterval",
+    "DistributedProfileLikelihoodConfig",
+    "DistributedProfileLikelihoodResult",
+    "DistributedLocalProfileApproximation",
+    "DistributedProfilePoint",
+    "fit_distributed_property_profile_likelihood",
+    "local_profile_approximation",
+    "profile_interval_contains",
     "DistributedExperimentCandidateScore",
     "DistributedExperimentSelectionConfig",
     "DistributedExperimentSelectionResult",

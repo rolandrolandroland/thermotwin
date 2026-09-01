@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass, replace
 import math
-from typing import NamedTuple, Sequence, Tuple
+from typing import NamedTuple, Optional, Sequence, Tuple
 
 from ..observations.distributed import (
     DistributedObservationSet,
@@ -12,7 +12,10 @@ from ..observations.distributed import (
 from ..physics.distributed import PiecewiseLinearProperty
 from ..simulation.distributed import DistributedLegExperiment
 from ..numerics.matrices import inverse_and_determinant
-from .distributed_regularization import second_difference_roughness
+from .distributed_regularization import (
+    mean_square_magnitude,
+    second_difference_roughness,
+)
 
 
 @dataclass(frozen=True)
@@ -23,6 +26,7 @@ class DistributedPropertyFitConfig:
     observation_interval: float = 0.1
     channels: DistributedObservationChannels = DistributedObservationChannels()
     initial_log_multipliers: Tuple[float, ...] = ()
+    fixed_log_multipliers: Tuple[Optional[float], ...] = ()
     log_multiplier_bounds: Tuple[float, float] = (-0.5, 0.5)
     coordinate_passes: int = 3
     golden_section_iterations: int = 10
@@ -33,6 +37,7 @@ class DistributedPropertyFitConfig:
     voltage_standard_deviation: float = 1.0e-5
     heat_rate_standard_deviation: float = 5.0e-4
     smoothness_weight: float = 0.0
+    shrinkage_weight: float = 0.0
 
     def __post_init__(self) -> None:
         if self.property_name not in {
@@ -61,6 +66,11 @@ class DistributedPropertyFitConfig:
                 raise ValueError(f"{name} must be a positive integer")
         if any(not math.isfinite(value) for value in self.initial_log_multipliers):
             raise ValueError("initial log multipliers must be finite")
+        if any(
+            value is not None and not math.isfinite(value)
+            for value in self.fixed_log_multipliers
+        ):
+            raise ValueError("fixed log multipliers must be finite or None")
         for name, value in (
             ("Gauss-Newton step", self.gauss_newton_step),
             ("Gauss-Newton damping", self.gauss_newton_damping),
@@ -69,6 +79,8 @@ class DistributedPropertyFitConfig:
                 raise ValueError(f"{name} must be finite and positive")
         if not math.isfinite(self.smoothness_weight) or self.smoothness_weight < 0.0:
             raise ValueError("smoothness weight must be finite and nonnegative")
+        if not math.isfinite(self.shrinkage_weight) or self.shrinkage_weight < 0.0:
+            raise ValueError("shrinkage weight must be finite and nonnegative")
 
     def scale(self, channel: str) -> float:
         if channel.endswith("temperature"):
@@ -145,8 +157,20 @@ def fit_distributed_property(
     else:
         current = [0.0] * coefficient_count
     lower, upper = config.log_multiplier_bounds
+    if config.fixed_log_multipliers:
+        if len(config.fixed_log_multipliers) != coefficient_count:
+            raise ValueError("fixed multiplier count must match property coefficients")
+        fixed = tuple(config.fixed_log_multipliers)
+    else:
+        fixed = (None,) * coefficient_count
+    for index, value in enumerate(fixed):
+        if value is not None:
+            current[index] = value
     if any(value < lower or value > upper for value in current):
-        raise ValueError("initial multipliers must lie within their bounds")
+        raise ValueError("initial and fixed multipliers must lie within their bounds")
+    free_indices = tuple(
+        index for index, value in enumerate(fixed) if value is None
+    )
 
     expected_keys = tuple(dataset.keys() for dataset in observations)
     expected_values = tuple(dataset.values() for dataset in observations)
@@ -195,6 +219,7 @@ def fit_distributed_property(
             objective_cache[key] = (
                 data_loss_cache[key]
                 + config.smoothness_weight * second_difference_roughness(key)
+                + config.shrinkage_weight * mean_square_magnitude(key)
             )
         return objective_cache[key]
 
@@ -202,23 +227,29 @@ def fit_distributed_property(
         """Return data residuals plus pseudo-residuals for the shared prior."""
 
         data = normalized_residuals(offsets)
-        if config.smoothness_weight == 0.0 or coefficient_count < 3:
-            return data
-        difference_count = coefficient_count - 2
-        scale = math.sqrt(
-            len(data) * config.smoothness_weight / difference_count
-        )
         values = tuple(float(value) for value in offsets)
-        return data + tuple(
-            scale
-            * (values[index + 2] - 2.0 * values[index + 1] + values[index])
-            for index in range(difference_count)
-        )
+        residuals = list(data)
+        if config.smoothness_weight > 0.0 and coefficient_count >= 3:
+            difference_count = coefficient_count - 2
+            scale = math.sqrt(
+                len(data) * config.smoothness_weight / difference_count
+            )
+            residuals.extend(
+                scale
+                * (values[index + 2] - 2.0 * values[index + 1] + values[index])
+                for index in range(difference_count)
+            )
+        if config.shrinkage_weight > 0.0:
+            scale = math.sqrt(
+                len(data) * config.shrinkage_weight / coefficient_count
+            )
+            residuals.extend(scale * value for value in values)
+        return tuple(residuals)
 
     objective(current)
     golden_ratio = (math.sqrt(5.0) - 1.0) / 2.0
     for _ in range(config.coordinate_passes):
-        for index in range(coefficient_count):
+        for index in free_indices:
             left = lower
             right = upper
             x1 = right - golden_ratio * (right - left)
@@ -249,9 +280,11 @@ def fit_distributed_property(
 
     damping = config.gauss_newton_damping
     for _ in range(config.gauss_newton_iterations):
+        if not free_indices:
+            break
         residual = optimization_residuals(current)
         derivative_columns = []
-        for index in range(coefficient_count):
+        for index in free_indices:
             minus = list(current)
             plus = list(current)
             minus[index] = max(lower, minus[index] - config.gauss_newton_step)
@@ -268,12 +301,13 @@ def fit_distributed_property(
                     for left, right in zip(minus_residual, plus_residual)
                 )
             )
+        free_count = len(free_indices)
         normal = tuple(
             tuple(
                 sum(a * b for a, b in zip(derivative_columns[row], derivative_columns[column]))
-                for column in range(coefficient_count)
+                for column in range(free_count)
             )
-            for row in range(coefficient_count)
+            for row in range(free_count)
         )
         gradient = tuple(
             sum(value * error for value, error in zip(column, residual))
@@ -303,10 +337,12 @@ def fit_distributed_property(
         starting_loss = objective(current)
         accepted = False
         for fraction in (1.0, 0.5, 0.25, 0.1):
-            candidate = tuple(
-                min(upper, max(lower, value + fraction * step))
-                for value, step in zip(current, update)
-            )
+            candidate_values = list(current)
+            for index, step in zip(free_indices, update):
+                candidate_values[index] = min(
+                    upper, max(lower, current[index] + fraction * step)
+                )
+            candidate = tuple(candidate_values)
             if objective(candidate) < starting_loss:
                 current = list(candidate)
                 damping = max(config.gauss_newton_damping * 1.0e-3, damping * 0.3)

@@ -253,10 +253,12 @@ Git.
 - The truth law is synthetic rather than an independently measured material.
 - The distributed PINN still cannot train directly on switched-current data.
 
-The next step is to expand this benchmark to enough paired trials for interval
-estimation, add a shrinkage-plus-curvature prior and conventional multi-start
-profiles, and compute nonlinear profile-likelihood intervals. The
-intentionally underdetermined follow-on is now implemented in
-[`DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md`](DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md):
-it distinguishes exact zero-current structural blindness from practical
-sensor-noise limits and retains weak-case optimizer output only as a diagnostic.
+Two follow-ons now use this independent truth. The
+[observation-sufficiency study](DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md)
+distinguishes exact zero-current structural blindness from practical
+sensor-noise limits. The
+[profile and coverage audit](DISTRIBUTED_PROFILE_COVERAGE.md) adds
+shrinkage-plus-curvature, slope-aware conventional multistart fits,
+representative fixed-coefficient nonlinear profiles, and 20 repeated local
+interval trials. A larger campaign would still be needed for precise
+failure-rate or coverage estimates.

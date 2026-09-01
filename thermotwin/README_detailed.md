@@ -987,6 +987,20 @@ stable, accurate-looking synthetic curve even though only 2/3 directions are
 supported; implicit estimator bias is not treated as measured information. See
 [`DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md`](DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md).
 
+The uncertainty follow-on computes bounded nonlinear profiles by fixing one
+resistivity coefficient and re-optimizing the other two. It then runs 20 fresh
+conventional multistart fits against independent nodal/SSPRK3/cubic truth and
+uses a local quadratic profile approximation for repeated intervals. Individual
+coefficient coverage is 63.3% at the nominal 68% level and 98.3% at 95% without
+regularization; matched shrinkage-plus-curvature intervals give 78.3% and
+100%. Those fractions contain only 60 coefficient checks per estimator and
+therefore have wide binomial uncertainty. Mean continuous-property RMSE is
+8.4649% without the explicit prior and 5.0747% with it. Ten paired inverse PINNs
+reach about 1.75% point-estimate RMSE but are not assigned intervals from
+neural-seed spread. The penalized intervals are calibration diagnostics rather
+than classical confidence intervals. See
+[`DISTRIBUTED_PROFILE_COVERAGE.md`](DISTRIBUTED_PROFILE_COVERAGE.md).
+
 ---
 
 ## 10. Validation levels and what they mean
@@ -1069,7 +1083,7 @@ evidence that a trajectory is correct.
 
 ## 12. What the tests cover
 
-The suite runs 469 tests with `python3 -m unittest discover -s tests`. Optional
+The suite runs 480 tests with `python3 -m unittest discover -s tests`. Optional
 learned-model and figure tests skip when PyTorch or Matplotlib are absent.
 
 By category rather than by file, the tests check:
@@ -1088,7 +1102,8 @@ By category rather than by file, the tests check:
   switches, deterministic noise reproduction, the zero-noise and zero-bias
   identity limits, lag applied before sampling, and dropout as absent rows.
 - **Inference** — parameter recovery, information metrics, split integrity,
-  bound behavior, and uncertainty-interval coverage.
+  fixed-coefficient behavior, profile-anchor consistency, bound behavior, and
+  uncertainty-interval coverage.
 - **Learned models** — residual signs, exact initial conditions, exact segment
   continuity, short-training recovery, and agreement with withheld trajectories.
 - **Reports** — aligned histories and figure generation.
@@ -1199,6 +1214,7 @@ The installed console names and their exact historical module equivalents are:
 | Distributed withheld-regime transfer | `thermotwin-distributed-withheld` | `python3 -m thermotwin.distributed_withheld_validation` |
 | Distributed independent-truth validation | `thermotwin-distributed-independent` | `python3 -m thermotwin.distributed_independent_validation` |
 | Distributed observation-sufficiency gate | `thermotwin-distributed-identifiability` | `python3 -m thermotwin.distributed_observation_identifiability` |
+| Distributed nonlinear profiles and interval coverage | `thermotwin-distributed-profile-coverage` | `python3 -m thermotwin.distributed_profile_coverage` |
 
 These module names are intentionally listed individually: replacing the command
 name with a guessed `thermotwin.<name>` module is not reliable.
@@ -1234,23 +1250,22 @@ is a reading aid, not a replacement for that document.
 | 2 — Reproducible virtual test stand | Complete | Hardware-backed sensor behavior remains outside this milestone |
 | 3 — Forward PINNs | Partial | Independent PINN energy-closure history and a matched observation-only baseline |
 | 4 — Inverse parameter estimation | Partial | Selected imperfect-data inverse-PINN comparisons and neural-seed failure criteria |
-| 5 — Identifiability and uncertainty | Partial | Broader nonlinear multi-start/coverage studies and profile-likelihood intervals |
+| 5 — Identifiability and uncertainty | Partial with nonlinear profiles and a 20-trial local-interval audit | Joint-property coverage and hardware-calibrated uncertainty remain |
 | 6A — Control comparison | Complete for the current generic scope | Extend only with validated new physics or hardware conditions |
 | 6B — Next-experiment selection | Partial | Repeated complete nonlinear refits of selected versus naive experiments |
 | 6C — Material/product co-design | Complete for the public-data-seeded virtual method | Temperature-dependent properties, measured process/cost distributions, and hardware calibration |
 | 7 — Research artifact | Partial and continuous | Final narrative, evidence audit, and reproducible presentation package |
 | 8 — Hardware validation | Optional; not run | Safe hardware, calibrated sensors, uncertainty records, and protocol execution |
-| 9 — Distributed constitutive inference | Partial with a validated reference, local and practical gates, forward/inverse PINNs, noisy repeatability, withheld-regime transfer, independent-numerics validation, and explicit observation ablations | Interval-scale nonlinear coverage, richer matched priors, profile likelihood, and broader model discrepancy |
+| 9 — Distributed constitutive inference | Partial with a validated reference, practical gates, forward/inverse PINNs, transfer checks, independent numerical truth, nonlinear profiles, and repeated local-interval coverage | Broader model discrepancy, selected-experiment validation, switched PINNs, and joint properties |
 
 The recommended scientific sequence is:
 
-1. expand the distributed independent-truth comparison to interval-scale
-   trials, nonlinear coverage, shrinkage-plus-curvature priors, and profile
-   likelihood intervals;
+1. validate the local D-optimal experiment recommendation with complete
+   nonlinear refits against naive candidates over repeated independent truth;
 2. test inverse PINNs on selected imperfect datasets with identical visible
    observations;
-3. extend local identifiability results to representative nonlinear repeated
-   fits;
+3. extend the one-property interval audit to a deliberately underdetermined
+   joint-property case;
 4. validate the next-experiment recommendation with complete nonlinear refits;
 5. add chance-constrained co-design only after measured process-capability data
    exist;
@@ -1282,6 +1297,8 @@ The recommended scientific sequence is:
 | Same-model recovery | Synthetic data are generated and fitted with the same equations |
 | Identifiability | Whether the chosen sensors and excitation distinguish a parameter from alternatives |
 | Information gain | Local Gaussian reduction in parameter uncertainty predicted for an experiment |
+| Profile likelihood | Loss after one coefficient is fixed and the remaining coefficients are re-optimized |
+| Empirical coverage | Fraction of repeated synthetic trials whose reported interval contains the known truth |
 | PINN | Neural state representation trained partly or entirely through governing-equation residuals |
 | Hidden state | A modeled temperature that is not supplied as an observation label |
 | Constitutive function | A material law such as `alpha(T)`, `rho_e(T)`, or `kappa(T)`, represented over temperature rather than by one scalar |

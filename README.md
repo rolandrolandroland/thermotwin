@@ -66,6 +66,7 @@ and application constraints determine whether the material advantage survives.
 | Does distributed resistivity recovery repeat under measurement noise and new neural initializations? | [Noisy multi-seed distributed inverse](thermotwin/DISTRIBUTED_INVERSE_ROBUSTNESS.md) |
 | Does a noisy distributed inverse recover a complete operating regime withheld from fitting? | [Withheld-regime transfer validation](thermotwin/DISTRIBUTED_WITHHELD_VALIDATION.md) |
 | Can the sensors and current regimes actually support a unique distributed resistivity curve? | [Distributed observation-sufficiency gate](thermotwin/DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md) |
+| Do nominal distributed-resistivity intervals contain independent synthetic truth at the advertised rate? | [Nonlinear profiles and repeated coverage](thermotwin/DISTRIBUTED_PROFILE_COVERAGE.md) |
 | What would a real hardware comparison require? | [Hardware-validation protocol](thermotwin/HARDWARE_VALIDATION_PROTOCOL.md) |
 
 ---
@@ -114,6 +115,7 @@ Installed command | Equivalent module command
 `thermotwin-distributed-withheld` | `python3 -m thermotwin.distributed_withheld_validation`
 `thermotwin-distributed-independent` | `python3 -m thermotwin.distributed_independent_validation`
 `thermotwin-distributed-identifiability` | `python3 -m thermotwin.distributed_observation_identifiability`
+`thermotwin-distributed-profile-coverage` | `python3 -m thermotwin.distributed_profile_coverage`
 
 Reports write reproducible images to `thermotwin/figures/` by default. That
 directory is ignored by Git. Most report commands accept `--output PATH` when a
@@ -201,6 +203,18 @@ important warning: the PINN still returns a stable, accurate-looking synthetic
 curve, but ThermoTwin rejects it because optimizer stability cannot replace a
 missing information direction. See the [observation-sufficiency
 walkthrough](thermotwin/DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md).
+
+The interval follow-on fixes one resistivity coefficient at a time and
+re-optimizes the other two to expose representative nonlinear profile shapes.
+It then repeats fresh multistart fits against independent nodal/SSPRK3/cubic
+truth. Across 20 conventional trials, unregularized local intervals cover
+63.3% of individual coefficients at the nominal 68% level and 98.3% at the
+nominal 95% level; matched shrinkage-plus-curvature intervals cover 78.3% and
+100%, respectively. These 60 coefficient checks per estimator have wide
+binomial uncertainty. The explicit prior lowers mean continuous-property RMSE
+from 8.46% to 5.07%. The ten paired PINNs reach about 1.75% point-estimate RMSE,
+but ThermoTwin does not infer neural uncertainty from seed spread. See the
+[nonlinear-profile and coverage walkthrough](thermotwin/DISTRIBUTED_PROFILE_COVERAGE.md).
 
 ### Sensors, inference, and experiment design
 
@@ -314,7 +328,7 @@ and extension pattern are documented in
 
 ## How the evidence is checked
 
-The current suite contains 469 tests. It covers:
+The current suite contains 480 tests. It covers:
 
 - units, signs, algebraic identities, and positive/zero/negative current;
 - limiting cases such as passive conduction and absent identifiability;

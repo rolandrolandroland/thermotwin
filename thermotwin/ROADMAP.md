@@ -315,8 +315,9 @@ can be measured rather than obscured.
 
 ## Milestone 5 — Identifiability and uncertainty
 
-**Status: Partial. Joint accessible-sensor inference and local uncertainty are
-implemented; nonlinear interval coverage and broader identifiability mapping
+**Status: Partial. Joint accessible-sensor inference, local uncertainty,
+representative nonlinear profiles, and a repeated local-interval coverage audit
+are implemented; joint-property coverage and hardware-calibrated uncertainty
 remain.**
 
 ### Goal
@@ -357,6 +358,10 @@ be reserved for representative cases where they add evidence.
   95% intervals, hidden-face reconstruction, and withheld-current transfer.
 - Repeated linearized noise trials for selected versus naive experiment
   designs.
+- Fixed-coefficient nonlinear resistivity profiles with bounded multistart
+  anchoring.
+- Twenty independent-truth conventional interval trials with explicit
+  shrinkage-plus-curvature and unregularized variants.
 
 ### Exit criteria
 
@@ -665,9 +670,10 @@ Measure the synthetic-to-real gap with a safe benchtop Peltier experiment.
 
 ## Milestone 9 — Distributed constitutive inference
 
-**Status: Partial. Conservative reference physics, local identifiability,
-continuous conventional inference, first forward/inverse PINNs, local
-uncertainty, and candidate selection are implemented.**
+**Status: Partial. Conservative reference physics, practical identifiability,
+continuous conventional inference, forward/inverse PINNs, independent-truth
+transfer, nonlinear resistivity profiles, repeated local-interval coverage,
+and candidate selection are implemented.**
 
 ### Goal
 
@@ -715,9 +721,13 @@ instrumentation cannot support.
   singular-value gate, an exact zero-current structural rejection, weak-sensor
   ablations, multistart conventional/PINN diagnostics, and explicit refusal to
   promote unsupported optimizer output to a property estimate.
+- Representative fixed-coefficient nonlinear resistivity profiles, including
+  full bidirectional, explicitly regularized, and weak one-direction cases.
+- A 20-trial independent-truth conventional coverage audit using fresh
+  nonlinear multistart optima and local quadratic intervals, plus ten paired
+  PINN point-estimate trials without a neural uncertainty claim.
 - Local Gaussian coefficient uncertainty and D-optimal pulse/lift selection.
-- A public walkthrough, report command, generated figure, and private exercise
-  sheet.
+- Public walkthroughs, report commands, and reproducible generated figures.
 
 ### Current result
 
@@ -759,16 +769,20 @@ instrumentation cannot support.
   the declared noise scale, and adding one-direction voltage supports 2/3. A
   stable, accurate-looking PINN curve in the 2/3 case is retained as a warning,
   not reported as identified.
+- Across 20 independent-truth noise trials, unregularized local intervals cover
+  63.3% of individual resistivity coefficients at the nominal 68% level and
+  98.3% at 95%. Matched shrinkage-plus-curvature intervals cover 78.3% and
+  100%. Each fraction contains only 60 coefficient checks, penalized intervals
+  are not classical confidence intervals, and the ten paired PINNs are point
+  estimates rather than an uncertainty ensemble.
 
 ### Remaining exit criteria
 
-- Expand the five-trial same-model and three-trial independent-truth results to
-  enough repetitions for interval/failure-rate estimation. Compare
-  shrinkage-plus-curvature priors, conventional multi-start/profile methods,
-  and PINN ablations; matching curvature alone leaves implicit neural bias
-  unmatched.
-- Check nonlinear interval coverage rather than relying only on local Gaussian
-  covariance.
+- Increase repetitions if a precise coverage or failure-rate estimate is
+  required; the current 20/10 budget has wide binomial and seed uncertainty.
+- Build a calibrated PINN uncertainty method before making neural interval or
+  coverage claims; matching visible coefficient penalties alone leaves implicit
+  neural bias unmatched.
 - Validate on additional complete temperature/current regimes and materially
   different continuum/boundary models. One constant, one pulsed, and one
   outside-support regime now use independent numerical/constitutive truth, but
@@ -783,17 +797,17 @@ instrumentation cannot support.
 
 ## Recommended execution order from the current state
 
-1. Extend Milestone 9 with interval-scale paired trials, nonlinear coverage,
-   shrinkage-plus-curvature priors, and profile-likelihood conventional
-   baselines before attempting a joint three-function inverse PINN.
+1. Validate Milestone 6B's local D-optimal recommendation with complete
+   nonlinear refits of selected and naive experiments over repeated independent
+   truth.
 2. Finish Milestone 3 with PINN energy closure and a matched data-only
    sparse/missing-data comparison.
 3. Finish Milestone 4 by training the inverse PINN on selected imperfect
    datasets and comparing it fairly with the conventional estimator.
-4. Extend Milestone 5's local joint inference to nonlinear repeated-fit
-   coverage and an explicitly underdetermined multi-parameter case.
-5. Finish Milestone 6B with complete nonlinear refits of selected and naive
-   experiments over repeated synthetic trials.
+4. Extend Milestone 5's one-property coverage audit to an explicitly
+   underdetermined joint-property case.
+5. Add switched-current distributed PINNs through explicit time-domain
+   decomposition.
 6. Extend Milestone 6C to chance-constrained optimization only after measured
    process-capability or hardware uncertainty data replace the current virtual
    spreads.

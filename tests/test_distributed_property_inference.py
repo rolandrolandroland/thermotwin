@@ -6,6 +6,13 @@ from thermotwin.inference.distributed_properties import (
     DistributedPropertyFitConfig,
     fit_distributed_property,
 )
+from thermotwin.inference.distributed_profile_likelihood import (
+    DistributedProfileLikelihoodConfig,
+    fit_distributed_property_profile_likelihood,
+    local_profile_approximation,
+    profile_interval_contains,
+)
+from thermotwin.inference.distributed_regularization import mean_square_magnitude
 from thermotwin.observations.distributed import (
     DistributedObservationChannels,
     run_distributed_virtual_experiment,
@@ -94,6 +101,117 @@ class DistributedPropertyInferenceTests(unittest.TestCase):
                     property_name="thermal_conductivity"
                 ),
             )
+
+    def test_fixed_coefficient_remains_exact_while_other_coefficients_fit(self):
+        nominal = distributed_reference_experiment(
+            temperature_dependent=True,
+            current=0.6,
+            duration=0.06,
+            cell_count=4,
+            time_step=0.001,
+        )
+        channels = DistributedObservationChannels(
+            cold_face_temperature=False,
+            hot_face_temperature=False,
+            voltage=True,
+        )
+        observations = run_distributed_virtual_experiment(
+            nominal, observation_interval=0.03, channels=channels
+        )
+        fit = fit_distributed_property(
+            (nominal,),
+            (observations,),
+            DistributedPropertyFitConfig(
+                property_name="electrical_resistivity",
+                observation_interval=0.03,
+                channels=channels,
+                initial_log_multipliers=(0.1, 0.1, 0.1),
+                fixed_log_multipliers=(None, 0.05, None),
+                coordinate_passes=1,
+                golden_section_iterations=4,
+                gauss_newton_iterations=2,
+            ),
+        )
+        self.assertEqual(fit.log_multipliers[1], 0.05)
+
+    def test_profile_likelihood_contains_noise_free_truth(self):
+        nominal = distributed_reference_experiment(
+            temperature_dependent=True,
+            current=0.6,
+            duration=0.06,
+            cell_count=4,
+            time_step=0.001,
+        )
+        channels = DistributedObservationChannels(
+            cold_face_temperature=False,
+            hot_face_temperature=False,
+            voltage=True,
+        )
+        observations = run_distributed_virtual_experiment(
+            nominal, observation_interval=0.03, channels=channels
+        )
+        result = fit_distributed_property_profile_likelihood(
+            (nominal,),
+            (observations,),
+            DistributedPropertyFitConfig(
+                property_name="electrical_resistivity",
+                observation_interval=0.03,
+                channels=channels,
+                log_multiplier_bounds=(-0.1, 0.1),
+                coordinate_passes=1,
+                golden_section_iterations=4,
+                gauss_newton_iterations=2,
+            ),
+            DistributedProfileLikelihoodConfig(
+                profile_points=3,
+                multistart_initial_log_multipliers=(
+                    (-0.05, -0.05, -0.05),
+                    (0.05, 0.05, 0.05),
+                ),
+            ),
+        )
+        self.assertEqual(len(result.coefficient_profiles), 3)
+        for profile in result.coefficient_profiles:
+            anchors = tuple(
+                point
+                for point in profile.points
+                if point.fixed_log_multiplier == profile.optimum_log_multiplier
+            )
+            self.assertEqual(len(anchors), 1)
+            self.assertEqual(
+                anchors[0].fitted_log_multipliers,
+                result.best_fit.log_multipliers,
+            )
+            self.assertEqual(anchors[0].delta_score, 0.0)
+            self.assertTrue(
+                profile_interval_contains(
+                    profile.intervals[-1], profile.optimum_log_multiplier
+                )
+            )
+            self.assertTrue(profile_interval_contains(profile.intervals[-1], 0.0))
+        local = local_profile_approximation(
+            (nominal,),
+            result.best_fit,
+            DistributedPropertyFitConfig(
+                property_name="electrical_resistivity",
+                observation_interval=0.03,
+                channels=channels,
+                log_multiplier_bounds=(-0.1, 0.1),
+                coordinate_passes=1,
+                golden_section_iterations=4,
+                gauss_newton_iterations=2,
+                smoothness_weight=0.5,
+                shrinkage_weight=0.5,
+            ),
+        )
+        self.assertEqual(len(local.log_standard_errors), 3)
+        self.assertTrue(
+            all(value > 0.0 for value in local.log_standard_errors)
+        )
+
+    def test_shrinkage_is_mean_squared_log_magnitude(self):
+        self.assertAlmostEqual(mean_square_magnitude((1.0, -1.0, 0.0)), 2.0 / 3.0)
+        self.assertEqual(mean_square_magnitude(()), 0.0)
 
 
 if __name__ == "__main__":

@@ -13,7 +13,10 @@ from ..physics.distributed import (
     PiecewiseLinearProperty,
 )
 from ..simulation.distributed import DistributedLegExperiment
-from ..inference.distributed_regularization import second_difference_roughness
+from ..inference.distributed_regularization import (
+    mean_square_magnitude,
+    second_difference_roughness,
+)
 from .distributed_forward import (
     DistributedForwardPINN,
     DistributedForwardPINNConfig,
@@ -164,6 +167,7 @@ class InverseDistributedPropertyConfig:
     physics_weight: float = 1.0
     observation_weight: float = 1.0
     smoothness_weight: float = 1.0e-3
+    shrinkage_weight: float = 0.0
     seed: int = 7
     device: str = "cpu"
 
@@ -203,6 +207,8 @@ class InverseDistributedPropertyConfig:
                 raise ValueError(f"{name} must be finite and positive")
         if not math.isfinite(self.smoothness_weight) or self.smoothness_weight < 0.0:
             raise ValueError("smoothness weight must be finite and nonnegative")
+        if not math.isfinite(self.shrinkage_weight) or self.shrinkage_weight < 0.0:
+            raise ValueError("shrinkage weight must be finite and nonnegative")
         if any(not math.isfinite(value) for value in self.initial_log_multipliers):
             raise ValueError("initial log multipliers must be finite")
         if self.device not in {"cpu", "mps", "auto"}:
@@ -223,6 +229,7 @@ class InverseDistributedHistory(NamedTuple):
     physics_loss: Tuple[float, ...]
     observation_loss: Tuple[float, ...]
     smoothness_loss: Tuple[float, ...]
+    shrinkage_loss: Tuple[float, ...]
     property_values: Tuple[Tuple[float, ...], ...]
 
 
@@ -442,6 +449,7 @@ def train_inverse_distributed_property_pinn(
     physics_history = []
     observation_history = []
     smoothness_history = []
+    shrinkage_history = []
     value_history = []
     model.train()
     for _ in range(config.epochs):
@@ -469,10 +477,12 @@ def train_inverse_distributed_property_pinn(
         smoothness_loss = second_difference_roughness(
             model.raw_log_multipliers
         )
+        shrinkage_loss = mean_square_magnitude(model.raw_log_multipliers)
         total_loss = (
             config.physics_weight * physics_loss
             + config.observation_weight * observation_loss
             + config.smoothness_weight * smoothness_loss
+            + config.shrinkage_weight * shrinkage_loss
         )
         total_loss.backward()
         optimizer.step()
@@ -480,6 +490,7 @@ def train_inverse_distributed_property_pinn(
         physics_history.append(float(physics_loss.detach().cpu()))
         observation_history.append(float(observation_loss.detach().cpu()))
         smoothness_history.append(float(smoothness_loss.detach().cpu()))
+        shrinkage_history.append(float(shrinkage_loss.detach().cpu()))
         value_history.append(
             tuple(float(value) for value in model.property_values.detach().cpu())
         )
@@ -490,6 +501,7 @@ def train_inverse_distributed_property_pinn(
             physics_loss=tuple(physics_history),
             observation_loss=tuple(observation_history),
             smoothness_loss=tuple(smoothness_history),
+            shrinkage_loss=tuple(shrinkage_history),
             property_values=tuple(value_history),
         ),
         device=str(device),
@@ -583,6 +595,7 @@ def train_multi_experiment_inverse_distributed_property_pinn(
     physics_history = []
     observation_history = []
     smoothness_history = []
+    shrinkage_history = []
     value_history = []
     model.train()
     for _ in range(config.epochs):
@@ -625,10 +638,12 @@ def train_multi_experiment_inverse_distributed_property_pinn(
         smoothness_loss = second_difference_roughness(
             model.raw_log_multipliers
         )
+        shrinkage_loss = mean_square_magnitude(model.raw_log_multipliers)
         total_loss = (
             config.physics_weight * physics_loss
             + config.observation_weight * observation_loss
             + config.smoothness_weight * smoothness_loss
+            + config.shrinkage_weight * shrinkage_loss
         )
         total_loss.backward()
         optimizer.step()
@@ -636,6 +651,7 @@ def train_multi_experiment_inverse_distributed_property_pinn(
         physics_history.append(float(physics_loss.detach().cpu()))
         observation_history.append(float(observation_loss.detach().cpu()))
         smoothness_history.append(float(smoothness_loss.detach().cpu()))
+        shrinkage_history.append(float(shrinkage_loss.detach().cpu()))
         value_history.append(
             tuple(float(value) for value in model.property_values.detach().cpu())
         )
@@ -646,6 +662,7 @@ def train_multi_experiment_inverse_distributed_property_pinn(
             physics_loss=tuple(physics_history),
             observation_loss=tuple(observation_history),
             smoothness_loss=tuple(smoothness_history),
+            shrinkage_loss=tuple(shrinkage_history),
             property_values=tuple(value_history),
         ),
         device=str(device),

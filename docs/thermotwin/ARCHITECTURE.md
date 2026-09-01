@@ -88,6 +88,7 @@ The function-valued PDE extension follows the same dependency direction:
 | `inference/distributed_identifiability.py` | Noise-normalized sensitivities and singular spectrum |
 | `inference/distributed_properties.py` | Conventional continuous property-curve fitting |
 | `inference/distributed_regularization.py` | Explicit coefficient roughness shared by conventional and neural estimators |
+| `inference/distributed_profile_likelihood.py` | Fixed-coefficient nonlinear profiles and local repeated-interval approximations |
 | `inference/distributed_experiment_selection.py` | Local uncertainty and D-optimal candidates |
 | `pinn/distributed_forward.py` | Forward PDE PINN with dynamic face boundaries |
 | `pinn/distributed_inverse.py` | Shared-property single- and multi-experiment inverse PINNs |
@@ -95,11 +96,13 @@ The function-valued PDE extension follows the same dependency direction:
 | `studies/distributed_withheld_validation.py` | Whole-regime exclusion, frozen-curve transfer scoring, and predeclared prediction gate |
 | `studies/distributed_independent_validation.py` | Independent truth, paired priors, model-mismatch holdouts, and complete-trial retention |
 | `studies/distributed_observation_identifiability.py` | Sensor/current ablations, pre-fit rank decisions, multistart diagnostics, and fit rejection |
+| `studies/distributed_profile_coverage.py` | Independent-truth nonlinear fits, repeated local intervals, and empirical coverage |
 | `reports/distributed_properties.py` | Reproducible text and figure report |
 | `reports/distributed_inverse_robustness.py` | Multi-seed robustness report and comparison figure |
 | `reports/distributed_withheld_validation.py` | Trial-level transfer report, prediction metrics, and comparison figure |
 | `reports/distributed_independent_validation.py` | Independent-truth and matched-regularization report and figure |
 | `reports/distributed_observation_identifiability.py` | Observation-sufficiency decisions, diagnostic fits, and comparison figure |
+| `reports/distributed_profile_coverage.py` | Nonlinear profile, repeated coverage, and PINN point-estimate report |
 
 ## Documentation and generated artifacts
 
