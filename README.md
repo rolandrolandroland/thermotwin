@@ -64,6 +64,7 @@ and application constraints determine whether the material advantage survives.
 | Does a published Ag₂Se n leg improve the same designs when everything else is held fixed? | [Matched Ag₂Se substitution](thermotwin/AG2SE_SUBSTITUTION_EXPERIMENT.md) |
 | Can terminal measurements recover temperature-dependent properties and a hidden internal field? | [Distributed constitutive inference](thermotwin/DISTRIBUTED_CONSTITUTIVE_INFERENCE.md) |
 | Does distributed resistivity recovery repeat under measurement noise and new neural initializations? | [Noisy multi-seed distributed inverse](thermotwin/DISTRIBUTED_INVERSE_ROBUSTNESS.md) |
+| Does a small inverse-PINN knot error also mean the PDE and curve shape converged? | [Distributed inverse-PINN training audit](thermotwin/DISTRIBUTED_PINN_TRAINING_AUDIT.md) |
 | Does a noisy distributed inverse recover a complete operating regime withheld from fitting? | [Withheld-regime transfer validation](thermotwin/DISTRIBUTED_WITHHELD_VALIDATION.md) |
 | Can the sensors and current regimes actually support a unique distributed resistivity curve? | [Distributed observation-sufficiency gate](thermotwin/DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md) |
 | Do nominal distributed-resistivity intervals contain independent synthetic truth at the advertised rate? | [Nonlinear profiles and repeated coverage](thermotwin/DISTRIBUTED_PROFILE_COVERAGE.md) |
@@ -116,6 +117,7 @@ Installed command | Equivalent module command
 `thermotwin-distributed-independent` | `python3 -m thermotwin.distributed_independent_validation`
 `thermotwin-distributed-identifiability` | `python3 -m thermotwin.distributed_observation_identifiability`
 `thermotwin-distributed-profile-coverage` | `python3 -m thermotwin.distributed_profile_coverage`
+`thermotwin-distributed-pinn-audit` | `python3 -m thermotwin.distributed_pinn_training_audit`
 
 Reports write reproducible images to `thermotwin/figures/` by default. That
 directory is ignored by Git. Most report commands accept `--output PATH` when a
@@ -158,27 +160,37 @@ conditioned than the other families. This is a local synthetic result, not a
 hardware identifiability claim. Independent noise-free inverse-PINN checks now
 release each curve separately. The maximum knot-multiplier errors are about
 0.0165 for `alpha(T)` and 0.0180 for `rho_e(T)`. Conductivity is the cautionary
-case: face temperatures and voltage alone do not recover `kappa(T)` reliably;
-adding idealized cold- and hot-side heat-rate observations reduces its maximum
-error to about 0.0515. The conventional same-model estimator recovers all
-declared truths essentially exactly, so these are optimizer/observation-model
-results rather than evidence of hardware accuracy. In the follow-on noisy
-five-seed resistivity study, the inverse PINN passes the predeclared recovery
-gate in 5/5 trials with 0.0254 worst-case knot-multiplier error. The
-unregularized conventional fit passes 2/5 and has 0.2113 worst-case error. This
-is evidence of repeatability only under a same-model synthetic setup; the PINN
-also has explicit and implicit regularization that the conventional baseline
-does not share.
+case: with face temperatures and voltage alone, the frozen inverse PINN does
+not recover `kappa(T)` reliably; adding idealized cold- and hot-side heat-rate
+observations reduces its maximum error to about 0.0515. The conventional
+same-model estimator recovers all declared truths essentially exactly, so
+these are optimizer results rather than evidence that the terminal observation
+model lacks conductivity information.
+
+In the follow-on noisy five-seed resistivity study, the inverse PINN passes the
+broad knot-and-observation recovery gate in 5/5 trials with 0.0254 worst-case
+knot error; the unregularized conventional fit passes 2/5 with 0.2113
+worst-case error. A later training audit narrows that interpretation. At the
+frozen 600 epochs, the inverse PINN's mean curve amplitude is only 38% of truth
+and its physical residual RMS is 76.25% of the nominal temperature-rate RMS.
+At the unchanged 2,400-epoch budget, increasing the physics-loss weight from 1
+to 10 reduces mean residual ratio from 49.35% to 21.17% and mean observation
+loss from 1.1131 to 0.8201. All 3/3 seeds then pass the truth-blind operational
+gate, while only 2/3 recover the declared curve shape. The correction
+demonstrates improved physics/observation convergence without overstating
+unique function recovery. See the [training and curve-shape
+audit](thermotwin/DISTRIBUTED_PINN_TRAINING_AUDIT.md).
 
 The next transfer check withholds one complete 20 K, +0.4 A regime from every
 fit, freezes the inferred curve, and scores the resulting noise-free prediction
 including hidden internal temperatures and terminal voltage. Across five fixed
 noise/neural seed trials, the inverse PINN passes all six prediction criteria in
 5/5 trials; the conventional unregularized fit passes 2/5 because its voltage
-error exceeds the fixed limit in three trials. Mean inverse-PINN hidden-field
-RMSE is 0.000070 K and worst pointwise temperature error is 0.000155 K. This
-is within-model regime transfer for a synthetic experiment, not evidence
-of extrapolation to a new material law or hardware. See the [withheld-regime
+error exceeds the fixed limit in three trials. Only the voltage criterion
+binds; the temperature and hidden-field limits are much looser, and energy
+closure is guaranteed by the conservative prediction solver. This validates
+predictive equivalence in one within-model regime, not recovery of the true
+property curve or extrapolation to a new material law or hardware. See the [withheld-regime
 walkthrough](thermotwin/DISTRIBUTED_WITHHELD_VALIDATION.md).
 
 The next benchmark removes the exact numerical/property-basis inverse crime:

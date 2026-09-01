@@ -611,8 +611,8 @@ one narrow-temperature experiment does not identify the endpoints of a
 function basis. Separate frozen fits now release `alpha(T)`, `rho_e(T)`, or
 `kappa(T)` while holding the other curves fixed. Temperature and voltage are
 enough for the first two ideal demonstrations, but the terminal-only
-conductivity fit is wrong despite its falling loss. Adding idealized face
-heat-rate observations cuts the maximum conductivity multiplier error from
+inverse-PINN conductivity fit is wrong despite its falling loss. Adding
+idealized face heat-rate observations cuts the maximum conductivity multiplier error from
 0.2799 to 0.0515. Smoothness regularization contributes to endpoint estimates,
 and the conventional solver is more accurate on every ideal case. The result
 demonstrates both a function-valued, field-constrained inverse representation
@@ -921,8 +921,9 @@ condition number is 392. The forward PDE PINN reaches 0.006420 K hidden-field
 RMSE. The inverse study then releases only one curve at a time while keeping the
 other two at their baselines. With face temperatures and voltage, the
 noise-free inverse PINN's maximum knot-multiplier errors are about 0.0165 for
-`alpha(T)` and 0.0180 for `rho_e(T)`. The same terminal-only fit is not reliable
-for `kappa(T)`. Adding idealized cold- and hot-side heat-rate observations
+`alpha(T)` and 0.0180 for `rho_e(T)`. The same terminal-only inverse-PINN fit is
+not reliable for `kappa(T)`, even though the conventional estimator extracts
+that curve from the same channels. Adding idealized cold- and hot-side heat-rate observations
 reduces the conductivity error to about 0.0515, which is improved but still
 weaker than the other families. The conventional same-model estimator returns
 all four declared cases to numerical precision.
@@ -936,16 +937,26 @@ distinction. See
 [`DISTRIBUTED_CONSTITUTIVE_INFERENCE.md`](DISTRIBUTED_CONSTITUTIVE_INFERENCE.md).
 
 The follow-on noisy resistivity study varies both observation noise and neural
-initialization across five collision-free seed blocks. Its predeclared gate
-requires at most 0.10 maximum knot-multiplier error, at least 90% loss
-reduction, and final normalized loss no greater than 5.0. The inverse PINN
-passes 5/5 trials with 0.015370 coefficient RMSE and 0.025435 worst-trial error;
-the unregularized conventional fit passes 2/5 with 0.102054 RMSE and 0.211269
-worst-trial error. All trials are retained. Because the PINN has a smoothness
-term and implicit neural regularization while the conventional fit does not,
-this is a repeatability result for the implemented estimators—not a general
-PINN-superiority result. See
-[`DISTRIBUTED_INVERSE_ROBUSTNESS.md`](DISTRIBUTED_INVERSE_ROBUSTNESS.md).
+initialization across five collision-free seed blocks. Its broad predeclared
+gate requires at most 0.10 maximum knot-multiplier error, at least 90%
+observation-loss reduction, and final normalized observation loss no greater
+than 5.0. The inverse PINN passes 5/5 trials with 0.015370 coefficient RMSE and
+0.025435 worst-trial error; the unregularized conventional fit passes 2/5 with
+0.102054 RMSE and 0.211269 worst-trial error. All trials are retained. Because
+the truth curve spans only 0.04, however, that gate mostly checks average level.
+See [`DISTRIBUTED_INVERSE_ROBUSTNESS.md`](DISTRIBUTED_INVERSE_ROBUSTNESS.md).
+
+A separate three-seed training audit reports observation fit, physical residual,
+average level, amplitude, and center contrast at 600, 1,200, and 2,400 epochs.
+At 600 epochs the mean recovered amplitude is only 38.0% of truth and the
+physics-residual RMS is 76.25% of the nominal temperature-rate RMS. At the
+unchanged 2,400-epoch budget, increasing physics-loss weight from 1 to 10 cuts
+mean residual ratio from 49.35% to 21.17% and mean observation loss from
+1.113088 to 0.820109. The loss-balanced protocol passes the truth-blind gate in
+3/3 trials and recovers the declared shape in 2/3. This establishes improved
+physics/observation convergence, but the remaining flat curve prevents a claim
+of fully repeatable function recovery. See
+[`DISTRIBUTED_PINN_TRAINING_AUDIT.md`](DISTRIBUTED_PINN_TRAINING_AUDIT.md).
 
 The complete-regime transfer study withholds the entire
 `positive_0.4A_20K_lift` experiment from every fit. The inferred resistivity
@@ -1211,6 +1222,7 @@ The installed console names and their exact historical module equivalents are:
 | Matched Ag₂Se substitution | `thermotwin-ag2se-substitution` | `python3 -m thermotwin.ag2se_substitution` |
 | Distributed constitutive inference | `thermotwin-distributed-properties` | `python3 -m thermotwin.distributed_property_report` |
 | Distributed inverse robustness | `thermotwin-distributed-robustness` | `python3 -m thermotwin.distributed_inverse_robustness` |
+| Distributed inverse-PINN training audit | `thermotwin-distributed-pinn-audit` | `python3 -m thermotwin.distributed_pinn_training_audit` |
 | Distributed withheld-regime transfer | `thermotwin-distributed-withheld` | `python3 -m thermotwin.distributed_withheld_validation` |
 | Distributed independent-truth validation | `thermotwin-distributed-independent` | `python3 -m thermotwin.distributed_independent_validation` |
 | Distributed observation-sufficiency gate | `thermotwin-distributed-identifiability` | `python3 -m thermotwin.distributed_observation_identifiability` |
@@ -1256,7 +1268,7 @@ is a reading aid, not a replacement for that document.
 | 6C — Material/product co-design | Complete for the public-data-seeded virtual method | Temperature-dependent properties, measured process/cost distributions, and hardware calibration |
 | 7 — Research artifact | Partial and continuous | Final narrative, evidence audit, and reproducible presentation package |
 | 8 — Hardware validation | Optional; not run | Safe hardware, calibrated sensors, uncertainty records, and protocol execution |
-| 9 — Distributed constitutive inference | Partial with a validated reference, practical gates, forward/inverse PINNs, transfer checks, independent numerical truth, nonlinear profiles, and repeated local-interval coverage | Broader model discrepancy, selected-experiment validation, switched PINNs, and joint properties |
+| 9 — Distributed constitutive inference | Partial with a validated reference, practical gates, forward/inverse PINNs, transfer checks, independent numerical truth, nonlinear profiles, repeated local-interval coverage, and a loss-balanced training audit | Repeated curve-shape recovery, broader model discrepancy, selected-experiment validation, switched PINNs, and joint properties |
 
 The recommended scientific sequence is:
 
@@ -1266,10 +1278,9 @@ The recommended scientific sequence is:
    observations;
 3. extend the one-property interval audit to a deliberately underdetermined
    joint-property case;
-4. validate the next-experiment recommendation with complete nonlinear refits;
-5. add chance-constrained co-design only after measured process-capability data
+4. add chance-constrained co-design only after measured process-capability data
    exist;
-6. attempt hardware validation only when safe hardware and adequate calibration
+5. attempt hardware validation only when safe hardware and adequate calibration
    are available.
 
 ---

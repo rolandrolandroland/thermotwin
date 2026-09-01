@@ -45,6 +45,11 @@ def _trial(
         inverse_pinn_initial_normalized_loss=100.0,
         inverse_pinn_final_normalized_loss=1.0,
         inverse_pinn_loss_reduction_fraction=0.99,
+        inverse_pinn_initial_observation_loss=100.0,
+        inverse_pinn_final_observation_loss=1.0,
+        inverse_pinn_observation_loss_reduction_fraction=0.99,
+        inverse_pinn_initial_physics_loss=10.0,
+        inverse_pinn_final_physics_loss=0.5,
         inverse_pinn_maximum_absolute_multiplier_error=(
             max(
                 abs(value - truth)

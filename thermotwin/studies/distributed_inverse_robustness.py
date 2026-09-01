@@ -112,6 +112,11 @@ class DistributedInverseRobustnessTrial(NamedTuple):
     inverse_pinn_initial_normalized_loss: Optional[float]
     inverse_pinn_final_normalized_loss: Optional[float]
     inverse_pinn_loss_reduction_fraction: Optional[float]
+    inverse_pinn_initial_observation_loss: Optional[float]
+    inverse_pinn_final_observation_loss: Optional[float]
+    inverse_pinn_observation_loss_reduction_fraction: Optional[float]
+    inverse_pinn_initial_physics_loss: Optional[float]
+    inverse_pinn_final_physics_loss: Optional[float]
     inverse_pinn_maximum_absolute_multiplier_error: float
     inverse_pinn_success: bool
     inverse_pinn_failure_reasons: Tuple[str, ...]
@@ -378,11 +383,18 @@ def run_distributed_inverse_robustness_trial(
         pinn_initial = training.history.total_loss[0]
         pinn_final = training.history.total_loss[-1]
         pinn_reduction = _loss_reduction_fraction(pinn_initial, pinn_final)
+        pinn_initial_observation = training.history.observation_loss[0]
+        pinn_final_observation = training.history.observation_loss[-1]
+        pinn_observation_reduction = _loss_reduction_fraction(
+            pinn_initial_observation, pinn_final_observation
+        )
+        pinn_initial_physics = training.history.physics_loss[0]
+        pinn_final_physics = training.history.physics_loss[-1]
         pinn_error = _maximum_multiplier_error(pinn_multipliers)
         pinn_reasons = recovery_failure_reasons(
             maximum_multiplier_error=pinn_error,
-            initial_normalized_loss=pinn_initial,
-            final_normalized_loss=pinn_final,
+            initial_normalized_loss=pinn_initial_observation,
+            final_normalized_loss=pinn_final_observation,
             criteria=config.criteria,
         )
     except (FloatingPointError, RuntimeError) as error:
@@ -390,6 +402,11 @@ def run_distributed_inverse_robustness_trial(
         pinn_initial = None
         pinn_final = None
         pinn_reduction = None
+        pinn_initial_observation = None
+        pinn_final_observation = None
+        pinn_observation_reduction = None
+        pinn_initial_physics = None
+        pinn_final_physics = None
         pinn_error = math.inf
         pinn_reasons = (f"training_exception:{type(error).__name__}",)
 
@@ -408,6 +425,13 @@ def run_distributed_inverse_robustness_trial(
         inverse_pinn_initial_normalized_loss=pinn_initial,
         inverse_pinn_final_normalized_loss=pinn_final,
         inverse_pinn_loss_reduction_fraction=pinn_reduction,
+        inverse_pinn_initial_observation_loss=pinn_initial_observation,
+        inverse_pinn_final_observation_loss=pinn_final_observation,
+        inverse_pinn_observation_loss_reduction_fraction=(
+            pinn_observation_reduction
+        ),
+        inverse_pinn_initial_physics_loss=pinn_initial_physics,
+        inverse_pinn_final_physics_loss=pinn_final_physics,
         inverse_pinn_maximum_absolute_multiplier_error=pinn_error,
         inverse_pinn_success=not pinn_reasons,
         inverse_pinn_failure_reasons=pinn_reasons,

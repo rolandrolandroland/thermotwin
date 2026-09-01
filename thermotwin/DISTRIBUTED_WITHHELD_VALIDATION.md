@@ -135,6 +135,14 @@ three-knot truth. The important result for this experiment is that those
 curves transferred successfully to the excluded regime under the declared
 gate.
 
+That statement is deliberately narrower than property recovery. Only terminal
+voltage binds in this frozen campaign. The worst cold- and hot-face RMSE values
+remain about 385--390 times below their limits, the worst hidden-field RMSE is
+about 57 times below its limit, and the energy residual is near roundoff by
+construction. Consequently, the gate distinguishes effective curves that
+predict this voltage regime; it does not strongly discriminate their thermal
+fields or certify the recovered temperature dependence.
+
 ## Reproduce it
 
 From the repository root, after installing the optional PINN dependencies:
@@ -168,7 +176,7 @@ This result supports three limited conclusions:
    noisy sparse face/voltage data in this synthetic setup.
 2. The transferred curves predict a complete unseen current/lift regime more
    reliably than the unregularized conventional fits under the fixed voltage
-   gate.
+   gate; this is predictive equivalence, not proof of property uniqueness.
 3. Hidden internal temperatures can be checked after the prediction even
    though they were never supplied as training labels.
 
@@ -185,3 +193,9 @@ The numerical/property-basis part of that next step is now implemented in
 It uses nodal/SSPRK3 cubic truth and applies the same explicit curvature term
 to paired conventional and PINN variants. It remains synthetic, uses only
 three trials, and does not match implicit neural regularization.
+
+The later
+[`DISTRIBUTED_PINN_TRAINING_AUDIT.md`](DISTRIBUTED_PINN_TRAINING_AUDIT.md)
+also shows that the 600-epoch curves have not met a truth-blind PDE-residual
+gate and often under-recover curve amplitude. That audit supersedes any reading
+of this holdout as an independent property-recovery certificate.

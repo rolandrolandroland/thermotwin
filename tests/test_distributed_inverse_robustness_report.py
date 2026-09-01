@@ -31,6 +31,11 @@ def _result():
         inverse_pinn_initial_normalized_loss=100.0,
         inverse_pinn_final_normalized_loss=1.5,
         inverse_pinn_loss_reduction_fraction=0.985,
+        inverse_pinn_initial_observation_loss=80.0,
+        inverse_pinn_final_observation_loss=0.8,
+        inverse_pinn_observation_loss_reduction_fraction=0.99,
+        inverse_pinn_initial_physics_loss=20.0,
+        inverse_pinn_final_physics_loss=0.7,
         inverse_pinn_maximum_absolute_multiplier_error=0.01,
         inverse_pinn_success=True,
         inverse_pinn_failure_reasons=(),
@@ -50,6 +55,10 @@ class DistributedInverseRobustnessReportTests(unittest.TestCase):
         self.assertIn("noise seeds=(101, 102, 103, 104)", text)
         self.assertIn("conventional: PASS", text)
         self.assertIn("inverse PINN: PASS", text)
+        self.assertIn("reasons=('none',)", text)
+        self.assertIn("observation loss=0.800000", text)
+        self.assertIn("physics loss=0.700000", text)
+        self.assertIn("total objective=1.500000", text)
         self.assertIn("no failed trial is dropped", text)
         self.assertIn("not independent-model or hardware", text)
 

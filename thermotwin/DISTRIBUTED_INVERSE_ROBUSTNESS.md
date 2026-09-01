@@ -66,15 +66,20 @@ completed fit passes only if all three conditions hold:
 | --- | ---: |
 | Maximum absolute knot-multiplier error | at most 0.10 |
 | Loss reduction from the initial state | at least 90% |
-| Final normalized loss | at most 5.0 |
+| Final normalized observation loss | at most 5.0 |
 
-The coefficient criterion prevents a low loss from being mistaken for correct
-property recovery. The loss criteria reject a numerically stalled fit. Every
+The coefficient criterion prevents a low observation loss from being mistaken
+for even approximate knot recovery. The comparable gate now uses observation
+loss for both estimators. PINN physics loss and the full PINN objective are
+reported separately; comparing that total objective with an observation-only
+conventional loss would be dimensionally and statistically misleading. Every
 trial is retained whether it passes or fails.
 
 The 0.10 coefficient limit is deliberately broad: it means a knot multiplier
-must be within ten percentage points of its truth. Passing it is a minimum
-recovery check, not a precision-material-characterization standard.
+must be within ten percentage points of its truth. The truth curve itself spans
+only 0.04. A nearly flat curve near the correct mean can therefore pass. This
+gate is a minimum level check, not evidence that temperature dependence or PDE
+convergence has been recovered.
 
 ## Compared estimators
 
@@ -125,17 +130,24 @@ The middle, 300 K coefficient is stable for both methods. The noisy
 conventional endpoint coefficients vary much more strongly, consistent with
 the earlier local analysis showing a weak resistivity coefficient combination.
 
-The PINN estimates are tightly clustered and pass the declared recovery gate in
-all five trials. They are also pulled toward a smoother curve: the mean 315 K
-multiplier is 1.0527 rather than the 1.03 truth. The stability can therefore
-come from useful physics regularization, explicit smoothness, implicit neural
-bias, or a combination. This experiment does not separate those mechanisms.
+The PINN estimates are tightly clustered and pass the broad declared gate in
+all five trials. They are also pulled toward a nearly constant curve: the mean
+315 K multiplier is 1.0527 rather than the 1.03 truth. A subsequent audit
+quantifies the issue. At 600 epochs, three new seeds recover only 38% of the
+truth amplitude on average and retain a physics residual equal to 76.25% of the
+nominal temperature-rate RMS. A later loss-balanced 2,400-epoch protocol passes
+the observation-and-physics gate in 3/3 trials but shape recovery in only 2/3.
+Thus stability can come from early stopping,
+explicit smoothness, implicit neural bias, physics regularization, or a
+combination. This experiment alone does not separate those mechanisms.
 
 The correct conclusion is:
 
 > Under this same-model synthetic setup, declared noise, five seed blocks, and
-> broad predeclared gate, the implemented inverse PINN is repeatable while the
-> unregularized conventional endpoint estimates are noise-sensitive.
+> broad predeclared gate, the implemented inverse PINN repeatedly estimates the
+> average resistivity level while the unregularized conventional endpoint
+> estimates are noise-sensitive. It does not establish converged PINN physics
+> or repeated recovery of the curve shape.
 
 It is not correct to conclude that PINNs generally beat conventional inverse
 methods.
@@ -150,6 +162,9 @@ methods.
 - Boundary conditions and all non-resistivity properties are known exactly.
 - The conventional and PINN estimators do not use matched priors or
   regularization.
+- The frozen 600-epoch budget acts as an uncontrolled early-stopping
+  regularizer. See the dedicated
+  [`DISTRIBUTED_PINN_TRAINING_AUDIT.md`](DISTRIBUTED_PINN_TRAINING_AUDIT.md).
 - The follow-on complete-regime transfer study withholds one regime. A later
   independent-truth study changes the numerical grid, integrator, voltage
   quadrature, and property representation; broader transfer remains open.
@@ -197,6 +212,8 @@ The deliberate observation-removal step is implemented in
 [`DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md`](DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md).
 Richer shrinkage-plus-curvature priors, multistart profiles, and a 20-trial
 local-interval coverage audit are implemented in
-[`DISTRIBUTED_PROFILE_COVERAGE.md`](DISTRIBUTED_PROFILE_COVERAGE.md). The next
-step is to test whether the locally selected experiment improves complete
-nonlinear refits over naive alternatives.
+[`DISTRIBUTED_PROFILE_COVERAGE.md`](DISTRIBUTED_PROFILE_COVERAGE.md). The
+training-budget and curve-shape correction is implemented in
+[`DISTRIBUTED_PINN_TRAINING_AUDIT.md`](DISTRIBUTED_PINN_TRAINING_AUDIT.md).
+The next PINN step is to improve the truth-blind training/stopping protocol and
+rerun that audit unchanged before promoting selected-experiment comparisons.

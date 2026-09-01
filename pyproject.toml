@@ -35,6 +35,7 @@ thermotwin-distributed-withheld = "thermotwin.reports.distributed_withheld_valid
 thermotwin-distributed-independent = "thermotwin.reports.distributed_independent_validation:main"
 thermotwin-distributed-identifiability = "thermotwin.reports.distributed_observation_identifiability:main"
 thermotwin-distributed-profile-coverage = "thermotwin.reports.distributed_profile_coverage:main"
+thermotwin-distributed-pinn-audit = "thermotwin.reports.distributed_pinn_training_audit:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

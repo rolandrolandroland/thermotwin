@@ -50,8 +50,10 @@ def format_distributed_inverse_robustness_report(
         f"{criteria.maximum_absolute_multiplier_error:.6f}",
         f"  loss reduction fraction >= "
         f"{criteria.minimum_loss_reduction_fraction:.3f}",
-        f"  final normalized loss <= "
+        f"  final normalized observation loss <= "
         f"{criteria.maximum_final_normalized_loss:.3f}",
+        "  the comparable gate uses observation loss for both estimators;",
+        "  PINN physics loss and total objective are reported separately.",
         "  all criteria must pass; no failed trial is dropped.",
         "",
         "Trials:",
@@ -68,13 +70,19 @@ def format_distributed_inverse_robustness_report(
                 f"max error={trial.conventional_maximum_absolute_multiplier_error:.6f}; "
                 f"loss={trial.conventional_final_normalized_loss:.6f}; "
                 f"reduction={trial.conventional_loss_reduction_fraction:.6f}; "
-                f"search bound hit={trial.conventional_reached_search_bound}",
+                f"search bound hit={trial.conventional_reached_search_bound}; "
+                f"reasons={trial.conventional_failure_reasons or ('none',)}",
                 f"    inverse PINN: {pinn_status}; multipliers="
                 f"{_multipliers_text(trial.inverse_pinn_multipliers)}; "
                 f"max error={trial.inverse_pinn_maximum_absolute_multiplier_error:.6f}; "
-                f"loss={_optional_float_text(trial.inverse_pinn_final_normalized_loss)}; "
-                f"reduction="
-                f"{_optional_float_text(trial.inverse_pinn_loss_reduction_fraction)}; "
+                f"observation loss="
+                f"{_optional_float_text(trial.inverse_pinn_final_observation_loss)}; "
+                f"observation reduction="
+                f"{_optional_float_text(trial.inverse_pinn_observation_loss_reduction_fraction)}; "
+                f"physics loss="
+                f"{_optional_float_text(trial.inverse_pinn_final_physics_loss)}; "
+                f"total objective="
+                f"{_optional_float_text(trial.inverse_pinn_final_normalized_loss)}; "
                 f"reasons={trial.inverse_pinn_failure_reasons or ('none',)}",
             )
         )

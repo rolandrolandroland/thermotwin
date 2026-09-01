@@ -707,6 +707,9 @@ instrumentation cannot support.
 - A five-trial resistivity study with independent observation/neural seeds,
   fixed coefficient-and-loss failure criteria, complete trial retention, and
   an explicit unmatched-regularization caveat.
+- A three-seed, three-budget inverse-PINN audit that reports observation loss,
+  physical residual in K/s, average property level, curve amplitude, center
+  contrast, and a truth-blind stopping gate separately.
 - A complete-regime transfer study that withholds one entire constant-current
   experiment, freezes each recovered curve, and scores face temperatures,
   hidden internal temperatures, terminal voltage, pointwise error, and energy
@@ -738,17 +741,26 @@ instrumentation cannot support.
   error after 800 CPU epochs.
 - In noise-free same-model one-function cases, maximum inverse-PINN
   knot-multiplier error is 0.0165 for `alpha(T)` and 0.0180 for `rho_e(T)`.
-  Terminal-only `kappa(T)` recovery fails with 0.2799 maximum error despite a
-  falling loss; adding idealized face heat-rate observations reduces that error
-  to 0.0515. The conventional estimator recovers each truth essentially
+  The terminal-only inverse-PINN `kappa(T)` fit fails with 0.2799 maximum error
+  despite a falling loss; adding idealized face heat-rate observations reduces
+  that error to 0.0515. The conventional estimator recovers each truth essentially
   exactly.
 - The selected finite candidate is a 20 K, -0.8 A, 0.5 s pulse with 6.0338 nats
   of local information gain.
 - Under 0.01 K and 10 µV independent Gaussian noise, the inverse PINN passes
   the predeclared recovery gate in 5/5 seed trials with 0.0254 worst-trial
   knot-multiplier error. The unregularized conventional fit passes 2/5 with
-  0.2113 worst-trial error. This is a same-model five-trial repeatability result,
-  not a failure-rate estimate or matched-prior superiority comparison.
+  0.2113 worst-trial error. The gate uses comparable observation loss after an
+  audit found that the old report compared PINN total objective with
+  conventional observation loss. This is a broad average-level check, not a
+  failure-rate estimate or matched-prior superiority comparison.
+- At the frozen 600 PINN epochs, mean curve amplitude is 38.0% of truth and the
+  physics-residual RMS is 76.25% of the nominal temperature-rate RMS. At the
+  unchanged 2,400-epoch budget, increasing physics-loss weight from 1 to 10
+  lowers mean residual ratio from 49.35% to 21.17% and observation loss from
+  1.113088 to 0.820109. The balanced protocol passes the truth-blind gate in
+  3/3 trials and recovers curve shape in 2/3, so operational convergence has
+  improved without establishing fully repeatable function recovery.
 - With the complete `positive_0.4A_20K_lift` regime withheld, the inverse PINN
   passes all six predeclared transfer criteria in 5/5 trials. The conventional
   fit passes 2/5 because three transferred voltage errors exceed the fixed
@@ -778,6 +790,9 @@ instrumentation cannot support.
 
 ### Remaining exit criteria
 
+- Confirm the loss-balanced protocol under fresh independent truth/noise and
+  determine whether selected experiments improve the remaining curve-shape
+  failure without tuning on the audited property truths.
 - Increase repetitions if a precise coverage or failure-rate estimate is
   required; the current 20/10 budget has wide binomial and seed uncertainty.
 - Build a calibrated PINN uncertainty method before making neural interval or
@@ -799,7 +814,7 @@ instrumentation cannot support.
 
 1. Validate Milestone 6B's local D-optimal recommendation with complete
    nonlinear refits of selected and naive experiments over repeated independent
-   truth.
+   truth using the frozen loss-balanced inverse-PINN protocol.
 2. Finish Milestone 3 with PINN energy closure and a matched data-only
    sparse/missing-data comparison.
 3. Finish Milestone 4 by training the inverse PINN on selected imperfect
