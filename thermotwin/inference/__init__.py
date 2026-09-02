@@ -37,6 +37,16 @@ from .distributed_experiment_selection import (
     linearized_distributed_uncertainty,
     select_distributed_experiment,
 )
+from .joint_thermal_parameters import (
+    JOINT_PARAMETER_NAMES,
+    JointThermalFitConfig,
+    JointThermalFitResult,
+    JointThermalIdentifiability,
+    JointThermalTruth,
+    analyze_joint_thermal_identifiability,
+    fit_joint_thermal_parameters,
+    generate_joint_thermal_observations,
+)
 
 __all__ = [
     "fit_cold_contact_resistance",
@@ -68,4 +78,12 @@ __all__ = [
     "distributed_candidate_experiment",
     "linearized_distributed_uncertainty",
     "select_distributed_experiment",
+    "JOINT_PARAMETER_NAMES",
+    "JointThermalFitConfig",
+    "JointThermalFitResult",
+    "JointThermalIdentifiability",
+    "JointThermalTruth",
+    "analyze_joint_thermal_identifiability",
+    "fit_joint_thermal_parameters",
+    "generate_joint_thermal_observations",
 ]

@@ -135,6 +135,14 @@ FIGURE_EXPLANATIONS = {
         "physics residuals, and training behavior for a case where a conventional "
         "solver remains the accuracy baseline.",
     ),
+    "forward_reconstruction_comparison.png": (
+        "FORWARD_RECONSTRUCTION_COMPARISON.md",
+        "This figure compares identically initialized physics-informed and "
+        "observation-only networks using the same sparse noisy exchanger "
+        "temperatures and the same turn-off data gap. It shows visible-gap and "
+        "hidden-face reconstruction alongside an independent post-training "
+        "whole-system energy audit.",
+    ),
     "inverse_contact_resistance_comparison.png": (
         "CONTACT_RESISTANCE_EXPERIMENT.md",
         "This figure compares inverse estimates of hidden contact resistance from "
@@ -142,12 +150,28 @@ FIGURE_EXPLANATIONS = {
         "the inverse PINN alongside the conventional reference, clarifying what is "
         "identified by the observations and what remains model-assumed.",
     ),
+    "imperfect_inverse_pinn.png": (
+        "IMPERFECT_INVERSE_PINN.md",
+        "This figure compares inverse-PINN and conventional contact-resistance "
+        "recovery under Gaussian noise, structured turn-off missingness, their "
+        "combination, and an intentionally unmodeled cold-face sensor bias. It "
+        "separates optimization progress, parameter accuracy, and transfer to "
+        "complete withheld current regimes.",
+    ),
     "material_geometry_bayesian_codesign.png": (
         "MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md",
         "This co-design figure connects material properties, geometry, interfaces, "
         "application constraints, cost assumptions, and robustness. It compares "
         "Bayesian optimization with the fixed candidate pool and reports both useful "
         "wins and null results rather than treating material ZT as a device objective.",
+    ),
+    "nonlinear_experiment_selection.png": (
+        "NONLINEAR_EXPERIMENT_SELECTION.md",
+        "This figure validates the locally selected current pulse with complete "
+        "bounded multistart nonlinear refits. It compares the selected, naive, "
+        "and closest-energy grid experiments using parameter error, local "
+        "uncertainty volume, repeated interval coverage, and representative "
+        "re-optimized profiles.",
     ),
     "piecewise_contact_forward_pinn_comparison.png": (
         "CONTACT_RESISTANCE_EXPERIMENT.md",

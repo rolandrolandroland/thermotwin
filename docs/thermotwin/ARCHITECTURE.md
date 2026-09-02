@@ -72,6 +72,23 @@ The former single `material_geometry_codesign.py` implementation is split into:
 | `design/contact_process_window.py` | Cost-free geometry/contact/application process window |
 | `design/ag2se_substitution.py` | One-variable matched substitution over the frozen design pool |
 
+## Lumped joint-inference decomposition
+
+The completed lumped identifiability and experiment-selection workflow keeps
+ranking, fitting, and presentation separate:
+
+| Module | Ownership |
+| --- | --- |
+| `inference/experiment_selection.py` | Feasible local-information candidate ranking |
+| `inference/joint_thermal_parameters.py` | Bounded multistart fit of contact resistance, face capacitance, and sensor lag with profiled biases |
+| `studies/nonlinear_experiment_selection.py` | Paired nonlinear selected/naive/closest-energy trials, coverage, transfer, and profiles |
+| `studies/imperfect_inverse_pinn.py` | Repeated inverse-PINN recovery under noise, missingness, and deliberate sensor-model mismatch |
+| `pinn/energy_closure.py` | Post-training whole-system rate and switch-safe cumulative energy audit |
+| `studies/forward_reconstruction_comparison.py` | Identically initialized sparse/missing physics-informed versus data-only comparison |
+| `reports/nonlinear_experiment_selection.py` | Nonlinear-selection evidence and figure |
+| `reports/imperfect_inverse_pinn.py` | Imperfect-data inverse-PINN evidence and figure |
+| `reports/forward_reconstruction_comparison.py` | Matched reconstruction and energy-closure evidence |
+
 This division prevents changes to the optimizer from silently changing module
 physics, and makes the scientific assumptions easier to test independently.
 

@@ -91,6 +91,21 @@ The similar coverage values mean both linearized uncertainty calculations are
 internally calibrated in this same-model test. The selected pulse's benefit is
 substantially narrower joint uncertainty, not artificially higher coverage.
 
+## Complete nonlinear follow-on
+
+The recommendation is also tested with 20 paired bounded multistart nonlinear
+fits. Each trial varies contact resistance, face capacitance, sensor lag, two
+sensor biases, and Gaussian noise. A 0.6 A, 30 s feasible pulse at 23.7720 J is
+added as the closest-energy grid control so the selected experiment is not
+compared only with the much cheaper naive pulse.
+
+The selected pulse reduces mean physical log-parameter RMSE by 81.46% relative
+to the naive pulse and 11.77% relative to the closest-energy control. Its local
+uncertainty volume is 21.93% smaller than the closest-energy control. The full
+nonlinear method, profiles, coverage, correlations, transfer check, and
+interpretation boundary are documented in
+[`NONLINEAR_EXPERIMENT_SELECTION.md`](NONLINEAR_EXPERIMENT_SELECTION.md).
+
 ## Reproduce
 
 ```bash
@@ -113,9 +128,11 @@ and the constraint/information regression tests are in
 ## Limitations
 
 - Ranking is local around nominal parameter values.
-- The validation uses the local linear response, not a complete nonlinear
-  refit in every trial.
+- The 250-trial first validation is linearized; the separate 20-trial follow-on
+  uses complete nonlinear refits.
 - The prior widths are explicit design assumptions.
+- The closest-energy control comes from the discrete candidate grid and is not
+  exactly energy matched.
 - Only rectangular single pulses and two exchanger sensors are candidates.
 - Flow rate is absent because the current lumped model has no validated
   flow-to-conductance relationship.

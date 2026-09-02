@@ -57,8 +57,11 @@ and application constraints determine whether the material advantage survives.
 | Does seconds-scale pulsing beat continuous current at equal cooling? | [Pulse operating map](thermotwin/PULSE_OPERATING_MAP_EXPERIMENT.md) and [control comparison](thermotwin/CONTROL_COMPARISON_EXPERIMENT.md) |
 | Can hidden contact resistance be inferred from sparse temperature sensors? | [Contact-resistance inference](thermotwin/CONTACT_RESISTANCE_EXPERIMENT.md) and [sparse sensors](thermotwin/SPARSE_SENSOR_EXPERIMENT.md) |
 | Which sensor locations and current pulse are most informative? | [Next-experiment selection](thermotwin/NEXT_EXPERIMENT_WALKTHROUGH.md) |
+| Does the selected pulse still win after complete nonlinear refitting? | [Nonlinear experiment-selection validation](thermotwin/NONLINEAR_EXPERIMENT_SELECTION.md) |
+| Can an inverse PINN recover contact resistance with noise and missing turn-off data? | [Imperfect-observation inverse PINN](thermotwin/IMPERFECT_INVERSE_PINN.md) |
 | Can finished assemblies be ranked by hidden interface quality? | [Assembly fingerprinting](thermotwin/ASSEMBLY_FINGERPRINT_EXPERIMENT.md) |
 | What does a PINN add beyond a conventional solver? | [PINN showcase](thermotwin/PINN_SHOWCASE.md) |
+| Does physics improve reconstruction when exchanger data are sparse and missing at turn-off? | [Matched forward reconstruction](thermotwin/FORWARD_RECONSTRUCTION_COMPARISON.md) |
 | How should material choice and leg geometry change with the application? | [Material/geometry co-design](thermotwin/MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md) |
 | What electrical contact resistivity must a process achieve for a chosen leg length and application? | [Electrical-contact process window](thermotwin/ELECTRICAL_CONTACT_PROCESS_WINDOW.md) |
 | Does a published Ag₂Se n leg improve the same designs when everything else is held fixed? | [Matched Ag₂Se substitution](thermotwin/AG2SE_SUBSTITUTION_EXPERIMENT.md) |
@@ -107,6 +110,9 @@ Installed command | Equivalent module command
 `thermotwin-control-comparison` | `python3 -m thermotwin.control_comparison_report`
 `thermotwin-assembly-fingerprint` | `python3 -m thermotwin.assembly_fingerprint_report`
 `thermotwin-next-experiment` | `python3 -m thermotwin.experiment_selection_report`
+`thermotwin-nonlinear-experiment` | `python3 -m thermotwin.nonlinear_experiment_selection`
+`thermotwin-imperfect-inverse-pinn` | `python3 -m thermotwin.imperfect_inverse_pinn`
+`thermotwin-forward-reconstruction` | `python3 -m thermotwin.forward_reconstruction_comparison`
 `thermotwin-sparse-sensors` | `python3 -m thermotwin.sparse_sensor_report`
 `thermotwin-codesign` | `python3 -m thermotwin.material_geometry_codesign_report`
 `thermotwin-cop-map` | `python3 -m thermotwin.cop_operating_map_report`
@@ -153,12 +159,36 @@ conditions, assumptions, and interpretation.
 | Inverse PINN estimate of a hidden 0.25 K/W contact resistance | 0.250519 K/W |
 | Inverse PINN parameter error | 0.208% |
 | Withheld-schedule RMSE after transferring the inferred parameter through the trusted solver | 0.000322 K validation; 0.000534 K bipolar test |
+| Imperfect-data inverse-PINN passes for expected noisy/missing cases | 9/9 across three initial guesses |
+| Matched sparse/missing reconstruction, physics-informed vs data-only hidden-face RMSE | 0.007105 K vs 2.193724 K |
+| Independent whole-system energy-rate closure RMS | 0.132833 W vs 16.493587 W |
 
 The conventional scalar optimizer is more accurate on this small ideal problem:
 it recovers 0.250000002 K/W in 42 loss evaluations. The PINN result matters not
 because it beats that optimizer, but because one differentiable representation
 combines governing equations, partial observations, positive parameters, hidden
 states, and switched controls.
+
+The matched forward-reconstruction study gives identically initialized
+1,116-parameter networks the same 56 noisy exchanger-temperature rows, with
+both sensors absent around current turn-off. The data-only model fits retained
+noisy rows slightly better and trains about 3.8 times faster. The
+physics-informed model instead reduces missing-interval exchanger RMSE by
+87.86%, completely hidden-face RMSE by 99.68%, and whole-system energy-rate
+imbalance by 99.19%; all three advantages hold in 5/5 trials. The post-training
+energy calculation is not a fifth loss or a new physical law—it independently
+evaluates the first-law consequence of the four node balances in watts and
+joules. See the [matched comparison](thermotwin/FORWARD_RECONSTRUCTION_COMPARISON.md).
+
+The imperfect-observation follow-on adds 0.02 K Gaussian noise, removes both
+cold sensor channels around current turn-off, and combines those effects. The
+inverse PINN passes all nine expected-recovery trials from 0.15, 0.50, and
+0.80 K/W initial guesses, with complete validation and bipolar schedules held
+out. The conventional scalar fit remains more accurate. An intentionally
+unmodeled +0.10 K cold-face bias is the caution: every PINN run reduces loss by
+about 99.99%, but aggregate parameter RMSE is 0.035184 K/W and one run fails
+the parameter and bipolar-transfer gates. See the [imperfect-data inverse-PINN
+walkthrough](thermotwin/IMPERFECT_INVERSE_PINN.md).
 
 The [distributed constitutive-inference study](thermotwin/DISTRIBUTED_CONSTITUTIVE_INFERENCE.md)
 moves beyond those lumped ODEs. A conservative 1-D finite-volume model stores
@@ -249,9 +279,17 @@ but ThermoTwin does not infer neural uncertainty from seed spread. See the
 | Selected feasible pulse | 0.8 A for 20 s, starting at 5 s |
 | Expected information gain of selected versus naive pulse | 7.198 vs 2.889 nats |
 | Joint log-parameter RMSE reduction in 250 linearized noise trials | 82.2% |
+| Joint log-parameter RMSE reduction after 20 complete nonlinear refits | 81.46% versus naive; 11.77% versus closest-energy control |
 
-The central lesson is that transient placement and sensor location can matter
-more than simply collecting more samples.
+The complete nonlinear follow-on varies contact resistance, face capacitance,
+sensor lag, two nuisance biases, and noise. The selected pulse supports all
+3/3 local directions while zero current supports 0/3. Its local intervals cover
+98.3% of individual parameters and 95.0% of all three simultaneously in the
+20-trial campaign. The central lesson is that transient placement and sensor
+location can matter more than simply collecting more samples, while the
+remaining absolute correlations—0.9331 for contact/capacitance, 0.7435 for
+contact/lag, and 0.5611 for capacitance/lag—prevent an independence claim. See
+the [nonlinear validation](thermotwin/NONLINEAR_EXPERIMENT_SELECTION.md).
 
 ### Efficiency, electronics, and co-design
 
@@ -352,7 +390,7 @@ and extension pattern are documented in
 
 ## How the evidence is checked
 
-The current suite contains 480 tests. It covers:
+The current suite contains 522 tests. It covers:
 
 - units, signs, algebraic identities, and positive/zero/negative current;
 - limiting cases such as passive conduction and absent identifiability;
@@ -366,6 +404,8 @@ The current suite contains 480 tests. It covers:
   operating regimes;
 - PINN residual signs, exact initial conditions, exact segment continuity, and
   comparison with withheld conventional trajectories;
+- switch-safe whole-system PINN energy closure and matched observation-only
+  reconstruction under sparse, noisy, missing data;
 - report generation and stable command-line entry points.
 
 This hierarchy matters. Agreement between a PINN and the conventional solver
@@ -399,12 +439,12 @@ before using any result as a design claim.
 
 ## Where the project stands
 
-The scientific specification, conventional solvers, virtual test stand, and
-current generic control comparison are complete for their documented scopes.
-Forward PINNs, inverse inference, identifiability, next-experiment selection,
-and the research artifact have strong implemented foundations but still have
-explicit exit criteria remaining. Hardware validation is optional and has not
-started.
+The scientific specification, conventional solvers, virtual test stand,
+forward PINNs, one-parameter lumped inverse inference, lumped
+identifiability/uncertainty, and all current Milestone 6 scopes are complete for
+their documented synthetic boundaries. The research artifact retains explicit
+exit criteria. Distributed constitutive inference remains a separate partial
+extension. Hardware validation is optional and has not started.
 
 The authoritative status and remaining work are in
 [`thermotwin/ROADMAP.md`](thermotwin/ROADMAP.md).
@@ -415,6 +455,9 @@ The authoritative status and remaining work are in
   reproducibility map, API examples, milestones, and glossary.
 - [`thermotwin/PINN_SHOWCASE.md`](thermotwin/PINN_SHOWCASE.md) — the most direct demonstration of the
   learned model.
+- [`thermotwin/FORWARD_RECONSTRUCTION_COMPARISON.md`](thermotwin/FORWARD_RECONSTRUCTION_COMPARISON.md)
+  — the controlled test of what the lumped physics constraint adds under
+  sparse and missing observations.
 - [`thermotwin/MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md`](thermotwin/MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md)
   — the application and commercialization-facing design study.
 - [`thermotwin/HARDWARE_VALIDATION_PROTOCOL.md`](thermotwin/HARDWARE_VALIDATION_PROTOCOL.md) — the

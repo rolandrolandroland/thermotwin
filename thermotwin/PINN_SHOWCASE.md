@@ -165,14 +165,31 @@ parameters are unknown, observations are incomplete, or repeated conventional
 simulation becomes more expensive. Those advantages have not yet been proven
 for the present small lumped model.
 
+## Matched sparse/missing-data follow-on
+
+The later
+[`FORWARD_RECONSTRUCTION_COMPARISON.md`](FORWARD_RECONSTRUCTION_COMPARISON.md)
+now tests the previously missing comparison directly. Identically initialized
+physics-informed and data-only networks receive the same sparse noisy exchanger
+temperatures, with both sensors absent around turn-off and both module faces
+hidden throughout. Across five trials, physics reduces missing-exchanger RMSE
+by 87.86%, hidden-face RMSE by 99.68%, and independent post-training
+energy-rate imbalance by 99.19%.
+
+The data-only network still fits the retained noisy rows slightly better and
+trains about 3.8 times faster. The follow-on therefore identifies a specific
+benefit—physically constrained gap and hidden-state reconstruction—rather than
+asserting general PINN superiority.
+
 ## What this showcase does not establish
 
 - The synthetic truth uses the same equations as both estimators.
 - No hardware data enter training or validation.
 - Module coefficients are constant with temperature and current.
 - Only one physical parameter is inferred.
-- The showcase uses ideal observations without noise, bias, lag, or missing
-  readings.
+- This original showcase uses ideal observations without noise, bias, lag, or
+  missing readings; the matched follow-on adds noise and structured
+  missingness.
 - It does not quantify parameter uncertainty or simultaneous identifiability.
 - It does not compare computational cost against every conventional approach.
 

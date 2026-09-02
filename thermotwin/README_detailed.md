@@ -15,6 +15,8 @@ you where its code lives — and where new work should go.
 | Run the conventional digital twin | §3 and §4 | `python3 -m unittest tests.test_transient tests.test_contact_transient` |
 | Understand synthetic sensors and inverse problems | §5 and §6 | [`CONTACT_RESISTANCE_EXPERIMENT.md`](CONTACT_RESISTANCE_EXPERIMENT.md) |
 | Understand what the PINNs contribute | §7 and §9.1 | [`PINN_SHOWCASE.md`](PINN_SHOWCASE.md) |
+| Compare physics-informed and observation-only reconstruction fairly | §7 and §9.1 | [`FORWARD_RECONSTRUCTION_COMPARISON.md`](FORWARD_RECONSTRUCTION_COMPARISON.md) |
+| See imperfect-data inverse recovery and nonlinear experiment validation | §9.1–§9.2 | [`IMPERFECT_INVERSE_PINN.md`](IMPERFECT_INVERSE_PINN.md) and [`NONLINEAR_EXPERIMENT_SELECTION.md`](NONLINEAR_EXPERIMENT_SELECTION.md) |
 | Explore efficiency and controls | §8.1–§8.3 and §9.3 | [`COP_OPERATING_MAP_EXPERIMENT.md`](COP_OPERATING_MAP_EXPERIMENT.md) |
 | Explore product-oriented co-design | §2, §8.4, and §9.4 | [`MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md`](MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md) |
 | Translate material and contact measurements into process targets | §2, §8.5–§8.6, and §9.5 | [`ELECTRICAL_CONTACT_PROCESS_WINDOW.md`](ELECTRICAL_CONTACT_PROCESS_WINDOW.md) |
@@ -512,6 +514,16 @@ $$\text{gain} = \tfrac{1}{2}\ln\frac{\det\Sigma_{\mathrm{prior}}}{\det\Sigma_{\m
 
 maximized over feasible candidates subject to energy and temperature limits.
 
+The nonlinear completion check does not reuse the linearized update. It fits
+`R_c`, cold-face capacitance, and shared lag in bounded log coordinates from
+three off-truth starts, while profiling two constant sensor biases. Twenty
+paired trials vary every truth and the noise, compare the selected pulse with
+both a naive pulse and the closest-energy feasible grid point, and report local
+coverage, all physical correlations, search-bound hits, profiles, and withheld
+face-state transfer. Ranking uses the stated broad design prior; the nonlinear
+validation fit itself uses bounds and the observation likelihood without that
+prior.
+
 ### 6.5 Robustness studies
 
 `studies/` repeats the fit across many seeded trials under noise, bias, lag,
@@ -597,6 +609,28 @@ unobserved states are reconstructed without being used as labels; and the
 inferred parameter transfers to unseen control schedules. Those are the
 properties that matter when several states or parameters are unknown — not a
 speed or accuracy win on this lumped model.
+
+**Matched observation-only comparison.** The completion study makes two copies
+of the same 1,116-parameter, three-segment architecture with bit-identical
+initial weights. Both receive the exact initial state, known switch locations,
+and the same 56 noisy exchanger rows; both exchanger sensors are absent around
+turn-off and neither face is ever observed. Both train for 5,000 Adam updates.
+Only the physics-informed copy receives the four node residuals.
+
+The data-only model fits retained noisy rows slightly better and trains roughly
+3.8 times faster. The physics-informed model instead reconstructs the missing
+exchanger interval and completely hidden faces much more accurately and lowers
+whole-system energy imbalance. Equal parameter count and update count are not
+equal compute, and the unregularized data-only network has no basis for uniquely
+identifying the hidden faces. Those boundaries are part of the comparison, not
+footnotes.
+
+**Post-training energy closure.** For each constant-current segment, automatic
+differentiation recomputes `sum(C_i dT_i/dt)` and compares it with electrical,
+reservoir, and external heat inputs. Cumulative input is integrated within each
+segment so power jumps are not smoothed across switches. This diagnostic is not
+used as a fifth loss. It is an independently evaluated consequence of the four
+node balances, not an independent physical law.
 
 The distributed forward PINN maps `(x,t)` to `T` and enforces the full initial
 profile exactly. Its loss contains the interior thermoelectric PDE plus two
@@ -739,6 +773,26 @@ solution for the same equations:
 Constructed temperature jumps at current switches are 0 K. That continuity is a
 hard architectural property; it should not be mistaken for a learned result.
 
+The matched sparse/missing reconstruction asks the more discriminating
+question: what happens when both networks see the same limited data? Across
+five held-out seed pairs:
+
+| Mean metric | Physics-informed | Data-only |
+| --- | ---: | ---: |
+| Retained noisy-row RMSE | 0.019433 K | **0.017471 K** |
+| Missing-exchanger RMSE | **0.009696 K** | 0.079878 K |
+| Completely hidden-face RMSE | **0.007105 K** | 2.193724 K |
+| Whole-system rate-closure RMS | **0.132833 W** | 16.493587 W |
+| Absolute final cumulative closure | **1.952169 J** | 370.392719 J |
+
+Physics reduces missing-exchanger error by 87.86%, hidden-face error by 99.68%,
+and energy-rate imbalance by 99.19%. All three advantages and the frozen
+temperature/residual/energy gate hold in 5/5 trials. The result shows the value
+of the stated equations under same-equation synthetic truth; it is not evidence
+that those equations match hardware or that every data-only method would fail.
+See
+[`FORWARD_RECONSTRUCTION_COMPARISON.md`](FORWARD_RECONSTRUCTION_COMPARISON.md).
+
 For inverse recovery, the contact-resistance truth is 0.25 K/W and the PINN
 starts at 0.50 K/W:
 
@@ -755,6 +809,22 @@ The PINN demonstration is instead about combining continuous hidden states,
 physical residuals, partial observations, positivity, and switched dynamics in
 one differentiable model. Full conditions are in
 [`PINN_SHOWCASE.md`](PINN_SHOWCASE.md).
+
+The imperfect-observation audit repeats the inverse PINN with three independent
+seed pairs and starting resistances of 0.15, 0.50, and 0.80 K/W. It passes all
+9/9 expected-recovery trials under 0.02 K Gaussian noise, a structured gap in
+both cold channels around turn-off, and their combination. Mean PINN parameter
+RMSE is 0.007554, 0.002947, and 0.004133 K/W for those three cases; the
+conventional scalar estimator is more accurate. Complete validation and
+bipolar test schedules remain excluded from fitting.
+
+An intentionally unmodeled +0.10 K cold-face bias is not treated as a recovery
+case. Every PINN run still lowers loss by about 99.99%, but aggregate parameter
+RMSE is 0.035184 K/W and one run fails both parameter and bipolar-transfer
+criteria. The other two remain inside the deliberately broad all-criteria
+gate, so the gate does not diagnose every mismatch. Full conditions and every
+retained trial are in
+[`IMPERFECT_INVERSE_PINN.md`](IMPERFECT_INVERSE_PINN.md).
 
 ### 9.2 Inference, imperfect measurements, and experiment choice
 
@@ -787,7 +857,7 @@ Measurement-model mismatch is visible rather than averaged away:
 | Asymmetric lag with the corrected lag-aware fit | 0.252630 K/W |
 | Combined imperfect-data pipeline with incomplete correction | mean 0.201590 K/W; RMSE 0.048744 K/W |
 
-The next-experiment planner ranks 25 feasible pulses while accounting for
+The next-experiment planner evaluates 25 candidate pulses, 17 feasible, while accounting for
 contact resistance, face capacitance, shared sensor lag, and two nuisance
 biases. It selects 0.8 A for 20 s beginning at 5 s, using 27.54 J. The predicted
 joint information gain is 7.198 nats versus 2.889 nats for the naive 0.4 A,
@@ -795,9 +865,24 @@ joint information gain is 7.198 nats versus 2.889 nats for the naive 0.4 A,
 log-parameter RMSE by 82.2%; approximate 95% coverage is 94.5% for the selected
 pulse and 94.4% for the naive pulse.
 
-This is encouraging but does not complete the nonlinear-validation claim: the
-repeated comparison still uses linearized updates. See
-[`NEXT_EXPERIMENT_WALKTHROUGH.md`](NEXT_EXPERIMENT_WALKTHROUGH.md) and §15.
+The completion study then replaces those linearized updates with bounded
+multistart nonlinear fits of contact resistance, cold-face capacitance, and
+sensor lag while profiling two sensor biases. Twenty paired trials vary all
+five truths/noise components. The selected pulse reduces mean physical
+log-parameter RMSE by 81.46% versus the naive pulse and by 11.77% versus the
+closest-energy feasible grid control, 0.6 A for 30 s at 23.7720 J. Its local
+uncertainty volume is 21.93% smaller than that closest-energy control.
+
+The selected pulse supports 3/3 local directions; exactly zero current
+supports 0/3. Selected-pulse local 95% intervals cover 98.3% of individual
+parameters and all three simultaneously in 95.0% of the 20 trials. The mean
+absolute correlations remain 0.9331 for contact/capacitance, 0.7435 for
+contact/lag, and 0.5611 for capacitance/lag, so the experiment improves
+precision without making the parameters independent. See
+[`NEXT_EXPERIMENT_WALKTHROUGH.md`](NEXT_EXPERIMENT_WALKTHROUGH.md) for the
+local ranking and
+[`NONLINEAR_EXPERIMENT_SELECTION.md`](NONLINEAR_EXPERIMENT_SELECTION.md) for
+the complete nonlinear validation.
 
 ### 9.3 COP, contacts, pulses, and PWM
 
@@ -1093,7 +1178,7 @@ evidence that a trajectory is correct.
 
 ## 12. What the tests cover
 
-The suite runs 480 tests with `python3 -m unittest discover -s tests`. Optional
+The suite runs 522 tests with `python3 -m unittest discover -s tests`. Optional
 learned-model and figure tests skip when PyTorch or Matplotlib are absent.
 
 By category rather than by file, the tests check:
@@ -1214,6 +1299,9 @@ The installed console names and their exact historical module equivalents are:
 | Continuous-versus-pulsed control | `thermotwin-control-comparison` | `python3 -m thermotwin.control_comparison_report` |
 | Assembly fingerprinting | `thermotwin-assembly-fingerprint` | `python3 -m thermotwin.assembly_fingerprint_report` |
 | Next-experiment selection | `thermotwin-next-experiment` | `python3 -m thermotwin.experiment_selection_report` |
+| Nonlinear experiment-selection validation | `thermotwin-nonlinear-experiment` | `python3 -m thermotwin.nonlinear_experiment_selection` |
+| Imperfect-observation inverse PINN | `thermotwin-imperfect-inverse-pinn` | `python3 -m thermotwin.imperfect_inverse_pinn` |
+| Matched forward reconstruction | `thermotwin-forward-reconstruction` | `python3 -m thermotwin.forward_reconstruction_comparison` |
 | Sparse accessible-sensor inference | `thermotwin-sparse-sensors` | `python3 -m thermotwin.sparse_sensor_report` |
 | Material/geometry co-design | `thermotwin-codesign` | `python3 -m thermotwin.material_geometry_codesign_report` |
 | COP map | `thermotwin-cop-map` | `python3 -m thermotwin.cop_operating_map_report` |
@@ -1272,11 +1360,11 @@ is a reading aid, not a replacement for that document.
 | 0 — Scientific specification | Complete for the generic single-block scope | Revisit when physics assumptions change |
 | 1 — Conventional reference physics | Complete for the two-node and four-node models | Higher-fidelity physics belongs in a future extension |
 | 2 — Reproducible virtual test stand | Complete | Hardware-backed sensor behavior remains outside this milestone |
-| 3 — Forward PINNs | Partial | Independent PINN energy-closure history and a matched observation-only baseline |
-| 4 — Inverse parameter estimation | Partial | Selected imperfect-data inverse-PINN comparisons and neural-seed failure criteria |
-| 5 — Identifiability and uncertainty | Partial with nonlinear profiles and a 20-trial local-interval audit | Joint-property coverage and hardware-calibrated uncertainty remain |
+| 3 — Forward PINNs | Complete for the current synthetic lumped and known-switch scopes | Distributed function-valued PINNs remain in Milestone 9 |
+| 4 — Inverse parameter estimation | Complete for the current synthetic one-parameter lumped scope | Hardware/model-discrepancy validation belongs in Milestone 8 |
+| 5 — Identifiability and uncertainty | Complete for the current synthetic lumped multi-parameter scope | Distributed-function uncertainty remains in Milestone 9; hardware calibration in Milestone 8 |
 | 6A — Control comparison | Complete for the current generic scope | Extend only with validated new physics or hardware conditions |
-| 6B — Next-experiment selection | Partial | Repeated complete nonlinear refits of selected versus naive experiments |
+| 6B — Next-experiment selection | Complete for the current synthetic lumped candidate grid | Distributed-property selection remains in Milestone 9 |
 | 6C — Material/product co-design | Complete for the public-data-seeded virtual method | Temperature-dependent properties, measured process/cost distributions, and hardware calibration |
 | 7 — Research artifact | Partial and continuous | Final narrative, evidence audit, and reproducible presentation package |
 | 8 — Hardware validation | Optional; not run | Safe hardware, calibrated sensors, uncertainty records, and protocol execution |
@@ -1284,15 +1372,13 @@ is a reading aid, not a replacement for that document.
 
 The recommended scientific sequence is:
 
-1. validate the local D-optimal experiment recommendation with complete
-   nonlinear refits against naive candidates over repeated independent truth;
-2. test inverse PINNs on selected imperfect datasets with identical visible
-   observations;
-3. extend the one-property interval audit to a deliberately underdetermined
-   joint-property case;
-4. add chance-constrained co-design only after measured process-capability data
+1. finish the Milestone 7 narrative/evidence audit and verify the new CI
+   workflow in the hosted repository;
+2. test Milestone 9's distributed selected experiment with fresh independent
+   truth and the frozen loss-balanced protocol;
+3. add chance-constrained co-design only after measured process-capability data
    exist;
-5. attempt hardware validation only when safe hardware and adequate calibration
+4. attempt hardware validation only when safe hardware and adequate calibration
    are available.
 
 ---

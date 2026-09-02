@@ -191,8 +191,8 @@ without confusing observations with the dense numerical truth.
 
 ## Milestone 3 — Forward physics-informed models
 
-**Status: Partial. The core forward PINNs are validated; the comparison claim
-is not finished.**
+**Status: Complete for the current synthetic lumped two-node/four-node and
+known-switch scopes. Distributed PINN development remains in Milestone 9.**
 
 ### Goal
 
@@ -236,13 +236,25 @@ relative to an observation-only model.
 - Exact initial conditions and exact switch-temperature continuity.
 - Automatic differentiation and separate residual histories.
 - RK4-withheld same-experiment validation and report figures.
-
-### Remaining pieces
-
-- Independent whole-system energy-closure history for PINN trajectories.
-- Matched data-only baseline under sparse or missing observations.
-- A written comparison explaining when physics helps, when it does not, and
-  the fairness limitations of the comparison.
+- A whole-system post-training energy diagnostic independently assembles
+  storage rate, electrical power, reservoir heat, and external heat in physical
+  units. Segment-wise integration retains both one-sided switch values and
+  avoids interpolation across discontinuous power.
+- A five-trial matched reconstruction compares bit-identically initialized
+  1,116-parameter models using the same 56 sparse noisy exchanger rows, with
+  six rows missing around turn-off. Both receive the exact initial state and
+  known switch locations; only one receives the four node residuals.
+- The data-only model fits retained noisy rows slightly better (0.017471 versus
+  0.019433 K) and trains about 3.8 times faster.
+- The physics-informed model reduces missing-exchanger RMSE by 87.86%, hidden-
+  face RMSE by 99.68%, and whole-system rate-closure error by 99.19%. All three
+  advantages and every documented regression gate hold in 5/5 trials.
+- Mean physics-informed hidden-face RMSE is 0.007105 K; node-residual RMS is
+  0.002655 K/s; energy-rate closure is 0.132833 W or 10.964% of the RMS net
+  input; mean absolute final cumulative closure is 1.952169 J.
+- The energy audit is independent as a post-training calculation, not as a new
+  physical law: it is algebraically implied by the four node balances.
+- Walkthrough: `FORWARD_RECONSTRUCTION_COMPARISON.md`.
 
 ### Exit criteria
 
@@ -259,8 +271,7 @@ relative to an observation-only model.
 
 ## Milestone 4 — Inverse physical-parameter estimation
 
-**Status: Partial. Ideal single-parameter recovery is strong; imperfect-data
-PINN recovery remains.**
+**Status: Complete for the current synthetic one-parameter lumped scope.**
 
 ### Goal
 
@@ -297,11 +308,23 @@ can be measured rather than obscured.
   comparison, hidden-state checks, and transfer to two unseen current regimes.
 - Conventional robustness studies for all implemented measurement effects.
 
-### Remaining pieces
+### Completed imperfect-data result
 
-- Inverse PINN on selected imperfect datasets, starting with missing readings.
-- Direct imperfect-data comparison with the conventional estimator.
-- Failure/recovery criteria across several neural seeds.
+- Gaussian noise, structured turn-off missingness, and their combination are
+  each tested with three independent observation/neural seed pairs and initial
+  contact resistances of 0.15, 0.50, and 0.80 K/W.
+- The PINN and conventional estimator receive identical transformed rows; both
+  cold channels are absent in the missing interval.
+- All nine expected-recovery PINN trials pass the predeclared parameter and
+  complete-regime transfer gates.
+- The conventional scalar estimator remains more accurate on this small
+  problem, as it should.
+- In an intentionally unmodeled +0.10 K cold-face bias case, every PINN run
+  reduces loss by about 99.99%, but aggregate parameter RMSE is 0.035184 K/W
+  and one run fails parameter and bipolar-transfer limits. The result is
+  retained to show that optimization progress does not diagnose model
+  adequacy.
+- Walkthrough: `IMPERFECT_INVERSE_PINN.md`.
 
 ### Exit criteria
 
@@ -315,10 +338,9 @@ can be measured rather than obscured.
 
 ## Milestone 5 — Identifiability and uncertainty
 
-**Status: Partial. Joint accessible-sensor inference, local uncertainty,
-representative nonlinear profiles, and a repeated local-interval coverage audit
-are implemented; joint-property coverage and hardware-calibrated uncertainty
-remain.**
+**Status: Complete for the current synthetic lumped multi-parameter scope.
+Distributed-function uncertainty remains in Milestone 9 and hardware-calibrated
+uncertainty remains in Milestone 8.**
 
 ### Goal
 
@@ -362,6 +384,18 @@ be reserved for representative cases where they add evidence.
   anchoring.
 - Twenty independent-truth conventional interval trials with explicit
   shrinkage-plus-curvature and unregularized variants.
+- A bounded multistart nonlinear fit jointly releases cold contact resistance,
+  cold-face capacitance, and sensor lag while profiling two nuisance biases.
+- The selected experiment supports all 3/3 local physical directions; exactly
+  zero current supports 0/3.
+- Twenty paired nonlinear trials vary all three truths, both biases, and noise,
+  and report correlations, representative re-optimized profiles, individual
+  and simultaneous interval coverage, bound hits, and withheld-face transfer.
+- Selected-pulse local 95% intervals cover 98.3% of individual parameters and
+  95.0% of all three simultaneously in the frozen campaign. The strong mean
+  absolute correlations of 0.9331 for contact/capacitance, 0.7435 for
+  contact/lag, and 0.5611 for capacitance/lag remain visible.
+- Walkthrough: `NONLINEAR_EXPERIMENT_SELECTION.md`.
 
 ### Exit criteria
 
@@ -455,8 +489,9 @@ period.
 
 ## Milestone 6B — Next-experiment selection
 
-**Status: Partial. Constrained local-information ranking and repeated
-linearized validation are implemented; complete nonlinear refitting remains.**
+**Status: Complete for the current synthetic lumped candidate grid and
+declared feasibility constraints. Distributed-property experiment selection
+remains part of Milestone 9.**
 
 ### Goal
 
@@ -498,8 +533,16 @@ heat-transfer parameter.
 - In 250 repeated linearized noise trials, it reduces joint log-parameter RMSE
   by 82.2% relative to the smallest feasible pulse.
 - The selected pulse also drives a five-unit synthetic assembly fingerprint.
-- A complete nonlinear refit across repeated trials is still required before
-  Milestone 6B is complete.
+- A complete 20-trial bounded multistart nonlinear campaign reduces mean joint
+  log-parameter RMSE by 81.46% relative to the naive 0.4 A, 5 s pulse.
+- The feasible closest-energy grid control is 0.6 A for 30 s at 23.7720 J,
+  compared with 27.5357 J for the selected pulse. The selected experiment
+  still reduces mean log-parameter RMSE by 11.77% and local uncertainty volume
+  by 21.93% relative to that control.
+- Paired trials share each hidden truth and noise sequence across candidates;
+  complete nonlinear refits, local coverage, parameter profiles, correlations,
+  bound hits, and withheld transfer are all retained.
+- Walkthrough: `NONLINEAR_EXPERIMENT_SELECTION.md`.
 
 ---
 
@@ -812,26 +855,22 @@ instrumentation cannot support.
 
 ## Recommended execution order from the current state
 
-1. Validate Milestone 6B's local D-optimal recommendation with complete
-   nonlinear refits of selected and naive experiments over repeated independent
-   truth using the frozen loss-balanced inverse-PINN protocol.
-2. Finish Milestone 3 with PINN energy closure and a matched data-only
-   sparse/missing-data comparison.
-3. Finish Milestone 4 by training the inverse PINN on selected imperfect
-   datasets and comparing it fairly with the conventional estimator.
-4. Extend Milestone 5's one-property coverage audit to an explicitly
-   underdetermined joint-property case.
-5. Add switched-current distributed PINNs through explicit time-domain
+1. Finish the reproducible narrative and evidence audit in Milestone 7;
+   Milestones 3 through 6 are now complete for their current lumped synthetic
+   scopes. The CI
+   workflow now exists, but it must pass in the hosted repository after push.
+2. Confirm Milestone 9's loss-balanced distributed protocol under fresh
+   independent truth and test whether its selected experiment improves the
+   remaining curve-shape failure.
+3. Add switched-current distributed PINNs through explicit time-domain
    decomposition.
-6. Extend Milestone 6C to chance-constrained optimization only after measured
+4. Extend Milestone 6C to chance-constrained optimization only after measured
    process-capability or hardware uncertainty data replace the current virtual
    spreads.
-7. Refine Milestone 6A only when new validated physics—such as flowing-fluid
+5. Refine Milestone 6A only when new validated physics—such as flowing-fluid
    states, a calibrated converter loss map, or multi-assembly staging—changes
    the control question.
-8. Finalize Milestone 7 deliverables throughout, rather than postponing all
-   documentation until the end.
-9. Attempt Milestone 8 only if safe hardware and sufficient time are available.
+6. Attempt Milestone 8 only if safe hardware and sufficient time are available.
 
 ## Final project claim
 
