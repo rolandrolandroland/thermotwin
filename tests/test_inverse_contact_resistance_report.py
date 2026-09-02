@@ -55,6 +55,10 @@ class InverseContactResistanceReportTests(unittest.TestCase):
         )
         self.assertEqual(
             DEFAULT_INVERSE_CONTACT_RESISTANCE_REPORT_PATH.parent.name,
+            "CONTACT_RESISTANCE_EXPERIMENT",
+        )
+        self.assertEqual(
+            DEFAULT_INVERSE_CONTACT_RESISTANCE_REPORT_PATH.parent.parent.name,
             "figures",
         )
 

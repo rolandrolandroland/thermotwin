@@ -69,6 +69,7 @@ and application constraints determine whether the material advantage survives.
 | Can the sensors and current regimes actually support a unique distributed resistivity curve? | [Distributed observation-sufficiency gate](thermotwin/DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md) |
 | Do nominal distributed-resistivity intervals contain independent synthetic truth at the advertised rate? | [Nonlinear profiles and repeated coverage](thermotwin/DISTRIBUTED_PROFILE_COVERAGE.md) |
 | What would a real hardware comparison require? | [Hardware-validation protocol](thermotwin/HARDWARE_VALIDATION_PROTOCOL.md) |
+| Where can I see the main engineering workflows together? | [Engineering decision showcase](thermotwin/ENGINEERING_SHOWCASE.md) |
 
 ---
 
@@ -102,6 +103,11 @@ thermotwin-codesign
 Installed command | Equivalent module command
 --- | ---
 `thermotwin-engineering-showcase` | `python3 -m thermotwin.engineering_showcase`
+`thermotwin-generate-figures` | `python3 -m thermotwin.generate_all_figures`
+`thermotwin-control-comparison` | `python3 -m thermotwin.control_comparison_report`
+`thermotwin-assembly-fingerprint` | `python3 -m thermotwin.assembly_fingerprint_report`
+`thermotwin-next-experiment` | `python3 -m thermotwin.experiment_selection_report`
+`thermotwin-sparse-sensors` | `python3 -m thermotwin.sparse_sensor_report`
 `thermotwin-codesign` | `python3 -m thermotwin.material_geometry_codesign_report`
 `thermotwin-cop-map` | `python3 -m thermotwin.cop_operating_map_report`
 `thermotwin-pwm` | `python3 -m thermotwin.pwm_power_electronics_report`
@@ -119,9 +125,15 @@ Installed command | Equivalent module command
 `thermotwin-distributed-profile-coverage` | `python3 -m thermotwin.distributed_profile_coverage`
 `thermotwin-distributed-pinn-audit` | `python3 -m thermotwin.distributed_pinn_training_audit`
 
-Reports write reproducible images to `thermotwin/figures/` by default. That
-directory is ignored by Git. Most report commands accept `--output PATH` when a
-different destination is useful.
+Reports group reproducible artifacts under a folder named after the associated
+walkthrough, such as
+`thermotwin/figures/COP_OPERATING_MAP_EXPERIMENT/`. Each figure receives a
+same-stem JSON file containing the report data used to build it and a TXT file
+explaining the panels and interpretation boundary. The complete
+`thermotwin/figures/` tree is ignored by Git. Most commands accept
+`--output PATH`; both sidecars follow that custom figure path. See the
+[generated-artifact index](thermotwin/figures/README.md) for the complete
+folder map.
 
 Importing the core package does not import PyTorch or Matplotlib.
 

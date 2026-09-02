@@ -26,6 +26,11 @@ thermotwin-pwm = "thermotwin.reports.pwm_power_electronics:main"
 thermotwin-codesign = "thermotwin.reports.material_codesign:main"
 thermotwin-pinn-showcase = "thermotwin.reports.pinn_showcase:main"
 thermotwin-engineering-showcase = "thermotwin.reports.engineering_showcase:main"
+thermotwin-control-comparison = "thermotwin.reports.control_comparison:main"
+thermotwin-assembly-fingerprint = "thermotwin.reports.assembly_fingerprint:main"
+thermotwin-next-experiment = "thermotwin.reports.experiment_selection:main"
+thermotwin-sparse-sensors = "thermotwin.reports.sparse_sensor:main"
+thermotwin-generate-figures = "thermotwin.reports.generate_all:main"
 thermotwin-dataset-quality = "thermotwin.reports.dataset_quality:main"
 thermotwin-contact-process-window = "thermotwin.reports.contact_process_window:main"
 thermotwin-ag2se-substitution = "thermotwin.reports.ag2se_substitution:main"
@@ -43,4 +48,4 @@ include = ["thermotwin*"]
 exclude = ["thermotwin.figures*"]
 
 [tool.setuptools.package-data]
-thermotwin = ["*.md", "requirements-pinn.txt"]
+thermotwin = ["*.md", "requirements-pinn.txt", "figures/README.md"]

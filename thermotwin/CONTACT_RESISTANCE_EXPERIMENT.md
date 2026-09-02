@@ -1250,7 +1250,36 @@ datasets one mechanism at a time.
 
 ---
 
-## 29. Planned progression
+## 29. Generated figure and data folder
+
+All contact-model and contact-PINN reports are grouped under the walkthrough
+stem:
+
+~~~text
+thermotwin/figures/CONTACT_RESISTANCE_EXPERIMENT/
+~~~
+
+Depending on which workflows have been run, this folder can contain:
+
+~~~text
+contact_model_comparison.png
+contact_model_comparison.json
+contact_forward_pinn_comparison.png
+contact_forward_pinn_comparison.json
+inverse_contact_resistance_comparison.png
+inverse_contact_resistance_comparison.json
+piecewise_contact_forward_pinn_comparison.png
+piecewise_contact_forward_pinn_comparison.json
+piecewise_inverse_contact_resistance_comparison.png
+piecewise_inverse_contact_resistance_comparison.json
+~~~
+
+Each JSON sidecar contains the aligned histories, observations, predictions,
+errors, residuals, and validation metrics used by its same-stem figure.
+
+---
+
+## 30. Planned progression
 
 The next controlled extensions are:
 

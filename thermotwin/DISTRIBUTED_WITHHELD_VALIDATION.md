@@ -155,7 +155,8 @@ python3 -m thermotwin.distributed_withheld_validation \
 ```
 
 The report writes
-`thermotwin/figures/distributed_withheld_validation.png` by default. Figures
+`thermotwin/figures/DISTRIBUTED_WITHHELD_VALIDATION/distributed_withheld_validation.png`
+by default, with plotted data beside it as JSON. Generated artifacts
 are reproducible generated artifacts and are ignored by Git. The installed
 entry point is:
 

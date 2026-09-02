@@ -233,7 +233,8 @@ python3 -m thermotwin.distributed_pinn_training_audit \
 ```
 
 The generated figure is written to
-`thermotwin/figures/distributed_pinn_training_audit.png` and ignored by Git.
+`thermotwin/figures/DISTRIBUTED_PINN_TRAINING_AUDIT/distributed_pinn_training_audit.png`,
+with plotted data beside it as JSON; both are ignored by Git.
 
 ## Code ownership
 

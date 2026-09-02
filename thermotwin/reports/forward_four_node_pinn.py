@@ -22,11 +22,11 @@ from ..pinn.forward_four_node import (
     predict_contact_trajectory,
     train_contact_forward_pinn,
 )
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 
 
 DEFAULT_CONTACT_FORWARD_PINN_REPORT_PATH = default_figure_path(
-    "contact_forward_pinn_comparison.png"
+    "contact_forward_pinn_comparison.png", "CONTACT_RESISTANCE_EXPERIMENT.md"
 )
 
 
@@ -332,6 +332,7 @@ def save_contact_forward_pinn_report(
         f"{validation.hot_exchanger_rmse:.5f} K hot"
     )
     figure.savefig(destination, dpi=150)
+    save_figure_data(report, destination)
     return destination
 
 
@@ -346,7 +347,8 @@ def main() -> None:
         default=DEFAULT_CONTACT_FORWARD_PINN_REPORT_PATH,
         help=(
             "destination PNG path (default: "
-            "thermotwin/figures/contact_forward_pinn_comparison.png)"
+            "thermotwin/figures/CONTACT_RESISTANCE_EXPERIMENT/"
+            "contact_forward_pinn_comparison.png)"
         ),
     )
     parser.add_argument(

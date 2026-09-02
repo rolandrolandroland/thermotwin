@@ -151,6 +151,15 @@ the thermal model at an electrical switching frequency.
 python3 -m thermotwin.control_comparison
 ```
 
+Generate the dedicated four-panel result figure, its JSON data, and its
+plain-text explanation with:
+
+```bash
+python3 -m thermotwin.control_comparison_report
+```
+
+The artifacts are written to `figures/CONTROL_COMPARISON_EXPERIMENT/`.
+
 The implementation is in [`control_comparison.py`](control_comparison.py).
 The tests verify clipped continuous integration, switch-aware power
 integration, output-grid independence, nonmonotonic capacity bracketing,

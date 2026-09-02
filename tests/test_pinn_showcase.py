@@ -74,7 +74,8 @@ class PINNShowcaseTests(unittest.TestCase):
 
     def test_default_path_uses_ignored_figures_directory(self):
         self.assertEqual(DEFAULT_PINN_SHOWCASE_PATH.name, "pinn_showcase.png")
-        self.assertEqual(DEFAULT_PINN_SHOWCASE_PATH.parent.name, "figures")
+        self.assertEqual(DEFAULT_PINN_SHOWCASE_PATH.parent.name, "PINN_SHOWCASE")
+        self.assertEqual(DEFAULT_PINN_SHOWCASE_PATH.parent.parent.name, "figures")
 
     def test_configuration_rejects_invalid_values(self):
         for keyword, value in (

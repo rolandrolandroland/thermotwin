@@ -5,7 +5,7 @@ import math
 from pathlib import Path
 from typing import Optional, Sequence
 
-from ..figure_paths import default_figure_path
+from ..figure_paths import default_figure_path, save_figure_data
 from ..physics.distributed import PiecewiseLinearProperty
 from ..simulation.distributed import distributed_inverse_constant_experiments
 from ..studies.distributed_observation_identifiability import (
@@ -234,6 +234,7 @@ def save_distributed_observation_identifiability_figure(
     spread_axis.grid(axis="y", alpha=0.25)
 
     figure.savefig(output_path, dpi=170)
+    save_figure_data(result, output_path)
     plt.close(figure)
     return output_path
 
@@ -245,7 +246,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--output",
         type=Path,
-        default=default_figure_path("distributed_observation_identifiability.png"),
+        default=default_figure_path(
+            "distributed_observation_identifiability.png",
+            "DISTRIBUTED_OBSERVATION_IDENTIFIABILITY.md",
+        ),
     )
     parser.add_argument("--epochs", type=int, default=500)
     return parser

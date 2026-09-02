@@ -19,7 +19,11 @@ except ModuleNotFoundError:
 class COPOperatingMapReportTests(unittest.TestCase):
     def test_default_path_uses_figures_directory(self):
         self.assertEqual(DEFAULT_COP_OPERATING_MAP_PATH.name, "cop_operating_map.png")
-        self.assertEqual(DEFAULT_COP_OPERATING_MAP_PATH.parent.name, "figures")
+        self.assertEqual(
+            DEFAULT_COP_OPERATING_MAP_PATH.parent.name,
+            "COP_OPERATING_MAP_EXPERIMENT",
+        )
+        self.assertEqual(DEFAULT_COP_OPERATING_MAP_PATH.parent.parent.name, "figures")
 
     def test_report_writer_creates_png(self):
         result = run_cop_operating_map()
@@ -30,6 +34,7 @@ class COPOperatingMapReportTests(unittest.TestCase):
             self.assertEqual(written, destination.resolve())
             self.assertGreater(destination.stat().st_size, 10_000)
             self.assertEqual(destination.read_bytes()[:8], b"\x89PNG\r\n\x1a\n")
+            self.assertTrue(destination.with_suffix(".json").exists())
 
 
 if __name__ == "__main__":

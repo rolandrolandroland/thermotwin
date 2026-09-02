@@ -26,7 +26,7 @@ from ..inference.experiment_selection import (
     format_experiment_selection_report,
     run_next_experiment_selection,
 )
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 from ..inference.sparse_sensors import (
     SparseSensorInferenceConfig,
     SparseSensorInferenceResult,
@@ -36,7 +36,7 @@ from ..inference.sparse_sensors import (
 
 
 DEFAULT_ENGINEERING_SHOWCASE_PATH = default_figure_path(
-    "engineering_decision_showcase.png"
+    "engineering_decision_showcase.png", "ENGINEERING_SHOWCASE.md"
 )
 
 
@@ -229,6 +229,7 @@ def save_engineering_showcase(
         fontsize=15,
     )
     figure.savefig(destination, dpi=170)
+    save_figure_data(result, destination)
     return destination
 
 
@@ -252,7 +253,8 @@ def main() -> None:
         default=DEFAULT_ENGINEERING_SHOWCASE_PATH,
         help=(
             "destination PNG path "
-            "(default: thermotwin/figures/engineering_decision_showcase.png)"
+            "(default: thermotwin/figures/ENGINEERING_SHOWCASE/"
+            "engineering_decision_showcase.png)"
         ),
     )
     arguments = parser.parse_args()

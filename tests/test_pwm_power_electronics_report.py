@@ -18,7 +18,11 @@ except ModuleNotFoundError:
 )
 class PWMPowerElectronicsReportTests(unittest.TestCase):
     def test_default_path_uses_figures_directory(self):
-        self.assertEqual(DEFAULT_PWM_POWER_ELECTRONICS_PATH.parent.name, "figures")
+        self.assertEqual(
+            DEFAULT_PWM_POWER_ELECTRONICS_PATH.parent.name,
+            "PWM_POWER_ELECTRONICS_EXPERIMENT",
+        )
+        self.assertEqual(DEFAULT_PWM_POWER_ELECTRONICS_PATH.parent.parent.name, "figures")
 
     def test_report_writer_creates_png(self):
         result = run_pwm_power_electronics_experiment()

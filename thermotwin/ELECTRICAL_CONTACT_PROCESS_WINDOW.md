@@ -260,7 +260,8 @@ python3 -m thermotwin.contact_process_window
 ```
 
 The default figure is
-`thermotwin/figures/electrical_contact_process_window.png`. Generated figures
+`thermotwin/figures/ELECTRICAL_CONTACT_PROCESS_WINDOW/electrical_contact_process_window.png`,
+with source data in `electrical_contact_process_window.json`. Generated artifacts
 are ignored by Git.
 
 Relevant tests:

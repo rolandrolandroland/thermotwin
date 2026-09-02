@@ -9,7 +9,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.figure import Figure
 from matplotlib.colors import BoundaryNorm, ListedColormap
 
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 from ..design.contact_process_window import (
     ContactProcessWindowConfig,
     ContactProcessWindowResult,
@@ -21,7 +21,8 @@ from ..design.literature_materials import PUBLISHED_AG2SE_UNICOUPLE
 
 
 DEFAULT_CONTACT_PROCESS_WINDOW_PATH = default_figure_path(
-    "electrical_contact_process_window.png"
+    "electrical_contact_process_window.png",
+    "ELECTRICAL_CONTACT_PROCESS_WINDOW.md",
 )
 
 
@@ -294,6 +295,7 @@ def save_contact_process_window_report(
         fontsize=14,
     )
     figure.savefig(destination, dpi=150)
+    save_figure_data(result, destination)
     return destination
 
 

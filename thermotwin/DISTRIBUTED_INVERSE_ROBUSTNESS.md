@@ -192,7 +192,8 @@ python3 -m thermotwin.distributed_inverse_robustness \
 ```
 
 The generated figure is written to
-`thermotwin/figures/distributed_inverse_robustness.png` and is ignored by Git.
+`thermotwin/figures/DISTRIBUTED_INVERSE_ROBUSTNESS/distributed_inverse_robustness.png`.
+The plotted data are written beside it as JSON; both files are ignored by Git.
 
 ## Code ownership
 

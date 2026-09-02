@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 from typing import Optional, Sequence, Tuple
 
-from ..figure_paths import default_figure_path
+from ..figure_paths import default_figure_path, save_figure_data
 from ..studies.distributed_pinn_training_audit import (
     DistributedPINNTrainingAuditConfig,
     DistributedPINNTrainingAuditResult,
@@ -192,6 +192,7 @@ def save_distributed_pinn_training_audit_figure(
         axis.set_xticks(epochs, labels=tuple(str(value) for value in epochs))
         axis.grid(alpha=0.25)
     figure.savefig(output_path, dpi=180)
+    save_figure_data(result, output_path)
     plt.close(figure)
     return output_path
 
@@ -217,7 +218,10 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=default_figure_path("distributed_pinn_training_audit.png"),
+        default=default_figure_path(
+            "distributed_pinn_training_audit.png",
+            "DISTRIBUTED_PINN_TRAINING_AUDIT.md",
+        ),
     )
     args = parser.parse_args(argv)
     result = run_distributed_pinn_training_audit(

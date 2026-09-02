@@ -19,7 +19,11 @@ except ModuleNotFoundError:
 )
 class PulseOperatingMapReportTests(unittest.TestCase):
     def test_default_path_uses_figures_directory(self):
-        self.assertEqual(DEFAULT_PULSE_OPERATING_MAP_PATH.parent.name, "figures")
+        self.assertEqual(
+            DEFAULT_PULSE_OPERATING_MAP_PATH.parent.name,
+            "PULSE_OPERATING_MAP_EXPERIMENT",
+        )
+        self.assertEqual(DEFAULT_PULSE_OPERATING_MAP_PATH.parent.parent.name, "figures")
 
     def test_report_writer_creates_png(self):
         config = ControlComparisonConfig(

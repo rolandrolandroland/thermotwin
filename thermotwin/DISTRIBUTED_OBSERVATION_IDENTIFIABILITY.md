@@ -283,7 +283,8 @@ python3 -m thermotwin.distributed_observation_identifiability
 ```
 
 The default figure is written to
-`thermotwin/figures/distributed_observation_identifiability.png`. Change the
+`thermotwin/figures/DISTRIBUTED_OBSERVATION_IDENTIFIABILITY/distributed_observation_identifiability.png`,
+with plotted data beside it as JSON. Change the
 training budget or output path with:
 
 ```bash

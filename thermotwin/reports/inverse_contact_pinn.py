@@ -9,7 +9,7 @@ from matplotlib.figure import Figure
 
 from ..simulation.four_node_experiments import run_four_node_contact_experiment
 from ..pinn.forward_four_node import predict_contact_trajectory
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 from ..pinn.inverse_contact_resistance import (
     IdealInverseContactProblem,
     InverseContactResistanceConfig,
@@ -22,7 +22,8 @@ from ..pinn.inverse_contact_resistance import (
 
 
 DEFAULT_INVERSE_CONTACT_RESISTANCE_REPORT_PATH = default_figure_path(
-    "inverse_contact_resistance_comparison.png"
+    "inverse_contact_resistance_comparison.png",
+    "CONTACT_RESISTANCE_EXPERIMENT.md",
 )
 
 
@@ -305,6 +306,7 @@ def save_inverse_contact_resistance_report(
         f"parameter error {validation.relative_parameter_error_percent:.3f}%"
     )
     figure.savefig(destination, dpi=150)
+    save_figure_data(report, destination)
     return destination
 
 
@@ -319,6 +321,7 @@ def main() -> None:
         default=DEFAULT_INVERSE_CONTACT_RESISTANCE_REPORT_PATH,
         help=(
             "destination PNG path (default: thermotwin/figures/"
+            "CONTACT_RESISTANCE_EXPERIMENT/"
             "inverse_contact_resistance_comparison.png)"
         ),
     )

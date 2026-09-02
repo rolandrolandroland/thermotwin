@@ -25,7 +25,11 @@ class EngineeringShowcaseTests(unittest.TestCase):
             DEFAULT_ENGINEERING_SHOWCASE_PATH.name,
             "engineering_decision_showcase.png",
         )
-        self.assertEqual(DEFAULT_ENGINEERING_SHOWCASE_PATH.parent.name, "figures")
+        self.assertEqual(
+            DEFAULT_ENGINEERING_SHOWCASE_PATH.parent.name,
+            "ENGINEERING_SHOWCASE",
+        )
+        self.assertEqual(DEFAULT_ENGINEERING_SHOWCASE_PATH.parent.parent.name, "figures")
 
     def test_small_showcase_runs_and_writes_png(self):
         result = run_engineering_showcase(

@@ -227,7 +227,8 @@ python3 -m thermotwin.distributed_independent_validation
 ```
 
 The generated figure is written to
-`thermotwin/figures/distributed_independent_validation.png` and is ignored by
+`thermotwin/figures/DISTRIBUTED_INDEPENDENT_VALIDATION/distributed_independent_validation.png`;
+the source data are saved beside it as JSON, and both are ignored by
 Git.
 
 ## Code ownership

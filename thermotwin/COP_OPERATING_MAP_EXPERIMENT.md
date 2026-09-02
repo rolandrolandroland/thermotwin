@@ -190,7 +190,8 @@ Print the numerical summary:
 python3 -m thermotwin.cop_operating_map
 ```
 
-Generate `thermotwin/figures/cop_operating_map.png`:
+Generate `thermotwin/figures/COP_OPERATING_MAP_EXPERIMENT/cop_operating_map.png`
+and the colocated `cop_operating_map.json` source-data file:
 
 ```bash
 python3 -m thermotwin.cop_operating_map_report

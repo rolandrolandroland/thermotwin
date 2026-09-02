@@ -23,8 +23,12 @@ The default CPU-first run performs 5,000 forward epochs and 8,000 inverse
 epochs. It writes the reproducible figure to:
 
 ~~~text
-thermotwin/figures/pinn_showcase.png
+thermotwin/figures/PINN_SHOWCASE/pinn_showcase.png
+thermotwin/figures/PINN_SHOWCASE/pinn_showcase.json
 ~~~
+
+The lower-level forward-PINN comparison uses the same walkthrough folder and
+writes `forward_pinn_comparison.png` plus `forward_pinn_comparison.json`.
 
 The generated figure is ignored by Git because it can be recreated from the
 committed code. Use `--output PATH` for a deliberate alternate destination.

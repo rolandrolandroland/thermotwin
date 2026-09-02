@@ -408,7 +408,8 @@ python3 -m thermotwin.material_geometry_codesign_report
 ```
 
 The command prints the frozen result summary and writes
-`thermotwin/figures/material_geometry_bayesian_codesign.png`.
+`thermotwin/figures/MATERIAL_GEOMETRY_BAYESIAN_CODESIGN/material_geometry_bayesian_codesign.png`,
+with the plotted campaign data beside it as JSON.
 
 The standard run performs:
 

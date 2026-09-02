@@ -7,7 +7,7 @@ from typing import Optional, Sequence, Union
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.figure import Figure
 
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 from ..design.ag2se_substitution import (
     Ag2SeSubstitutionConfig,
     Ag2SeSubstitutionResult,
@@ -17,7 +17,7 @@ from ..design.ag2se_substitution import (
 
 
 DEFAULT_AG2SE_SUBSTITUTION_PATH = default_figure_path(
-    "ag2se_matched_substitution.png"
+    "ag2se_matched_substitution.png", "AG2SE_SUBSTITUTION_EXPERIMENT.md"
 )
 
 
@@ -126,6 +126,7 @@ def save_ag2se_substitution_report(
         fontsize=14,
     )
     figure.savefig(destination, dpi=150)
+    save_figure_data(result, destination)
     return destination
 
 

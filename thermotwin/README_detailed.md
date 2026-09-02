@@ -186,8 +186,7 @@ $$C_h\frac{dT_h}{dt} = G_h(T_{h,\infty}-T_h) + \dot q_{h,\mathrm{ext}} + Q_h.$$
 
 Adding them and using the energy identity removes the internal transport:
 
-$$C_c\dot T_c + C_h\dot T_h = G_c(T_{c,\infty}-T_c) + G_h(T_{h,\infty}-T_h)
-+ \dot q_{c,\mathrm{ext}} + \dot q_{h,\mathrm{ext}} + VI.$$
+$$C_c\dot{T}_c + C_h\dot{T}_h = G_c(T_{c,\infty}-T_c) + G_h(T_{h,\infty}-T_h) + \dot{q}_{c,\mathrm{ext}} + \dot{q}_{h,\mathrm{ext}} + VI.$$
 
 Stored energy changes only through reservoir heat, external heat, and electrical
 power.
@@ -1211,6 +1210,11 @@ The installed console names and their exact historical module equivalents are:
 | Workflow | Installed command | Module command |
 | --- | --- | --- |
 | Engineering showcase | `thermotwin-engineering-showcase` | `python3 -m thermotwin.engineering_showcase` |
+| Complete figure catalog | `thermotwin-generate-figures` | `python3 -m thermotwin.generate_all_figures` |
+| Continuous-versus-pulsed control | `thermotwin-control-comparison` | `python3 -m thermotwin.control_comparison_report` |
+| Assembly fingerprinting | `thermotwin-assembly-fingerprint` | `python3 -m thermotwin.assembly_fingerprint_report` |
+| Next-experiment selection | `thermotwin-next-experiment` | `python3 -m thermotwin.experiment_selection_report` |
+| Sparse accessible-sensor inference | `thermotwin-sparse-sensors` | `python3 -m thermotwin.sparse_sensor_report` |
 | Material/geometry co-design | `thermotwin-codesign` | `python3 -m thermotwin.material_geometry_codesign_report` |
 | COP map | `thermotwin-cop-map` | `python3 -m thermotwin.cop_operating_map_report` |
 | PWM electronics | `thermotwin-pwm` | `python3 -m thermotwin.pwm_power_electronics_report` |
@@ -1231,8 +1235,16 @@ The installed console names and their exact historical module equivalents are:
 These module names are intentionally listed individually: replacing the command
 name with a guessed `thermotwin.<name>` module is not reliable.
 
-Figures are written to `thermotwin/figures/`, which is git-ignored because every
-figure is reproducible from committed code. Pass `--output PATH` to override.
+Generated outputs are grouped by their walkthrough Markdown stem. For example,
+the COP report writes to
+`thermotwin/figures/COP_OPERATING_MAP_EXPERIMENT/`. Every PNG receives a
+same-stem JSON sidecar containing the report object used to construct the
+figure and a TXT sidecar explaining what the figure shows. The complete
+`thermotwin/figures/` tree is git-ignored because these artifacts are
+reproducible from committed code. Pass `--output PATH` to override; both
+sidecars follow the custom figure path. The
+[`figures/README.md`](figures/README.md) index maps every report folder to its
+walkthrough.
 
 ### 14.3 Reading a generated result
 

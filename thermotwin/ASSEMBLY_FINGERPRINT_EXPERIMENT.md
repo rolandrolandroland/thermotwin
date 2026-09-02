@@ -57,6 +57,16 @@ could support:
 python3 -m thermotwin.assembly_fingerprint
 ```
 
+Generate the dedicated result figure, its JSON data, and its plain-text
+explanation with:
+
+```bash
+python3 -m thermotwin.assembly_fingerprint_report
+```
+
+The artifacts are written to
+`figures/ASSEMBLY_FINGERPRINT_EXPERIMENT/`.
+
 The implementation is in
 [`assembly_fingerprint.py`](assembly_fingerprint.py), and regression tests are
 in

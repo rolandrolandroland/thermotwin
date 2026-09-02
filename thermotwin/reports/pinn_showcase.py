@@ -8,7 +8,7 @@ from typing import NamedTuple, Union
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.figure import Figure
 
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 from ..pinn.forward_piecewise import (
     PiecewiseContactForwardPINNConfig,
     PiecewiseContactPINNTrainingResult,
@@ -32,7 +32,9 @@ from .inverse_piecewise_pinn import (
 )
 
 
-DEFAULT_PINN_SHOWCASE_PATH = default_figure_path("pinn_showcase.png")
+DEFAULT_PINN_SHOWCASE_PATH = default_figure_path(
+    "pinn_showcase.png", "PINN_SHOWCASE.md"
+)
 
 
 @dataclass(frozen=True)
@@ -368,6 +370,7 @@ def save_pinn_showcase(
         fontsize=16,
     )
     figure.savefig(destination, dpi=170)
+    save_figure_data(showcase, destination)
     return destination
 
 
@@ -382,7 +385,7 @@ def main() -> None:
         default=DEFAULT_PINN_SHOWCASE_PATH,
         help=(
             "destination PNG path "
-            "(default: thermotwin/figures/pinn_showcase.png)"
+            "(default: thermotwin/figures/PINN_SHOWCASE/pinn_showcase.png)"
         ),
     )
     parser.add_argument("--forward-epochs", type=int, default=5_000)

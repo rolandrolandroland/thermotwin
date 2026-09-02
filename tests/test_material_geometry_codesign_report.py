@@ -11,7 +11,14 @@ from thermotwin.material_geometry_codesign_report import (
 
 class MaterialGeometryCodesignReportTests(unittest.TestCase):
     def test_default_output_uses_package_figures_directory(self):
-        self.assertEqual(DEFAULT_MATERIAL_GEOMETRY_CODESIGN_PATH.parent.name, "figures")
+        self.assertEqual(
+            DEFAULT_MATERIAL_GEOMETRY_CODESIGN_PATH.parent.name,
+            "MATERIAL_GEOMETRY_BAYESIAN_CODESIGN",
+        )
+        self.assertEqual(
+            DEFAULT_MATERIAL_GEOMETRY_CODESIGN_PATH.parent.parent.name,
+            "figures",
+        )
         self.assertEqual(
             DEFAULT_MATERIAL_GEOMETRY_CODESIGN_PATH.name,
             "material_geometry_bayesian_codesign.png",

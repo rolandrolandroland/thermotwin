@@ -17,7 +17,7 @@ from ..pinn.forward_four_node import (
     contact_physics_residuals,
     predict_contact_trajectory,
 )
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 from ..pinn.forward_piecewise import (
     PiecewiseContactForwardPINNConfig,
     PiecewiseContactPINNTrainingResult,
@@ -29,7 +29,8 @@ from ..pinn.forward_piecewise import (
 
 
 DEFAULT_PIECEWISE_CONTACT_FORWARD_PINN_REPORT_PATH = default_figure_path(
-    "piecewise_contact_forward_pinn_comparison.png"
+    "piecewise_contact_forward_pinn_comparison.png",
+    "CONTACT_RESISTANCE_EXPERIMENT.md",
 )
 
 
@@ -287,6 +288,7 @@ def save_piecewise_contact_forward_pinn_report(
         f"{validation.hot_exchanger_rmse:.5f} K hot"
     )
     figure.savefig(destination, dpi=150)
+    save_figure_data(report, destination)
     return destination
 
 
@@ -301,6 +303,7 @@ def main() -> None:
         default=DEFAULT_PIECEWISE_CONTACT_FORWARD_PINN_REPORT_PATH,
         help=(
             "destination PNG path (default: thermotwin/figures/"
+            "CONTACT_RESISTANCE_EXPERIMENT/"
             "piecewise_contact_forward_pinn_comparison.png)"
         ),
     )

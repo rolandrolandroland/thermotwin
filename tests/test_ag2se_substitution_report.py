@@ -23,7 +23,11 @@ class Ag2SeSubstitutionReportTests(unittest.TestCase):
             DEFAULT_AG2SE_SUBSTITUTION_PATH.name,
             "ag2se_matched_substitution.png",
         )
-        self.assertEqual(DEFAULT_AG2SE_SUBSTITUTION_PATH.parent.name, "figures")
+        self.assertEqual(
+            DEFAULT_AG2SE_SUBSTITUTION_PATH.parent.name,
+            "AG2SE_SUBSTITUTION_EXPERIMENT",
+        )
+        self.assertEqual(DEFAULT_AG2SE_SUBSTITUTION_PATH.parent.parent.name, "figures")
 
     def test_small_report_writer_creates_png(self):
         config = Ag2SeSubstitutionConfig(

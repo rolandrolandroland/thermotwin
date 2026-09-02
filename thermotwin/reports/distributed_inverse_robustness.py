@@ -5,7 +5,7 @@ import math
 from pathlib import Path
 from typing import Optional, Sequence
 
-from ..figure_paths import default_figure_path
+from ..figure_paths import default_figure_path, save_figure_data
 from ..studies.distributed_inverse_robustness import (
     DistributedInverseRobustnessConfig,
     DistributedInverseRobustnessStudyResult,
@@ -212,6 +212,7 @@ def save_distributed_inverse_robustness_figure(
     coefficient_axis.grid(alpha=0.25)
 
     figure.savefig(output_path, dpi=180)
+    save_figure_data(result, output_path)
     plt.close(figure)
     return output_path
 
@@ -226,7 +227,10 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=default_figure_path("distributed_inverse_robustness.png"),
+        default=default_figure_path(
+            "distributed_inverse_robustness.png",
+            "DISTRIBUTED_INVERSE_ROBUSTNESS.md",
+        ),
     )
     args = parser.parse_args(argv)
     result = run_distributed_inverse_robustness_study(

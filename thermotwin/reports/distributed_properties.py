@@ -6,7 +6,7 @@ import math
 from pathlib import Path
 from typing import Optional, Sequence, Tuple
 
-from ..figure_paths import default_figure_path
+from ..figure_paths import default_figure_path, save_figure_data
 from ..inference.distributed_experiment_selection import (
     DistributedExperimentSelectionConfig,
     DistributedExperimentSelectionResult,
@@ -690,6 +690,7 @@ def save_distributed_property_figure(
             axis.axis("off")
 
     figure.savefig(output_path, dpi=180)
+    save_figure_data(result, output_path)
     plt.close(figure)
     return output_path
 
@@ -701,7 +702,10 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=default_figure_path("distributed_property_study.png"),
+        default=default_figure_path(
+            "distributed_property_study.png",
+            "DISTRIBUTED_CONSTITUTIVE_INFERENCE.md",
+        ),
     )
     parser.add_argument(
         "--train-pinn",

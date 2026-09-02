@@ -46,11 +46,11 @@ class ForwardPINNReportTests(unittest.TestCase):
         )
         self.assertEqual(
             DEFAULT_FORWARD_PINN_REPORT_PATH.parent.name,
-            "figures",
+            "PINN_SHOWCASE",
         )
         self.assertEqual(
             DEFAULT_FORWARD_PINN_REPORT_PATH.parent.parent.name,
-            "thermotwin",
+            "figures",
         )
 
     def test_report_data_are_aligned_and_initial_error_is_zero(self):

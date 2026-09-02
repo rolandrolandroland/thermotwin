@@ -19,11 +19,11 @@ from ..simulation.two_node_experiments import (
     constant_current_reference_experiment,
     run_two_node_experiment,
 )
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 
 
 DEFAULT_CONTACT_REPORT_PATH = default_figure_path(
-    "contact_model_comparison.png"
+    "contact_model_comparison.png", "CONTACT_RESISTANCE_EXPERIMENT.md"
 )
 
 
@@ -298,6 +298,7 @@ def save_contact_comparison_report(
         f"{report.max_absolute_energy_balance_residual:.3e} W"
     )
     figure.savefig(destination, dpi=150)
+    save_figure_data(report, destination)
     return destination
 
 
@@ -312,7 +313,8 @@ def main() -> None:
         default=DEFAULT_CONTACT_REPORT_PATH,
         help=(
             "destination PNG path (default: "
-            "thermotwin/figures/contact_model_comparison.png)"
+            "thermotwin/figures/CONTACT_RESISTANCE_EXPERIMENT/"
+            "contact_model_comparison.png)"
         ),
     )
     parser.add_argument(

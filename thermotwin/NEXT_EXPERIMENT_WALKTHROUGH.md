@@ -97,6 +97,15 @@ substantially narrower joint uncertainty, not artificially higher coverage.
 python3 -m thermotwin.experiment_selection
 ```
 
+Generate the candidate-frontier figure, its JSON data, and its plain-text
+explanation with:
+
+```bash
+python3 -m thermotwin.experiment_selection_report
+```
+
+The artifacts are written to `figures/NEXT_EXPERIMENT_WALKTHROUGH/`.
+
 The implementation is in [`experiment_selection.py`](experiment_selection.py)
 and the constraint/information regression tests are in
 [`../tests/test_experiment_selection.py`](../tests/test_experiment_selection.py).

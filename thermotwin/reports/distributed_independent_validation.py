@@ -6,7 +6,7 @@ from pathlib import Path
 from statistics import fmean
 from typing import Optional, Sequence
 
-from ..figure_paths import default_figure_path
+from ..figure_paths import default_figure_path, save_figure_data
 from ..simulation.distributed import distributed_inverse_constant_experiments
 from ..studies.distributed_independent_validation import (
     ESTIMATOR_NAMES,
@@ -264,6 +264,7 @@ def save_distributed_independent_validation_figure(
         axis.grid(alpha=0.25)
         axis.legend(fontsize=7)
     figure.savefig(output_path, dpi=180)
+    save_figure_data(result, output_path)
     plt.close(figure)
     return output_path
 
@@ -281,7 +282,10 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=default_figure_path("distributed_independent_validation.png"),
+        default=default_figure_path(
+            "distributed_independent_validation.png",
+            "DISTRIBUTED_INDEPENDENT_VALIDATION.md",
+        ),
     )
     args = parser.parse_args(argv)
     result = run_distributed_independent_validation_study(

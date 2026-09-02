@@ -416,7 +416,8 @@ thermotwin-distributed-properties \
 ```
 
 The figure is written to
-`thermotwin/figures/distributed_property_study.png` by default. Generated
+`thermotwin/figures/DISTRIBUTED_CONSTITUTIVE_INFERENCE/distributed_property_study.png`
+by default, with plotted data in the colocated `distributed_property_study.json`. Generated
 figures are ignored by Git.
 
 Run only the new tests with:

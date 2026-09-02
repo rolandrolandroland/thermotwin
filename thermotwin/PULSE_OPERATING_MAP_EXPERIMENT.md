@@ -104,7 +104,8 @@ Print the connected comparison:
 python3 -m thermotwin.pulse_operating_map
 ```
 
-Generate `thermotwin/figures/pulse_operating_map.png`:
+Generate `thermotwin/figures/PULSE_OPERATING_MAP_EXPERIMENT/pulse_operating_map.png`
+and the colocated `pulse_operating_map.json` source-data file:
 
 ```bash
 python3 -m thermotwin.pulse_operating_map_report

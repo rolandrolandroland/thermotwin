@@ -13,11 +13,11 @@ from ..design.operating_map import (
     points_for,
     run_cop_operating_map,
 )
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 
 
 DEFAULT_COP_OPERATING_MAP_PATH = default_figure_path(
-    "cop_operating_map.png"
+    "cop_operating_map.png", "COP_OPERATING_MAP_EXPERIMENT.md"
 )
 
 
@@ -212,6 +212,7 @@ def save_cop_operating_map_report(
         fontsize=14,
     )
     figure.savefig(destination, dpi=150)
+    save_figure_data(result, destination)
     return destination
 
 

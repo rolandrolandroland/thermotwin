@@ -13,7 +13,7 @@ from ..simulation.two_node_experiments import (
     constant_current_reference_experiment,
     run_two_node_experiment,
 )
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 from ..pinn.forward_two_node import (
     ForwardPINNConfig,
     PINNTrainingResult,
@@ -25,7 +25,7 @@ from ..pinn.forward_two_node import (
 
 
 DEFAULT_FORWARD_PINN_REPORT_PATH = default_figure_path(
-    "forward_pinn_comparison.png"
+    "forward_pinn_comparison.png", "PINN_SHOWCASE.md"
 )
 
 
@@ -236,6 +236,7 @@ def save_forward_pinn_comparison_report(
         f"max {validation.hot_max_absolute_error:.6f} K"
     )
     figure.savefig(destination, dpi=150)
+    save_figure_data(report, destination)
     return destination
 
 
@@ -250,7 +251,7 @@ def main() -> None:
         default=DEFAULT_FORWARD_PINN_REPORT_PATH,
         help=(
             "destination PNG path (default: "
-            "thermotwin/figures/forward_pinn_comparison.png)"
+            "thermotwin/figures/PINN_SHOWCASE/forward_pinn_comparison.png)"
         ),
     )
     parser.add_argument(

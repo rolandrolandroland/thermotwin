@@ -204,7 +204,8 @@ Print the numerical experiment:
 python3 -m thermotwin.pwm_power_electronics
 ```
 
-Generate `thermotwin/figures/pwm_power_electronics.png`:
+Generate `thermotwin/figures/PWM_POWER_ELECTRONICS_EXPERIMENT/pwm_power_electronics.png`
+and the colocated `pwm_power_electronics.json` source-data file:
 
 ```bash
 python3 -m thermotwin.pwm_power_electronics_report

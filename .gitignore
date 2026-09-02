@@ -4,5 +4,6 @@ build/
 *.egg-info/
 .DS_Store
 .idea/
-thermotwin/figures/
+thermotwin/figures/*
+!thermotwin/figures/README.md
 thermotwin/notes/

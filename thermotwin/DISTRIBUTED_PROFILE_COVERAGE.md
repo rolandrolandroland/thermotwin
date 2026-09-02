@@ -271,7 +271,7 @@ thermotwin-distributed-profile-coverage \
   --pinn-trials 10 \
   --epochs 400 \
   --profile-points 5 \
-  --report-output thermotwin/figures/distributed_profile_coverage.txt
+  --report-output thermotwin/figures/DISTRIBUTED_PROFILE_COVERAGE/distributed_profile_coverage.txt
 ```
 
 The equivalent module command is:
@@ -281,7 +281,8 @@ python3 -m thermotwin.distributed_profile_coverage
 ```
 
 The generated figure is written to
-`thermotwin/figures/distributed_profile_coverage.png` and is ignored by Git.
+`thermotwin/figures/DISTRIBUTED_PROFILE_COVERAGE/distributed_profile_coverage.png`,
+with plotted data in the colocated JSON sidecar; generated artifacts are ignored by Git.
 The optional text path preserves the full trial-level report outside a terminal
 scrollback. Use `--skip-profiles` when repeating only the coverage portion.
 

@@ -7,7 +7,7 @@ from typing import Optional, Sequence, Union
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.figure import Figure
 
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 from ..design.pulse_map import (
     PulseOperatingMapResult,
     format_pulse_operating_map_report,
@@ -16,7 +16,7 @@ from ..design.pulse_map import (
 
 
 DEFAULT_PULSE_OPERATING_MAP_PATH = default_figure_path(
-    "pulse_operating_map.png"
+    "pulse_operating_map.png", "PULSE_OPERATING_MAP_EXPERIMENT.md"
 )
 
 
@@ -165,6 +165,7 @@ def save_pulse_operating_map_report(
         fontsize=14,
     )
     figure.savefig(destination, dpi=150)
+    save_figure_data(result, destination)
     return destination
 
 

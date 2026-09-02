@@ -32,10 +32,13 @@ class ContactComparisonReportTests(unittest.TestCase):
             DEFAULT_CONTACT_REPORT_PATH.name,
             "contact_model_comparison.png",
         )
-        self.assertEqual(DEFAULT_CONTACT_REPORT_PATH.parent.name, "figures")
+        self.assertEqual(
+            DEFAULT_CONTACT_REPORT_PATH.parent.name,
+            "CONTACT_RESISTANCE_EXPERIMENT",
+        )
         self.assertEqual(
             DEFAULT_CONTACT_REPORT_PATH.parent.parent.name,
-            "thermotwin",
+            "figures",
         )
 
     def test_report_histories_and_sweep_are_aligned(self):

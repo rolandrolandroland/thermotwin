@@ -7,7 +7,7 @@ from typing import Optional, Sequence, Union
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.figure import Figure
 
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 from ..design.materials import N_TYPE_SAMPLES, P_TYPE_SAMPLES
 from ..design.codesign import (
     CodesignCampaignConfig,
@@ -18,7 +18,8 @@ from ..design.codesign import (
 
 
 DEFAULT_MATERIAL_GEOMETRY_CODESIGN_PATH = default_figure_path(
-    "material_geometry_bayesian_codesign.png"
+    "material_geometry_bayesian_codesign.png",
+    "MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md",
 )
 
 
@@ -212,6 +213,7 @@ def save_material_geometry_codesign_report(
         fontsize=15,
     )
     figure.savefig(destination, dpi=150)
+    save_figure_data(result, destination)
     return destination
 
 

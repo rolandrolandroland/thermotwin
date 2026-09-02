@@ -119,6 +119,15 @@ synthetic test.
 python3 -m thermotwin.sparse_sensor_inference
 ```
 
+Generate the dedicated inference figure, its JSON data, and its plain-text
+explanation with:
+
+```bash
+python3 -m thermotwin.sparse_sensor_report
+```
+
+The artifacts are written to `figures/SPARSE_SENSOR_EXPERIMENT/`.
+
 The implementation is in
 [`sparse_sensor_inference.py`](sparse_sensor_inference.py), with regression and
 limiting-case checks in

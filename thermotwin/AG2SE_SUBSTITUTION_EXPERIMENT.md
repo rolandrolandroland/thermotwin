@@ -196,7 +196,8 @@ python3 -m thermotwin.ag2se_substitution
 ```
 
 The default figure is
-`thermotwin/figures/ag2se_matched_substitution.png`. Generated figures are
+`thermotwin/figures/AG2SE_SUBSTITUTION_EXPERIMENT/ag2se_matched_substitution.png`.
+The plotted data are written beside it as `ag2se_matched_substitution.json`. Generated figures are
 ignored by Git.
 
 Relevant tests:

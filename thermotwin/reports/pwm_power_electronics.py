@@ -7,7 +7,7 @@ from typing import Optional, Sequence, Union
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.figure import Figure
 
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 from ..design.power_electronics import (
     PWMPowerElectronicsResult,
     format_pwm_power_electronics_report,
@@ -17,7 +17,7 @@ from ..design.power_electronics import (
 
 
 DEFAULT_PWM_POWER_ELECTRONICS_PATH = default_figure_path(
-    "pwm_power_electronics.png"
+    "pwm_power_electronics.png", "PWM_POWER_ELECTRONICS_EXPERIMENT.md"
 )
 
 
@@ -165,6 +165,7 @@ def save_pwm_power_electronics_report(
         fontsize=14,
     )
     figure.savefig(destination, dpi=150)
+    save_figure_data(result, destination)
     return destination
 
 

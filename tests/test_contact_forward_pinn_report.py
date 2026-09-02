@@ -48,6 +48,10 @@ class ContactForwardPINNReportTests(unittest.TestCase):
         )
         self.assertEqual(
             DEFAULT_CONTACT_FORWARD_PINN_REPORT_PATH.parent.name,
+            "CONTACT_RESISTANCE_EXPERIMENT",
+        )
+        self.assertEqual(
+            DEFAULT_CONTACT_FORWARD_PINN_REPORT_PATH.parent.parent.name,
             "figures",
         )
 

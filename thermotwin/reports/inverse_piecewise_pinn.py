@@ -13,7 +13,7 @@ from ..pinn.forward_four_node import (
     contact_physics_residuals,
     predict_contact_trajectory,
 )
-from .paths import default_figure_path
+from .paths import default_figure_path, save_figure_data
 from ..pinn.forward_piecewise import scheduled_current_tensor
 from ..pinn.inverse_piecewise_contact_resistance import (
     IdealPiecewiseInverseContactProblem,
@@ -28,7 +28,8 @@ from ..pinn.inverse_piecewise_contact_resistance import (
 
 DEFAULT_PIECEWISE_INVERSE_CONTACT_RESISTANCE_REPORT_PATH = (
     default_figure_path(
-        "piecewise_inverse_contact_resistance_comparison.png"
+        "piecewise_inverse_contact_resistance_comparison.png",
+        "CONTACT_RESISTANCE_EXPERIMENT.md",
     )
 )
 
@@ -396,6 +397,7 @@ def save_piecewise_inverse_contact_resistance_report(
         f"boundary jump {validation.max_boundary_temperature_jump:.2e} K"
     )
     figure.savefig(destination, dpi=150)
+    save_figure_data(report, destination)
     return destination
 
 
@@ -412,6 +414,7 @@ def main() -> None:
         ),
         help=(
             "destination PNG path (default: thermotwin/figures/"
+            "CONTACT_RESISTANCE_EXPERIMENT/"
             "piecewise_inverse_contact_resistance_comparison.png)"
         ),
     )

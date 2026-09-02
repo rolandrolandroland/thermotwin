@@ -26,7 +26,13 @@ class ContactProcessWindowReportTests(unittest.TestCase):
             DEFAULT_CONTACT_PROCESS_WINDOW_PATH.name,
             "electrical_contact_process_window.png",
         )
-        self.assertEqual(DEFAULT_CONTACT_PROCESS_WINDOW_PATH.parent.name, "figures")
+        self.assertEqual(
+            DEFAULT_CONTACT_PROCESS_WINDOW_PATH.parent.name,
+            "ELECTRICAL_CONTACT_PROCESS_WINDOW",
+        )
+        self.assertEqual(
+            DEFAULT_CONTACT_PROCESS_WINDOW_PATH.parent.parent.name, "figures"
+        )
 
     def test_small_report_writer_creates_png(self):
         config = ContactProcessWindowConfig(
