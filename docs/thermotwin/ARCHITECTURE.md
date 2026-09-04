@@ -88,6 +88,7 @@ ranking, fitting, and presentation separate:
 | `reports/nonlinear_experiment_selection.py` | Nonlinear-selection evidence and figure |
 | `reports/imperfect_inverse_pinn.py` | Imperfect-data inverse-PINN evidence and figure |
 | `reports/forward_reconstruction_comparison.py` | Matched reconstruction and energy-closure evidence |
+| `reports/release_audit.py` | Recomputes principal public evidence and rejects stale headline values |
 
 This division prevents changes to the optimizer from silently changing module
 physics, and makes the scientific assumptions easier to test independently.
@@ -127,6 +128,10 @@ The concise and detailed READMEs and frozen public experiment walkthroughs
 remain at their established paths. Private learning notes under
 `thermotwin/notes/` are intentionally ignored by Git. Generated figures
 remain under `thermotwin/figures/`, are ignored by Git, and are never imported.
+The Milestone 7 handoff consists of `TECHNICAL_SUMMARY.md`, `DEMO_SCRIPT.md`,
+`PORTFOLIO_BULLETS.md`, and the source-noted five-slide deck under
+`docs/thermotwin/`. The release audit recomputes the values quoted by those
+artifacts; it does not replace the complete software test suite.
 
 ## Adding a feature
 

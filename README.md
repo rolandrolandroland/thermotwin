@@ -14,6 +14,11 @@ validated against hardware**.
 For equations, implementation details, and full reproduction instructions, see
 [`thermotwin/README_detailed.md`](thermotwin/README_detailed.md).
 
+For a shorter evidence-first path, start with the
+[`technical summary`](thermotwin/TECHNICAL_SUMMARY.md), the
+[`five-slide overview`](docs/thermotwin/ThermoTwin_Technical_Overview.pptx),
+and the [`90-second demonstration`](thermotwin/DEMO_SCRIPT.md).
+
 ---
 
 ## Why this project exists
@@ -113,6 +118,7 @@ Installed command | Equivalent module command
 `thermotwin-nonlinear-experiment` | `python3 -m thermotwin.nonlinear_experiment_selection`
 `thermotwin-imperfect-inverse-pinn` | `python3 -m thermotwin.imperfect_inverse_pinn`
 `thermotwin-forward-reconstruction` | `python3 -m thermotwin.forward_reconstruction_comparison`
+`thermotwin-release-audit` | `python3 -m thermotwin.release_audit`
 `thermotwin-sparse-sensors` | `python3 -m thermotwin.sparse_sensor_report`
 `thermotwin-codesign` | `python3 -m thermotwin.material_geometry_codesign_report`
 `thermotwin-cop-map` | `python3 -m thermotwin.cop_operating_map_report`
@@ -390,7 +396,7 @@ and extension pattern are documented in
 
 ## How the evidence is checked
 
-The current suite contains 522 tests. It covers:
+The current suite contains 525 tests. It covers:
 
 - units, signs, algebraic identities, and positive/zero/negative current;
 - limiting cases such as passive conduction and absent identifiability;
@@ -442,9 +448,11 @@ before using any result as a design claim.
 The scientific specification, conventional solvers, virtual test stand,
 forward PINNs, one-parameter lumped inverse inference, lumped
 identifiability/uncertainty, and all current Milestone 6 scopes are complete for
-their documented synthetic boundaries. The research artifact retains explicit
-exit criteria. Distributed constitutive inference remains a separate partial
-extension. Hardware validation is optional and has not started.
+their documented synthetic boundaries. Milestone 7's technical summary, slide
+deck, demonstration script, portfolio bullets, and release-evidence audit are
+complete locally; hosted CI must be rechecked after the next push. Distributed
+constitutive inference remains a separate partial extension. Hardware
+validation is optional and has not started.
 
 The authoritative status and remaining work are in
 [`thermotwin/ROADMAP.md`](thermotwin/ROADMAP.md).
@@ -453,6 +461,12 @@ The authoritative status and remaining work are in
 
 - [`thermotwin/README_detailed.md`](thermotwin/README_detailed.md) — complete technical guide,
   reproducibility map, API examples, milestones, and glossary.
+- [`thermotwin/TECHNICAL_SUMMARY.md`](thermotwin/TECHNICAL_SUMMARY.md) — compact problem,
+  methods, strongest evidence, negative results, and limitations.
+- [`docs/thermotwin/ThermoTwin_Technical_Overview.pptx`](docs/thermotwin/ThermoTwin_Technical_Overview.pptx)
+  — generic five-slide technical presentation with source notes.
+- [`thermotwin/DEMO_SCRIPT.md`](thermotwin/DEMO_SCRIPT.md) — the 90-second spoken and screen sequence.
+- [`thermotwin/PORTFOLIO_BULLETS.md`](thermotwin/PORTFOLIO_BULLETS.md) — concise public-facing project bullets.
 - [`thermotwin/PINN_SHOWCASE.md`](thermotwin/PINN_SHOWCASE.md) — the most direct demonstration of the
   learned model.
 - [`thermotwin/FORWARD_RECONSTRUCTION_COMPARISON.md`](thermotwin/FORWARD_RECONSTRUCTION_COMPARISON.md)

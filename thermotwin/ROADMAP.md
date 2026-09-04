@@ -634,7 +634,9 @@ needed before product recommendations.
 
 ## Milestone 7 — Interview-ready research artifact
 
-**Status: Partial and developed continuously.**
+**Status: Complete locally for the current synthetic research artifact. Hosted
+CI passed on `dev` before the artifact additions and must be rechecked on the
+next pushed commit.**
 
 ### Goal
 
@@ -659,7 +661,7 @@ An interactive application is optional rather than mandatory. The existing
 one-command static showcase can satisfy the MVP if it communicates the evidence
 more clearly and reproducibly than a hurried interface.
 
-### Existing foundation
+### Completed pieces
 
 - Dependency-layered package with installable metadata, compatibility-preserved
   historical imports, extensive tests, two levels of README documentation,
@@ -672,6 +674,17 @@ more clearly and reproducibly than a hurried interface.
   control comparison, experiment selection, and assembly screening.
 - Separate walkthroughs that retain negative results and distinguish local
   synthetic uncertainty from hardware evidence.
+- A concise technical summary centered on the engineering question, strongest
+  matched PINN result, inverse/selection decisions, negative results, and
+  evidence boundaries.
+- A generic five-slide PowerPoint deck with source blocks in every slide's
+  speaker notes, plus a 90-second spoken/screen demonstration.
+- Concise portfolio bullets that preserve the synthetic-validation boundary.
+- `thermotwin-release-audit`, which recomputes the engineering showcase,
+  matched PINN comparison, nonlinear pulse validation, and co-design robustness
+  value before accepting the public headline metrics.
+- A hosted GitHub Actions run that passed all 522 predecessor tests on commit
+  `59ba602`; the current local artifact adds three tests.
 
 ### Exit criteria
 
@@ -855,10 +868,9 @@ instrumentation cannot support.
 
 ## Recommended execution order from the current state
 
-1. Finish the reproducible narrative and evidence audit in Milestone 7;
-   Milestones 3 through 6 are now complete for their current lumped synthetic
-   scopes. The CI
-   workflow now exists, but it must pass in the hosted repository after push.
+1. Review, commit, and push the Milestone 7 artifact, then verify hosted CI on
+   that exact commit. Milestones 3 through 7 are complete locally for their
+   current synthetic scopes.
 2. Confirm Milestone 9's loss-balanced distributed protocol under fresh
    independent truth and test whether its selected experiment improves the
    remaining curve-shape failure.

@@ -1178,7 +1178,7 @@ evidence that a trajectory is correct.
 
 ## 12. What the tests cover
 
-The suite runs 522 tests with `python3 -m unittest discover -s tests`. Optional
+The suite runs 525 tests with `python3 -m unittest discover -s tests`. Optional
 learned-model and figure tests skip when PyTorch or Matplotlib are absent.
 
 By category rather than by file, the tests check:
@@ -1302,6 +1302,7 @@ The installed console names and their exact historical module equivalents are:
 | Nonlinear experiment-selection validation | `thermotwin-nonlinear-experiment` | `python3 -m thermotwin.nonlinear_experiment_selection` |
 | Imperfect-observation inverse PINN | `thermotwin-imperfect-inverse-pinn` | `python3 -m thermotwin.imperfect_inverse_pinn` |
 | Matched forward reconstruction | `thermotwin-forward-reconstruction` | `python3 -m thermotwin.forward_reconstruction_comparison` |
+| Release evidence audit | `thermotwin-release-audit` | `python3 -m thermotwin.release_audit` |
 | Sparse accessible-sensor inference | `thermotwin-sparse-sensors` | `python3 -m thermotwin.sparse_sensor_report` |
 | Material/geometry co-design | `thermotwin-codesign` | `python3 -m thermotwin.material_geometry_codesign_report` |
 | COP map | `thermotwin-cop-map` | `python3 -m thermotwin.cop_operating_map_report` |
@@ -1366,14 +1367,14 @@ is a reading aid, not a replacement for that document.
 | 6A — Control comparison | Complete for the current generic scope | Extend only with validated new physics or hardware conditions |
 | 6B — Next-experiment selection | Complete for the current synthetic lumped candidate grid | Distributed-property selection remains in Milestone 9 |
 | 6C — Material/product co-design | Complete for the public-data-seeded virtual method | Temperature-dependent properties, measured process/cost distributions, and hardware calibration |
-| 7 — Research artifact | Partial and continuous | Final narrative, evidence audit, and reproducible presentation package |
+| 7 — Research artifact | Complete locally for the current synthetic artifact | Re-run hosted CI after the artifact commit; revise when scientific claims change |
 | 8 — Hardware validation | Optional; not run | Safe hardware, calibrated sensors, uncertainty records, and protocol execution |
 | 9 — Distributed constitutive inference | Partial with a validated reference, practical gates, forward/inverse PINNs, transfer checks, independent numerical truth, nonlinear profiles, repeated local-interval coverage, and a loss-balanced training audit | Repeated curve-shape recovery, broader model discrepancy, selected-experiment validation, switched PINNs, and joint properties |
 
 The recommended scientific sequence is:
 
-1. finish the Milestone 7 narrative/evidence audit and verify the new CI
-   workflow in the hosted repository;
+1. review, commit, and push the Milestone 7 artifact, then verify hosted CI on
+   that exact commit;
 2. test Milestone 9's distributed selected experiment with fresh independent
    truth and the frozen loss-balanced protocol;
 3. add chance-constrained co-design only after measured process-capability data
