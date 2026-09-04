@@ -489,9 +489,10 @@ period.
 
 ## Milestone 6B — Next-experiment selection
 
-**Status: Complete for the current synthetic lumped candidate grid and
-declared feasibility constraints. Distributed-property experiment selection
-remains part of Milestone 9.**
+**Status: Complete for the current synthetic lumped candidate grid, declared
+feasibility constraints, sequential campaign comparison, independent
+model-mismatch stress test, and sensor-versus-schedule discrimination study.
+Distributed-property experiment selection remains part of Milestone 9.**
 
 ### Goal
 
@@ -543,6 +544,22 @@ heat-transfer parameter.
   complete nonlinear refits, local coverage, parameter profiles, correlations,
   bound hits, and withheld transfer are all retained.
 - Walkthrough: `NONLINEAR_EXPERIMENT_SELECTION.md`.
+- A four-test, 65 J sequential campaign compares posterior-aware adaptation,
+  a precommitted greedy D-optimal batch, and an engineer heuristic across 20
+  paired trials. Adaptation does not materially beat either fixed plan under
+  matched equations.
+- An independent five-state truth inserts an unobserved cold-interface thermal
+  mass while inference retains four nodes. All three policies achieve
+  near-noise visible-data fits and sub-0.0065 K accessible held-out RMSE, but
+  fail physical-parameter and hidden-face gates in 20/20 trials while reporting
+  tight local uncertainty. Walkthrough: `ADAPTIVE_EXPERIMENT_CAMPAIGN.md`.
+- A follow-on fits both four- and five-state candidates and lets a complete
+  withheld bipolar schedule choose the topology. Four exchanger-only training
+  pulses select the right topology in 37/40 combined trials but pass the
+  physical-decision gate in only 32/40. One selected pulse augmented by
+  cold-face temperature selects correctly and passes in 40/40, with zero false
+  confidence. Heat-rate and voltage packages also pass, subject to different
+  unmodeled hardware costs. Walkthrough: `SENSOR_MODEL_DISCRIMINATION.md`.
 
 ---
 

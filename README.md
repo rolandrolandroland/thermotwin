@@ -63,6 +63,8 @@ and application constraints determine whether the material advantage survives.
 | Can hidden contact resistance be inferred from sparse temperature sensors? | [Contact-resistance inference](thermotwin/CONTACT_RESISTANCE_EXPERIMENT.md) and [sparse sensors](thermotwin/SPARSE_SENSOR_EXPERIMENT.md) |
 | Which sensor locations and current pulse are most informative? | [Next-experiment selection](thermotwin/NEXT_EXPERIMENT_WALKTHROUGH.md) |
 | Does the selected pulse still win after complete nonlinear refitting? | [Nonlinear experiment-selection validation](thermotwin/NONLINEAR_EXPERIMENT_SELECTION.md) |
+| Does adaptive test selection beat a fixed campaign, and what happens under missing physics? | [Adaptive model-mismatch campaign](thermotwin/ADAPTIVE_EXPERIMENT_CAMPAIGN.md) |
+| Which added observable distinguishes hidden interface storage better than repeating terminal tests? | [Sensor model discrimination](thermotwin/SENSOR_MODEL_DISCRIMINATION.md) |
 | Can an inverse PINN recover contact resistance with noise and missing turn-off data? | [Imperfect-observation inverse PINN](thermotwin/IMPERFECT_INVERSE_PINN.md) |
 | Can finished assemblies be ranked by hidden interface quality? | [Assembly fingerprinting](thermotwin/ASSEMBLY_FINGERPRINT_EXPERIMENT.md) |
 | What does a PINN add beyond a conventional solver? | [PINN showcase](thermotwin/PINN_SHOWCASE.md) |
@@ -116,6 +118,8 @@ Installed command | Equivalent module command
 `thermotwin-assembly-fingerprint` | `python3 -m thermotwin.assembly_fingerprint_report`
 `thermotwin-next-experiment` | `python3 -m thermotwin.experiment_selection_report`
 `thermotwin-nonlinear-experiment` | `python3 -m thermotwin.nonlinear_experiment_selection`
+`thermotwin-adaptive-campaign` | `python3 -m thermotwin.adaptive_experiment_campaign`
+`thermotwin-sensor-discrimination` | `python3 -m thermotwin.sensor_model_discrimination`
 `thermotwin-imperfect-inverse-pinn` | `python3 -m thermotwin.imperfect_inverse_pinn`
 `thermotwin-forward-reconstruction` | `python3 -m thermotwin.forward_reconstruction_comparison`
 `thermotwin-release-audit` | `python3 -m thermotwin.release_audit`
@@ -286,6 +290,8 @@ but ThermoTwin does not infer neural uncertainty from seed spread. See the
 | Expected information gain of selected versus naive pulse | 7.198 vs 2.889 nats |
 | Joint log-parameter RMSE reduction in 250 linearized noise trials | 82.2% |
 | Joint log-parameter RMSE reduction after 20 complete nonlinear refits | 81.46% versus naive; 11.77% versus closest-energy control |
+| Correct four-/five-state selection with one added cold-face temperature channel | 100% / 100% across 20 paired trials each |
+| Five-state physical-decision pass: four exchanger tests versus one pulse plus cold-face temperature | 70% versus 100% |
 
 The complete nonlinear follow-on varies contact resistance, face capacitance,
 sensor lag, two nuisance biases, and noise. The selected pulse supports all
@@ -296,6 +302,16 @@ location can matter more than simply collecting more samples, while the
 remaining absolute correlations—0.9331 for contact/capacitance, 0.7435 for
 contact/lag, and 0.5611 for capacitance/lag—prevent an independence claim. See
 the [nonlinear validation](thermotwin/NONLINEAR_EXPERIMENT_SELECTION.md).
+
+The model-discrimination follow-on compares one or four exchanger-temperature
+training pulses with one selected pulse augmented by cold-face temperature,
+cold-side heat rate, or terminal voltage. Both four- and five-state candidates
+are fit before a separate bipolar schedule chooses the lower held-out error.
+All three added observables select the correct topology and pass the physical
+decision gate in 40/40 combined trials; four exchanger-only tests pass 32/40.
+Cold-face temperature is the recommended demonstration because it combines
+direct hidden-state observability with 100% selection and decision passes. See
+the [sensor model-discrimination study](thermotwin/SENSOR_MODEL_DISCRIMINATION.md).
 
 ### Efficiency, electronics, and co-design
 

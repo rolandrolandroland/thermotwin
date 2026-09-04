@@ -524,6 +524,17 @@ face-state transfer. Ranking uses the stated broad design prior; the nonlinear
 validation fit itself uses bounds and the observation likelihood without that
 prior.
 
+A model-discrimination follow-on fits both the established four-state topology
+and an independent five-state candidate with cold-interface thermal storage.
+Each model is trained on the declared measurement package, then selected by
+noise-normalized error on a complete bipolar schedule excluded from fitting.
+Twenty paired trials compare four exchanger-temperature pulses with one
+selected pulse augmented by cold-face temperature, cold-side heat rate, or
+voltage. The added cold-face channel selects correctly and passes physical
+recovery in 40/40 combined four-/five-state trials; four terminal-only pulses
+pass physical recovery in 32/40. Resource counts and modeled energy are
+reported explicitly, but sensor intrusion and hardware cost are not modeled.
+
 ### 6.5 Robustness studies
 
 `studies/` repeats the fit across many seeded trials under noise, bias, lag,
@@ -1300,6 +1311,8 @@ The installed console names and their exact historical module equivalents are:
 | Assembly fingerprinting | `thermotwin-assembly-fingerprint` | `python3 -m thermotwin.assembly_fingerprint_report` |
 | Next-experiment selection | `thermotwin-next-experiment` | `python3 -m thermotwin.experiment_selection_report` |
 | Nonlinear experiment-selection validation | `thermotwin-nonlinear-experiment` | `python3 -m thermotwin.nonlinear_experiment_selection` |
+| Adaptive model-mismatch campaign | `thermotwin-adaptive-campaign` | `python3 -m thermotwin.adaptive_experiment_campaign` |
+| Sensor model discrimination | `thermotwin-sensor-discrimination` | `python3 -m thermotwin.sensor_model_discrimination` |
 | Imperfect-observation inverse PINN | `thermotwin-imperfect-inverse-pinn` | `python3 -m thermotwin.imperfect_inverse_pinn` |
 | Matched forward reconstruction | `thermotwin-forward-reconstruction` | `python3 -m thermotwin.forward_reconstruction_comparison` |
 | Release evidence audit | `thermotwin-release-audit` | `python3 -m thermotwin.release_audit` |
@@ -1365,7 +1378,7 @@ is a reading aid, not a replacement for that document.
 | 4 — Inverse parameter estimation | Complete for the current synthetic one-parameter lumped scope | Hardware/model-discrepancy validation belongs in Milestone 8 |
 | 5 — Identifiability and uncertainty | Complete for the current synthetic lumped multi-parameter scope | Distributed-function uncertainty remains in Milestone 9; hardware calibration in Milestone 8 |
 | 6A — Control comparison | Complete for the current generic scope | Extend only with validated new physics or hardware conditions |
-| 6B — Next-experiment selection | Complete for the current synthetic lumped candidate grid | Distributed-property selection remains in Milestone 9 |
+| 6B — Next-experiment selection | Complete for the current synthetic lumped candidate grid, sequential comparison, model-mismatch stress test, and sensor-versus-schedule discrimination | Distributed-property selection remains in Milestone 9 |
 | 6C — Material/product co-design | Complete for the public-data-seeded virtual method | Temperature-dependent properties, measured process/cost distributions, and hardware calibration |
 | 7 — Research artifact | Complete locally for the current synthetic artifact | Re-run hosted CI after the artifact commit; revise when scientific claims change |
 | 8 — Hardware validation | Optional; not run | Safe hardware, calibrated sensors, uncertainty records, and protocol execution |

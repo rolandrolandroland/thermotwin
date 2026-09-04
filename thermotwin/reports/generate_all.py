@@ -9,6 +9,8 @@ from typing import Sequence
 
 
 REPORT_MODULES = (
+    "thermotwin.adaptive_experiment_campaign",
+    "thermotwin.sensor_model_discrimination",
     "thermotwin.ag2se_substitution",
     "thermotwin.assembly_fingerprint_report",
     "thermotwin.contact_report",

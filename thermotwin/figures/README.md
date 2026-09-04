@@ -20,6 +20,7 @@ generated, ignored by Git, and reproducible from committed code.
 
 | Artifact folder | Walkthrough | Typical figures |
 | --- | --- | --- |
+| `ADAPTIVE_EXPERIMENT_CAMPAIGN/` | [`ADAPTIVE_EXPERIMENT_CAMPAIGN.md`](../ADAPTIVE_EXPERIMENT_CAMPAIGN.md) | `adaptive_experiment_campaign.png` |
 | `AG2SE_SUBSTITUTION_EXPERIMENT/` | [`AG2SE_SUBSTITUTION_EXPERIMENT.md`](../AG2SE_SUBSTITUTION_EXPERIMENT.md) | `ag2se_matched_substitution.png` |
 | `ASSEMBLY_FINGERPRINT_EXPERIMENT/` | [`ASSEMBLY_FINGERPRINT_EXPERIMENT.md`](../ASSEMBLY_FINGERPRINT_EXPERIMENT.md) | `assembly_fingerprint.png` |
 | `CONTACT_RESISTANCE_EXPERIMENT/` | [`CONTACT_RESISTANCE_EXPERIMENT.md`](../CONTACT_RESISTANCE_EXPERIMENT.md) | contact model and four contact-PINN reports |
@@ -42,6 +43,7 @@ generated, ignored by Git, and reproducible from committed code.
 | `PINN_SHOWCASE/` | [`PINN_SHOWCASE.md`](../PINN_SHOWCASE.md) | forward comparison and combined showcase |
 | `PULSE_OPERATING_MAP_EXPERIMENT/` | [`PULSE_OPERATING_MAP_EXPERIMENT.md`](../PULSE_OPERATING_MAP_EXPERIMENT.md) | `pulse_operating_map.png` |
 | `PWM_POWER_ELECTRONICS_EXPERIMENT/` | [`PWM_POWER_ELECTRONICS_EXPERIMENT.md`](../PWM_POWER_ELECTRONICS_EXPERIMENT.md) | `pwm_power_electronics.png` |
+| `SENSOR_MODEL_DISCRIMINATION/` | [`SENSOR_MODEL_DISCRIMINATION.md`](../SENSOR_MODEL_DISCRIMINATION.md) | `sensor_model_discrimination.png` |
 | `SPARSE_SENSOR_EXPERIMENT/` | [`SPARSE_SENSOR_EXPERIMENT.md`](../SPARSE_SENSOR_EXPERIMENT.md) | `sparse_sensor_inference.png` |
 
 When `--output PATH` is supplied, the JSON and TXT sidecars are written beside

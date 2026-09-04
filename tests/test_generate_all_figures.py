@@ -13,6 +13,8 @@ class GenerateAllFiguresTests(unittest.TestCase):
         self.assertEqual(len(REPORT_MODULES), len(set(REPORT_MODULES)))
         self.assertIn("thermotwin.control_comparison_report", REPORT_MODULES)
         self.assertIn("thermotwin.sparse_sensor_report", REPORT_MODULES)
+        self.assertIn("thermotwin.adaptive_experiment_campaign", REPORT_MODULES)
+        self.assertIn("thermotwin.sensor_model_discrimination", REPORT_MODULES)
 
     @patch("thermotwin.reports.generate_all.subprocess.run")
     def test_selected_modules_run_with_active_python(self, run):

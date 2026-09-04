@@ -107,6 +107,26 @@ relative to the closest-energy control. The second comparison matters because
 it separates waveform placement from the trivial benefit of spending much
 more energy.
 
+A sequential follow-on gives adaptive selection, a precommitted D-optimal
+batch, and an engineer heuristic four tests under the same 65 J cap. In 20
+matched-equation trials, adaptation provides no material advantage; the
+heuristic reaches the prediction gate at lower modeled energy. When an
+independent truth model inserts an unobserved interface thermal mass, all three
+policies fit the visible data at the 0.02 K noise scale and predict accessible
+held-out sensors within 0.0065 K, yet all fail physical-parameter and hidden-face
+recovery in 20/20 trials while reporting tight local uncertainty. The negative
+result shows that more informative experiments cannot repair omitted physics.
+
+The sensor model-discrimination follow-on then asks whether more terminal tests
+or one added observable best resolves that ambiguity. Four exchanger-only
+training pulses use 64.41 J, choose the right four-/five-state topology in
+37/40 combined trials, and pass the physical decision gate in 32/40. One
+27.54 J training pulse augmented by cold-face temperature chooses correctly and
+passes in 40/40, with zero false confidence and 0.0060 K mean hidden-face RMSE
+under five-state truth. Added heat rate and voltage also pass all trials; the
+cold-face channel is the recommended demonstration because it directly audits
+the hidden state without assuming that idealized heat-flux sensing is cheap.
+
 ## Engineering decisions beyond inference
 
 ThermoTwin also tests decisions that connect material and device physics:

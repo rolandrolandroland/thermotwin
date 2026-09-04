@@ -12,6 +12,23 @@ FIGURES_DIRECTORY = Path(__file__).resolve().parent.parent / "figures"
 
 
 FIGURE_EXPLANATIONS = {
+    "adaptive_experiment_campaign.png": (
+        "ADAPTIVE_EXPERIMENT_CAMPAIGN.md",
+        "This figure compares posterior-aware adaptive experiment selection, a "
+        "precommitted greedy D-optimal batch, and an engineer heuristic under the "
+        "same cumulative modeled-energy cap. Matched-model trials measure learning "
+        "speed; an independent five-state truth inserts an unmodeled interface "
+        "thermal mass so hidden-state error and false confidence remain visible.",
+    ),
+    "sensor_model_discrimination.png": (
+        "SENSOR_MODEL_DISCRIMINATION.md",
+        "This figure compares repeated exchanger-temperature tests with one pulse "
+        "augmented by a cold-face temperature, cold-side heat-rate, or terminal-"
+        "voltage channel. Four- and five-state thermal models are trained on each "
+        "package and selected using a separate bipolar schedule, exposing which "
+        "measurement package identifies a hidden interface thermal mass rather "
+        "than merely fitting the observed terminal temperatures.",
+    ),
     "ag2se_matched_substitution.png": (
         "AG2SE_SUBSTITUTION_EXPERIMENT.md",
         "This multi-panel figure compares matched virtual devices before and after "
