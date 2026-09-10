@@ -1,8 +1,12 @@
 # Blinded measurement selection for an operating decision
 
-Status: Stage 1 baseline reproduction complete; no operating-decision extension
-has been run. See
-[`OPERATING_DECISION_STAGE_1_BASELINE.md`](OPERATING_DECISION_STAGE_1_BASELINE.md).
+Status: Stage 1 baseline reproduction and the Stage 2 fixed-policy development
+pilot are complete. See
+[`OPERATING_DECISION_STAGE_1_BASELINE.md`](OPERATING_DECISION_STAGE_1_BASELINE.md)
+and the
+[`Stage 2 result`](../../thermotwin/OPERATING_DECISION_EXPERIMENT.md).
+Sensor realism, Family C, calibration, the selector, and frozen evaluation
+remain pending.
 
 ## 1. Problem and research question
 

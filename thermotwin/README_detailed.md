@@ -1313,6 +1313,7 @@ The installed console names and their exact historical module equivalents are:
 | Nonlinear experiment-selection validation | `thermotwin-nonlinear-experiment` | `python3 -m thermotwin.nonlinear_experiment_selection` |
 | Adaptive model-mismatch campaign | `thermotwin-adaptive-campaign` | `python3 -m thermotwin.adaptive_experiment_campaign` |
 | Sensor model discrimination | `thermotwin-sensor-discrimination` | `python3 -m thermotwin.sensor_model_discrimination` |
+| Blinded operating-decision pilot | `thermotwin-operating-decision` | `python3 -m thermotwin.operating_decision` |
 | Imperfect-observation inverse PINN | `thermotwin-imperfect-inverse-pinn` | `python3 -m thermotwin.imperfect_inverse_pinn` |
 | Matched forward reconstruction | `thermotwin-forward-reconstruction` | `python3 -m thermotwin.forward_reconstruction_comparison` |
 | Release evidence audit | `thermotwin-release-audit` | `python3 -m thermotwin.release_audit` |

@@ -567,19 +567,38 @@ def _model_parameter_spec(
     raise ValueError(f"unknown candidate model: {model_name}")
 
 
-def fit_candidate_model(
+def _fit_candidate_model_with_run_channels(
     model_name: str,
     runs: Sequence[ObservableRun],
-    channels: Sequence[str],
+    channels_by_run: Sequence[Sequence[str]],
     config: SensorDiscriminationConfig,
+    *,
+    initial_log_multipliers: Optional[Sequence[float]] = None,
 ) -> CandidateModelFit:
     """Fit one candidate topology with priors counted once across all runs."""
 
     runs = tuple(runs)
     if not runs:
         raise ValueError("candidate-model fit needs at least one run")
+    channels_by_run = tuple(tuple(channels) for channels in channels_by_run)
+    if len(channels_by_run) != len(runs):
+        raise ValueError("candidate-model runs and channel sets must be aligned")
+    if any(not channels for channels in channels_by_run):
+        raise ValueError("every candidate-model run needs at least one channel")
+    if any(
+        len(set(channels)) != len(channels)
+        or any(channel not in ALL_CHANNELS for channel in channels)
+        for channels in channels_by_run
+    ):
+        raise ValueError("candidate-model run channels must be known and distinct")
     bounds, prior_scales, nominal_values = _model_parameter_spec(model_name, config)
     parameter_count = len(bounds)
+    if initial_log_multipliers is None:
+        initial_log_multipliers = (0.0,) * parameter_count
+    if len(initial_log_multipliers) != parameter_count or any(
+        not math.isfinite(value) for value in initial_log_multipliers
+    ):
+        raise ValueError("initial log multipliers must match the candidate model")
     cache: Dict[Tuple[float, ...], Tuple[float, ...]] = {}
     observation_count = sum(len(run.values) for run in runs)
     evaluation_count = 0
@@ -607,7 +626,7 @@ def fit_candidate_model(
         key = bounded(offsets)
         if key not in cache:
             combined = []
-            for run in runs:
+            for run, channels in zip(runs, channels_by_run):
                 prediction = _simulate_observables(
                     model_name,
                     run.current,
@@ -630,7 +649,7 @@ def fit_candidate_model(
         values = residuals(offsets)
         return sum(value * value for value in values) / len(values)
 
-    values = [0.0] * parameter_count
+    values = list(bounded(initial_log_multipliers))
     damping = config.fit.initial_damping
     objective(values)
     for _ in range(config.fit_iterations):
@@ -756,6 +775,49 @@ def fit_candidate_model(
             for index in range(parameter_count)
         ),
         evaluation_count=evaluation_count,
+    )
+
+
+def fit_candidate_model(
+    model_name: str,
+    runs: Sequence[ObservableRun],
+    channels: Sequence[str],
+    config: SensorDiscriminationConfig,
+) -> CandidateModelFit:
+    """Fit one candidate topology when every run has the same channels."""
+
+    runs = tuple(runs)
+    channels = tuple(channels)
+    return _fit_candidate_model_with_run_channels(
+        model_name,
+        runs,
+        tuple(channels for _ in runs),
+        config,
+    )
+
+
+def fit_candidate_model_by_run(
+    model_name: str,
+    runs: Sequence[ObservableRun],
+    config: SensorDiscriminationConfig,
+    *,
+    initial_log_multipliers: Optional[Sequence[float]] = None,
+) -> CandidateModelFit:
+    """Fit one topology using the channels actually present in each run."""
+
+    runs = tuple(runs)
+    channels_by_run = []
+    for run in runs:
+        present = {item.channel for item in run.values}
+        channels_by_run.append(
+            tuple(channel for channel in ALL_CHANNELS if channel in present)
+        )
+    return _fit_candidate_model_with_run_channels(
+        model_name,
+        runs,
+        tuple(channels_by_run),
+        config,
+        initial_log_multipliers=initial_log_multipliers,
     )
 
 
