@@ -173,11 +173,7 @@ python3 -m unittest \
 
 ## Next stage
 
-The next step is calibration rather than immediate policy optimization. Use
-development resampling to redesign or calibrate the verification gate and
-final-margin intervals under all three truth families, including the
-sensor-removal transfer. Then build the decision-directed selector and compare
-its expected value against these unchanged fixed policies on fresh seeds. The
-selector should prefer voltage over face temperature unless the face policy can
-demonstrate calibrated unloaded-device coverage after paying its physical
-instrumentation cost.
+Stage 4 implements this calibration and selector in
+[`OPERATING_DECISION_CALIBRATION.md`](OPERATING_DECISION_CALIBRATION.md). It
+uses a disjoint calibration cohort, calibrates the full selected procedure,
+and reserves a separate final-evaluation namespace.

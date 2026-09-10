@@ -42,6 +42,7 @@ generated, ignored by Git, and reproducible from committed code.
 | `NONLINEAR_EXPERIMENT_SELECTION/` | [`NONLINEAR_EXPERIMENT_SELECTION.md`](../NONLINEAR_EXPERIMENT_SELECTION.md) | `nonlinear_experiment_selection.png` |
 | `OPERATING_DECISION_EXPERIMENT/` | [`OPERATING_DECISION_EXPERIMENT.md`](../OPERATING_DECISION_EXPERIMENT.md) | `operating_decision.png` |
 | `OPERATING_DECISION_REALISM/` | [`OPERATING_DECISION_REALISM.md`](../OPERATING_DECISION_REALISM.md) | `operating_decision_realism.png` |
+| `OPERATING_DECISION_CALIBRATION/` | [`OPERATING_DECISION_CALIBRATION.md`](../OPERATING_DECISION_CALIBRATION.md) | `operating_decision_calibration.png` |
 | `PINN_SHOWCASE/` | [`PINN_SHOWCASE.md`](../PINN_SHOWCASE.md) | forward comparison and combined showcase |
 | `PULSE_OPERATING_MAP_EXPERIMENT/` | [`PULSE_OPERATING_MAP_EXPERIMENT.md`](../PULSE_OPERATING_MAP_EXPERIMENT.md) | `pulse_operating_map.png` |
 | `PWM_POWER_ELECTRONICS_EXPERIMENT/` | [`PWM_POWER_ELECTRONICS_EXPERIMENT.md`](../PWM_POWER_ELECTRONICS_EXPERIMENT.md) | `pwm_power_electronics.png` |

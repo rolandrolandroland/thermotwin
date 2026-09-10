@@ -27,6 +27,14 @@ FIGURE_EXPLANATIONS = {
         "from both fitted candidates. It compares correct decisions, errors, and "
         "abstentions while retaining the untouched unloaded final target.",
     ),
+    "operating_decision_calibration.png": (
+        "OPERATING_DECISION_CALIBRATION.md",
+        "This figure calibrates the realistic operating-decision benchmark on a "
+        "separate synthetic-device partition, then compares four fixed packages "
+        "with an acquisition-only stop-or-voltage selector on fresh development "
+        "seeds. It shows decision outcomes, interval coverage, selected actions, "
+        "and diagnostic effort while reserving the final evaluation cohort.",
+    ),
     "adaptive_experiment_campaign.png": (
         "ADAPTIVE_EXPERIMENT_CAMPAIGN.md",
         "This figure compares posterior-aware adaptive experiment selection, a "
