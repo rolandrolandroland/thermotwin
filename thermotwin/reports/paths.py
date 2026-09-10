@@ -12,6 +12,21 @@ FIGURES_DIRECTORY = Path(__file__).resolve().parent.parent / "figures"
 
 
 FIGURE_EXPLANATIONS = {
+    "operating_decision.png": (
+        "OPERATING_DECISION_EXPERIMENT.md",
+        "This figure compares four fixed diagnostic packages on a blinded "
+        "approve, reject, or insufficient-evidence decision for an untouched "
+        "current schedule. It shows correct decisions, errors, and abstentions "
+        "for matched four-state and hidden-interface-mass truth families.",
+    ),
+    "operating_decision_realism.png": (
+        "OPERATING_DECISION_REALISM.md",
+        "This figure reruns the fixed blinded operating-decision policies after "
+        "adding terminal electrical resistance, a thermally loading removable "
+        "face probe, and a temperature-dependent-contact truth family omitted "
+        "from both fitted candidates. It compares correct decisions, errors, and "
+        "abstentions while retaining the untouched unloaded final target.",
+    ),
     "adaptive_experiment_campaign.png": (
         "ADAPTIVE_EXPERIMENT_CAMPAIGN.md",
         "This figure compares posterior-aware adaptive experiment selection, a "

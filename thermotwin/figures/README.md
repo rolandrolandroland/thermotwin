@@ -40,6 +40,8 @@ generated, ignored by Git, and reproducible from committed code.
 | `MATERIAL_GEOMETRY_BAYESIAN_CODESIGN/` | [`MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md`](../MATERIAL_GEOMETRY_BAYESIAN_CODESIGN.md) | `material_geometry_bayesian_codesign.png` |
 | `NEXT_EXPERIMENT_WALKTHROUGH/` | [`NEXT_EXPERIMENT_WALKTHROUGH.md`](../NEXT_EXPERIMENT_WALKTHROUGH.md) | `experiment_selection.png` |
 | `NONLINEAR_EXPERIMENT_SELECTION/` | [`NONLINEAR_EXPERIMENT_SELECTION.md`](../NONLINEAR_EXPERIMENT_SELECTION.md) | `nonlinear_experiment_selection.png` |
+| `OPERATING_DECISION_EXPERIMENT/` | [`OPERATING_DECISION_EXPERIMENT.md`](../OPERATING_DECISION_EXPERIMENT.md) | `operating_decision.png` |
+| `OPERATING_DECISION_REALISM/` | [`OPERATING_DECISION_REALISM.md`](../OPERATING_DECISION_REALISM.md) | `operating_decision_realism.png` |
 | `PINN_SHOWCASE/` | [`PINN_SHOWCASE.md`](../PINN_SHOWCASE.md) | forward comparison and combined showcase |
 | `PULSE_OPERATING_MAP_EXPERIMENT/` | [`PULSE_OPERATING_MAP_EXPERIMENT.md`](../PULSE_OPERATING_MAP_EXPERIMENT.md) | `pulse_operating_map.png` |
 | `PWM_POWER_ELECTRONICS_EXPERIMENT/` | [`PWM_POWER_ELECTRONICS_EXPERIMENT.md`](../PWM_POWER_ELECTRONICS_EXPERIMENT.md) | `pwm_power_electronics.png` |

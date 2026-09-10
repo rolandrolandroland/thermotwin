@@ -66,6 +66,7 @@ and application constraints determine whether the material advantage survives.
 | Does adaptive test selection beat a fixed campaign, and what happens under missing physics? | [Adaptive model-mismatch campaign](thermotwin/ADAPTIVE_EXPERIMENT_CAMPAIGN.md) |
 | Which added observable distinguishes hidden interface storage better than repeating terminal tests? | [Sensor model discrimination](thermotwin/SENSOR_MODEL_DISCRIMINATION.md) |
 | Can a fixed diagnostic package support an approve, reject, or abstain decision on an untouched operating pulse? | [Blinded operating-decision pilot](thermotwin/OPERATING_DECISION_EXPERIMENT.md) |
+| Does that diagnostic decision survive electrical loss, probe loading, and omitted contact physics? | [Operating-decision realism stress test](thermotwin/OPERATING_DECISION_REALISM.md) |
 | Can an inverse PINN recover contact resistance with noise and missing turn-off data? | [Imperfect-observation inverse PINN](thermotwin/IMPERFECT_INVERSE_PINN.md) |
 | Can finished assemblies be ranked by hidden interface quality? | [Assembly fingerprinting](thermotwin/ASSEMBLY_FINGERPRINT_EXPERIMENT.md) |
 | What does a PINN add beyond a conventional solver? | [PINN showcase](thermotwin/PINN_SHOWCASE.md) |
@@ -122,6 +123,7 @@ Installed command | Equivalent module command
 `thermotwin-adaptive-campaign` | `python3 -m thermotwin.adaptive_experiment_campaign`
 `thermotwin-sensor-discrimination` | `python3 -m thermotwin.sensor_model_discrimination`
 `thermotwin-operating-decision` | `python3 -m thermotwin.operating_decision`
+`thermotwin-operating-realism` | `python3 -m thermotwin.operating_decision_realism`
 `thermotwin-imperfect-inverse-pinn` | `python3 -m thermotwin.imperfect_inverse_pinn`
 `thermotwin-forward-reconstruction` | `python3 -m thermotwin.forward_reconstruction_comparison`
 `thermotwin-release-audit` | `python3 -m thermotwin.release_audit`

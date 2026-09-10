@@ -377,9 +377,28 @@ def _simulate_observables(
     physical_values: Tuple[float, float, float],
     interface_mass: Optional[float],
     config: SensorDiscriminationConfig,
+    *,
+    series_resistance: float = 0.0,
 ) -> ObservablePrediction:
+    if not math.isfinite(series_resistance) or series_resistance < 0.0:
+        raise ValueError("series resistance must be finite and nonnegative")
     resistance, capacitance, sensor_lag = physical_values
     reference = constant_current_contact_reference_experiment()
+    # A symmetric pair of terminal contacts adds its series resistance to the
+    # voltage drop and deposits half of its Joule heat at each module face.
+    # That is exactly the existing constant-property model with this effective
+    # resistance, while the zero case retains the frozen baseline object.
+    thermoelectric = (
+        reference.thermoelectric_parameters
+        if series_resistance == 0.0
+        else replace(
+            reference.thermoelectric_parameters,
+            electrical_resistance=(
+                reference.thermoelectric_parameters.electrical_resistance
+                + series_resistance
+            ),
+        )
+    )
     thermal = replace(
         reference.thermal_parameters,
         cold_contact_resistance=resistance,
@@ -388,6 +407,7 @@ def _simulate_observables(
     if model_name == FOUR_STATE_MODEL:
         experiment = replace(
             reference,
+            thermoelectric_parameters=thermoelectric,
             thermal_parameters=thermal,
             duration=80.0,
             time_step=config.dense_time_step,
@@ -398,7 +418,7 @@ def _simulate_observables(
         if interface_mass is None:
             raise ValueError("five-state simulation needs an interface mass")
         trajectory = integrate_interface_mass_truth(
-            reference.thermoelectric_parameters,
+            thermoelectric,
             thermal,
             InterfaceMassMismatch(thermal_capacitance=interface_mass),
             initial_temperature=300.0,
@@ -441,7 +461,7 @@ def _simulate_observables(
                     ) / (0.5 * resistance)
             elif channel == VOLTAGE:
                 value = voltage(
-                    reference.thermoelectric_parameters,
+                    thermoelectric,
                     current_at(current, time),
                     trajectory.hot_face[index],
                     trajectory.cold_face[index],

@@ -3,6 +3,10 @@
 Status: Stage 2 development pilot complete on 2026-09-10. This is synthetic
 development evidence, not a frozen evaluation or hardware validation.
 
+Stage 3 now reruns these unchanged policies with electrical-contact loss,
+temporary face-probe loading, and an omitted temperature-dependent-contact
+truth family. See [the realism stress test](OPERATING_DECISION_REALISM.md).
+
 ## Question
 
 Can a fixed diagnostic package support an approve, reject, or
@@ -133,11 +137,9 @@ python3 -m unittest \
 
 ## What this changes
 
-The result establishes a working blinded operating-decision benchmark. It also
-creates a concrete next falsification test: add uncertain electrical/contact
-resistance to voltage, add response lag and thermal mass to the temporary face
-sensor, and introduce a temperature-dependent-contact truth family that neither
-candidate model matches. Rerun the same fixed policies before building the
-selector. That next stage tests whether the apparent face-temperature advantage
-survives the physical cost of obtaining it and whether verification abstains
-under missing physics.
+The result establishes a working blinded operating-decision benchmark. The
+[Stage 3 realism stress test](OPERATING_DECISION_REALISM.md) performs the next
+falsification step: it adds uncertain electrical contact resistance, response
+lag and thermal mass for the temporary face sensor, and a
+temperature-dependent-contact truth family that neither candidate model
+matches. The fixed policies are rerun before any selector is built.
