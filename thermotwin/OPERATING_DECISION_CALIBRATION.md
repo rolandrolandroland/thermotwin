@@ -1,8 +1,9 @@
 # Operating-decision calibration and selector
 
-Status: Stage 4 implementation complete; the full calibration and fresh-seed
-rehearsal are pending execution. This remains a software-only synthetic study,
-not a frozen final evaluation or hardware validation.
+Status: Stage 4 calibration and the one-shot fresh-seed rehearsal completed on
+2026-09-10. The calibrated artifact is frozen, and the reserved Stage 5 cohort
+was not instantiated. This remains a software-only synthetic study, not a
+final evaluation or hardware validation.
 
 ## Question
 
@@ -133,11 +134,84 @@ so the scalar loss cannot hide an unsafe trade.
 
 ## Results
 
-The implementation completes the stages in order: rerun the deterministic
-Stage 3 gate-development cohort, freeze the gates, generate the calibration
-cohort, freeze the full artifact, and only then generate the rehearsal cohort.
-The full result table will be inserted here after the frozen 20-block
-calibration and 10-block rehearsal complete.
+The full run completed the stages in order: it reran the deterministic Stage 3
+gate-development cohort, froze the gates, generated the calibration cohort,
+froze the complete artifact, and only then generated the rehearsal cohort. The
+artifact records implementation revision
+`86205dacbfecec694e4ace233aa974ca739041d1` and protocol digest
+`0c87ccfdbec5b1047490a3e2408b2a599cfa71687f18ef55076724108e5b3b68`.
+It is saved in
+[`OPERATING_DECISION_CALIBRATION_ARTIFACT.json`](OPERATING_DECISION_CALIBRATION_ARTIFACT.json).
+
+### Frozen gate and padding
+
+All gate thresholds retained the correct fitted candidate in 10/10 matched
+development blocks. The threshold is the larger of that finite-sample maximum
+and the predeclared conditional-noise reference.
+
+| Procedure | Gate threshold | Additive padding | Calibration finite-interval coverage, raw | Calibration finite-interval coverage, padded | Calibration block procedure-set coverage |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Stop now | 1.2760 | 0.0171 K | 54/56 (96.4%) | 55/56 (98.2%) | 19/20 (95%) |
+| More thermal tests | 1.2768 | 0.0157 K | 54/58 (93.1%) | 57/58 (98.3%) | 19/20 (95%) |
+| Add voltage | 1.2250 | 0.0669 K | 43/53 (81.1%) | 52/53 (98.1%) | 19/20 (95%) |
+| Add face temperature | 1.2264 | 0.0521 K | 45/56 (80.4%) | 55/56 (98.2%) | 19/20 (95%) |
+| Decision-directed selector | chosen action's gate | 0.0669 K | 44/53 (83.0%) | 52/53 (98.1%) | 19/20 (95%) |
+
+These are calibration-cohort diagnostics, not independent performance
+estimates. The 19/20 block result follows from the selected conformal order
+statistic. The finite-interval columns condition on an interval being emitted
+and are not the calibrated target.
+
+### One-shot fresh-seed rehearsal
+
+The table below pools 30 family rows from 10 paired blocks. The three family
+rows inside a block share the trial index, so pooled row-level confidence
+intervals are intentionally suppressed. Procedure-set coverage is calculated
+at the 10-block level.
+
+| Procedure | Approve / reject / insufficient | Decision coverage | Padded finite-interval coverage | Block procedure-set coverage | Mean runs | Mean energy | Added sensors |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Stop now | 3 / 7 / 20 | 10/30 (33.3%) | 25/26 (96.2%) | 9/10 (90%) | 2.00 | 60.72 J | 0.00 |
+| More thermal tests | 3 / 9 / 18 | 12/30 (40.0%) | 27/27 (100%) | 10/10 (100%) | 5.00 | 99.29 J | 0.00 |
+| Add voltage | 5 / 12 / 13 | 17/30 (56.7%) | 26/26 (100%) | 10/10 (100%) | 3.00 | 89.53 J | 1.00 |
+| Add face temperature | 7 / 7 / 16 | 14/30 (46.7%) | 23/24 (95.8%) | 9/10 (90%) | 3.00 | 89.41 J | 1.00 |
+| Decision-directed selector | 5 / 11 / 14 | 16/30 (53.3%) | 26/26 (100%) | 10/10 (100%) | 2.80 | 83.77 J | 0.80 |
+
+No false approval or false rejection was observed among the determinate
+rehearsal decisions. For the selector specifically, 0/5 approvals and 0/11
+rejections were wrong, while 14/30 rows remained insufficient. The sample is
+too small to interpret zero observed errors as a tight error-rate bound:
+several family-specific Wilson intervals remain wide because they contain only
+one to nine approvals or rejections.
+
+The selector stopped after the common acquisition in 6/30 family rows and
+requested voltage in 24/30. Relative to always adding voltage, it saved 0.20
+runs, 5.76 J, and 0.20 added sensors per row, while producing one fewer
+determinate decision. It tied voltage on padded finite-interval coverage and
+block procedure-set coverage. Its empirical mean loss tied voltage under the
+bench-time-dominant weights (0.601 each), was slightly lower under the balanced
+weights (0.665 versus 0.681), and was lower under the
+instrumentation-expensive weights (0.985 versus 1.081). Stop-now had the lowest
+instrumentation-expensive loss at 0.667, so the preferred procedure changes
+with the declared resource values.
+
+The central selector hypothesis is therefore not established by Stage 4. The
+selector achieved 53.3% decision coverage, below the experiment outline's 70%
+development goal and slightly below fixed voltage at 56.7%. Its resource
+savings are real within this rehearsal but small, and the balanced-loss
+advantage over stop-now is only 0.002. On temperature-dependent-contact truth,
+the selector approved 3/5 true passes, issued no rejection, and abstained on
+all five violations plus two passes. The calibrated gate rejected 45/80 Family
+C fixed-policy candidate fits, compared with none under the Stage 3 cutoff,
+but this is only a misspecification diagnostic and does not establish that the
+gate detects the omitted law.
+
+Stage 4 supports a narrower conclusion: blockwise calibration converted the
+local model intervals into a procedure whose observed rehearsal block coverage
+met the 90% target while preserving abstentions in the decision metric. It did
+not show that the initial-data selector materially improves the decision and
+resource frontier. The reserved Stage 5 comparison is still required and must
+remain untouched until the procedure to evaluate is frozen.
 
 ## Reproduction
 
@@ -145,7 +219,10 @@ Run the dependency-free numerical report from the repository root:
 
 ```bash
 python3 -m thermotwin.operating_decision_calibration \
-  --workers 3 --no-figure
+  --workers 3 --no-figure \
+  --source-revision 86205dacbfecec694e4ace233aa974ca739041d1 \
+  --report-output /tmp/thermotwin-stage4-full-report.txt \
+  --artifact-output thermotwin/OPERATING_DECISION_CALIBRATION_ARTIFACT.json
 ```
 
 For a quick integration check, use a coverage target that has a finite
