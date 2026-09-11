@@ -211,7 +211,9 @@ local model intervals into a procedure whose observed rehearsal block coverage
 met the 90% target while preserving abstentions in the decision metric. It did
 not show that the initial-data selector materially improves the decision and
 resource frontier. The reserved Stage 5 comparison is still required and must
-remain untouched until the procedure to evaluate is frozen.
+remain untouched until the procedure to evaluate is frozen. The single
+mismatch-guard revision and final protocol are specified in
+[`OPERATING_DECISION_FINAL_EVALUATION.md`](OPERATING_DECISION_FINAL_EVALUATION.md).
 
 ## Reproduction
 

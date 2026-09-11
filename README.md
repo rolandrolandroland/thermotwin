@@ -68,6 +68,7 @@ and application constraints determine whether the material advantage survives.
 | Can a fixed diagnostic package support an approve, reject, or abstain decision on an untouched operating pulse? | [Blinded operating-decision pilot](thermotwin/OPERATING_DECISION_EXPERIMENT.md) |
 | Does that diagnostic decision survive electrical loss, probe loading, and omitted contact physics? | [Operating-decision realism stress test](thermotwin/OPERATING_DECISION_REALISM.md) |
 | Can calibrated uncertainty and an initial-data selector turn that stress test into a defensible measurement decision? | [Operating-decision calibration and selector](thermotwin/OPERATING_DECISION_CALIBRATION.md) |
+| Can acquisition lack of fit avoid a futile diagnostic before the reserved final comparison? | [Mismatch-guarded selector and final evaluation](thermotwin/OPERATING_DECISION_FINAL_EVALUATION.md) |
 | Can an inverse PINN recover contact resistance with noise and missing turn-off data? | [Imperfect-observation inverse PINN](thermotwin/IMPERFECT_INVERSE_PINN.md) |
 | Can finished assemblies be ranked by hidden interface quality? | [Assembly fingerprinting](thermotwin/ASSEMBLY_FINGERPRINT_EXPERIMENT.md) |
 | What does a PINN add beyond a conventional solver? | [PINN showcase](thermotwin/PINN_SHOWCASE.md) |
