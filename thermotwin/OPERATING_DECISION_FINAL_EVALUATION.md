@@ -1,9 +1,11 @@
 # Mismatch-guarded selector and reserved final evaluation
 
-Status: guard development and procedure recalibration frozen on 2026-09-11 in
-`OPERATING_DECISION_FINAL_ARTIFACT.json` at protocol digest
-`fe8375ec75b1049211db58744c81865fedca78a43b8d6e92bcce1b1a98349f50`.
-The long-reserved Stage 5 cohort has not been instantiated.
+Status: completed on 2026-09-12. Guard development and procedure recalibration
+were frozen in `OPERATING_DECISION_FINAL_ARTIFACT.json` at protocol digest
+`fe8375ec75b1049211db58744c81865fedca78a43b8d6e92bcce1b1a98349f50`
+before the reserved cohort was generated. The unchanged Stage 5 result is in
+`OPERATING_DECISION_FINAL_RESULT.json`. The proposed revision failed its
+predeclared usefulness criteria.
 
 ## Question
 
@@ -115,10 +117,59 @@ selector reduced mean runs from `2.68` to `2.57` and energy from `80.41 J` to
 `76.84 J`, while definitive-decision coverage fell from 58.3% to 46.7% and
 balanced empirical loss rose from `0.586` to `0.690`.
 
-These development results are unfavorable, but they do not alter the frozen
+These development results were unfavorable, but they did not alter the frozen
 rule. The protocol did not declare a calibration-cohort futility stop, so the
-reserved comparison proceeds without changing the threshold, padding, model
+reserved comparison proceeded without changing the threshold, padding, model
 set, loss weights, or success criteria.
+
+## Reserved Stage 5 result
+
+The evaluator loaded the committed artifact before generating 50 paired blocks
+per family from reserved seed `30191001`. It produced 900 procedure outcomes.
+No threshold, selector branch, padding, model, loss weight, bootstrap setting,
+or success criterion changed after reveal.
+
+Across all 150 family rows, the Stage 4 selector made 96 definitive decisions
+and the mismatch-guarded selector made 85. Neither produced a false approval or
+false rejection. The revised procedure retained 49/50 blockwise procedure-set
+coverage, but its small resource saving came with too much abstention:
+
+| Metric | Stage 4 selector | Revised selector | Change |
+| --- | ---: | ---: | ---: |
+| Definitive-decision coverage | 64.0% (96/150) | 56.7% (85/150) | -7.3 percentage points |
+| Blockwise procedure-set coverage | 98.0% (49/50) | 98.0% (49/50) | 0 points |
+| Mean diagnostic runs | 2.61 | 2.55 | -0.06 |
+| Mean diagnostic energy | 78.39 J | 76.56 J | -1.83 J |
+| Mean added sensors | 0.61 | 0.59 | -0.02 |
+| Balanced empirical loss | 0.512 | 0.579 | +0.067 |
+
+The guard alarmed on 1/50 matched four-state devices, 0/50
+extra-interface-mass devices, and 4/50 temperature-dependent-contact devices.
+Only four of the five alarms replaced a voltage action, and only two of those
+four voltage actions would have ended in insufficient evidence. Thus 2/5 of
+all alarms, or 2/4 conditional on replacing voltage, represented the intended
+futile-measurement triage. Both readings miss the 75% criterion.
+
+The primary paired balanced-loss difference, revised minus Stage 4, was
+`+0.0667` with a 95% block-bootstrap interval of `+0.0317` to `+0.1067`.
+Bench-time-dominant loss was `+0.0689` (`+0.0333` to `+0.1078`), and
+instrumentation-expensive loss was `+0.0561` (`+0.0188` to `+0.0957`). Every
+interval lies above zero, so the result supports harm under all three declared
+weightings rather than an inconclusive tradeoff.
+
+| Predeclared criterion | Stage 5 observation | Result |
+| --- | --- | --- |
+| No new wrong definitive decision | No false approvals or false rejections; monotonic audit passed | Pass |
+| At least 90% block coverage | 98.0% (49/50) | Pass |
+| At most 5-point decision-coverage loss | 7.3-point loss | Fail |
+| Lower mean runs and energy | 0.06 fewer runs and 1.83 J less | Pass |
+| At least 75% useful guard alarms | 40% of all alarms; 50% among voltage-replacing alarms | Fail |
+| Balanced-loss interval wholly below zero | Interval wholly above zero | Fail |
+
+The acquisition residual score is therefore rejected as the selector revision
+for this benchmark. The Stage 4 selector remains the supported operating rule
+within the declared constant-contact model set. The reserved cohort is now a
+final evaluation set and must not be used to tune a replacement.
 
 A missing envelope remains an unbounded set for the conformal coverage event
 and remains insufficient evidence for decision coverage. A finite interval
@@ -189,6 +240,9 @@ they reject output paths that alias an input artifact. The protocol designates
 the reserved cohort for one final run; this protection prevents accidental
 re-execution of the declared command without claiming an irreversible data
 store.
+
+These commands document the completed run. The saved Stage 5 result is the
+inferential record; rerunning its seed must not be treated as new confirmation.
 
 ## Interpretation boundary
 
