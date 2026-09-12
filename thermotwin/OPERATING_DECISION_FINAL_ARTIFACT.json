@@ -1,0 +1,127 @@
+{
+  "analysis": {
+    "cost_scenarios": [
+      {
+        "abstention_weight": 1.0,
+        "added_run_weight": 0.1,
+        "added_sensor_weight": 0.02,
+        "false_approval_weight": 100.0,
+        "false_rejection_weight": 20.0,
+        "incremental_energy_weight": 0.1,
+        "name": "bench_time_dominant"
+      },
+      {
+        "abstention_weight": 1.0,
+        "added_run_weight": 0.1,
+        "added_sensor_weight": 0.1,
+        "false_approval_weight": 100.0,
+        "false_rejection_weight": 20.0,
+        "incremental_energy_weight": 0.1,
+        "name": "balanced"
+      },
+      {
+        "abstention_weight": 1.0,
+        "added_run_weight": 0.1,
+        "added_sensor_weight": 0.5,
+        "false_approval_weight": 100.0,
+        "false_rejection_weight": 20.0,
+        "incremental_energy_weight": 0.1,
+        "name": "instrumentation_expensive"
+      }
+    ],
+    "paired_block_bootstrap": {
+      "draws": 20000,
+      "seed": 70191001
+    }
+  },
+  "guard": {
+    "block_count": 20,
+    "conformal_rank": 19,
+    "matched_block_scores": [
+      1.2364165324086038,
+      0.9764118698487823,
+      0.9671715194900687,
+      1.1570576927167224,
+      0.9098509374394741,
+      1.0391751804408254,
+      0.9574177528518862,
+      1.1147374900270621,
+      0.9150974895194355,
+      1.0429866626337563,
+      1.0079878761962229,
+      1.0532277504051053,
+      1.1646707519006116,
+      0.9849450452396163,
+      1.0959454612663908,
+      0.9840347187985592,
+      1.1719653629448528,
+      1.0958548100601775,
+      1.0151920907936267,
+      0.9691490917937953
+    ],
+    "target_matched_block_retention": 0.9,
+    "threshold": 1.1719653629448528
+  },
+  "implementation_revision": "f95538a299bc5f53dc1e58d2034b799ea875f6e3",
+  "parent_selector_padding_floor": 0.06690772194168543,
+  "parent_stage4": {
+    "protocol_digest": "0c87ccfdbec5b1047490a3e2408b2a599cfa71687f18ef55076724108e5b3b68",
+    "protocol_version": "operating_decision_stage4_v1"
+  },
+  "partitions": {
+    "guard_development": {
+      "first_seed": 50191001,
+      "paired_blocks_per_family": 20
+    },
+    "recalibration": {
+      "first_seed": 60191001,
+      "paired_blocks_per_family": 20
+    },
+    "reserved_stage5_evaluation": {
+      "first_seed": 30191001,
+      "instantiated_when_artifact_frozen": false,
+      "paired_blocks_per_family": 50
+    }
+  },
+  "procedure_calibration": {
+    "additive_margin_padding": 0.08400251204850429,
+    "block_count": 20,
+    "block_nonconformity": [
+      0.02479749281769511,
+      0.028892927853414657,
+      0.0,
+      0.0,
+      0.019142901830375036,
+      0.02000251890151994,
+      0.09572701351688898,
+      0.0018104402811366382,
+      0.04324852517521638,
+      0.0,
+      0.0,
+      0.0530943815325361,
+      0.0,
+      0.007646974780485261,
+      0.0,
+      0.07070668874903777,
+      0.03537897778977389,
+      0.04057838708798969,
+      0.015330723674028768,
+      0.08400251204850429
+    ],
+    "calibrated_interval_covered_count": 50,
+    "conformal_rank": 19,
+    "emitted_interval_count": 51,
+    "procedure_name": "mismatch_guarded_selector_v2",
+    "raw_interval_covered_count": 37,
+    "target_block_coverage": 0.9
+  },
+  "protocol_digest": "fe8375ec75b1049211db58744c81865fedca78a43b8d6e92bcce1b1a98349f50",
+  "protocol_version": "operating_decision_stage5_mismatch_guard_v1",
+  "realism_protocol_digest": "d66bd36227053d9889702c2c9cc93949b3fb136593e7e23d11477e435ca7884a",
+  "schema_version": 1,
+  "selector": {
+    "fallback_policy": "fixed_voltage",
+    "mismatch_policy": "early_mismatch_abstention",
+    "resolved_policy": "stop_now"
+  }
+}

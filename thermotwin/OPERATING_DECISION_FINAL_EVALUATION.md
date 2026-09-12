@@ -1,8 +1,9 @@
 # Mismatch-guarded selector and reserved final evaluation
 
-Status: protocol and software implemented on 2026-09-11. The new guard and
-procedure calibration have not yet been run, and the long-reserved Stage 5
-cohort has not been instantiated.
+Status: guard development and procedure recalibration frozen on 2026-09-11 in
+`OPERATING_DECISION_FINAL_ARTIFACT.json` at protocol digest
+`fe8375ec75b1049211db58744c81865fedca78a43b8d6e92bcce1b1a98349f50`.
+The long-reserved Stage 5 cohort has not been instantiated.
 
 ## Question
 
@@ -96,6 +97,28 @@ The artifact also freezes the three loss scenarios and the paired bootstrap's
 `20,000` draws and seed `70191001`. Its loader recomputes the parent Stage 4
 digest, verifies both block order statistics and the Stage 4 padding floor, and
 rejects any protocol-field mismatch before Stage 5 generation.
+
+## Frozen calibration result
+
+The matched-family rank 19/20 threshold is `G = 1.171965`. After it froze, the
+guard alarmed on 1/20 matched four-state devices, 0/20 extra-interface-mass
+devices, and 1/20 temperature-dependent-contact devices. Both alarms replaced
+a Stage 4 voltage action, but neither voltage action would have ended in
+insufficient evidence. This development diagnostic shows little separation of
+the declared contact mismatch from matched devices and no evidence of the
+intended futile-measurement triage mechanism.
+
+The three-family recalibration rank 19/20 was `0.084003 K`, above the Stage 4
+floor, and the frozen revised padding is therefore `0.084003 K`. It covered
+19/20 procedure-set blocks. On this descriptive calibration cohort, the revised
+selector reduced mean runs from `2.68` to `2.57` and energy from `80.41 J` to
+`76.84 J`, while definitive-decision coverage fell from 58.3% to 46.7% and
+balanced empirical loss rose from `0.586` to `0.690`.
+
+These development results are unfavorable, but they do not alter the frozen
+rule. The protocol did not declare a calibration-cohort futility stop, so the
+reserved comparison proceeds without changing the threshold, padding, model
+set, loss weights, or success criteria.
 
 A missing envelope remains an unbounded set for the conformal coverage event
 and remains insufficient evidence for decision coverage. A finite interval
