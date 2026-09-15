@@ -1,15 +1,21 @@
 # Corrected operating-decision replication
 
-Status: the collision-free generator, realized-energy accounting, optimizer
-status, complete diagnostic export, source-hash freeze, corrected parent
-calibration, mismatch guard, and sealed evaluator are implemented and passing
-the complete dependency-enabled repository suite. On 2026-09-14, all 659 tests
-passed and a disposable ten-block-per-partition rehearsal froze and reloaded
-both artifact layers without instantiating rehearsal or reserved evaluation.
-Only disposable unit and engineering-smoke namespaces have been exercised. No
-named corrected development, calibration, rehearsal, or evaluation partition
-has been generated, and no generator artifact has been frozen in the
-repository.
+Status: generator freeze `c120e29` is superseded. An independent decision-rule
+audit found that its corrected wrapper turned either candidate's bound hit or
+nonconvergence into whole-case abstention and evaluated convergence with the
+unprojected gradient. Source commit `a78030d` restores candidate exclusion,
+uses the box-constrained projected KKT residual, exports that residual
+explicitly, and rotates the scientific campaign. All 664 repository tests pass.
+
+A disposable 12-block probe produced 42/48 decisive Family A outcomes, versus
+15/48 under the superseded whole-case counterfactual on the exact same fits.
+Fixed voltage produced 11/12 decisive outcomes versus 1/12. All 27 restored
+decisions were correct, and the random-stream audit found no unintended reuse.
+Generator v4 is frozen in this commit with artifact digest
+`0f2ca2d80f53fe5df2ebd77e8046a2b6920026c9b034719577a1b0a6dfca43f7`
+and source-manifest digest
+`c5a52ab1c1261df4cb3cbacbdd9557557c6b2495ab1943ca1f366942a62d6968`.
+No named partition in the replacement campaign has been generated.
 
 ## Purpose
 
@@ -38,10 +44,38 @@ This is a correction study. It does not yet test the original hypothesis that
 software can choose among thermal, voltage, and face-temperature packages by
 their expected decision value and cost.
 
+## Supersession record
+
+Commit `c120e29` froze generator v3 before this reliability audit. While its
+parent freeze was running on 2026-09-14, `r2_gate_development` and
+`r2_parent_calibration` in campaign
+`operating_decision_audit_replication_2026_09` were instantiated once. The
+resulting parent and diagnostic files were invalidated and deleted immediately
+after the audit arrived; they were never committed, never used to revise the
+rule, and never used to open rehearsal, guard, or reserved evaluation.
+
+The v3 freeze is superseded for two reasons:
+
+1. `decide_corrected_blinded_case` and `rebuild_with_corrected_gate` added a
+   whole-case reliability gate that was inconsistent with the candidate-level
+   exclusion used by Stages 3–5. In the stored Stage 5 result, 143/188 Family A
+   decisions relied on excluding a bound-hit candidate, so the change was
+   material rather than defensive bookkeeping.
+2. The optimizer's convergence metric used the ordinary gradient at active box
+   bounds. The correct first-order test is the projected KKT residual: retain
+   the gradient in the interior, retain only negative components at a lower
+   bound, and retain only positive components at an upper bound.
+
+Changing only the generator version would reproduce the already opened v3
+draws because random streams are keyed by campaign and partition. Generator v4
+therefore uses a new campaign namespace. The abandoned v3 campaign is retained
+only as an audit record and will not be resumed.
+
 ## Generator version
 
-The corrected generator is `operating_decision_generator_v3`, using random
-stream protocol `thermotwin-operating-decision-rng-v2`. Each random
+The corrected generator is `operating_decision_generator_v4`, using replication
+protocol `operating_decision_audit_replication_v3` and random-stream protocol
+`thermotwin-operating-decision-rng-v2`. Each random
 stream is derived with SHA-256 from a typed semantic key containing:
 
 ```text
@@ -76,9 +110,41 @@ to generate truth. A disposable pre-freeze check found that the former
 six-iteration limit caused four matched-model failures; the fifth was a probe
 response estimate clipped at the 6 s truth ceiling. With twelve iterations and
 the buffered inference bound, all three predeclared starts converged to the
-same 6.37 s estimate. Nonconvergence, bound hits, and nonfinite verification
-scores still fail closed: the full case abstains, and matched gate development
-aborts rather than dropping or substituting a block.
+same 6.37 s estimate.
+
+The v4 convergence decision uses only the scaled projected KKT infinity norm.
+Small steps and small objective changes are reported as stagnation diagnostics,
+not accepted as stationarity. The serialized compatibility field
+`scaled_gradient_infinity_norm` and the explicit
+`scaled_projected_gradient_infinity_norm` field both contain the projected
+value. A bound hit remains a separate candidate-admissibility flag even when
+the KKT test passes.
+
+At decision time, a bound-hit or finite nonconverged candidate is excluded and
+the envelope is rebuilt from the remaining candidates. The case abstains when
+none remain. Actual acquisition failures, verification exceptions, returned
+nonfinite verification scores, and uncertainty failures for an otherwise
+eligible candidate remain case-fatal. Matched gate development also continues
+to abort on an unreliable matched candidate rather than silently changing its
+calibration sample.
+
+## Disposable recovery probe
+
+The recorded probe uses campaign
+`operating_decision_disposable_candidate_exclusion_kkt_2026_09_14` and partition
+`disposable_family_a_candidate_exclusion_probe`. The public partition runner
+generated all three families so completeness and stream audits ran normally;
+only the 48 requested Family A cases are retained in the result file.
+
+The current rule made 42/48 cases decisive and 11/12 fixed-voltage cases
+decisive, with zero false approvals, false rejections, or numerical failures.
+Twenty-nine five-state fits placed interface mass at its 8 J/K lower bound. On
+the same saved fits, whole-case abstention reduced coverage to 15/48 and fixed
+voltage to 1/12, discarding 27 correct decisions and no wrong decisions. These
+counts differ from the independent auditor's disposable stream because this
+probe has its own semantic namespace; the coverage mechanism and direction
+reproduce. The complete cases and audit are saved under
+`docs/thermotwin/operating_decision_correction_2026_09_14/`.
 
 ## Resource accounting
 
@@ -118,9 +184,10 @@ resources.
 
 ## Fresh namespaces and chronology
 
-The following semantic partitions are reserved under campaign
-`operating_decision_audit_replication_2026_09`. Their names have never been used
-by Stages 1–5.
+The following semantic partitions are reserved under replacement campaign
+`operating_decision_audit_replication_corrected_v2_2026_09`. Their full
+campaign-plus-partition keys have never been generated and are disjoint from
+Stages 1–5 and the abandoned v3 campaign.
 
 | Partition | Paired blocks per family | Use |
 | --- | ---: | --- |

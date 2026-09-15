@@ -1,13 +1,13 @@
 {
-  "artifact_digest": "9a1f9d9124d6a4dea5d92b5f49a6d0a3adac8a7115b85ffa14c6cf032b1dd035",
-  "generator_version": "operating_decision_generator_v3",
+  "artifact_digest": "0f2ca2d80f53fe5df2ebd77e8046a2b6920026c9b034719577a1b0a6dfca43f7",
+  "generator_version": "operating_decision_generator_v4",
   "physical_protocol_digest": "a00db724edc9567b5e3d2f6b9e25324a098ed4b43b8088c29b92ec2cab49fe83",
   "plan": {
     "bootstrap": {
       "draws": 20000,
       "partition": "r2_bootstrap"
     },
-    "campaign": "operating_decision_audit_replication_2026_09",
+    "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
     "partitions": [
       {
         "name": "r2_gate_development",
@@ -35,11 +35,11 @@
       }
     ]
   },
-  "protocol_version": "operating_decision_audit_replication_v2",
+  "protocol_version": "operating_decision_audit_replication_v3",
   "random_stream_protocol_version": "thermotwin-operating-decision-rng-v2",
   "schema_version": 1,
   "source_manifest": {
-    "digest": "5d1d1a6394dcf640bdf2621ba9b6a2bdb9360673874128e64d37084c4f3975c9",
+    "digest": "c5a52ab1c1261df4cb3cbacbdd9557557c6b2495ab1943ca1f366942a62d6968",
     "files": [
       {
         "byte_count": 3456,
@@ -302,9 +302,9 @@
         "sha256": "78f516d3a97442c241c2810582cfb6ee4aff765bac3531a8d95c241e52e3eaf9"
       },
       {
-        "byte_count": 26087,
+        "byte_count": 28057,
         "path": "thermotwin/reports/operating_decision_replication.py",
-        "sha256": "aaeb60d6adc4bdbf5d9a46752e13b3eb9069b87d4345d49b3dc38d50b1a41158"
+        "sha256": "1fbffa4d248106b18a560d01e6ddd884ad68368f538097d2d5d04a9329354052"
       },
       {
         "byte_count": 1131,
@@ -372,9 +372,9 @@
         "sha256": "86f6eead3161b03ecb0d300a2f61b55e868d27e1ea68bc9cc225d66a72e2044f"
       },
       {
-        "byte_count": 12373,
+        "byte_count": 12495,
         "path": "thermotwin/studies/operating_decision_diagnostics.py",
-        "sha256": "d12c6d96fb9f94e1d11b17c50e7ab11cb7247b07e56497eb57a1b137ca4831fb"
+        "sha256": "693c31a8dd3eda6ba623a684a3effba66c32877276fac6d6989841a06f955b49"
       },
       {
         "byte_count": 19404,
@@ -387,19 +387,19 @@
         "sha256": "ced8579dbd440f14727f14619a03283a2050ec0569f7318d26e54e2870801f0a"
       },
       {
-        "byte_count": 71852,
+        "byte_count": 73805,
         "path": "thermotwin/studies/operating_decision_realism.py",
-        "sha256": "fca156c0b530c6e35a34e9c767c2b2f3e10c19bef635a93e3a07cb2e7188b5a0"
+        "sha256": "12a14f115981ae753d95f034c37d0656da057c12da924bb01fbb47417184489e"
       },
       {
-        "byte_count": 38841,
+        "byte_count": 39269,
         "path": "thermotwin/studies/operating_decision_replication.py",
-        "sha256": "f03733aba81967f240371083d79994c58e9b2db0d042a3d8c4153454d1cc1cf9"
+        "sha256": "df8906b1040701f7e59ba49735cc019bcd92ca19e10302f0dc43c8b5192055c2"
       },
       {
-        "byte_count": 47168,
+        "byte_count": 47172,
         "path": "thermotwin/studies/operating_decision_replication_calibration.py",
-        "sha256": "dfbe0ac4e9549caf78fa8869af123f1dc02f0b2cea5ecfa96b4e803f2f6d3dbf"
+        "sha256": "caad46c2a57a8bfe15b1e4405abb2126b0ce0bb8404071abe312238bdc3970a5"
       },
       {
         "byte_count": 66248,
@@ -409,7 +409,7 @@
       {
         "byte_count": 18092,
         "path": "thermotwin/studies/operating_decision_replication_protocol.py",
-        "sha256": "5bd2af94d00b612f01f2b8b8b677aaa12e0ed7b6b00da8ae2e32bd71dba9da09"
+        "sha256": "d49970910e4671912a18fd52cfa3202bc9336024731993e5f2e1c84b11a0a69a"
       },
       {
         "byte_count": 14297,
