@@ -1,0 +1,327 @@
+{
+  "artifacts": {
+    "generator_digest": "ee8f69d8ad9aeeda86cb0c0ac96f351cccf05b74cde87048dc56b50d9e7a7d95",
+    "guard_protocol_digest": "91b9beb460eea3be22626698a38620b55e0da2c0b569ba4835563bdb02cfbcaf",
+    "parent_protocol_digest": "4d65db1c625f0655cc6861885775ea38664c4d9000a9985bbfdc1dabfc7e7f04",
+    "reserved_authorizing_commit": "9610b09e0a247a6e94a599c2f75ddbdffd726a20",
+    "reserved_evidence_digest": "b45b3497af8095d352414a997adf672e0c311e8f15670f4edb5845f62bcabc18",
+    "source_manifest_digest": "c5a52ab1c1261df4cb3cbacbdd9557557c6b2495ab1943ca1f366942a62d6968"
+  },
+  "base_source_commit": "2a0ee763d54d5cd301d1cae66d619462c6fce290",
+  "campaign": "operating_decision_disposable_five_command_dry_run_2026_09_15",
+  "commands": [
+    {
+      "boundary_commit": "86f77f0c1db82320e890a2076cff52d34a6d4dcc",
+      "exit_code": 0,
+      "name": "freeze-generator",
+      "order": 1
+    },
+    {
+      "boundary_commit": "a8feda0da34bdd9cc22ed127064fa6e7a98a1dd9",
+      "exit_code": 0,
+      "name": "freeze-parent",
+      "order": 2
+    },
+    {
+      "evidence_commit": "5096839717a9581b1ef136a87e6764122710a463",
+      "exit_code": 0,
+      "name": "rehearse-parent",
+      "order": 3
+    },
+    {
+      "boundary_commit": "9610b09e0a247a6e94a599c2f75ddbdffd726a20",
+      "exit_code": 0,
+      "name": "freeze-guard",
+      "order": 4
+    },
+    {
+      "evidence_commit": "046d21ea0f2ebdbe1852e76c6d547dbc3933e5e3",
+      "exit_code": 0,
+      "name": "evaluate-reserved",
+      "order": 5
+    }
+  ],
+  "date": "2026-09-15",
+  "diagnostics": [
+    {
+      "deterministic_evidence_digest": "06c21231360ff1be47100883226b176cb9813cb1078117b644bfe84c0ab4f5b7",
+      "file": "GATE_DIAGNOSTICS.json",
+      "partition": {
+        "campaign": "operating_decision_disposable_five_command_dry_run_2026_09_15",
+        "name": "r2_gate_development",
+        "paired_blocks_per_family": 10
+      },
+      "record_count": 120,
+      "stage": "freeze-parent/gate-development",
+      "stream_audit": {
+        "ok": true,
+        "unintended_reuse_count": 0,
+        "unique_key_count": 1280,
+        "unique_seed_count": 1280,
+        "use_count": 2020
+      },
+      "stream_campaigns": [
+        "operating_decision_disposable_five_command_dry_run_2026_09_15"
+      ]
+    },
+    {
+      "deterministic_evidence_digest": "03ecc7850d8c15fdde7909235eda4bcb5f34a9292683de54db88cbf7a0f71183",
+      "file": "PARENT_CALIBRATION_DIAGNOSTICS.json",
+      "partition": {
+        "campaign": "operating_decision_disposable_five_command_dry_run_2026_09_15",
+        "name": "r2_parent_calibration",
+        "paired_blocks_per_family": 10
+      },
+      "record_count": 120,
+      "stage": "freeze-parent/parent-calibration",
+      "stream_audit": {
+        "ok": true,
+        "unintended_reuse_count": 0,
+        "unique_key_count": 1280,
+        "unique_seed_count": 1280,
+        "use_count": 2020
+      },
+      "stream_campaigns": [
+        "operating_decision_disposable_five_command_dry_run_2026_09_15"
+      ]
+    },
+    {
+      "deterministic_evidence_digest": "d265ef0e05be1e310aaf1fb69adfe2d1a934410f2bae7fdb0baa1f04e53454e2",
+      "file": "PARENT_REHEARSAL_DIAGNOSTICS.json",
+      "partition": {
+        "campaign": "operating_decision_disposable_five_command_dry_run_2026_09_15",
+        "name": "r2_parent_rehearsal",
+        "paired_blocks_per_family": 10
+      },
+      "record_count": 120,
+      "stage": "rehearse-parent",
+      "stream_audit": {
+        "ok": true,
+        "unintended_reuse_count": 0,
+        "unique_key_count": 1280,
+        "unique_seed_count": 1280,
+        "use_count": 2020
+      },
+      "stream_campaigns": [
+        "operating_decision_disposable_five_command_dry_run_2026_09_15"
+      ]
+    },
+    {
+      "deterministic_evidence_digest": "c92d0d586ad7b024631b60675d7ca56e9b97f174132e48d182e795199d211e60",
+      "file": "GUARD_DEVELOPMENT_DIAGNOSTICS.json",
+      "partition": {
+        "campaign": "operating_decision_disposable_five_command_dry_run_2026_09_15",
+        "name": "r2_guard_development",
+        "paired_blocks_per_family": 10
+      },
+      "record_count": 120,
+      "stage": "freeze-guard/guard-development",
+      "stream_audit": {
+        "ok": true,
+        "unintended_reuse_count": 0,
+        "unique_key_count": 1280,
+        "unique_seed_count": 1280,
+        "use_count": 2020
+      },
+      "stream_campaigns": [
+        "operating_decision_disposable_five_command_dry_run_2026_09_15"
+      ]
+    },
+    {
+      "deterministic_evidence_digest": "59934f8919e35559a4d5d72ae2bd4f320ac3b80c21f55ec43804cbba4334fe6b",
+      "file": "GUARD_CALIBRATION_DIAGNOSTICS.json",
+      "partition": {
+        "campaign": "operating_decision_disposable_five_command_dry_run_2026_09_15",
+        "name": "r2_guard_calibration",
+        "paired_blocks_per_family": 10
+      },
+      "record_count": 120,
+      "stage": "freeze-guard/guard-calibration",
+      "stream_audit": {
+        "ok": true,
+        "unintended_reuse_count": 0,
+        "unique_key_count": 1280,
+        "unique_seed_count": 1280,
+        "use_count": 2020
+      },
+      "stream_campaigns": [
+        "operating_decision_disposable_five_command_dry_run_2026_09_15"
+      ]
+    },
+    {
+      "deterministic_evidence_digest": "b45b3497af8095d352414a997adf672e0c311e8f15670f4edb5845f62bcabc18",
+      "file": "FINAL_DIAGNOSTICS.json",
+      "partition": {
+        "campaign": "operating_decision_disposable_five_command_dry_run_2026_09_15",
+        "name": "r2_reserved_evaluation",
+        "paired_blocks_per_family": 10
+      },
+      "record_count": 120,
+      "stage": "evaluate-reserved",
+      "stream_audit": {
+        "ok": true,
+        "unintended_reuse_count": 0,
+        "unique_key_count": 1280,
+        "unique_seed_count": 1280,
+        "use_count": 2020
+      },
+      "stream_campaigns": [
+        "operating_decision_disposable_five_command_dry_run_2026_09_15"
+      ]
+    }
+  ],
+  "disposable_final_result": {
+    "interpretation": "engineering dry-run output only; not scientific evidence",
+    "paired_loss_comparisons": [
+      {
+        "bootstrap_draws": 1000,
+        "confidence_level": 0.95,
+        "independent_block_count": 10,
+        "lower_bound": -0.016743656769372905,
+        "random_stream_key": {
+          "block": 0,
+          "campaign": "operating_decision_disposable_five_command_dry_run_2026_09_15",
+          "channel": null,
+          "family": null,
+          "partition": "disposable_bootstrap",
+          "protocol_version": "thermotwin-operating-decision-rng-v2",
+          "purpose": "paired_loss_bootstrap/bench_time_dominant",
+          "run": null,
+          "stream_kind": "calibration"
+        },
+        "revised_minus_parent_mean": 0.022171707188410442,
+        "scenario_name": "bench_time_dominant",
+        "upper_bound": 0.08325877833460422
+      },
+      {
+        "bootstrap_draws": 1000,
+        "confidence_level": 0.95,
+        "independent_block_count": 10,
+        "lower_bound": -0.024743656769372912,
+        "random_stream_key": {
+          "block": 0,
+          "campaign": "operating_decision_disposable_five_command_dry_run_2026_09_15",
+          "channel": null,
+          "family": null,
+          "partition": "disposable_bootstrap",
+          "protocol_version": "thermotwin-operating-decision-rng-v2",
+          "purpose": "paired_loss_bootstrap/balanced",
+          "run": null,
+          "stream_kind": "calibration"
+        },
+        "revised_minus_parent_mean": 0.016838373855077103,
+        "scenario_name": "balanced",
+        "upper_bound": 0.07525877833460423
+      },
+      {
+        "bootstrap_draws": 1000,
+        "confidence_level": 0.95,
+        "independent_block_count": 10,
+        "lower_bound": -0.06474365676937291,
+        "random_stream_key": {
+          "block": 0,
+          "campaign": "operating_decision_disposable_five_command_dry_run_2026_09_15",
+          "channel": null,
+          "family": null,
+          "partition": "disposable_bootstrap",
+          "protocol_version": "thermotwin-operating-decision-rng-v2",
+          "purpose": "paired_loss_bootstrap/instrumentation_expensive",
+          "run": null,
+          "stream_kind": "calibration"
+        },
+        "revised_minus_parent_mean": -0.00982829281158956,
+        "scenario_name": "instrumentation_expensive",
+        "upper_bound": 0.035258778334604224
+      }
+    ],
+    "primary_success": false
+  },
+  "output_files": {
+    "FINAL_DIAGNOSTICS.json": {
+      "bytes": 16279147,
+      "sha256": "4ee3ef159023cc0c4c5cc86e5a544f1f3a61a25b1ad4ebf7fc74d359cf64ffc3"
+    },
+    "FINAL_OUTCOMES.json": {
+      "bytes": 261331,
+      "sha256": "a5c5ec3eff07c6734f2981339eb81b8122ca694235ca6b85909df225229de868"
+    },
+    "FINAL_REPORT.md": {
+      "bytes": 1191,
+      "sha256": "6a4f6bf913d73a19598f236bdc310c810546ed9fa205e586556b1bf1718d4f35"
+    },
+    "GATE_DIAGNOSTICS.json": {
+      "bytes": 16266230,
+      "sha256": "219b97ddcce218e2a1465e108999d67a34f452ec1a515160edb9ac92f59982bd"
+    },
+    "GUARD_ARTIFACT.json": {
+      "bytes": 34374,
+      "sha256": "89b54e929882fc5f0d414d440065865bce136b83e9638a57ca6beeca54cd0c54"
+    },
+    "GUARD_CALIBRATION_DIAGNOSTICS.json": {
+      "bytes": 16269918,
+      "sha256": "c74a708faca36564e3ff6ff84ac32e71e7e449b5dca32c8240c61fb268666d0a"
+    },
+    "GUARD_CALIBRATION_OUTCOMES.json": {
+      "bytes": 255103,
+      "sha256": "0c3efe7fb7111eb56a8fdc02531f68b5b23015f521a8ad97ab10de6704e8fc28"
+    },
+    "GUARD_DEVELOPMENT_DIAGNOSTICS.json": {
+      "bytes": 16270145,
+      "sha256": "3574948f54ca54f80a2f15ade41561d6f9b7488389820bdc3bacdb0182733cd6"
+    },
+    "GUARD_FREEZE_REPORT.md": {
+      "bytes": 1041,
+      "sha256": "99ae738d41c6af07777d48eadc51d7765b453ec6ffaf1e75fea2fd46dad56b76"
+    },
+    "PARENT_ARTIFACT.json": {
+      "bytes": 27571,
+      "sha256": "18e0d6c2ed2ffaecac095994dd72c1d48cfdee42b557e119a7da85c590f1a6e1"
+    },
+    "PARENT_CALIBRATION_DIAGNOSTICS.json": {
+      "bytes": 16273954,
+      "sha256": "5ad44e02b7dd3ce4f0fee64e92c63232820c8dcdd405b6776149bd59ca130e6a"
+    },
+    "PARENT_CALIBRATION_OUTCOMES.json": {
+      "bytes": 210861,
+      "sha256": "b6d2603dc698102644f213d4f10bddf9b63aee920e73f137ae644795b4b293ff"
+    },
+    "PARENT_FREEZE_REPORT.md": {
+      "bytes": 1583,
+      "sha256": "ba2a888c7b2e040909aa25ac10f16af8ceb9813a2cdccddad68937e0f9b2971a"
+    },
+    "PARENT_REHEARSAL_DIAGNOSTICS.json": {
+      "bytes": 16265423,
+      "sha256": "385e716d2f6ec5db5cfc315761cfb49e0291b0aebe442af3f5edbde47e29100d"
+    },
+    "PARENT_REHEARSAL_OUTCOMES.json": {
+      "bytes": 211918,
+      "sha256": "ba699264c9162420fb3949539d463679da11e78cb4f3c31b1f718519d79bbe06"
+    },
+    "PARENT_REHEARSAL_REPORT.md": {
+      "bytes": 1843,
+      "sha256": "064df4094fdd7b894be17e31d3c9341fa87cc61caba530f0ed2db3f33ae3aaba"
+    }
+  },
+  "plan": {
+    "bootstrap_draws": 1000,
+    "bootstrap_partition": "disposable_bootstrap",
+    "gate_development_blocks": 10,
+    "guard_calibration_blocks": 10,
+    "guard_development_blocks": 10,
+    "parent_calibration_blocks": 10,
+    "parent_rehearsal_blocks": 10,
+    "reserved_evaluation_blocks": 10
+  },
+  "schema_version": 1,
+  "scope": "throwaway clone; disposable engineering chronology test only",
+  "validation": {
+    "all_five_commands_exit_zero": true,
+    "all_partitions_have_120_records": true,
+    "all_six_stream_audits_clean": true,
+    "all_streams_use_only_disposable_campaign": true,
+    "generator_reconstructed_and_verified": true,
+    "guard_reconstructed_and_verified": true,
+    "parent_reconstructed_and_verified": true,
+    "reserved_commit_matches_guard_boundary": true
+  }
+}

@@ -33,3 +33,12 @@ fits and data.
 No wall-clock timestamp, elapsed time, process identifier, or output path enters
 the JSON. With the same source and constants, the serialized result is stable
 across runs and worker counts.
+
+`five_command_dry_run.json` records the separate 2026-09-15 chronology test.
+Starting from generator-v4 commit `2a0ee76`, a throwaway clone ran
+`freeze-generator`, `freeze-parent`, `rehearse-parent`, `freeze-guard`, and
+`evaluate-reserved` with ten blocks per partition and 1,000 bootstrap draws.
+The file retains the disposable campaign, boundary commits, linked artifact and
+evidence digests, compact stream-audit counts, output hashes, and independent
+post-run validation. The generated cohorts and descriptive result are
+engineering evidence only.

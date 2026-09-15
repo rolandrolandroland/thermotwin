@@ -146,6 +146,25 @@ probe has its own semantic namespace; the coverage mechanism and direction
 reproduce. The complete cases and audit are saved under
 `docs/thermotwin/operating_decision_correction_2026_09_14/`.
 
+## Five-command disposable rehearsal
+
+On 2026-09-15, a throwaway clone starting from generator-v4 commit `2a0ee76`
+ran all five executable commands in order under campaign
+`operating_decision_disposable_five_command_dry_run_2026_09_15`. Each of the six
+partitions contained ten paired blocks per family, and the bootstrap used 1,000
+draws in `disposable_bootstrap`.
+
+The clone committed the generator, parent, and guard artifacts at their required
+boundaries. `rehearse-parent` verified the serialized parent in a new process;
+`evaluate-reserved` verified the complete serialized chain and recorded the
+guard-boundary commit before opening its partition. All five commands exited
+successfully. Each partition retained 120 records, all six stream audits were
+clean, every stream used only the disposable campaign, and every artifact
+reconstructed from its serialized content. The compact audit, artifact digests,
+boundary commits, and output hashes are recorded in
+`operating_decision_correction_2026_09_14/five_command_dry_run.json`. Its final
+comparison is an engineering dry-run result and is not scientific evidence.
+
 ## Resource accounting
 
 The action rule may use a predeclared nominal energy proxy because hidden device
