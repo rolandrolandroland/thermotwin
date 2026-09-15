@@ -1,0 +1,55 @@
+Mismatch-guarded selector freeze
+=================================
+
+Chronology:
+  guard development: 20 blocks/family from seed 50191001
+  threshold used only matched four-state and extra-interface-mass rows
+  Family C was generated only after the threshold froze
+  procedure recalibration: 20 blocks/family from seed 60191001
+  reserved Stage 5: 50 blocks/family from seed 30191001; not instantiated by this command
+  implementation revision: f95538a299bc5f53dc1e58d2034b799ea875f6e3
+  protocol digest: fe8375ec75b1049211db58744c81865fedca78a43b8d6e92bcce1b1a98349f50
+  parent Stage 4 digest: 0c87ccfdbec5b1047490a3e2408b2a599cfa71687f18ef55076724108e5b3b68
+
+Acquisition mismatch guard:
+  score each constant-contact candidate on the common fitted acquisition
+  remove parameter-prior residuals, retain profiled run-bias penalties,
+  and divide by the number of observed temperature samples
+  guard score G is the smaller candidate score
+  alarm when G > 1.171965; matched-family rank 19/20
+  an alarm immediately returns insufficient evidence after one acquisition
+  unflagged cases use the unchanged Stage 4 stop-or-voltage rule
+
+Guard-development diagnostic after threshold freeze:
+  Matched four-state: alarms 1/20; alarms that replaced a Stage 4 voltage action 1; those ending insufficient after voltage 0
+  Extra interface mass: alarms 0/20; alarms that replaced a Stage 4 voltage action 0; those ending insufficient after voltage 0
+  Temperature-dependent contact: alarms 1/20; alarms that replaced a Stage 4 voltage action 1; those ending insufficient after voltage 0
+
+Revised procedure calibration:
+  ranked padding=0.084003 K
+  Stage 4 padding floor=0.066908 K
+  frozen padding=0.084003 K
+  block rank=19/20
+  emitted finite intervals=51
+  raw finite-interval coverage=72.5%
+  padded finite-interval coverage=98.0%
+
+Recalibration-cohort comparison (descriptive):
+  Stop now: approve/reject/insufficient=12/12/36; decision coverage 40.0% (24/60; descriptive)
+    block procedure-set coverage 100.0% (20/20; descriptive); mean runs/energy/sensors=2.00/60.72 J/0.00; empirical mean loss bench_time_dominant=0.600, balanced=0.600, instrumentation_expensive=0.600
+  More thermal tests: approve/reject/insufficient=17/17/26; decision coverage 56.7% (34/60; descriptive)
+    block procedure-set coverage 100.0% (20/20; descriptive); mean runs/energy/sensors=5.00/99.29 J/0.00; empirical mean loss bench_time_dominant=0.797, balanced=0.797, instrumentation_expensive=0.797
+  Add voltage: approve/reject/insufficient=25/15/20; decision coverage 66.7% (40/60; descriptive)
+    block procedure-set coverage 80.0% (16/20; descriptive); mean runs/energy/sensors=3.00/89.53 J/1.00; empirical mean loss bench_time_dominant=0.501, balanced=0.581, instrumentation_expensive=0.981
+  Add face temperature: approve/reject/insufficient=23/13/24; decision coverage 60.0% (36/60; descriptive)
+    block procedure-set coverage 95.0% (19/20; descriptive); mean runs/energy/sensors=3.00/89.41 J/1.00; empirical mean loss bench_time_dominant=0.567, balanced=0.647, instrumentation_expensive=1.047
+  Stage 4 selector: approve/reject/insufficient=22/13/25; decision coverage 58.3% (35/60; descriptive)
+    block procedure-set coverage 85.0% (17/20; descriptive); mean runs/energy/sensors=2.68/80.41 J/0.68; empirical mean loss bench_time_dominant=0.531, balanced=0.586, instrumentation_expensive=0.859
+  Mismatch-guarded selector: approve/reject/insufficient=18/10/32; decision coverage 46.7% (28/60; descriptive)
+    block procedure-set coverage 95.0% (19/20; descriptive); mean runs/energy/sensors=2.57/76.84 J/0.63; empirical mean loss bench_time_dominant=0.639, balanced=0.690, instrumentation_expensive=0.943
+
+Boundary:
+  this command freezes development and calibration choices only
+  no Stage 5 observation or final response was generated
+  a missing envelope is an unbounded procedure set but remains an abstention
+  the guard is a diagnostic for this declared generator, not generic OOD detection

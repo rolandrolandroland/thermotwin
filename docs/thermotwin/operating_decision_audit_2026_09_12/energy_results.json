@@ -1,0 +1,1184 @@
+{
+  "config_first_seed": 191001,
+  "blocks": 10,
+  "summary": [
+    {
+      "family": "matched_four_state",
+      "policy": "stop_now",
+      "nominal_j": 60.717798900410735,
+      "actual_mean_j": 60.73421306688507,
+      "min_error_percent": -4.124584372090438,
+      "max_error_percent": 2.458000900730105
+    },
+    {
+      "family": "matched_four_state",
+      "policy": "fixed_thermal",
+      "nominal_j": 99.28953555664393,
+      "actual_mean_j": 99.30913292036637,
+      "min_error_percent": -4.077498940571928,
+      "max_error_percent": 2.4315849779586984
+    },
+    {
+      "family": "matched_four_state",
+      "policy": "fixed_voltage",
+      "nominal_j": 89.53209431504844,
+      "actual_mean_j": 89.55396227889132,
+      "min_error_percent": -4.101313596996005,
+      "max_error_percent": 2.438201861868663
+    },
+    {
+      "family": "matched_four_state",
+      "policy": "fixed_face_temperature",
+      "nominal_j": 89.40873052725738,
+      "actual_mean_j": 89.43464961641402,
+      "min_error_percent": -4.136468302905893,
+      "max_error_percent": 2.471188927307096
+    },
+    {
+      "family": "extra_interface_mass",
+      "policy": "stop_now",
+      "nominal_j": 60.717798900410735,
+      "actual_mean_j": 60.52066166009465,
+      "min_error_percent": -3.7750386062371075,
+      "max_error_percent": 2.658461723569408
+    },
+    {
+      "family": "extra_interface_mass",
+      "policy": "fixed_thermal",
+      "nominal_j": 99.28953555664393,
+      "actual_mean_j": 98.93208719713475,
+      "min_error_percent": -3.703885053328103,
+      "max_error_percent": 2.661050608975758
+    },
+    {
+      "family": "extra_interface_mass",
+      "policy": "fixed_voltage",
+      "nominal_j": 89.53209431504844,
+      "actual_mean_j": 89.23098789542374,
+      "min_error_percent": -3.7448358579613843,
+      "max_error_percent": 2.650485752218753
+    },
+    {
+      "family": "extra_interface_mass",
+      "policy": "fixed_face_temperature",
+      "nominal_j": 89.40873052725738,
+      "actual_mean_j": 89.13471723070954,
+      "min_error_percent": -3.8002068200609322,
+      "max_error_percent": 2.661933520171775
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "policy": "stop_now",
+      "nominal_j": 60.717798900410735,
+      "actual_mean_j": 60.487036801374515,
+      "min_error_percent": -3.7211602788229,
+      "max_error_percent": 2.6909821329277284
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "policy": "fixed_thermal",
+      "nominal_j": 99.28953555664393,
+      "actual_mean_j": 98.87010898239485,
+      "min_error_percent": -3.6455335290271256,
+      "max_error_percent": 2.7045431844939496
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "policy": "fixed_voltage",
+      "nominal_j": 89.53209431504844,
+      "actual_mean_j": 89.17763069764183,
+      "min_error_percent": -3.6879566913669883,
+      "max_error_percent": 2.6887715573364503
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "policy": "fixed_face_temperature",
+      "nominal_j": 89.40873052725738,
+      "actual_mean_j": 89.0864421982438,
+      "min_error_percent": -3.7474418348343335,
+      "max_error_percent": 2.6952095973773216
+    }
+  ],
+  "rows": [
+    {
+      "family": "matched_four_state",
+      "trial_index": 0,
+      "policy": "stop_now",
+      "series_resistance": 0.19717921023909224,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 63.32989380307379,
+      "error_percent": -4.124584372090438
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 0,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.19717921023909224,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 103.51016128648463,
+      "error_percent": -4.077498940571928
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 0,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.19717921023909224,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 93.36112690720222,
+      "error_percent": -4.101313596996005
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 0,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.19717921023909224,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 93.2666770610618,
+      "error_percent": -4.136468302905893
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 1,
+      "policy": "stop_now",
+      "series_resistance": 0.11453052723912334,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 61.184343476142445,
+      "error_percent": -0.762522810943668
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 1,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.11453052723912334,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 100.02767001930289,
+      "error_percent": -0.7379302772088168
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 1,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.11453052723912334,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 90.20781506271413,
+      "error_percent": -0.7490711832405202
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 1,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.11453052723912334,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 90.11333831464012,
+      "error_percent": -0.7819128672411734
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 2,
+      "policy": "stop_now",
+      "series_resistance": 0.0755355266899852,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.240803471049105,
+      "error_percent": 0.791814520851912
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 2,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.0755355266899852,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 98.50544400937974,
+      "error_percent": 0.7959880341126333
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 2,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.0755355266899852,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 88.82440637007934,
+      "error_percent": 0.7967269063646463
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 2,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.0755355266899852,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 88.65181832543688,
+      "error_percent": 0.8538033580336806
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 3,
+      "policy": "stop_now",
+      "series_resistance": 0.08965394004942415,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.187285088228194,
+      "error_percent": 0.8814383493205644
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 3,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.08965394004942415,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 98.43646815471487,
+      "error_percent": 0.8666172384286148
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 3,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.08965394004942415,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 88.75996317152097,
+      "error_percent": 0.869909265324274
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 3,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.08965394004942415,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 88.68558362977915,
+      "error_percent": 0.815405241619687
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 4,
+      "policy": "stop_now",
+      "series_resistance": 0.1280373345070087,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 61.14730528943398,
+      "error_percent": -0.7024126198042984
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 4,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.1280373345070087,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 99.97251557691638,
+      "error_percent": -0.6831677849968523
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 4,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.1280373345070087,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 90.16142084080742,
+      "error_percent": -0.6979997873704182
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 4,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.1280373345070087,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 90.08238324297996,
+      "error_percent": -0.7478184873345692
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 5,
+      "policy": "stop_now",
+      "series_resistance": 0.060390910864028924,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 59.26115907652661,
+      "error_percent": 2.458000900730105
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 5,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.060390910864028924,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 96.93253851144559,
+      "error_percent": 2.4315849779586984
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 5,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.060390910864028924,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 87.40107956578223,
+      "error_percent": 2.438201861868663
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 5,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.060390910864028924,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 87.25255504811581,
+      "error_percent": 2.471188927307096
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 6,
+      "policy": "stop_now",
+      "series_resistance": 0.06755184449662537,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 59.92143446026588,
+      "error_percent": 1.3290143123541682
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 6,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.06755184449662537,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 97.97705541537833,
+      "error_percent": 1.339579083798012
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 6,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.06755184449662537,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 88.35201245747285,
+      "error_percent": 1.335659284663838
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 6,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.06755184449662537,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 88.24326112248872,
+      "error_percent": 1.320746071647208
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 7,
+      "policy": "stop_now",
+      "series_resistance": 0.07781786210986563,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.46575243510529,
+      "error_percent": 0.41684169162693496
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 7,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.07781786210986563,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 98.87605317982465,
+      "error_percent": 0.41818252602303946
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 7,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.07781786210986563,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 89.15517224887267,
+      "error_percent": 0.4227708350151628
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 7,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.07781786210986563,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 88.90912307038032,
+      "error_percent": 0.5619304742006843
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 8,
+      "policy": "stop_now",
+      "series_resistance": 0.09919708224958831,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.76548729556677,
+      "error_percent": -0.07847940875398181
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 8,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.09919708224958831,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 99.38679534207162,
+      "error_percent": -0.09785986668847174
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 8,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.09919708224958831,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 89.61001916618638,
+      "error_percent": -0.08695997597480794
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 8,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.09919708224958831,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 89.48079064431963,
+      "error_percent": -0.0805313817003299
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 9,
+      "policy": "stop_now",
+      "series_resistance": 0.11884605302631607,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.83866627345864,
+      "error_percent": -0.19866867643782832
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 9,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.11884605302631607,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 99.46662770814497,
+      "error_percent": -0.17804177700752732
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 9,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.11884605302631607,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 89.70660699827502,
+      "error_percent": -0.19453715736895144
+    },
+    {
+      "family": "matched_four_state",
+      "trial_index": 9,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.11884605302631607,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 89.66096570493774,
+      "error_percent": -0.2813210583861365
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 0,
+      "policy": "stop_now",
+      "series_resistance": 0.19717921023909224,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 63.09984230801296,
+      "error_percent": -3.7750386062371075
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 0,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.19717921023909224,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 103.10855802607381,
+      "error_percent": -3.703885053328103
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 0,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.19717921023909224,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 93.0153671370096,
+      "error_percent": -3.7448358579613843
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 0,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.19717921023909224,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 92.94066813638653,
+      "error_percent": -3.8002068200609322
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 1,
+      "policy": "stop_now",
+      "series_resistance": 0.11453052723912334,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.87755979643921,
+      "error_percent": -0.26242986177941
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 1,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.11453052723912334,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 99.49440277148034,
+      "error_percent": -0.20590828140046513
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 1,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.11453052723912334,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 89.7476605682603,
+      "error_percent": -0.24019150120119925
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 1,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.11453052723912334,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 89.6778040388671,
+      "error_percent": -0.30004471507029773
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 2,
+      "policy": "stop_now",
+      "series_resistance": 0.0755355266899852,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 59.99795138230854,
+      "error_percent": 1.1997868285790367
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 2,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.0755355266899852,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 98.0869076631006,
+      "error_percent": 1.226084012836853
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 2,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.0755355266899852,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 88.4617469487502,
+      "error_percent": 1.209955040700627
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 2,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.0755355266899852,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 88.32285908762766,
+      "error_percent": 1.22943420406306
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 3,
+      "policy": "stop_now",
+      "series_resistance": 0.08965394004942415,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.031450500017975,
+      "error_percent": 1.1433147036694609
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 3,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.08965394004942415,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 98.14888884406999,
+      "error_percent": 1.162159578175251
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 3,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.08965394004942415,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 88.51863565611508,
+      "error_percent": 1.1449099406259853
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 3,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.08965394004942415,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 88.45605505797778,
+      "error_percent": 1.0770042465212522
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 4,
+      "policy": "stop_now",
+      "series_resistance": 0.1280373345070087,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.95888401658802,
+      "error_percent": -0.39548807375096395
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 4,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.1280373345070087,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 99.62622529050466,
+      "error_percent": -0.3379529163922133
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 4,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.1280373345070087,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 89.87030920605463,
+      "error_percent": -0.37633662774068083
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 4,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.1280373345070087,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 89.80724616426882,
+      "error_percent": -0.44374552614886653
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 5,
+      "policy": "stop_now",
+      "series_resistance": 0.060390910864028924,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 59.14544001633964,
+      "error_percent": 2.658461723569408
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 5,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.060390910864028924,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 96.71587711957717,
+      "error_percent": 2.661050608975758
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 5,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.060390910864028924,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 87.22033184642113,
+      "error_percent": 2.650485752218753
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 5,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.060390910864028924,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 87.0904408883841,
+      "error_percent": 2.661933520171775
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 6,
+      "policy": "stop_now",
+      "series_resistance": 0.06755184449662537,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 59.61506361678869,
+      "error_percent": 1.8497594680272982
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 6,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.06755184449662537,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 97.44637066541993,
+      "error_percent": 1.8914659198057362
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 6,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.06755184449662537,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 87.89323943133535,
+      "error_percent": 1.864597202602156
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 6,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.06755184449662537,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 87.81256490448129,
+      "error_percent": 1.8176961628581558
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 7,
+      "policy": "stop_now",
+      "series_resistance": 0.07781786210986563,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.18103147134777,
+      "error_percent": 0.8919212847299196
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 7,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.07781786210986563,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 98.38748149066514,
+      "error_percent": 0.9168382525010298
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 7,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.07781786210986563,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 88.73096897852717,
+      "error_percent": 0.9028700415918353
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 7,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.07781786210986563,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 88.53662925314742,
+      "error_percent": 0.985017479733055
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 8,
+      "policy": "stop_now",
+      "series_resistance": 0.09919708224958831,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.591105691042564,
+      "error_percent": 0.20909539102023664
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 8,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.09919708224958831,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 99.07667157602303,
+      "error_percent": 0.21484773078752592
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 8,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.09919708224958831,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 89.3453860983154,
+      "error_percent": 0.20897354064549553
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 8,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.09919708224958831,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 89.2358120061795,
+      "error_percent": 0.19377704667034434
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 9,
+      "policy": "stop_now",
+      "series_resistance": 0.11884605302631607,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.70828780206111,
+      "error_percent": 0.015666886176460445
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 9,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.11884605302631607,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 99.22948852443281,
+      "error_percent": 0.06051329408629503
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 9,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.11884605302631607,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 89.50623308344848,
+      "error_percent": 0.028893218616239152
+    },
+    {
+      "family": "extra_interface_mass",
+      "trial_index": 9,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.11884605302631607,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 89.46709276977523,
+      "error_percent": -0.06523319436347608
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 0,
+      "policy": "stop_now",
+      "series_resistance": 0.19717921023909224,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 63.06453118488869,
+      "error_percent": -3.7211602788229
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 0,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.19717921023909224,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 103.04611627583995,
+      "error_percent": -3.6455335290271256
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 0,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.19717921023909224,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 92.96043489404731,
+      "error_percent": -3.6879566913669883
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 0,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.19717921023909224,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 92.88971870631786,
+      "error_percent": -3.7474418348343335
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 1,
+      "policy": "stop_now",
+      "series_resistance": 0.11453052723912334,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.847018665113154,
+      "error_percent": -0.2123682762726848
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 1,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.11453052723912334,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 99.44124878275586,
+      "error_percent": -0.15256568875495236
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 1,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.11453052723912334,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 89.70051673160697,
+      "error_percent": -0.1877608097425622
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 1,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.11453052723912334,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 89.63381203948772,
+      "error_percent": -0.2511122835333478
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 2,
+      "policy": "stop_now",
+      "series_resistance": 0.0755355266899852,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 59.946862001481534,
+      "error_percent": 1.2860337859055029
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 2,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.0755355266899852,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 97.99663087161993,
+      "error_percent": 1.3193358521863499
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 2,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.0755355266899852,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 88.38215752142223,
+      "error_percent": 1.3010960875756927
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 2,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.0755355266899852,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 88.25258222073782,
+      "error_percent": 1.310044734586678
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 3,
+      "policy": "stop_now",
+      "series_resistance": 0.08965394004942415,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.004142178152875,
+      "error_percent": 1.1893457623958783
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 3,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.08965394004942415,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 98.09324794524801,
+      "error_percent": 1.219541239029663
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 3,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.08965394004942415,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 88.47319036163924,
+      "error_percent": 1.196864212854616
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 3,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.08965394004942415,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 88.41351227361216,
+      "error_percent": 1.1256404457333749
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 4,
+      "policy": "stop_now",
+      "series_resistance": 0.1280373345070087,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.935629418676626,
+      "error_percent": -0.35747643922609124
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 4,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.1280373345070087,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 99.58209335056537,
+      "error_percent": -0.2937855432417312
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 4,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.1280373345070087,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 89.83311784640037,
+      "error_percent": -0.3350919333186568
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 4,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.1280373345070087,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 89.7727348419213,
+      "error_percent": -0.40547312645080563
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 5,
+      "policy": "stop_now",
+      "series_resistance": 0.060390910864028924,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 59.12670970642285,
+      "error_percent": 2.6909821329277284
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 5,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.060390910864028924,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 96.67492058095672,
+      "error_percent": 2.7045431844939496
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 5,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.060390910864028924,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 87.18781319246578,
+      "error_percent": 2.6887715573364503
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 5,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.060390910864028924,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 87.06222118615817,
+      "error_percent": 2.6952095973773216
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 6,
+      "policy": "stop_now",
+      "series_resistance": 0.06755184449662537,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 59.57714425294762,
+      "error_percent": 1.9145842953133507
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 6,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.06755184449662537,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 97.38069001727656,
+      "error_percent": 1.960188964597303
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 6,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.06755184449662537,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 87.83476493641444,
+      "error_percent": 1.9324118187857962
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 6,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.06755184449662537,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 87.7585001867762,
+      "error_percent": 1.880422223452989
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 7,
+      "policy": "stop_now",
+      "series_resistance": 0.07781786210986563,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.12224229597126,
+      "error_percent": 0.9905761689786154
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 7,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.07781786210986563,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 98.28362979644297,
+      "error_percent": 1.0234723343900811
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 7,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.07781786210986563,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 88.63943828529149,
+      "error_percent": 1.0070641771035158
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 7,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.07781786210986563,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 88.4589582106303,
+      "error_percent": 1.0736869796336126
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 8,
+      "policy": "stop_now",
+      "series_resistance": 0.09919708224958831,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.56290144073114,
+      "error_percent": 0.2557629439718696
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 8,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.09919708224958831,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 99.02110889204343,
+      "error_percent": 0.27108024501436967
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 8,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.09919708224958831,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 89.29915962373681,
+      "error_percent": 0.26084757381043694
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 8,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.09919708224958831,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 89.19408401156849,
+      "error_percent": 0.24065106791280463
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 9,
+      "policy": "stop_now",
+      "series_resistance": 0.11884605302631607,
+      "recorded_nominal_j": 60.717798900410735,
+      "actual_simulated_j": 60.683186869359396,
+      "error_percent": 0.05703726655927334
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 9,
+      "policy": "fixed_thermal",
+      "series_resistance": 0.11884605302631607,
+      "recorded_nominal_j": 99.28953555664393,
+      "actual_simulated_j": 99.18140331119972,
+      "error_percent": 0.10902471817718244
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 9,
+      "policy": "fixed_voltage",
+      "series_resistance": 0.11884605302631607,
+      "recorded_nominal_j": 89.53209431504844,
+      "actual_simulated_j": 89.46571358339355,
+      "error_percent": 0.07419683920926083
+    },
+    {
+      "family": "temperature_dependent_contact",
+      "trial_index": 9,
+      "policy": "fixed_face_temperature",
+      "series_resistance": 0.11884605302631607,
+      "recorded_nominal_j": 89.40873052725738,
+      "actual_simulated_j": 89.42829830522797,
+      "error_percent": -0.021880968710604704
+    }
+  ]
+}

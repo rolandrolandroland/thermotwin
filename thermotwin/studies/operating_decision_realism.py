@@ -96,6 +96,10 @@ from .sensor_model_discrimination import (
 TEMPERATURE_DEPENDENT_CONTACT = "temperature_dependent_contact"
 STAGE3_TRUTH_CONDITIONS = (*TRUTH_CONDITIONS, TEMPERATURE_DEPENDENT_CONTACT)
 STAGE3_FINAL_SCHEDULE_ID = "stage3_final_v1"
+CORRECTED_FINAL_SCHEDULE_ID = "operating_decision_corrected_final_v2"
+FIT_SCALED_GRADIENT_TOLERANCE = 1.0e-4
+FIT_STEP_TOLERANCE = 1.0e-6
+FIT_RELATIVE_OBJECTIVE_TOLERANCE = 1.0e-8
 
 
 @dataclass(frozen=True)
@@ -158,7 +162,8 @@ class RealisticBlindedOperatingCase:
             not self.case_id.device_token
             or self.case_id.policy_name != self.policy.name
             or self.case_id.trial_index < 0
-            or self.case_id.final_schedule_id != STAGE3_FINAL_SCHEDULE_ID
+            or self.case_id.final_schedule_id
+            not in (STAGE3_FINAL_SCHEDULE_ID, CORRECTED_FINAL_SCHEDULE_ID)
         ):
             raise ValueError("Stage 3 case has an invalid identity")
         expected_regimes = (
@@ -212,6 +217,13 @@ class RealisticCandidateFit(NamedTuple):
     covariance: Tuple[Tuple[float, ...], ...]
     reached_bound: bool
     evaluation_count: int
+    converged: bool = False
+    termination_reason: str = "legacy_status_unavailable"
+    completed_iterations: int = 0
+    accepted_iterations: int = 0
+    scaled_gradient_infinity_norm: float = float("nan")
+    last_step_infinity_norm: Optional[float] = None
+    last_relative_objective_reduction: Optional[float] = None
 
 
 class RealisticAcquisitionFitSet(NamedTuple):
@@ -610,7 +622,11 @@ def _parameter_spec(
         priors.append(config.sensor.interface_mass_prior_log_standard_deviation)
     names.append(_SERIES_RESISTANCE)
     nominals.append(config.series_resistance_nominal)
-    lower, upper = config.series_resistance_bounds
+    lower, upper = getattr(
+        config,
+        "series_resistance_fit_bounds",
+        config.series_resistance_bounds,
+    )
     bounds.append(
         (
             math.log(lower / config.series_resistance_nominal),
@@ -629,11 +645,19 @@ def _parameter_spec(
         for nominal, value_bounds in (
             (
                 config.face_sensor_capacitance_nominal,
-                config.face_sensor_capacitance_bounds,
+                getattr(
+                    config,
+                    "face_sensor_capacitance_fit_bounds",
+                    config.face_sensor_capacitance_bounds,
+                ),
             ),
             (
                 config.face_sensor_response_nominal,
-                config.face_sensor_response_bounds,
+                getattr(
+                    config,
+                    "face_sensor_response_fit_bounds",
+                    config.face_sensor_response_bounds,
+                ),
             ),
         ):
             bounds.append(
@@ -846,6 +870,9 @@ def fit_realistic_candidate(
     values = list(bounded(initial_log_multipliers))
     damping = config.sensor.fit.initial_damping
     objective(values)
+    accepted_iterations = 0
+    last_step_infinity_norm: Optional[float] = None
+    last_relative_objective_reduction: Optional[float] = None
     for _ in range(config.sensor.fit_iterations):
         errors = residuals(values)
         columns = jacobian_columns(values)
@@ -890,8 +917,18 @@ def fit_realistic_candidate(
                     for value, delta in zip(values, update)
                 )
             )
-            if objective(candidate) < starting_loss:
+            candidate_loss = objective(candidate)
+            if candidate_loss < starting_loss:
+                previous = tuple(values)
                 values = list(candidate)
+                accepted_iterations += 1
+                last_step_infinity_norm = max(
+                    abs(after - before)
+                    for before, after in zip(previous, candidate)
+                )
+                last_relative_objective_reduction = (
+                    starting_loss - candidate_loss
+                ) / max(1.0, abs(starting_loss))
                 damping = max(
                     config.sensor.fit.initial_damping * 1.0e-3,
                     damping * 0.3,
@@ -909,6 +946,39 @@ def fit_realistic_candidate(
             for right in columns
         )
         for left in columns
+    )
+    final_errors = residuals(best)
+    final_gradient = tuple(
+        sum(derivative * error for derivative, error in zip(column, final_errors))
+        for column in columns
+    )
+    residual_norm = math.sqrt(sum(error * error for error in final_errors))
+    scaled_gradient_infinity_norm = max(
+        abs(component)
+        / (
+            max(1.0e-15, math.sqrt(information[index][index]))
+            * max(1.0, residual_norm)
+        )
+        for index, component in enumerate(final_gradient)
+    )
+    gradient_converged = (
+        scaled_gradient_infinity_norm <= FIT_SCALED_GRADIENT_TOLERANCE
+    )
+    step_converged = (
+        last_step_infinity_norm is not None
+        and last_relative_objective_reduction is not None
+        and last_step_infinity_norm <= FIT_STEP_TOLERANCE
+        and last_relative_objective_reduction <= FIT_RELATIVE_OBJECTIVE_TOLERANCE
+    )
+    converged = gradient_converged or step_converged
+    termination_reason = (
+        "scaled_gradient_tolerance"
+        if gradient_converged
+        else (
+            "step_and_objective_tolerance"
+            if step_converged
+            else "fixed_iteration_limit"
+        )
     )
     covariance, _ = inverse_and_determinant(information)
     physical, interface_mass, series_resistance, face_sensor = _decoded_parameters(
@@ -931,6 +1001,13 @@ def fit_realistic_candidate(
             for value, (lower, upper) in zip(best, spec.log_bounds)
         ),
         evaluation_count=evaluation_count,
+        converged=converged,
+        termination_reason=termination_reason,
+        completed_iterations=config.sensor.fit_iterations,
+        accepted_iterations=accepted_iterations,
+        scaled_gradient_infinity_norm=scaled_gradient_infinity_norm,
+        last_step_infinity_norm=last_step_infinity_norm,
+        last_relative_objective_reduction=last_relative_objective_reduction,
     )
 
 
@@ -1886,6 +1963,10 @@ def run_operating_decision_realism_truth(
 
 
 __all__ = [
+    "CORRECTED_FINAL_SCHEDULE_ID",
+    "FIT_RELATIVE_OBJECTIVE_TOLERANCE",
+    "FIT_SCALED_GRADIENT_TOLERANCE",
+    "FIT_STEP_TOLERANCE",
     "OperatingDecisionRealismConfig",
     "OperatingDecisionRealismResult",
     "RealismTruth",

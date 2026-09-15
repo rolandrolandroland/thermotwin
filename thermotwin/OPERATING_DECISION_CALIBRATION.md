@@ -1,9 +1,11 @@
 # Operating-decision calibration and selector
 
 Status: Stage 4 calibration and the one-shot fresh-seed rehearsal completed on
-2026-09-10. The calibrated artifact is frozen, and the reserved Stage 5 cohort
-was not instantiated. This remains a software-only synthetic study, not a
-final evaluation or hardware validation.
+2026-09-10. A later audit found deterministic random-stream collisions that
+break the exchangeability basis of the conformal claim. The frozen artifact and
+counts are retained as descriptive history, not validated operating guidance.
+See
+[`OPERATING_DECISION_AUDIT.md`](../docs/thermotwin/OPERATING_DECISION_AUDIT.md).
 
 ## Question
 

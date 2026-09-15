@@ -1,0 +1,729 @@
+[
+  {
+    "label": "nominal_final",
+    "model": "four_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 1.1487202300486388e-08,
+    "max_hot_face_error_K": 1.3126850717526395e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 7.38957871249113e-05,
+      "hot_exchanger_temperature": 2.366367556305704e-05,
+      "terminal_voltage": 6.374960559440979e-10
+    },
+    "margin_production_K": -0.17104972712138533,
+    "margin_reference_K": -0.17104972956997244,
+    "margin_difference_K": 2.448587110848166e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 2.6645352591003757e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "nominal_final",
+    "model": "four_state",
+    "instrumented": true,
+    "step": 0.025,
+    "max_cold_face_error_K": 5.522525725609739e-08,
+    "max_hot_face_error_K": 1.6133867575263139e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 7.043613516088953e-05,
+      "hot_exchanger_temperature": 2.364934380238992e-05,
+      "terminal_voltage": 2.791250786060573e-09,
+      "cold_face_temperature": 3.7725141055489075e-07
+    },
+    "margin_production_K": -0.018261485662776522,
+    "margin_reference_K": -0.01826148754884116,
+    "margin_difference_K": 1.88606463780161e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 2.6645352591003757e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "nominal_final",
+    "model": "five_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 3.137636781502806e-07,
+    "max_hot_face_error_K": 2.4713244783924893e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 5.6757105767246685e-05,
+      "hot_exchanger_temperature": 2.3603769136570918e-05,
+      "terminal_voltage": 1.578993646944582e-08
+    },
+    "margin_production_K": 0.10510466101226257,
+    "margin_reference_K": 0.10510465846664374,
+    "margin_difference_K": 2.5456188268435653e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 2.6645352591003757e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "nominal_final",
+    "model": "five_state",
+    "instrumented": true,
+    "step": 0.025,
+    "max_cold_face_error_K": 3.974950573137903e-07,
+    "max_hot_face_error_K": 3.007869509019656e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 5.356921707289075e-05,
+      "hot_exchanger_temperature": 2.3594484616751288e-05,
+      "terminal_voltage": 2.000687704395432e-08,
+      "cold_face_temperature": 5.136232061886403e-07
+    },
+    "margin_production_K": 0.22126504545838088,
+    "margin_reference_K": 0.22126504345158082,
+    "margin_difference_K": 2.006800059461966e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 2.6645352591003757e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "nominal_final",
+    "model": "temperature_dependent_contact",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 6.000014423079847e-07,
+    "max_hot_face_error_K": 2.8659314921242185e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 7.178472134228286e-05,
+      "hot_exchanger_temperature": 2.3558612440410798e-05,
+      "terminal_voltage": 2.993731981759673e-08
+    },
+    "margin_production_K": 0.06469956304022162,
+    "margin_reference_K": 0.06469956071475735,
+    "margin_difference_K": 2.325464265595656e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.552713678800501e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "nominal_final",
+    "model": "temperature_dependent_contact",
+    "instrumented": true,
+    "step": 0.025,
+    "max_cold_face_error_K": 6.862383088446222e-07,
+    "max_hot_face_error_K": 3.3941205401788466e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 6.765621537851985e-05,
+      "hot_exchanger_temperature": 2.3554977019557555e-05,
+      "terminal_voltage": 3.445209131869298e-08,
+      "cold_face_temperature": 5.967062861600425e-07
+    },
+    "margin_production_K": 0.18685262157163152,
+    "margin_reference_K": 0.18685261963122457,
+    "margin_difference_K": 1.9404069462325424e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.9968028886505635e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_0",
+    "model": "four_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 2.4091434625006514e-08,
+    "max_hot_face_error_K": 1.5115801943466067e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 0.00010471719838278659,
+      "hot_exchanger_temperature": 2.552132229993731e-05,
+      "terminal_voltage": 1.2756600220598102e-09
+    },
+    "margin_production_K": -0.1440822967813915,
+    "margin_reference_K": -0.14408229929364325,
+    "margin_difference_K": 2.512251739972271e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.1086244689504383e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_0",
+    "model": "five_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 7.3089165653073e-07,
+    "max_hot_face_error_K": 3.859156549879117e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 7.782532503597395e-05,
+      "hot_exchanger_temperature": 2.545289413546925e-05,
+      "terminal_voltage": 3.633150802428986e-08
+    },
+    "margin_production_K": 0.16215615449738152,
+    "margin_reference_K": 0.1621561519503416,
+    "margin_difference_K": 2.5470399123150855e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.1086244689504383e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_0",
+    "model": "temperature_dependent_contact",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 1.312679955844942e-06,
+    "max_hot_face_error_K": 4.601758973876713e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 9.30832682684013e-05,
+      "hot_exchanger_temperature": 2.5416978417069913e-05,
+      "terminal_voltage": 6.136741603768314e-08
+    },
+    "margin_production_K": 0.12601339168793402,
+    "margin_reference_K": 0.12601338938054596,
+    "margin_difference_K": 2.307388058397919e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.1086244689504383e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_1",
+    "model": "four_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 3.1674062483944e-08,
+    "max_hot_face_error_K": 1.6528929336345755e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 9.81763997174312e-05,
+      "hot_exchanger_temperature": 2.302928322706066e-05,
+      "terminal_voltage": 1.654475889623086e-09
+    },
+    "margin_production_K": -0.24837789661950183,
+    "margin_reference_K": -0.24837789934673538,
+    "margin_difference_K": 2.727233550103847e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.552713678800501e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_1",
+    "model": "five_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 6.275778900999285e-07,
+    "max_hot_face_error_K": 4.008256837551016e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 6.873211185620676e-05,
+      "hot_exchanger_temperature": 2.295557140996607e-05,
+      "terminal_voltage": 3.156571048990031e-08
+    },
+    "margin_production_K": 0.15872323546165035,
+    "margin_reference_K": 0.15872323277000078,
+    "margin_difference_K": 2.691649569896981e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.774758283725532e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_1",
+    "model": "temperature_dependent_contact",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 9.68715824001265e-07,
+    "max_hot_face_error_K": 4.521496066445252e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 8.007444307622791e-05,
+      "hot_exchanger_temperature": 2.293137634978848e-05,
+      "terminal_voltage": 4.86401575128248e-08
+    },
+    "margin_production_K": 0.12971460020889936,
+    "margin_reference_K": 0.12971459775013727,
+    "margin_difference_K": 2.4587620828242507e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.774758283725532e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_2",
+    "model": "four_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 2.4854045932443114e-08,
+    "max_hot_face_error_K": 1.5854766388656572e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 0.00010088503273664173,
+      "hot_exchanger_temperature": 2.4586113568147994e-05,
+      "terminal_voltage": 1.3195062820159364e-09
+    },
+    "margin_production_K": -0.3691857431205108,
+    "margin_reference_K": -0.3691857462133612,
+    "margin_difference_K": 3.092850420216564e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.552713678800501e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_2",
+    "model": "five_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 8.262400683634041e-07,
+    "max_hot_face_error_K": 4.258595254214015e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 7.679968740603726e-05,
+      "hot_exchanger_temperature": 2.4541438847336394e-05,
+      "terminal_voltage": 4.110500251286453e-08
+    },
+    "margin_production_K": -0.04757749281344559,
+    "margin_reference_K": -0.04757749586542559,
+    "margin_difference_K": 3.051980002055643e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.1086244689504383e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_2",
+    "model": "temperature_dependent_contact",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 1.6954007833192009e-06,
+    "max_hot_face_error_K": 5.259039426164236e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 9.67230836863564e-05,
+      "hot_exchanger_temperature": 2.4498719540133607e-05,
+      "terminal_voltage": 7.805298593566157e-08
+    },
+    "margin_production_K": -0.10264853508169836,
+    "margin_reference_K": -0.10264853773162486,
+    "margin_difference_K": 2.649926500453148e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.1086244689504383e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_3",
+    "model": "four_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 4.543039722193498e-09,
+    "max_hot_face_error_K": 1.1258975973760244e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 5.3524897964507545e-05,
+      "hot_exchanger_temperature": 2.305001089553116e-05,
+      "terminal_voltage": 2.8262547857593745e-10
+    },
+    "margin_production_K": 0.10592424393502142,
+    "margin_reference_K": 0.10592424237944442,
+    "margin_difference_K": 1.5555770005448721e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.1086244689504383e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_3",
+    "model": "five_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 1.0343796930101234e-07,
+    "max_hot_face_error_K": 1.5130581232369877e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 3.978751772137912e-05,
+      "hot_exchanger_temperature": 2.298472725215106e-05,
+      "terminal_voltage": 5.038478523289314e-09
+    },
+    "margin_production_K": 0.31104935569283043,
+    "margin_reference_K": 0.311049353963881,
+    "margin_difference_K": 1.7289494280703366e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.1086244689504383e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_3",
+    "model": "temperature_dependent_contact",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 2.04673824555357e-07,
+    "max_hot_face_error_K": 1.6562466953473631e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 5.3305332244235615e-05,
+      "hot_exchanger_temperature": 2.2937394305699854e-05,
+      "terminal_voltage": 1.0269363304171719e-08
+    },
+    "margin_production_K": 0.2785673107644584,
+    "margin_reference_K": 0.2785673090626233,
+    "margin_difference_K": 1.7018351172737312e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.1086244689504383e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_4",
+    "model": "four_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 7.727521733613685e-09,
+    "max_hot_face_error_K": 1.1815473044407554e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 6.743121019781029e-05,
+      "hot_exchanger_temperature": 2.440811709902846e-05,
+      "terminal_voltage": 4.4274206523198245e-10
+    },
+    "margin_production_K": 0.1893128981481027,
+    "margin_reference_K": 0.18931289641926696,
+    "margin_difference_K": 1.728835741232615e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.552713678800501e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_4",
+    "model": "five_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 1.3862785408491618e-07,
+    "max_hot_face_error_K": 1.7363390725222416e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 4.7586516700448556e-05,
+      "hot_exchanger_temperature": 2.4334481395271723e-05,
+      "terminal_voltage": 6.795124907199579e-09
+    },
+    "margin_production_K": 0.43770886586383995,
+    "margin_reference_K": 0.4377088639129738,
+    "margin_difference_K": 1.950866135302931e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.552713678800501e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_4",
+    "model": "temperature_dependent_contact",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 2.3533272042186582e-07,
+    "max_hot_face_error_K": 1.893454282253515e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 5.833380333797322e-05,
+      "hot_exchanger_temperature": 2.4303641794176656e-05,
+      "terminal_voltage": 1.181500125513324e-08
+    },
+    "margin_production_K": 0.41660954942767603,
+    "margin_reference_K": 0.41660954758395974,
+    "margin_difference_K": 1.843716290750308e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.1086244689504383e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_5",
+    "model": "four_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 3.0535716177837458e-09,
+    "max_hot_face_error_K": 1.0714416021073703e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 4.677225439309041e-05,
+      "hot_exchanger_temperature": 2.3159747911449813e-05,
+      "terminal_voltage": 2.0566792713339055e-10
+    },
+    "margin_production_K": 0.2547513817121967,
+    "margin_reference_K": 0.25475138050143187,
+    "margin_difference_K": 1.2107648217352107e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.1086244689504383e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_5",
+    "model": "five_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 9.512422138868715e-08,
+    "max_hot_face_error_K": 1.3522480912797619e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 3.707929749907635e-05,
+      "hot_exchanger_temperature": 2.3107979643555154e-05,
+      "terminal_voltage": 4.707763068267923e-09
+    },
+    "margin_production_K": 0.40258288695656574,
+    "margin_reference_K": 0.40258288560431765,
+    "margin_difference_K": 1.3522480912797619e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.1086244689504383e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_5",
+    "model": "temperature_dependent_contact",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 1.72946670318197e-07,
+    "max_hot_face_error_K": 1.4618990462622605e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 4.758952474048783e-05,
+      "hot_exchanger_temperature": 2.306855299138988e-05,
+      "terminal_voltage": 8.672901702366786e-09
+    },
+    "margin_production_K": 0.37457701878383887,
+    "margin_reference_K": 0.37457701738219384,
+    "margin_difference_K": 1.401645022269804e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.1086244689504383e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_6",
+    "model": "four_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 3.4953473004861735e-08,
+    "max_hot_face_error_K": 1.704222540865885e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 0.00010428825169128686,
+      "hot_exchanger_temperature": 2.3510269329563016e-05,
+      "terminal_voltage": 1.8194299400420277e-09
+    },
+    "margin_production_K": -0.2614620814404134,
+    "margin_reference_K": -0.26146208417577554,
+    "margin_difference_K": 2.7353621590009425e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 4.440892098500626e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_6",
+    "model": "five_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 7.43191662877507e-07,
+    "max_hot_face_error_K": 4.3889940570807084e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 7.333056692004902e-05,
+      "hot_exchanger_temperature": 2.3442843769316823e-05,
+      "terminal_voltage": 3.736796561071287e-08
+    },
+    "margin_production_K": 0.14310088302914892,
+    "margin_reference_K": 0.14310088035006174,
+    "margin_difference_K": 2.6790871743287425e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.9968028886505635e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_6",
+    "model": "temperature_dependent_contact",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 1.2845238188674557e-06,
+    "max_hot_face_error_K": 5.071228770248126e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 8.808216620082021e-05,
+      "hot_exchanger_temperature": 2.3415029943407717e-05,
+      "terminal_voltage": 6.293218463016004e-08
+    },
+    "margin_production_K": 0.10685384634388129,
+    "margin_reference_K": 0.10685384396225572,
+    "margin_difference_K": 2.3816255634301342e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.9968028886505635e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_7",
+    "model": "four_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 2.4836651846271707e-08,
+    "max_hot_face_error_K": 1.6285071069432888e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 0.00010377470027833624,
+      "hot_exchanger_temperature": 2.498516221294267e-05,
+      "terminal_voltage": 1.3222773986854008e-09
+    },
+    "margin_production_K": -0.5412370931289843,
+    "margin_reference_K": -0.5412370966460571,
+    "margin_difference_K": 3.5170728551747743e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.9968028886505635e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_7",
+    "model": "five_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 6.459345058829058e-07,
+    "max_hot_face_error_K": 4.0280383473145775e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 7.499481205286429e-05,
+      "hot_exchanger_temperature": 2.493747064136187e-05,
+      "terminal_voltage": 3.248290436630441e-08
+    },
+    "margin_production_K": -0.16277685102750183,
+    "margin_reference_K": -0.16277685443247947,
+    "margin_difference_K": 3.404977633181261e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.9968028886505635e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_7",
+    "model": "temperature_dependent_contact",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 1.3556068552134093e-06,
+    "max_hot_face_error_K": 4.837374945054762e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 9.703392299797997e-05,
+      "hot_exchanger_temperature": 2.4889186136078933e-05,
+      "terminal_voltage": 6.567233867826872e-08
+    },
+    "margin_production_K": -0.22648141396962274,
+    "margin_reference_K": -0.2264814168444218,
+    "margin_difference_K": 2.8747990654665045e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.9968028886505635e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_8",
+    "model": "four_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 7.0362489168473985e-09,
+    "max_hot_face_error_K": 1.2307168617553543e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 6.720660115888677e-05,
+      "hot_exchanger_temperature": 2.484847055939099e-05,
+      "terminal_voltage": 4.127171937540197e-10
+    },
+    "margin_production_K": -0.2463279628676105,
+    "margin_reference_K": -0.24632796508416277,
+    "margin_difference_K": 2.2165522750583477e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.552713678800501e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_8",
+    "model": "five_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 2.304453801116324e-07,
+    "max_hot_face_error_K": 2.067508830805309e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 5.193082972709817e-05,
+      "hot_exchanger_temperature": 2.4798521963020903e-05,
+      "terminal_voltage": 1.160199447625132e-08
+    },
+    "margin_production_K": -0.011863561302902781,
+    "margin_reference_K": -0.011863563616770989,
+    "margin_difference_K": 2.313868208148051e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.1086244689504383e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_8",
+    "model": "temperature_dependent_contact",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 3.875226752825256e-07,
+    "max_hot_face_error_K": 2.2941435418033507e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 6.439458024942724e-05,
+      "hot_exchanger_temperature": 2.4755707215717848e-05,
+      "terminal_voltage": 1.9447068677624912e-08
+    },
+    "margin_production_K": -0.04850862266118838,
+    "margin_reference_K": -0.04850862486779306,
+    "margin_difference_K": 2.2066046767577063e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.552713678800501e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_9",
+    "model": "four_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 7.76935848989524e-09,
+    "max_hot_face_error_K": 1.1731913218682166e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 6.267551071914568e-05,
+      "hot_exchanger_temperature": 2.2732440811523702e-05,
+      "terminal_voltage": 4.446889523279651e-10
+    },
+    "margin_production_K": 0.25255835087665446,
+    "margin_reference_K": 0.2525583492304122,
+    "margin_difference_K": 1.646242253627861e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.9968028886505635e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_9",
+    "model": "five_state",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 3.2586314091531676e-07,
+    "max_hot_face_error_K": 2.10275175049901e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 5.115569791769303e-05,
+      "hot_exchanger_temperature": 2.268466511168299e-05,
+      "terminal_voltage": 1.6261952673346514e-08
+    },
+    "margin_production_K": 0.42235120035019236,
+    "margin_reference_K": 0.4223511985630921,
+    "margin_difference_K": 1.7871002455649432e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.774758283725532e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "development_final_9",
+    "model": "temperature_dependent_contact",
+    "instrumented": false,
+    "step": 0.025,
+    "max_cold_face_error_K": 6.216860697350057e-07,
+    "max_hot_face_error_K": 2.5059421204787213e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 6.339824398082783e-05,
+      "hot_exchanger_temperature": 2.265018702019006e-05,
+      "terminal_voltage": 2.8955429332011562e-08
+    },
+    "margin_production_K": 0.39516541041001574,
+    "margin_reference_K": 0.3951654086734493,
+    "margin_difference_K": 1.7365664461976849e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.9968028886505635e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "fast_corner_final",
+    "model": "temperature_dependent_contact",
+    "instrumented": true,
+    "step": 0.025,
+    "max_cold_face_error_K": 0.006360018994882921,
+    "max_hot_face_error_K": 3.2230250894826895e-06,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 0.0007300694238665528,
+      "hot_exchanger_temperature": 3.0025531088995194e-05,
+      "terminal_voltage": 0.00015214140064473414,
+      "cold_face_temperature": 0.0007841196301114906
+    },
+    "margin_production_K": -0.16961518760808758,
+    "margin_reference_K": -0.1696150987912688,
+    "margin_difference_K": -8.881681878847303e-08,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.552713678800501e-15,
+    "min_entropy_production_W_K": 0.0
+  },
+  {
+    "label": "nominal_final_reference_refinement",
+    "model": "temperature_dependent_contact",
+    "instrumented": true,
+    "step": 0.0125,
+    "max_cold_face_error_K": 6.862379109406902e-07,
+    "max_hot_face_error_K": 3.3924152376130223e-09,
+    "observation_max_errors": {
+      "cold_exchanger_temperature": 6.765621589011062e-05,
+      "hot_exchanger_temperature": 2.355497730377465e-05,
+      "terminal_voltage": 3.44520145745264e-08,
+      "cold_face_temperature": 5.967069682810688e-07
+    },
+    "margin_production_K": 0.18685262157163152,
+    "margin_reference_K": 0.18685261963156563,
+    "margin_difference_K": 1.9400658857193775e-09,
+    "margin_sampling_gap_K": 0.0,
+    "max_energy_balance_residual_W": 3.9968028886505635e-15,
+    "min_entropy_production_W_K": 0.0
+  }
+]

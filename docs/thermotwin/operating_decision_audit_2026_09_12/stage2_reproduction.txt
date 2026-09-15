@@ -1,0 +1,133 @@
+matched_four_state: paired trial 1/10
+matched_four_state: paired trial 2/10
+matched_four_state: paired trial 3/10
+matched_four_state: paired trial 4/10
+matched_four_state: paired trial 5/10
+matched_four_state: paired trial 6/10
+matched_four_state: paired trial 7/10
+matched_four_state: paired trial 8/10
+matched_four_state: paired trial 9/10
+matched_four_state: paired trial 10/10
+extra_interface_mass: paired trial 1/10
+extra_interface_mass: paired trial 2/10
+extra_interface_mass: paired trial 3/10
+extra_interface_mass: paired trial 4/10
+extra_interface_mass: paired trial 5/10
+extra_interface_mass: paired trial 6/10
+extra_interface_mass: paired trial 7/10
+extra_interface_mass: paired trial 8/10
+extra_interface_mass: paired trial 9/10
+extra_interface_mass: paired trial 10/10
+Operating-decision Stage 2 development pilot
+==============================================
+
+Decision question:
+  Which fixed diagnostic package supports approve, reject, or insufficient
+  evidence for one previously untried operating schedule?
+
+Blinded protocol:
+  paired synthetic trials per truth condition: 10
+  acquisition observations fit both candidates from 3 declared starts
+  the lowest complete acquisition objective selects each candidate fit
+  one distinct verification schedule checks adequacy without physical refit
+  candidate margin intervals are enveloped rather than selecting one model
+  the final response is generated only after the decision has been saved
+  final cold-face observations never enter fitting, verification, or decision
+
+Frozen operating decision:
+  acceptable cold-face band: 285.00 to 301.70 K
+  verification normalized-score threshold: 2.000
+  uncalibrated local delta-margin multiplier: 2.00
+  verification and interval thresholds are development choices
+  approve requires the complete verified margin envelope to be nonnegative
+  reject requires the complete verified margin envelope to be negative
+  every other case returns insufficient evidence
+
+Nominal final-schedule margins:
+  four_state: -0.1579 K
+  five_state: 0.1173 K
+
+Fixed diagnostic packages:
+  Stop now: 1 acquisition run(s), 2 including verification, 57.99 J modeled net diagnostic electrical energy, 0 added channel(s)
+  More thermal tests: 4 acquisition run(s), 5 including verification, 94.86 J modeled net diagnostic electrical energy, 0 added channel(s)
+  Add voltage: 2 acquisition run(s), 3 including verification, 85.53 J modeled net diagnostic electrical energy, 1 added channel(s)
+  Add face temperature: 2 acquisition run(s), 3 including verification, 85.53 J modeled net diagnostic electrical energy, 1 added channel(s)
+
+Pilot outcomes:
+  Matched four-state truth / Stop now:
+    decisions: approve=2; reject=6; insufficient=2; true pass/violate=4/6
+    false approvals among approvals: 0.0% (0/2; 95% Wilson 0.0%-65.8%)
+    missed violations: 0.0% (0/6; 95% Wilson 0.0%-39.0%)
+    false rejections among rejections: 0.0% (0/6; 95% Wilson 0.0%-39.0%)
+    decision coverage: 80.0% (8/10; 95% Wilson 49.0%-94.3%); abstentions: 20.0% (2/10; 95% Wilson 5.7%-51.0%)
+    interval coverage where an interval exists: 90.0% (9/10; 95% Wilson 59.6%-98.2%)
+    diagnostic effort: 2 runs, 160 energized-schedule seconds (resets not modeled), 57.99 J; mean decision computation=2.678 s; numerical failures=0
+  Matched four-state truth / More thermal tests:
+    decisions: approve=3; reject=6; insufficient=1; true pass/violate=4/6
+    false approvals among approvals: 0.0% (0/3; 95% Wilson 0.0%-56.1%)
+    missed violations: 0.0% (0/6; 95% Wilson 0.0%-39.0%)
+    false rejections among rejections: 0.0% (0/6; 95% Wilson 0.0%-39.0%)
+    decision coverage: 90.0% (9/10; 95% Wilson 59.6%-98.2%); abstentions: 10.0% (1/10; 95% Wilson 1.8%-40.4%)
+    interval coverage where an interval exists: 90.0% (9/10; 95% Wilson 59.6%-98.2%)
+    diagnostic effort: 5 runs, 400 energized-schedule seconds (resets not modeled), 94.86 J; mean decision computation=9.640 s; numerical failures=0
+  Matched four-state truth / Add voltage:
+    decisions: approve=4; reject=6; insufficient=0; true pass/violate=4/6
+    false approvals among approvals: 0.0% (0/4; 95% Wilson 0.0%-49.0%)
+    missed violations: 0.0% (0/6; 95% Wilson 0.0%-39.0%)
+    false rejections among rejections: 0.0% (0/6; 95% Wilson 0.0%-39.0%)
+    decision coverage: 100.0% (10/10; 95% Wilson 72.2%-100.0%); abstentions: 0.0% (0/10; 95% Wilson 0.0%-27.8%)
+    interval coverage where an interval exists: 100.0% (10/10; 95% Wilson 72.2%-100.0%)
+    diagnostic effort: 3 runs, 240 energized-schedule seconds (resets not modeled), 85.53 J; mean decision computation=4.919 s; numerical failures=0
+  Matched four-state truth / Add face temperature:
+    decisions: approve=4; reject=6; insufficient=0; true pass/violate=4/6
+    false approvals among approvals: 0.0% (0/4; 95% Wilson 0.0%-49.0%)
+    missed violations: 0.0% (0/6; 95% Wilson 0.0%-39.0%)
+    false rejections among rejections: 0.0% (0/6; 95% Wilson 0.0%-39.0%)
+    decision coverage: 100.0% (10/10; 95% Wilson 72.2%-100.0%); abstentions: 0.0% (0/10; 95% Wilson 0.0%-27.8%)
+    interval coverage where an interval exists: 100.0% (10/10; 95% Wilson 72.2%-100.0%)
+    diagnostic effort: 3 runs, 240 energized-schedule seconds (resets not modeled), 85.53 J; mean decision computation=5.447 s; numerical failures=0
+  Extra-interface-mass truth / Stop now:
+    decisions: approve=4; reject=0; insufficient=6; true pass/violate=8/2
+    false approvals among approvals: 0.0% (0/4; 95% Wilson 0.0%-49.0%)
+    missed violations: 0.0% (0/2; 95% Wilson 0.0%-65.8%)
+    false rejections among rejections: N/A (0/0)
+    decision coverage: 40.0% (4/10; 95% Wilson 16.8%-68.7%); abstentions: 60.0% (6/10; 95% Wilson 31.3%-83.2%)
+    interval coverage where an interval exists: 100.0% (10/10; 95% Wilson 72.2%-100.0%)
+    diagnostic effort: 2 runs, 160 energized-schedule seconds (resets not modeled), 57.99 J; mean decision computation=2.659 s; numerical failures=0
+  Extra-interface-mass truth / More thermal tests:
+    decisions: approve=7; reject=0; insufficient=3; true pass/violate=8/2
+    false approvals among approvals: 0.0% (0/7; 95% Wilson 0.0%-35.4%)
+    missed violations: 0.0% (0/2; 95% Wilson 0.0%-65.8%)
+    false rejections among rejections: N/A (0/0)
+    decision coverage: 70.0% (7/10; 95% Wilson 39.7%-89.2%); abstentions: 30.0% (3/10; 95% Wilson 10.8%-60.3%)
+    interval coverage where an interval exists: 100.0% (10/10; 95% Wilson 72.2%-100.0%)
+    diagnostic effort: 5 runs, 400 energized-schedule seconds (resets not modeled), 94.86 J; mean decision computation=10.508 s; numerical failures=0
+  Extra-interface-mass truth / Add voltage:
+    decisions: approve=7; reject=1; insufficient=2; true pass/violate=8/2
+    false approvals among approvals: 0.0% (0/7; 95% Wilson 0.0%-35.4%)
+    missed violations: 0.0% (0/2; 95% Wilson 0.0%-65.8%)
+    false rejections among rejections: 0.0% (0/1; 95% Wilson 0.0%-79.3%)
+    decision coverage: 80.0% (8/10; 95% Wilson 49.0%-94.3%); abstentions: 20.0% (2/10; 95% Wilson 5.7%-51.0%)
+    interval coverage where an interval exists: 100.0% (10/10; 95% Wilson 72.2%-100.0%)
+    diagnostic effort: 3 runs, 240 energized-schedule seconds (resets not modeled), 85.53 J; mean decision computation=5.225 s; numerical failures=0
+  Extra-interface-mass truth / Add face temperature:
+    decisions: approve=7; reject=2; insufficient=1; true pass/violate=8/2
+    false approvals among approvals: 0.0% (0/7; 95% Wilson 0.0%-35.4%)
+    missed violations: 0.0% (0/2; 95% Wilson 0.0%-65.8%)
+    false rejections among rejections: 0.0% (0/2; 95% Wilson 0.0%-65.8%)
+    decision coverage: 90.0% (9/10; 95% Wilson 59.6%-98.2%); abstentions: 10.0% (1/10; 95% Wilson 1.8%-40.4%)
+    interval coverage where an interval exists: 90.0% (9/10; 95% Wilson 59.6%-98.2%)
+    diagnostic effort: 3 runs, 240 energized-schedule seconds (resets not modeled), 85.53 J; mean decision computation=5.822 s; numerical failures=0
+
+Interpretation boundary:
+  This is a synthetic development pilot, not a frozen evaluation result
+  and not hardware validation. Its rates are diagnostic rather than claims
+  about manufactured devices, prototype savings, or operating safety.
+  The untouched-final split prevents direct response leakage, but both truth
+  conditions still belong to the fitted candidate families. Voltage
+  confounding, face-sensor thermal loading, a missing-physics truth family,
+  calibrated uncertainty, and the decision-directed selector remain later
+  stages. Fixed-policy comparisons here guide that work; they do not choose
+  a sensor for a physical device.
+  Local covariance propagation is provisional because the scalar margin is
+  a minimum over time; bootstrap calibration is required before evaluation.

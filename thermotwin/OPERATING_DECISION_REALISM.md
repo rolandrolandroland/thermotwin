@@ -1,8 +1,12 @@
 # Operating-decision realism stress test
 
-Status: Stage 3 development stress test complete on 2026-09-10. This is
-synthetic development evidence, not a frozen evaluation or hardware
-validation.
+Status: Stage 3 development stress test completed on 2026-09-10. A later audit
+found deterministic reuse of random streams across channels, runs, and adjacent
+device blocks. The table is retained as descriptive history; its row-level
+confidence interpretation is superseded pending a collision-free replication.
+The audit found no corresponding defect in the stated physics or saved
+arithmetic. See
+[`OPERATING_DECISION_AUDIT.md`](../docs/thermotwin/OPERATING_DECISION_AUDIT.md).
 
 ## Question
 
@@ -126,9 +130,10 @@ thermally loaded measurement transfer, and has stronger Family C interval
 coverage: 7/10 versus 3/10.
 
 Every determinate decision is correct in this small cohort, but that is not a
-zero-risk result. For example, zero false approvals among the voltage policy's
-18 approvals still has a 17.6% upper 95% Wilson bound. More seriously, the face
-policy's Family C intervals miss the true final margin in seven of ten cases.
+zero-risk result. The originally reported pooled Wilson calculation treated
+family rows as independent even though variants share a device block, so it is
+not retained as an uncertainty bound. More seriously, the face policy's Family
+C intervals miss the true final margin in seven of ten cases.
 The decision labels happen to remain correct because those devices are not all
 near the boundary. The interval result exposes the failure that this stage was
 designed to find: a direct diagnostic measurement can produce a sharp but

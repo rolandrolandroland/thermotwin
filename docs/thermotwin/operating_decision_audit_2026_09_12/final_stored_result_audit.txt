@@ -1,0 +1,47 @@
+Procedures: ('stop_now', 'fixed_thermal', 'fixed_voltage', 'fixed_face_temperature', 'decision_directed_selector', 'mismatch_guarded_selector_v2')
+PASS: all900 identities, paired true margins, pass/error flags, interval coverage/padding and classifications.
+PASS: all24 summary cells, counts, means, rate/CI arithmetic, action counts, and expected losses agree with independent recomputation.
+Bootstrap arithmetic matches: bench_time_dominant 0.06886783750678452 (0.033301756260176764, 0.10775146355014732)
+Bootstrap arithmetic matches: balanced 0.06673450417345118 (0.031683626043362806, 0.10673450417345119)
+Bootstrap arithmetic matches: instrumentation_expensive 0.05606783750678452 (0.018802341680235687, 0.09568362604336281)
+Bootstrap arithmetic matching is NOT validation of its independence/exchangeability assumptions.
+
+All-family comparison (approval/reject/insufficient; error counts; finite interval; block coverage; runs; energy; sensors; losses bench/balanced/expensive):
+stop_now 33/34/83 errors=0/0 finite=136/138 blocks=48/50 runs=2.00000000 J=60.71779890 sensors=0.00000000 losses=0.55333333,0.55333333,0.55333333
+fixed_thermal 44/43/63 errors=0/0 finite=144/145 blocks=49/50 runs=5.00000000 J=99.28953556 sensors=0.00000000 losses=0.78352624,0.78352624,0.78352624
+fixed_voltage 57/46/47 errors=0/0 finite=137/139 blocks=48/50 runs=3.00000000 J=89.53209432 sensors=1.00000000 losses=0.48078943,0.56078943,0.96078943
+fixed_face_temperature 55/36/59 errors=0/0 finite=130/135 blocks=45/50 runs=3.00000000 J=89.40873053 sensors=1.00000000 losses=0.56058625,0.64058625,1.04058625
+decision_directed_selector 54/42/54 errors=0/0 finite=139/140 blocks=49/50 runs=2.61333333 J=78.39056675 sensors=0.61333333 losses=0.46270640,0.51177307,0.75710640
+mismatch_guarded_selector_v2 49/36/65 errors=0/0 finite=134/135 blocks=49/50 runs=2.55333333 J=76.55873543 sensors=0.58666667 losses=0.53157424,0.57850757,0.81317424
+
+Family-specific raw decision counts:
+matched_four_state
+stop_now 8/24/18 errors=0/0 truthpasses=15/50 FA95upper=0.3244075648838801
+fixed_thermal 9/29/12 errors=0/0 truthpasses=15/50 FA95upper=0.2991450484195439
+fixed_voltage 11/30/9 errors=0/0 truthpasses=15/50 FA95upper=0.2588329669680316
+fixed_face_temperature 10/27/13 errors=0/0 truthpasses=15/50 FA95upper=0.27753279986288903
+decision_directed_selector 11/29/10 errors=0/0 truthpasses=15/50 FA95upper=0.2588329669680316
+mismatch_guarded_selector_v2 10/26/14 errors=0/0 truthpasses=15/50 FA95upper=0.27753279986288903
+extra_interface_mass
+stop_now 17/6/27 errors=0/0 truthpasses=29/50 FA95upper=0.18431813500885175
+fixed_thermal 21/7/22 errors=0/0 truthpasses=29/50 FA95upper=0.15463901892484688
+fixed_voltage 23/9/18 errors=0/0 truthpasses=29/50 FA95upper=0.14311661845042675
+fixed_face_temperature 24/6/20 errors=0/0 truthpasses=29/50 FA95upper=0.13797620467498012
+decision_directed_selector 21/7/22 errors=0/0 truthpasses=29/50 FA95upper=0.15463901892484688
+mismatch_guarded_selector_v2 20/6/24 errors=0/0 truthpasses=29/50 FA95upper=0.16112515805281927
+temperature_dependent_contact
+stop_now 8/4/38 errors=0/0 truthpasses=28/50 FA95upper=0.3244075648838801
+fixed_thermal 14/7/29 errors=0/0 truthpasses=28/50 FA95upper=0.21531080273763573
+fixed_voltage 23/7/20 errors=0/0 truthpasses=28/50 FA95upper=0.14311661845042675
+fixed_face_temperature 21/3/26 errors=0/0 truthpasses=28/50 FA95upper=0.15463901892484688
+decision_directed_selector 22/6/22 errors=0/0 truthpasses=28/50 FA95upper=0.1486548746086208
+mismatch_guarded_selector_v2 19/4/27 errors=0/0 truthpasses=28/50 FA95upper=0.16817922405261618
+
+Guard and decision-removal attribution:
+alarm matched_four_state 9 parent fixed_voltage reject
+alarm temperature_dependent_contact 1 parent fixed_voltage insufficient_evidence
+alarm temperature_dependent_contact 8 parent fixed_voltage approve
+alarm temperature_dependent_contact 45 parent fixed_voltage insufficient_evidence
+alarm temperature_dependent_contact 47 parent stop_now reject
+Lost definite decisions: {'guard': 3, 'larger_padding': 8}
+PASS: all guard counts and no added/reversed decisions.

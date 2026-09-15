@@ -1,0 +1,222 @@
+Operating-decision Stage 4 calibration and selector
+===================================================
+
+Purpose:
+  Calibrate verification and final-margin uncertainty under all three
+  Stage 3 truth families, freeze a selector that sees only the common
+  initial acquisition, and rehearse it once on fresh development seeds.
+
+Partition freeze:
+  matched-pipeline gate development: 10 paired blocks/family; first seed 191001
+  calibration: 20 paired blocks/family; first seed 10191001
+  fresh-seed rehearsal: 10 paired blocks/family; first seed 20191001
+  reserved Stage 5 evaluation: 50 blocks/family; first seed 30191001
+  the reserved evaluation namespace was checked for collisions and was
+  not instantiated by this run
+  protocol digest: 0c87ccfdbec5b1047490a3e2408b2a599cfa71687f18ef55076724108e5b3b68
+
+Frozen selector:
+  fit both constant-contact candidates to the initial 0.8 A acquisition
+  choose stop-now only when both finite, non-bound candidate intervals
+  form an envelope wholly on one side of zero; otherwise choose voltage
+  verification data, action-specific observations, truth-family labels,
+  trial identifiers, and final responses are absent from the selector input
+
+Matched-pipeline verification gate:
+  target correct-candidate block retention: 90.0%
+  each development block takes the larger correct-candidate score from
+  matched four-state and extra-interface-mass truth; Family C is excluded
+  conditional exact-prediction noise reference: 99.0% chi-square quantile from 50000 draws/policy
+  Stop now: Q <= 1.2760 (matched rank 10/10; noise reference 1.2760; 162 observations)
+  More thermal tests: Q <= 1.2768 (matched rank 10/10; noise reference 1.2768; 162 observations)
+  Add voltage: Q <= 1.2250 (matched rank 10/10; noise reference 1.2246; 243 observations)
+  Add face temperature: Q <= 1.2264 (matched rank 10/10; noise reference 1.2264; 243 observations)
+  this calibrates score retention for the two represented matched
+  pipelines; bound and numerical failures remain separate exclusions
+  it is not claimed to identify every omitted constitutive law
+
+Blockwise split-conformal margin calibration:
+  target simultaneous coverage across the three family variants: 90.0%
+  each fixed policy is calibrated as a complete procedure; the
+  selector receives its own post-selection calibration
+  a missing envelope from fitting or gate failure is treated as an
+  unbounded set; a finite zero-crossing envelope remains emitted
+  every insufficient-evidence outcome remains in decision/resource metrics
+  Stop now: +/−0.0171 K; rank 19/20; emitted 56; raw/calibrated row coverage 96.4%/98.2%
+  More thermal tests: +/−0.0157 K; rank 19/20; emitted 58; raw/calibrated row coverage 93.1%/98.3%
+  Add voltage: +/−0.0669 K; rank 19/20; emitted 53; raw/calibrated row coverage 81.1%/98.1%
+  Add face temperature: +/−0.0521 K; rank 19/20; emitted 56; raw/calibrated row coverage 80.4%/98.2%
+  Decision-directed selector: +/−0.0669 K; rank 19/20; emitted 53; raw/calibrated row coverage 83.0%/98.1%
+
+Calibration-cohort diagnostics:
+  rates are descriptive because the gate/paddings were fitted here; CIs are suppressed
+  Matched four-state:
+    Stop now: approve/reject/insufficient=3/9/8; true pass/violate=5/15
+      false approvals=0.0% (0/3; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=0.0% (0/9; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      decision coverage=60.0% (12/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=100.0% (20/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=2.00 runs, 60.72 J, 0.00 added sensor(s)
+    More thermal tests: approve/reject/insufficient=3/9/8; true pass/violate=5/15
+      false approvals=0.0% (0/3; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=0.0% (0/9; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      decision coverage=60.0% (12/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=100.0% (20/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=5.00 runs, 99.29 J, 0.00 added sensor(s)
+    Add voltage: approve/reject/insufficient=2/10/8; true pass/violate=5/15
+      false approvals=0.0% (0/2; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=0.0% (0/10; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      decision coverage=60.0% (12/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=100.0% (19/19; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=3.00 runs, 89.53 J, 1.00 added sensor(s)
+    Add face temperature: approve/reject/insufficient=3/11/6; true pass/violate=5/15
+      false approvals=0.0% (0/3; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=0.0% (0/11; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      decision coverage=70.0% (14/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=100.0% (20/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=3.00 runs, 89.41 J, 1.00 added sensor(s)
+    Decision-directed selector: approve/reject/insufficient=2/9/9; true pass/violate=5/15
+      false approvals=0.0% (0/2; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=0.0% (0/9; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      decision coverage=55.0% (11/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=100.0% (19/19; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=2.65 runs, 79.45 J, 0.65 added sensor(s)
+  Extra interface mass:
+    Stop now: approve/reject/insufficient=10/2/8; true pass/violate=16/4
+      false approvals=0.0% (0/10; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=0.0% (0/2; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      decision coverage=60.0% (12/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=94.7% (18/19; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=2.00 runs, 60.72 J, 0.00 added sensor(s)
+    More thermal tests: approve/reject/insufficient=10/2/8; true pass/violate=16/4
+      false approvals=0.0% (0/10; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=0.0% (0/2; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      decision coverage=60.0% (12/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=95.0% (19/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=5.00 runs, 99.29 J, 0.00 added sensor(s)
+    Add voltage: approve/reject/insufficient=10/3/7; true pass/violate=16/4
+      false approvals=0.0% (0/10; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=0.0% (0/3; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      decision coverage=65.0% (13/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=100.0% (20/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=3.00 runs, 89.53 J, 1.00 added sensor(s)
+    Add face temperature: approve/reject/insufficient=13/3/4; true pass/violate=16/4
+      false approvals=0.0% (0/13; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=0.0% (0/3; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      decision coverage=80.0% (16/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=100.0% (20/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=3.00 runs, 89.41 J, 1.00 added sensor(s)
+    Decision-directed selector: approve/reject/insufficient=8/2/10; true pass/violate=16/4
+      false approvals=0.0% (0/8; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=0.0% (0/2; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      decision coverage=50.0% (10/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=100.0% (19/19; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=2.35 runs, 70.80 J, 0.35 added sensor(s)
+  Temperature-dependent contact:
+    Stop now: approve/reject/insufficient=5/0/15; true pass/violate=13/7
+      false approvals=0.0% (0/5; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=N/A (0/0)
+      decision coverage=25.0% (5/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=100.0% (17/17; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=2.00 runs, 60.72 J, 0.00 added sensor(s)
+    More thermal tests: approve/reject/insufficient=6/0/14; true pass/violate=13/7
+      false approvals=0.0% (0/6; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=N/A (0/0)
+      decision coverage=30.0% (6/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=100.0% (18/18; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=5.00 runs, 99.29 J, 0.00 added sensor(s)
+    Add voltage: approve/reject/insufficient=11/0/9; true pass/violate=13/7
+      false approvals=0.0% (0/11; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=N/A (0/0)
+      decision coverage=55.0% (11/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=92.9% (13/14; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=3.00 runs, 89.53 J, 1.00 added sensor(s)
+    Add face temperature: approve/reject/insufficient=12/0/8; true pass/violate=13/7
+      false approvals=8.3% (1/12; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=N/A (0/0)
+      decision coverage=60.0% (12/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=93.8% (15/16; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=3.00 runs, 89.41 J, 1.00 added sensor(s)
+    Decision-directed selector: approve/reject/insufficient=11/0/9; true pass/violate=13/7
+      false approvals=0.0% (0/11; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); false rejections=N/A (0/0)
+      decision coverage=55.0% (11/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); interval coverage=93.3% (14/15; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      effort=2.65 runs, 79.45 J, 0.65 added sensor(s)
+  Cross-family comparison:
+    Stop now: decision coverage 48.3% (29/60; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); calibrated interval coverage 98.2% (55/56; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); procedure-set block coverage 95.0% (19/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      mean runs/energy/sensors=2.00/60.72 J/0.00; empirical mean loss: bench_time_dominant=0.517, balanced=0.517, instrumentation_expensive=0.517
+    More thermal tests: decision coverage 50.0% (30/60; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); calibrated interval coverage 98.3% (57/58; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); procedure-set block coverage 95.0% (19/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      mean runs/energy/sensors=5.00/99.29 J/0.00; empirical mean loss: bench_time_dominant=0.864, balanced=0.864, instrumentation_expensive=0.864
+    Add voltage: decision coverage 60.0% (36/60; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); calibrated interval coverage 98.1% (52/53; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); procedure-set block coverage 95.0% (19/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      mean runs/energy/sensors=3.00/89.53 J/1.00; empirical mean loss: bench_time_dominant=0.567, balanced=0.647, instrumentation_expensive=1.047
+    Add face temperature: decision coverage 70.0% (42/60; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); calibrated interval coverage 98.2% (55/56; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); procedure-set block coverage 95.0% (19/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      mean runs/energy/sensors=3.00/89.41 J/1.00; empirical mean loss: bench_time_dominant=2.134, balanced=2.214, instrumentation_expensive=2.614
+    Decision-directed selector: decision coverage 53.3% (32/60; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); calibrated interval coverage 98.1% (52/53; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); procedure-set block coverage 95.0% (19/20; descriptive rate; CI suppressed for fitted calibration data or clustered family rows)
+      mean runs/energy/sensors=2.55/76.57 J/0.55; empirical mean loss: bench_time_dominant=0.559, balanced=0.603, instrumentation_expensive=0.823
+
+Fresh-seed development rehearsal:
+  Matched four-state:
+    Stop now: approve/reject/insufficient=1/6/3; true pass/violate=1/9
+      false approvals=0.0% (0/1; 95% Wilson 0.0%-79.3%); false rejections=0.0% (0/6; 95% Wilson 0.0%-39.0%)
+      decision coverage=70.0% (7/10; 95% Wilson 39.7%-89.2%); interval coverage=100.0% (10/10; 95% Wilson 72.2%-100.0%)
+      effort=2.00 runs, 60.72 J, 0.00 added sensor(s)
+    More thermal tests: approve/reject/insufficient=1/8/1; true pass/violate=1/9
+      false approvals=0.0% (0/1; 95% Wilson 0.0%-79.3%); false rejections=0.0% (0/8; 95% Wilson 0.0%-32.4%)
+      decision coverage=90.0% (9/10; 95% Wilson 59.6%-98.2%); interval coverage=100.0% (10/10; 95% Wilson 72.2%-100.0%)
+      effort=5.00 runs, 99.29 J, 0.00 added sensor(s)
+    Add voltage: approve/reject/insufficient=0/9/1; true pass/violate=1/9
+      false approvals=N/A (0/0); false rejections=0.0% (0/9; 95% Wilson 0.0%-29.9%)
+      decision coverage=90.0% (9/10; 95% Wilson 59.6%-98.2%); interval coverage=100.0% (10/10; 95% Wilson 72.2%-100.0%)
+      effort=3.00 runs, 89.53 J, 1.00 added sensor(s)
+    Add face temperature: approve/reject/insufficient=1/5/4; true pass/violate=1/9
+      false approvals=0.0% (0/1; 95% Wilson 0.0%-79.3%); false rejections=0.0% (0/5; 95% Wilson 0.0%-43.4%)
+      decision coverage=60.0% (6/10; 95% Wilson 31.3%-83.2%); interval coverage=100.0% (8/8; 95% Wilson 67.6%-100.0%)
+      effort=3.00 runs, 89.41 J, 1.00 added sensor(s)
+    Decision-directed selector: approve/reject/insufficient=0/9/1; true pass/violate=1/9
+      false approvals=N/A (0/0); false rejections=0.0% (0/9; 95% Wilson 0.0%-29.9%)
+      decision coverage=90.0% (9/10; 95% Wilson 59.6%-98.2%); interval coverage=100.0% (10/10; 95% Wilson 72.2%-100.0%)
+      effort=2.80 runs, 83.77 J, 0.80 added sensor(s)
+  Extra interface mass:
+    Stop now: approve/reject/insufficient=2/1/7; true pass/violate=5/5
+      false approvals=0.0% (0/2; 95% Wilson 0.0%-65.8%); false rejections=0.0% (0/1; 95% Wilson 0.0%-79.3%)
+      decision coverage=30.0% (3/10; 95% Wilson 10.8%-60.3%); interval coverage=90.0% (9/10; 95% Wilson 59.6%-98.2%)
+      effort=2.00 runs, 60.72 J, 0.00 added sensor(s)
+    More thermal tests: approve/reject/insufficient=1/1/8; true pass/violate=5/5
+      false approvals=0.0% (0/1; 95% Wilson 0.0%-79.3%); false rejections=0.0% (0/1; 95% Wilson 0.0%-79.3%)
+      decision coverage=20.0% (2/10; 95% Wilson 5.7%-51.0%); interval coverage=100.0% (10/10; 95% Wilson 72.2%-100.0%)
+      effort=5.00 runs, 99.29 J, 0.00 added sensor(s)
+    Add voltage: approve/reject/insufficient=2/3/5; true pass/violate=5/5
+      false approvals=0.0% (0/2; 95% Wilson 0.0%-65.8%); false rejections=0.0% (0/3; 95% Wilson 0.0%-56.1%)
+      decision coverage=50.0% (5/10; 95% Wilson 23.7%-76.3%); interval coverage=100.0% (10/10; 95% Wilson 72.2%-100.0%)
+      effort=3.00 runs, 89.53 J, 1.00 added sensor(s)
+    Add face temperature: approve/reject/insufficient=3/2/5; true pass/violate=5/5
+      false approvals=0.0% (0/3; 95% Wilson 0.0%-56.1%); false rejections=0.0% (0/2; 95% Wilson 0.0%-65.8%)
+      decision coverage=50.0% (5/10; 95% Wilson 23.7%-76.3%); interval coverage=100.0% (10/10; 95% Wilson 72.2%-100.0%)
+      effort=3.00 runs, 89.41 J, 1.00 added sensor(s)
+    Decision-directed selector: approve/reject/insufficient=2/2/6; true pass/violate=5/5
+      false approvals=0.0% (0/2; 95% Wilson 0.0%-65.8%); false rejections=0.0% (0/2; 95% Wilson 0.0%-65.8%)
+      decision coverage=40.0% (4/10; 95% Wilson 16.8%-68.7%); interval coverage=100.0% (10/10; 95% Wilson 72.2%-100.0%)
+      effort=2.70 runs, 80.89 J, 0.70 added sensor(s)
+  Temperature-dependent contact:
+    Stop now: approve/reject/insufficient=0/0/10; true pass/violate=5/5
+      false approvals=N/A (0/0); false rejections=N/A (0/0)
+      decision coverage=0.0% (0/10; 95% Wilson 0.0%-27.8%); interval coverage=100.0% (6/6; 95% Wilson 61.0%-100.0%)
+      effort=2.00 runs, 60.72 J, 0.00 added sensor(s)
+    More thermal tests: approve/reject/insufficient=1/0/9; true pass/violate=5/5
+      false approvals=0.0% (0/1; 95% Wilson 0.0%-79.3%); false rejections=N/A (0/0)
+      decision coverage=10.0% (1/10; 95% Wilson 1.8%-40.4%); interval coverage=100.0% (7/7; 95% Wilson 64.6%-100.0%)
+      effort=5.00 runs, 99.29 J, 0.00 added sensor(s)
+    Add voltage: approve/reject/insufficient=3/0/7; true pass/violate=5/5
+      false approvals=0.0% (0/3; 95% Wilson 0.0%-56.1%); false rejections=N/A (0/0)
+      decision coverage=30.0% (3/10; 95% Wilson 10.8%-60.3%); interval coverage=100.0% (6/6; 95% Wilson 61.0%-100.0%)
+      effort=3.00 runs, 89.53 J, 1.00 added sensor(s)
+    Add face temperature: approve/reject/insufficient=3/0/7; true pass/violate=5/5
+      false approvals=0.0% (0/3; 95% Wilson 0.0%-56.1%); false rejections=N/A (0/0)
+      decision coverage=30.0% (3/10; 95% Wilson 10.8%-60.3%); interval coverage=83.3% (5/6; 95% Wilson 43.6%-97.0%)
+      effort=3.00 runs, 89.41 J, 1.00 added sensor(s)
+    Decision-directed selector: approve/reject/insufficient=3/0/7; true pass/violate=5/5
+      false approvals=0.0% (0/3; 95% Wilson 0.0%-56.1%); false rejections=N/A (0/0)
+      decision coverage=30.0% (3/10; 95% Wilson 10.8%-60.3%); interval coverage=100.0% (6/6; 95% Wilson 61.0%-100.0%)
+      effort=2.90 runs, 86.65 J, 0.90 added sensor(s)
+  Cross-family comparison:
+    Stop now: decision coverage 33.3% (10/30; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); calibrated interval coverage 96.2% (25/26; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); procedure-set block coverage 90.0% (9/10; 95% Wilson 59.6%-98.2%)
+      mean runs/energy/sensors=2.00/60.72 J/0.00; empirical mean loss: bench_time_dominant=0.667, balanced=0.667, instrumentation_expensive=0.667
+    More thermal tests: decision coverage 40.0% (12/30; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); calibrated interval coverage 100.0% (27/27; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); procedure-set block coverage 100.0% (10/10; 95% Wilson 72.2%-100.0%)
+      mean runs/energy/sensors=5.00/99.29 J/0.00; empirical mean loss: bench_time_dominant=0.964, balanced=0.964, instrumentation_expensive=0.964
+    Add voltage: decision coverage 56.7% (17/30; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); calibrated interval coverage 100.0% (26/26; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); procedure-set block coverage 100.0% (10/10; 95% Wilson 72.2%-100.0%)
+      mean runs/energy/sensors=3.00/89.53 J/1.00; empirical mean loss: bench_time_dominant=0.601, balanced=0.681, instrumentation_expensive=1.081
+    Add face temperature: decision coverage 46.7% (14/30; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); calibrated interval coverage 95.8% (23/24; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); procedure-set block coverage 90.0% (9/10; 95% Wilson 59.6%-98.2%)
+      mean runs/energy/sensors=3.00/89.41 J/1.00; empirical mean loss: bench_time_dominant=0.701, balanced=0.781, instrumentation_expensive=1.181
+    Decision-directed selector: decision coverage 53.3% (16/30; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); calibrated interval coverage 100.0% (26/26; descriptive rate; CI suppressed for fitted calibration data or clustered family rows); procedure-set block coverage 100.0% (10/10; 95% Wilson 72.2%-100.0%)
+      mean runs/energy/sensors=2.80/83.77 J/0.80; empirical mean loss: bench_time_dominant=0.601, balanced=0.665, instrumentation_expensive=0.985
+
+Selector and adequacy diagnostics:
+  rehearsal selector actions across 30 family rows: Stop now=6, Add voltage=24
+  Family C fixed-policy candidate fits rejected by the calibrated gate: 45/80
+  Family C rejection is reported as a diagnostic, not interpreted as
+  proof that the scalar verification score detects missing physics
+
+Interpretation boundary:
+  Stage 4 remains synthetic development evidence. The conformal result
+  assumes exchangeability with the declared calibration generator and
+  gives no hardware guarantee or protection against a new truth family.
+  The rehearsal seeds were used once after the artifact was frozen and
+  did not update the gate, padding, or selector. The reserved Stage 5
+  cohort remains untouched for the final paired comparison.
+  Expected-loss weights are declared engineering preferences, not dollar
+  costs; the raw error, abstention, run, energy, and sensor counts remain
+  the primary evidence.
+  Procedure-set block coverage treats only a missing envelope as an
+  unbounded set. Finite zero-crossing envelopes remain scored; conditional
+  emitted-interval coverage is a separate untargeted diagnostic.

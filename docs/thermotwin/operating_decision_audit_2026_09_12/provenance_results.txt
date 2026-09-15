@@ -1,0 +1,5 @@
+Stage2: all eight report rows, pass prevalence, interval coverage, nominal margins, run counts, energy, and zero failures reproduce exactly at documented precision.
+Saved final artifact passes current loader and frozen-component validation; no evaluation generated.
+Frozen evaluator accepts claimed revision 'f95538a299bc5f53dc1e58d2034b799ea875f6e3' and reaches MOCK generation boundary without inspecting current code revision.
+Frozen evaluator accepts claimed revision 'NOT_A_REAL_REVISION' and reaches MOCK generation boundary without inspecting current code revision.
+No Stage5 seed was instantiated; _run_truths was mocked in every evaluator invocation.

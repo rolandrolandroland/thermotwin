@@ -1,0 +1,7 @@
+initial hot vs first thermal cold max residual difference K: 0.0
+family A trial 0 verification hot seed: 201001
+trial 1 physical truth seed: 201001
+standard normal driving verification hot bias: -1.480106633520653
+standard normal driving next device contact resistance: -1.4801066335206532
+trial 0 verification cold_face_temperature seed= 201101 trial 1 initial_0.8A_20s cold seed= 201101
+trial 0 verification terminal_voltage seed= 201301 trial 1 thermal_0.6A_15s cold seed= 201301

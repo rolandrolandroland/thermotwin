@@ -1,11 +1,13 @@
 # Mismatch-guarded selector and reserved final evaluation
 
-Status: completed on 2026-09-12. Guard development and procedure recalibration
-were frozen in `OPERATING_DECISION_FINAL_ARTIFACT.json` at protocol digest
-`fe8375ec75b1049211db58744c81865fedca78a43b8d6e92bcce1b1a98349f50`
-before the reserved cohort was generated. The unchanged Stage 5 result is in
-`OPERATING_DECISION_FINAL_RESULT.json`. The proposed revision failed its
-predeclared usefulness criteria.
+Status: completed on 2026-09-12 and superseded for inference by the subsequent
+operating-decision audit. Guard development and procedure recalibration were
+frozen before the reserved cohort was generated, and the saved arithmetic is
+correct. However, deterministic random-stream reuse across runs and adjacent
+device blocks invalidates the exchangeability and independent-bootstrap
+interpretations. The Stage 5 counts and point losses below remain descriptive;
+their confidence intervals do not support population claims. See
+[`OPERATING_DECISION_AUDIT.md`](../docs/thermotwin/OPERATING_DECISION_AUDIT.md).
 
 ## Question
 
@@ -151,11 +153,12 @@ all alarms, or 2/4 conditional on replacing voltage, represented the intended
 futile-measurement triage. Both readings miss the 75% criterion.
 
 The primary paired balanced-loss difference, revised minus Stage 4, was
-`+0.0667` with a 95% block-bootstrap interval of `+0.0317` to `+0.1067`.
-Bench-time-dominant loss was `+0.0689` (`+0.0333` to `+0.1078`), and
-instrumentation-expensive loss was `+0.0561` (`+0.0188` to `+0.0957`). Every
-interval lies above zero, so the result supports harm under all three declared
-weightings rather than an inconclusive tradeoff.
+`+0.0667`. Bench-time-dominant loss was `+0.0689`, and
+instrumentation-expensive loss was `+0.0561`. The originally reported
+block-bootstrap intervals reproduce arithmetically, but the audit found that
+adjacent blocks share random draws. They therefore cannot support the stated
+confidence interpretation. The point estimates descriptively favor the Stage
+4 selector in this exposed cohort.
 
 | Predeclared criterion | Stage 5 observation | Result |
 | --- | --- | --- |
@@ -164,12 +167,15 @@ weightings rather than an inconclusive tradeoff.
 | At most 5-point decision-coverage loss | 7.3-point loss | Fail |
 | Lower mean runs and energy | 0.06 fewer runs and 1.83 J less | Pass |
 | At least 75% useful guard alarms | 40% of all alarms; 50% among voltage-replacing alarms | Fail |
-| Balanced-loss interval wholly below zero | Interval wholly above zero | Fail |
+| Balanced-loss interval wholly below zero | Descriptive point difference is positive; interval interpretation invalidated by the audit | Fail |
 
 The acquisition residual score is therefore rejected as the selector revision
-for this benchmark. The Stage 4 selector remains the supported operating rule
-within the declared constant-contact model set. The reserved cohort is now a
-final evaluation set and must not be used to tune a replacement.
+for this exposed benchmark. Stage 4 remains a benchmark with a favorable
+descriptive tradeoff under some declared weights; it is not a scientifically
+validated operating recommendation. The Stage 4 selector also missed the
+outline's 70% decision-coverage target, and stop-now had the lowest descriptive
+loss when instrumentation was expensive. The reserved cohort is final and must
+not be used to tune a replacement.
 
 A missing envelope remains an unbounded set for the conformal coverage event
 and remains insufficient evidence for decision coverage. A finite interval

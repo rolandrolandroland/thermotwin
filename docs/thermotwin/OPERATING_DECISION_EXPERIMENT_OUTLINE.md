@@ -1,12 +1,15 @@
 # Blinded measurement selection for an operating decision
 
-Status: Stage 1 baseline reproduction and the Stage 2 fixed-policy development
-pilot are complete. See
-[`OPERATING_DECISION_STAGE_1_BASELINE.md`](OPERATING_DECISION_STAGE_1_BASELINE.md)
-and the
-[`Stage 2 result`](../../thermotwin/OPERATING_DECISION_EXPERIMENT.md).
-Sensor realism, Family C, calibration, the selector, and frozen evaluation
-remain pending.
+Status: Stages 1–5 produced a baseline, realism stress test, calibrated
+stop-or-voltage selector, mismatch-guard revision, and one reserved synthetic
+evaluation. A September 2026 audit found deterministic random-stream reuse
+across runs and adjacent device blocks. The stored counts remain descriptive,
+but their conformal and bootstrap guarantees are superseded. The audit also
+confirmed that the implemented selector is narrower than the cost-dependent
+choice among thermal, voltage, and face-temperature packages specified below.
+See [`OPERATING_DECISION_AUDIT.md`](OPERATING_DECISION_AUDIT.md). A versioned,
+collision-free replication must be completed before the original selector
+hypothesis receives a new final evaluation.
 
 ## 1. Problem and research question
 

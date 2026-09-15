@@ -1123,14 +1123,16 @@ def summarize_calibrated_outcomes(
     summaries = []
     for split in splits:
         split_rows = tuple(item for item in outcomes if item.split == split)
-        stop_rows = tuple(
-            item
+        stop_energy = {
+            (item.truth_condition, item.trial_index): item.total_diagnostic_energy
             for item in split_rows
             if item.procedure_name == STOP_NOW
-        )
-        if not stop_rows:
+        }
+        expected_stop_keys = {
+            (item.truth_condition, item.trial_index) for item in split_rows
+        }
+        if set(stop_energy) != expected_stop_keys:
             raise ValueError("Stage 4 expected loss needs the stop baseline")
-        stop_energy = fmean(item.total_diagnostic_energy for item in stop_rows)
         for truth in (*STAGE3_TRUTH_CONDITIONS, ALL_FAMILIES):
             for procedure in procedures:
                 selected = tuple(
@@ -1268,7 +1270,12 @@ def summarize_calibrated_outcomes(
                                     expected_loss(
                                         item,
                                         scenario,
-                                        stop_energy=stop_energy,
+                                        stop_energy=stop_energy[
+                                            (
+                                                item.truth_condition,
+                                                item.trial_index,
+                                            )
+                                        ],
                                     )
                                     for item in selected
                                 ),

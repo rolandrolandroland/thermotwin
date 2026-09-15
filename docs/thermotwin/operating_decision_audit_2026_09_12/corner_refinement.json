@@ -1,0 +1,20 @@
+{
+  "label": "fast_corner_reference_refinement",
+  "model": "temperature_dependent_contact",
+  "instrumented": true,
+  "step": 0.0125,
+  "max_cold_face_error_K": 0.006360019853218546,
+  "max_hot_face_error_K": 3.2230254305432027e-06,
+  "observation_max_errors": {
+    "cold_exchanger_temperature": 0.0007300694273908448,
+    "hot_exchanger_temperature": 3.002553125952545e-05,
+    "terminal_voltage": 0.00015214140129843345,
+    "cold_face_temperature": 0.0007841196520530502
+  },
+  "margin_production_K": -0.16961518760808758,
+  "margin_reference_K": -0.16961509879138248,
+  "margin_difference_K": -8.881670510163531e-08,
+  "margin_sampling_gap_K": 0.0,
+  "max_energy_balance_residual_W": 3.9968028886505635e-15,
+  "min_entropy_production_W_K": 0.0
+}

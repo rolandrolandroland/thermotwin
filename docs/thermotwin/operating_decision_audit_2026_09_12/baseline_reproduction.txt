@@ -1,0 +1,101 @@
+matched_four_state: paired trial 1/20
+matched_four_state: paired trial 2/20
+matched_four_state: paired trial 3/20
+matched_four_state: paired trial 4/20
+matched_four_state: paired trial 5/20
+matched_four_state: paired trial 6/20
+matched_four_state: paired trial 7/20
+matched_four_state: paired trial 8/20
+matched_four_state: paired trial 9/20
+matched_four_state: paired trial 10/20
+matched_four_state: paired trial 11/20
+matched_four_state: paired trial 12/20
+matched_four_state: paired trial 13/20
+matched_four_state: paired trial 14/20
+matched_four_state: paired trial 15/20
+matched_four_state: paired trial 16/20
+matched_four_state: paired trial 17/20
+matched_four_state: paired trial 18/20
+matched_four_state: paired trial 19/20
+matched_four_state: paired trial 20/20
+extra_interface_mass: paired trial 1/20
+extra_interface_mass: paired trial 2/20
+extra_interface_mass: paired trial 3/20
+extra_interface_mass: paired trial 4/20
+extra_interface_mass: paired trial 5/20
+extra_interface_mass: paired trial 6/20
+extra_interface_mass: paired trial 7/20
+extra_interface_mass: paired trial 8/20
+extra_interface_mass: paired trial 9/20
+extra_interface_mass: paired trial 10/20
+extra_interface_mass: paired trial 11/20
+extra_interface_mass: paired trial 12/20
+extra_interface_mass: paired trial 13/20
+extra_interface_mass: paired trial 14/20
+extra_interface_mass: paired trial 15/20
+extra_interface_mass: paired trial 16/20
+extra_interface_mass: paired trial 17/20
+extra_interface_mass: paired trial 18/20
+extra_interface_mass: paired trial 19/20
+extra_interface_mass: paired trial 20/20
+Sensor model discrimination experiment
+======================================
+
+Decision question:
+  Is it more valuable to repeat terminal-temperature tests, or to add one
+  observable that can reveal a hidden cold-side interface state?
+
+Candidate models:
+  four_state: the existing contact-aware model
+  five_state: the same model plus one cold-interface thermal mass
+
+Protocol:
+  paired synthetic trials per truth condition: 20
+  train both model topologies on the declared package
+  choose the lower normalized MSE on one noisy bipolar schedule withheld
+  from fitting; the validation schedule uses the same installed channels
+  audit the choice against known topology, parameters, and hidden cold face
+  profile an independent constant bias for each run and channel
+
+Resource packages (the common withheld validation run is additional):
+  One pulse, exchanger T: 1 training run(s), 27.54 J modeled training energy, 0 added channel(s)
+  Four pulses, exchanger T: 4 training run(s), 64.41 J modeled training energy, 0 added channel(s)
+  One pulse + cold-face T: 1 training run(s), 27.54 J modeled training energy, 1 added channel(s)
+  One pulse + cold-side heat rate: 1 training run(s), 27.54 J modeled training energy, 1 added channel(s)
+  One pulse + voltage: 1 training run(s), 27.54 J modeled training energy, 1 added channel(s)
+
+Predeclared cohort gates:
+  correct topology selection >= 90% in both truth conditions
+  false-confidence rate <= 10%
+  false confidence means tight local physical intervals despite a
+  failed topology, physical-parameter, or hidden-state decision
+  physical decision pass requires correct topology, parameter log-RMSE <= 0.100, and hidden-face RMSE <= 0.050 K
+
+Results:
+  matched_four_state / One pulse, exchanger T: correct=80.0%; decision pass=75.0%; parameter log-RMSE=0.0664; hidden-face RMSE=0.0310 K; validation margin=0.069; false confidence=15.0%; bound hits=0.0%
+  matched_four_state / Four pulses, exchanger T: correct=90.0%; decision pass=90.0%; parameter log-RMSE=0.0400; hidden-face RMSE=0.0199 K; validation margin=0.225; false confidence=5.0%; bound hits=5.0%
+  matched_four_state / One pulse + cold-face T: correct=100.0%; decision pass=100.0%; parameter log-RMSE=0.0149; hidden-face RMSE=0.0026 K; validation margin=2.975; false confidence=0.0%; bound hits=0.0%
+  matched_four_state / One pulse + cold-side heat rate: correct=100.0%; decision pass=100.0%; parameter log-RMSE=0.0175; hidden-face RMSE=0.0075 K; validation margin=5.877; false confidence=0.0%; bound hits=0.0%
+  matched_four_state / One pulse + voltage: correct=100.0%; decision pass=100.0%; parameter log-RMSE=0.0212; hidden-face RMSE=0.0048 K; validation margin=0.584; false confidence=0.0%; bound hits=0.0%
+  extra_interface_mass / One pulse, exchanger T: correct=90.0%; decision pass=50.0%; parameter log-RMSE=0.0859; hidden-face RMSE=0.0392 K; validation margin=0.051; false confidence=15.0%; bound hits=0.0%
+  extra_interface_mass / Four pulses, exchanger T: correct=95.0%; decision pass=70.0%; parameter log-RMSE=0.0754; hidden-face RMSE=0.0326 K; validation margin=0.053; false confidence=10.0%; bound hits=0.0%
+  extra_interface_mass / One pulse + cold-face T: correct=100.0%; decision pass=100.0%; parameter log-RMSE=0.0300; hidden-face RMSE=0.0060 K; validation margin=1.705; false confidence=0.0%; bound hits=0.0%
+  extra_interface_mass / One pulse + cold-side heat rate: correct=100.0%; decision pass=100.0%; parameter log-RMSE=0.0273; hidden-face RMSE=0.0100 K; validation margin=1.363; false confidence=0.0%; bound hits=0.0%
+  extra_interface_mass / One pulse + voltage: correct=100.0%; decision pass=100.0%; parameter log-RMSE=0.0417; hidden-face RMSE=0.0058 K; validation margin=0.927; false confidence=0.0%; bound hits=0.0%
+
+Gate outcome by package:
+  One pulse, exchanger T: FAIL
+  Four pulses, exchanger T: FAIL
+  One pulse + cold-face T: PASS
+  One pulse + cold-side heat rate: PASS
+  One pulse + voltage: PASS
+
+Interpretation boundary:
+  This is a synthetic identifiability and model-selection study; it is
+  not hardware validation. Noise levels, channel biases, candidate topologies,
+  and the 8-80 J/K interface-mass range are assumptions. A real sensor may
+  add thermal mass, delay, calibration drift, wiring constraints, and cost
+  that are not represented here. The extra-sensor packages are therefore
+  evidence about information value, not a purchasing recommendation.
+  The held-out run prevents training fit alone from choosing the richer
+  model, but it is still generated from one of the two candidate families.
