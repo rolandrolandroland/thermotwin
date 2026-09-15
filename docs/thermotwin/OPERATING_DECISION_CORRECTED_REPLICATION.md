@@ -1,7 +1,14 @@
 # Corrected operating-decision replication
 
-Status: generator freeze `c120e29` is superseded. An independent decision-rule
-audit found that its corrected wrapper turned either candidate's bound hit or
+Status: corrected generator v4 and the corrected parent rule are frozen. Parent
+protocol digest
+`5a3262b2cfd3d1560d961a5dcd54bf5cd20f5cb8721795e1ea469fff2bc28362`
+binds the gate-development and parent-calibration evidence. Both random-stream
+audits are clean. Parent rehearsal, guard development, guard calibration, and
+reserved evaluation remain unopened.
+
+Generator freeze `c120e29` is superseded. An independent decision-rule audit
+found that its corrected wrapper turned either candidate's bound hit or
 nonconvergence into whole-case abstention and evaluated convergence with the
 unprojected gradient. Source commit `a78030d` restores candidate exclusion,
 uses the box-constrained projected KKT residual, exports that residual
@@ -15,7 +22,8 @@ Generator v4 is frozen in this commit with artifact digest
 `0f2ca2d80f53fe5df2ebd77e8046a2b6920026c9b034719577a1b0a6dfca43f7`
 and source-manifest digest
 `c5a52ab1c1261df4cb3cbacbdd9557557c6b2495ab1943ca1f366942a62d6968`.
-No named partition in the replacement campaign has been generated.
+The replacement campaign's gate-development and parent-calibration partitions
+were generated only after that freeze was committed.
 
 ## Purpose
 
@@ -165,6 +173,23 @@ boundary commits, and output hashes are recorded in
 `operating_decision_correction_2026_09_14/five_command_dry_run.json`. Its final
 comparison is an engineering dry-run result and is not scientific evidence.
 
+## Scientific parent freeze
+
+On 2026-09-15, the committed generator-v4 chain opened
+`r2_gate_development` and `r2_parent_calibration` once. The gate partition
+contains 240 complete records from 20 paired blocks per family; the calibration
+partition contains 360 complete records from 30 paired blocks per family. Their
+evidence digests are `e39ef2ba35892c72a08f61d68bbe9bbd60a35d27a13b9fb620b806c12dd1f53b`
+and `1ada76adb1eb3abbc81de05fb67f32a5e17544bf013caa0b83fee77c7a2a722f`.
+Both exhaustive stream audits report zero unintended reuse.
+
+The verification thresholds are 1.276697 for stop now, 1.272123 for fixed
+thermal, 1.223269 for fixed voltage, and 1.221628 for fixed face temperature.
+The fitted margin paddings are 0 K for stop now and fixed thermal, 0.070730 K
+for fixed voltage, 0.057124 K for fixed face temperature, and 0.030400 K for
+the decision-directed selector. These are calibration results; the separate
+parent rehearsal remains unopened until this artifact is committed.
+
 ## Resource accounting
 
 The action rule may use a predeclared nominal energy proxy because hidden device
@@ -204,19 +229,20 @@ resources.
 ## Fresh namespaces and chronology
 
 The following semantic partitions are reserved under replacement campaign
-`operating_decision_audit_replication_corrected_v2_2026_09`. Their full
-campaign-plus-partition keys have never been generated and are disjoint from
-Stages 1–5 and the abandoned v3 campaign.
+`operating_decision_audit_replication_corrected_v2_2026_09`. Their namespaces
+are disjoint from Stages 1–5 and the abandoned v3 campaign. Gate development
+and parent calibration were each generated once for the parent freeze; every
+later partition remains unopened.
 
-| Partition | Paired blocks per family | Use |
-| --- | ---: | --- |
-| `r2_gate_development` | 20 | Refit the matched A/B verification gates. |
-| `r2_parent_calibration` | 30 | Refit fixed-policy and stop-or-voltage conformal paddings. |
-| `r2_parent_rehearsal` | 20 | One frozen-rule development rehearsal. |
-| `r2_guard_development` | 30 | Refit the scalar acquisition guard on matched A/B only. |
-| `r2_guard_calibration` | 30 | Refit the complete guarded-procedure padding. |
-| `r2_reserved_evaluation` | 50 | One final A/B/C paired comparison after the artifact is committed. |
-| `r2_bootstrap` | 20,000 draws | Paired block uncertainty for the final contrasts. |
+| Partition | Paired blocks per family | Status | Use |
+| --- | ---: | --- | --- |
+| `r2_gate_development` | 20 | Frozen | Refit the matched A/B verification gates. |
+| `r2_parent_calibration` | 30 | Frozen | Refit fixed-policy and stop-or-voltage conformal paddings. |
+| `r2_parent_rehearsal` | 20 | Unopened | One frozen-rule development rehearsal. |
+| `r2_guard_development` | 30 | Unopened | Refit the scalar acquisition guard on matched A/B only. |
+| `r2_guard_calibration` | 30 | Unopened | Refit the complete guarded-procedure padding. |
+| `r2_reserved_evaluation` | 50 | Unopened | One final A/B/C paired comparison after the artifact is committed. |
+| `r2_bootstrap` | 20,000 draws | Unopened | Paired block uncertainty for the final contrasts. |
 
 Execution order is enforced:
 
