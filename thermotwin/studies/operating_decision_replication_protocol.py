@@ -28,7 +28,7 @@ from .operating_decision_replication import (
 )
 
 
-CORRECTED_REPLICATION_PROTOCOL_VERSION = "operating_decision_audit_replication_v2"
+CORRECTED_REPLICATION_PROTOCOL_VERSION = "operating_decision_audit_replication_v3"
 GENERATOR_FREEZE_SCHEMA_VERSION = 1
 
 CORRECTED_NUMERICAL_SOURCE_PATHS = (

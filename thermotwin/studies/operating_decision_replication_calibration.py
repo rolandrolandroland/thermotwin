@@ -334,7 +334,7 @@ def rebuild_with_corrected_gate(
     gate: VerificationGate,
     physical_config: OperatingDecisionRealismConfig,
 ) -> ScoredOperatingDecision:
-    """Apply a corrected gate while retaining optimizer failure status."""
+    """Apply a corrected gate after excluding inadmissible candidates."""
 
     if trial.saved.policy_name != gate.policy_name:
         raise ValueError("corrected verification gate and trial policy differ")
@@ -346,19 +346,20 @@ def rebuild_with_corrected_gate(
     intervals = []
     for original in trial.saved.verifications:
         fit = original.fit
-        reliability_failures = []
-        if not fit.converged:
-            reliability_failures.append("optimizer_not_converged")
-        if fit.reached_bound:
-            reliability_failures.append("fit_reached_bound")
-        if not math.isfinite(original.normalized_score):
-            reliability_failures.append("nonfinite_score")
-        failures.extend(
-            NumericalFailure(fit.model_name, "verification", failure_reason)
-            for failure_reason in reliability_failures
-        )
-        if reliability_failures:
-            reason = reliability_failures[0]
+        if original.failure_reason == "verification_failure":
+            reason = "verification_failure"
+            failures.append(
+                NumericalFailure(fit.model_name, "verification", reason)
+            )
+        elif fit.reached_bound:
+            reason = "fit_reached_bound"
+        elif not math.isfinite(original.normalized_score):
+            reason = "nonfinite_score"
+            failures.append(
+                NumericalFailure(fit.model_name, "verification", reason)
+            )
+        elif not fit.converged:
+            reason = "optimizer_not_converged"
         elif original.normalized_score > gate.threshold:
             reason = "inadequate_corrected_verification"
         else:

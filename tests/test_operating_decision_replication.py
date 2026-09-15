@@ -12,6 +12,7 @@ from thermotwin.studies.operating_decision import (
     STOP_NOW,
     CandidateVerification,
     MarginEnvelope,
+    MarginInterval,
     SavedOperatingDecision,
     default_fixed_policies,
 )
@@ -25,6 +26,10 @@ from thermotwin.studies.operating_decision_random_streams import (
 from thermotwin.studies.operating_decision_realism import (
     STAGE3_TRUTH_CONDITIONS,
     OperatingDecisionRealismConfig,
+)
+from thermotwin.studies.sensor_model_discrimination import (
+    FIVE_STATE_MODEL,
+    FOUR_STATE_MODEL,
 )
 from thermotwin.studies.operating_decision_replication import (
     CORRECTED_FIT_ITERATIONS,
@@ -155,7 +160,7 @@ class OperatingDecisionReplicationTests(unittest.TestCase):
             self.config,
         )
         self.assertNotEqual(first.device_token, changed_partition.device_token)
-        self.assertIn("v3", CORRECTED_GENERATOR_VERSION)
+        self.assertIn("v4", CORRECTED_GENERATOR_VERSION)
 
     def test_corrected_numerical_config_separates_truth_and_fit_support(self):
         self.assertEqual(
@@ -199,14 +204,13 @@ class OperatingDecisionReplicationTests(unittest.TestCase):
             registry,
         )
         saved = decide_corrected_blinded_case(case, config=self.config)
-        if any(not item.fit.converged for item in saved.verifications):
-            self.assertEqual(saved.decision, "insufficient_evidence")
-            self.assertTrue(
-                any(
-                    failure.error_type == "optimizer_not_converged"
-                    for failure in saved.failures
+        for verification in saved.verifications:
+            if not verification.fit.converged:
+                self.assertFalse(verification.passed)
+                self.assertEqual(
+                    verification.failure_reason,
+                    "optimizer_not_converged",
                 )
-            )
         record = score_corrected_saved_decision(
             saved,
             truth_condition=STAGE3_TRUTH_CONDITIONS[0],
@@ -226,36 +230,117 @@ class OperatingDecisionReplicationTests(unittest.TestCase):
             record.scored.total_diagnostic_energy,
         )
 
-    def test_corrected_decision_fails_closed_on_bound_and_nonfinite_fit(self):
+    def test_corrected_decision_excludes_one_unusable_candidate(self):
         _, cases, _ = self._cases_for_block()
         case = cases[(STAGE3_TRUTH_CONDITIONS[0], STOP_NOW)]
-        fit = SimpleNamespace(
-            model_name="unreliable_candidate",
+        good_fit = SimpleNamespace(
+            model_name=FOUR_STATE_MODEL,
             converged=True,
-            reached_bound=True,
+            reached_bound=False,
+        )
+        good_interval = MarginInterval(
+            FOUR_STATE_MODEL,
+            0.15,
+            0.01,
+            0.10,
+            0.20,
+        )
+        for converged, reached_bound, reason in (
+            (False, False, "optimizer_not_converged"),
+            (True, True, "fit_reached_bound"),
+        ):
+            with self.subTest(reason=reason):
+                bad_fit = SimpleNamespace(
+                    model_name=FIVE_STATE_MODEL,
+                    converged=converged,
+                    reached_bound=reached_bound,
+                )
+                bad_interval = MarginInterval(
+                    FIVE_STATE_MODEL,
+                    -0.15,
+                    0.01,
+                    -0.20,
+                    -0.10,
+                )
+                saved = SavedOperatingDecision(
+                    case_id=case.case_id,
+                    decision=INSUFFICIENT_EVIDENCE,
+                    decision_reason="unit",
+                    margin_envelope=MarginEnvelope(-0.20, 0.20),
+                    model_intervals=(good_interval, bad_interval),
+                    verifications=(
+                        CandidateVerification(good_fit, 0.5, True, None),
+                        CandidateVerification(bad_fit, 0.5, True, None),
+                    ),
+                    failures=(),
+                    decision_computation_seconds=0.0,
+                )
+                with patch(
+                    "thermotwin.studies.operating_decision_replication."
+                    "decide_realistic_blinded_case",
+                    return_value=saved,
+                ):
+                    corrected = decide_corrected_blinded_case(
+                        case,
+                        config=self.config,
+                    )
+                self.assertEqual(corrected.decision, APPROVE)
+                self.assertEqual(corrected.margin_envelope, MarginEnvelope(0.10, 0.20))
+                self.assertEqual(corrected.model_intervals, (good_interval,))
+                self.assertEqual(corrected.failures, ())
+                excluded = next(
+                    item
+                    for item in corrected.verifications
+                    if item.fit.model_name == FIVE_STATE_MODEL
+                )
+                self.assertFalse(excluded.passed)
+                self.assertEqual(excluded.failure_reason, reason)
+
+    def test_corrected_decision_abstains_when_every_candidate_is_excluded(self):
+        _, cases, _ = self._cases_for_block()
+        case = cases[(STAGE3_TRUTH_CONDITIONS[0], STOP_NOW)]
+        fits = (
+            SimpleNamespace(
+                model_name=FOUR_STATE_MODEL,
+                converged=False,
+                reached_bound=False,
+            ),
+            SimpleNamespace(
+                model_name=FIVE_STATE_MODEL,
+                converged=True,
+                reached_bound=True,
+            ),
+        )
+        intervals = tuple(
+            MarginInterval(fit.model_name, 0.15, 0.01, 0.10, 0.20)
+            for fit in fits
         )
         saved = SavedOperatingDecision(
             case_id=case.case_id,
             decision=APPROVE,
             decision_reason="unit",
-            margin_envelope=MarginEnvelope(0.1, 0.2),
-            model_intervals=(),
-            verifications=(CandidateVerification(fit, math.nan, True, None),),
+            margin_envelope=MarginEnvelope(0.10, 0.20),
+            model_intervals=intervals,
+            verifications=tuple(
+                CandidateVerification(fit, 0.5, True, None) for fit in fits
+            ),
             failures=(),
             decision_computation_seconds=0.0,
         )
         with patch(
-            "thermotwin.studies.operating_decision_replication.decide_realistic_blinded_case",
+            "thermotwin.studies.operating_decision_replication."
+            "decide_realistic_blinded_case",
             return_value=saved,
         ):
             corrected = decide_corrected_blinded_case(case, config=self.config)
         self.assertEqual(corrected.decision, INSUFFICIENT_EVIDENCE)
-        self.assertEqual(corrected.decision_reason, "acquisition_fit_failure")
+        self.assertEqual(
+            corrected.decision_reason,
+            "no_corrected_verified_candidate",
+        )
         self.assertIsNone(corrected.margin_envelope)
         self.assertEqual(corrected.model_intervals, ())
-        failures = {(item.stage, item.error_type) for item in corrected.failures}
-        self.assertIn(("acquisition_fit", "fit_reached_bound"), failures)
-        self.assertIn(("verification", "nonfinite_score"), failures)
+        self.assertEqual(corrected.failures, ())
 
     def test_malformed_partition_and_mismatched_config_are_rejected(self):
         with self.assertRaisesRegex(ValueError, "positive block"):

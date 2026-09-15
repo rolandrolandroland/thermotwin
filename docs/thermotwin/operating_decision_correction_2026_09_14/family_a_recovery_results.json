@@ -1,0 +1,1764 @@
+{
+  "blocks": [
+    {
+      "block": 0,
+      "cases": [
+        {
+          "current_decision": "approve",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 6.548969245493902e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 7.194663293935577e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "stop_now",
+          "strict_counterfactual_decision": "approve",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "approve",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 4.588326223168575e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 5.302024583832286e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_thermal",
+          "strict_counterfactual_decision": "approve",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "approve",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 7.768029990354144e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.10457508262141256,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_voltage",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "approve",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 8.654043103623646e-10,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 9.253379394623962e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_face_temperature",
+          "strict_counterfactual_decision": "approve",
+          "strict_fit_status_trigger": false
+        }
+      ],
+      "current_decision_counts": {
+        "approve": 4,
+        "insufficient_evidence": 0,
+        "reject": 0
+      },
+      "current_decisive": 4,
+      "current_total": 4,
+      "fixed_voltage": {
+        "current_decision": "approve",
+        "current_decisive": true,
+        "strict_counterfactual_decision": "insufficient_evidence"
+      },
+      "strict_counterfactual_abstentions": 1
+    },
+    {
+      "block": 1,
+      "cases": [
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 2.704753362286758e-10,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 3.716917919394165e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "stop_now",
+          "strict_counterfactual_decision": "reject",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 3.351698757415859e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.1149150153736692,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_thermal",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 5.232061970427702e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.20709976855442763,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_voltage",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 4.868829123029048e-10,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.13109319447973367,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_face_temperature",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        }
+      ],
+      "current_decision_counts": {
+        "approve": 0,
+        "insufficient_evidence": 0,
+        "reject": 4
+      },
+      "current_decisive": 4,
+      "current_total": 4,
+      "fixed_voltage": {
+        "current_decision": "reject",
+        "current_decisive": true,
+        "strict_counterfactual_decision": "insufficient_evidence"
+      },
+      "strict_counterfactual_abstentions": 3
+    },
+    {
+      "block": 2,
+      "cases": [
+        {
+          "current_decision": "approve",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 3.2891020391792145e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 9.471099498082771e-11,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "stop_now",
+          "strict_counterfactual_decision": "approve",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "approve",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 3.936011434873178e-10,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.01976102920589095,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_thermal",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "approve",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 6.362787872410032e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.2556325014545092,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_voltage",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "approve",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.5203395493489304e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.1568338250239231,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_face_temperature",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        }
+      ],
+      "current_decision_counts": {
+        "approve": 4,
+        "insufficient_evidence": 0,
+        "reject": 0
+      },
+      "current_decisive": 4,
+      "current_total": 4,
+      "fixed_voltage": {
+        "current_decision": "approve",
+        "current_decisive": true,
+        "strict_counterfactual_decision": "insufficient_evidence"
+      },
+      "strict_counterfactual_abstentions": 3
+    },
+    {
+      "block": 3,
+      "cases": [
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 9.297269714901102e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.494738885351573e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "stop_now",
+          "strict_counterfactual_decision": "reject",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 2.310375360955727e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.04590206022476665,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_thermal",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 4.891121028337173e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.2453996473179777,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_voltage",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.0440566305813278e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.5013682782571031,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_face_temperature",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        }
+      ],
+      "current_decision_counts": {
+        "approve": 0,
+        "insufficient_evidence": 0,
+        "reject": 4
+      },
+      "current_decisive": 4,
+      "current_total": 4,
+      "fixed_voltage": {
+        "current_decision": "reject",
+        "current_decisive": true,
+        "strict_counterfactual_decision": "insufficient_evidence"
+      },
+      "strict_counterfactual_abstentions": 3
+    },
+    {
+      "block": 4,
+      "cases": [
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 6.090787793925048e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 9.383549160916855e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "stop_now",
+          "strict_counterfactual_decision": "reject",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.239101346190327e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.06049943165444947,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_thermal",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.9758557230104103e-10,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.242996118884202,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_voltage",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 4.05039589942879e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.2435366742986247,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_face_temperature",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        }
+      ],
+      "current_decision_counts": {
+        "approve": 0,
+        "insufficient_evidence": 0,
+        "reject": 4
+      },
+      "current_decisive": 4,
+      "current_total": 4,
+      "fixed_voltage": {
+        "current_decision": "reject",
+        "current_decisive": true,
+        "strict_counterfactual_decision": "insufficient_evidence"
+      },
+      "strict_counterfactual_abstentions": 3
+    },
+    {
+      "block": 5,
+      "cases": [
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 3.217596121749862e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.9458890642907245e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "stop_now",
+          "strict_counterfactual_decision": "reject",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "insufficient_evidence",
+          "current_decisive": false,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 2.482861188587206e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 6.411608671410265e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_thermal",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 2.30407277032985e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.17107788430422577,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_voltage",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.4097294003971564e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.05736629860686554,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_face_temperature",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        }
+      ],
+      "current_decision_counts": {
+        "approve": 0,
+        "insufficient_evidence": 1,
+        "reject": 3
+      },
+      "current_decisive": 3,
+      "current_total": 4,
+      "fixed_voltage": {
+        "current_decision": "reject",
+        "current_decisive": true,
+        "strict_counterfactual_decision": "insufficient_evidence"
+      },
+      "strict_counterfactual_abstentions": 3
+    },
+    {
+      "block": 6,
+      "cases": [
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 5.079970903373454e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 2.748403465006823e-06,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "stop_now",
+          "strict_counterfactual_decision": "reject",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 8.383905296587232e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.036586559156118914,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_thermal",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 9.639894001418333e-10,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.22159047135010976,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_voltage",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 6.626411459988855e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.15343325129229765,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_face_temperature",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        }
+      ],
+      "current_decision_counts": {
+        "approve": 0,
+        "insufficient_evidence": 0,
+        "reject": 4
+      },
+      "current_decisive": 4,
+      "current_total": 4,
+      "fixed_voltage": {
+        "current_decision": "reject",
+        "current_decisive": true,
+        "strict_counterfactual_decision": "insufficient_evidence"
+      },
+      "strict_counterfactual_abstentions": 3
+    },
+    {
+      "block": 7,
+      "cases": [
+        {
+          "current_decision": "insufficient_evidence",
+          "current_decisive": false,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.0060278484837424e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 7.18821920695842e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "stop_now",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.4231191561728517e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.013874930036774648,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_thermal",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.51251949634037e-11,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.15923725561347316,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_voltage",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 6.480595245896885e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.2127549001292294,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_face_temperature",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        }
+      ],
+      "current_decision_counts": {
+        "approve": 0,
+        "insufficient_evidence": 1,
+        "reject": 3
+      },
+      "current_decisive": 3,
+      "current_total": 4,
+      "fixed_voltage": {
+        "current_decision": "reject",
+        "current_decisive": true,
+        "strict_counterfactual_decision": "insufficient_evidence"
+      },
+      "strict_counterfactual_abstentions": 4
+    },
+    {
+      "block": 8,
+      "cases": [
+        {
+          "current_decision": "approve",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 2.77912873969091e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 7.550549822908275e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "stop_now",
+          "strict_counterfactual_decision": "approve",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "approve",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.2531290915072326e-10,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.8832816295730977e-10,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_thermal",
+          "strict_counterfactual_decision": "approve",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "approve",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 2.9732708013834813e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.17992894739133422,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_voltage",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "approve",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 4.574510132192993e-10,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.0758250009377488,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_face_temperature",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        }
+      ],
+      "current_decision_counts": {
+        "approve": 4,
+        "insufficient_evidence": 0,
+        "reject": 0
+      },
+      "current_decisive": 4,
+      "current_total": 4,
+      "fixed_voltage": {
+        "current_decision": "approve",
+        "current_decisive": true,
+        "strict_counterfactual_decision": "insufficient_evidence"
+      },
+      "strict_counterfactual_abstentions": 2
+    },
+    {
+      "block": 9,
+      "cases": [
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 5.390578593572681e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 9.123637897441975e-10,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "stop_now",
+          "strict_counterfactual_decision": "reject",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 3.3673002369759186e-10,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.027172073959747918,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_thermal",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 2.696610334870289e-12,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.16513906093811004,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_voltage",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 2.3997529435820386e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.37886259126017585,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_face_temperature",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        }
+      ],
+      "current_decision_counts": {
+        "approve": 0,
+        "insufficient_evidence": 0,
+        "reject": 4
+      },
+      "current_decisive": 4,
+      "current_total": 4,
+      "fixed_voltage": {
+        "current_decision": "reject",
+        "current_decisive": true,
+        "strict_counterfactual_decision": "insufficient_evidence"
+      },
+      "strict_counterfactual_abstentions": 3
+    },
+    {
+      "block": 10,
+      "cases": [
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 2.7397185485548397e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 2.494908163934875e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "stop_now",
+          "strict_counterfactual_decision": "reject",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 2.3477110102929628e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 6.281984086759875e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_thermal",
+          "strict_counterfactual_decision": "reject",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.3303672829200095e-10,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.1171778674264729e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_voltage",
+          "strict_counterfactual_decision": "reject",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "reject",
+          "current_decisive": true,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 2.0775902241851874e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.1136605585329409,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_face_temperature",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        }
+      ],
+      "current_decision_counts": {
+        "approve": 0,
+        "insufficient_evidence": 0,
+        "reject": 4
+      },
+      "current_decisive": 4,
+      "current_total": 4,
+      "fixed_voltage": {
+        "current_decision": "reject",
+        "current_decisive": true,
+        "strict_counterfactual_decision": "reject"
+      },
+      "strict_counterfactual_abstentions": 1
+    },
+    {
+      "block": 11,
+      "cases": [
+        {
+          "current_decision": "insufficient_evidence",
+          "current_decisive": false,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.175697304638739e-06,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 4.899596129500512e-08,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "stop_now",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "insufficient_evidence",
+          "current_decisive": false,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 1.1850240893384035e-06,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 5.544712788237878e-09,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_thermal",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": false
+        },
+        {
+          "current_decision": "insufficient_evidence",
+          "current_decisive": false,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 5.257757724045045e-10,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.13837864341301565,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_voltage",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        },
+        {
+          "current_decision": "insufficient_evidence",
+          "current_decisive": false,
+          "false_approval": false,
+          "false_rejection": false,
+          "fit_status": [
+            {
+              "converged": true,
+              "five_state_interface_mass_lower_bound_hit": false,
+              "model": "four_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": false,
+              "scaled_projected_gradient_infinity_norm": 5.920920532404161e-07,
+              "termination_reason": "scaled_projected_gradient_tolerance"
+            },
+            {
+              "converged": false,
+              "five_state_interface_mass_lower_bound_hit": true,
+              "model": "five_state",
+              "projected_converged_bound_hit": false,
+              "reached_bound": true,
+              "scaled_projected_gradient_infinity_norm": 0.2702368961969772,
+              "termination_reason": "fixed_iteration_limit"
+            }
+          ],
+          "numerical_failures": [],
+          "policy": "fixed_face_temperature",
+          "strict_counterfactual_decision": "insufficient_evidence",
+          "strict_fit_status_trigger": true
+        }
+      ],
+      "current_decision_counts": {
+        "approve": 0,
+        "insufficient_evidence": 4,
+        "reject": 0
+      },
+      "current_decisive": 0,
+      "current_total": 4,
+      "fixed_voltage": {
+        "current_decision": "insufficient_evidence",
+        "current_decisive": false,
+        "strict_counterfactual_decision": "insufficient_evidence"
+      },
+      "strict_counterfactual_abstentions": 4
+    }
+  ],
+  "probe": {
+    "block_count": 12,
+    "campaign": "operating_decision_disposable_candidate_exclusion_kkt_2026_09_14",
+    "corrected_generator_version": "operating_decision_generator_v4",
+    "family_label": "Family A",
+    "family_truth_condition": "matched_four_state",
+    "partition": "disposable_family_a_candidate_exclusion_probe",
+    "physical_protocol_digest": "a00db724edc9567b5e3d2f6b9e25324a098ed4b43b8088c29b92ec2cab49fe83",
+    "random_stream_protocol_version": "thermotwin-operating-decision-rng-v2",
+    "scientific_partition": false
+  },
+  "random_stream_audit": {
+    "declared_pairings": 372,
+    "ok": true,
+    "unintended_reuses": 0,
+    "unique_key_count": 1536,
+    "unique_seed_count": 1536,
+    "use_count": 2424
+  },
+  "schema_version": 2,
+  "summary": {
+    "counterfactual_strict_whole_case_abstention": {
+      "additional_abstentions": 27,
+      "correct_decisions_lost": 27,
+      "decision_counts": {
+        "approve": 6,
+        "insufficient_evidence": 33,
+        "reject": 9
+      },
+      "decisive": 15,
+      "fit_status_triggered_cases": 29,
+      "fixed_voltage": {
+        "additional_abstentions": 10,
+        "correct_decisions_lost": 10,
+        "decision_counts": {
+          "approve": 0,
+          "insufficient_evidence": 11,
+          "reject": 1
+        },
+        "decisive": 1,
+        "fit_status_triggered_cases": 11,
+        "refits_performed": 0,
+        "rule": "abstain if either saved candidate fit is nonconverged or reached a bound",
+        "total_abstentions": 11,
+        "wrong_decisions_lost": 0,
+        "wrong_decisions_remaining": 0
+      },
+      "refits_performed": 0,
+      "rule": "abstain if either saved candidate fit is nonconverged or reached a bound",
+      "total_abstentions": 33,
+      "wrong_decisions_lost": 0,
+      "wrong_decisions_remaining": 0
+    },
+    "current": {
+      "decision_counts": {
+        "approve": 12,
+        "insufficient_evidence": 6,
+        "reject": 30
+      },
+      "decisive": 42,
+      "decisive_fraction": "42/48",
+      "fixed_voltage": {
+        "decision_counts": {
+          "approve": 3,
+          "insufficient_evidence": 1,
+          "reject": 8
+        },
+        "decisive": 11,
+        "total": 12
+      },
+      "total": 48
+    },
+    "errors": {
+      "cases_with_numerical_failures": 0,
+      "false_approvals": 0,
+      "false_rejections": 0,
+      "numerical_failures": 0,
+      "wrong_decisions": 0
+    },
+    "fit_diagnostics": {
+      "bound_hit_cases": 29,
+      "bound_hits": 29,
+      "by_model": {
+        "five_state": {
+          "bound_hits": 29,
+          "fits": 48,
+          "nonconverged": 29,
+          "projected_converged_bound_hits": 0
+        },
+        "four_state": {
+          "bound_hits": 0,
+          "fits": 48,
+          "nonconverged": 0,
+          "projected_converged_bound_hits": 0
+        }
+      },
+      "candidate_fits": 96,
+      "five_state_interface_mass_lower_bound_hits": 29,
+      "interface_mass_lower_bound_j_per_k": 8.0,
+      "nonconverged_fits": 29,
+      "projected_converged_bound_hits": 0,
+      "projected_kkt_tolerance": 0.0001
+    }
+  }
+}

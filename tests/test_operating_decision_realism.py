@@ -11,11 +11,13 @@ from thermotwin.studies.operating_decision import (
     default_fixed_policies,
 )
 from thermotwin.studies.operating_decision_realism import (
+    FIT_BOUND_TOLERANCE,
     STAGE3_TRUTH_CONDITIONS,
     TEMPERATURE_DEPENDENT_CONTACT,
     OperatingDecisionRealismConfig,
     RealisticObservablePrediction,
     RealisticOperatingRun,
+    _box_projected_gradient,
     _margin_at_offsets,
     _regularized_bias_residuals,
     build_realistic_blinded_case,
@@ -49,6 +51,25 @@ class OperatingDecisionRealismTests(unittest.TestCase):
                 fit_iterations=fit_iterations,
             ),
         )
+
+    def test_box_projected_gradient_uses_kkt_signs_at_active_bounds(self):
+        bounds = ((0.0, 1.0),) * 6
+        projected = _box_projected_gradient(
+            (0.0, 0.0, 1.0, 1.0, 0.5, 0.5),
+            (2.0, -2.0, -2.0, 2.0, 3.0, -3.0),
+            bounds,
+        )
+        self.assertEqual(projected, (0.0, -2.0, 0.0, 2.0, 3.0, -3.0))
+        self.assertEqual(
+            _box_projected_gradient(
+                (0.5 * FIT_BOUND_TOLERANCE, 2.0 * FIT_BOUND_TOLERANCE),
+                (1.0, 1.0),
+                ((0.0, 1.0), (0.0, 1.0)),
+            ),
+            (0.0, 1.0),
+        )
+        with self.assertRaisesRegex(ValueError, "nonfinite"):
+            _box_projected_gradient((0.5,), (math.nan,), ((0.0, 1.0),))
 
     def test_realism_assumptions_are_reproducible_and_in_calibration_ranges(self):
         config = self.small_config()

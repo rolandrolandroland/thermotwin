@@ -18,8 +18,10 @@ from typing import Callable, Optional, Tuple
 
 from ..simulation.temporary_face_sensor import TemporaryFaceSensor
 from .operating_decision import (
+    APPROVE,
     FINAL_EVALUATION,
     INSUFFICIENT_EVIDENCE,
+    REJECT,
     VERIFICATION,
     CandidateVerification,
     FixedPolicy,
@@ -28,7 +30,9 @@ from .operating_decision import (
     RevealedOperatingOutcome,
     SavedOperatingDecision,
     ScoredOperatingDecision,
+    classify_margin_envelope,
     default_fixed_policies,
+    envelope_margin_intervals,
     initial_acquisition_regime,
     operating_margin,
 )
@@ -72,8 +76,10 @@ from .sensor_model_discrimination import (
 )
 
 
-CORRECTED_GENERATOR_VERSION = "operating_decision_generator_v3"
-CORRECTED_REPLICATION_CAMPAIGN = "operating_decision_audit_replication_2026_09"
+CORRECTED_GENERATOR_VERSION = "operating_decision_generator_v4"
+CORRECTED_REPLICATION_CAMPAIGN = (
+    "operating_decision_audit_replication_corrected_v2_2026_09"
+)
 RESERVED_EVALUATION_PARTITION_NAME = "r2_reserved_evaluation"
 CORRECTED_FIT_ITERATIONS = 12
 
@@ -898,68 +904,74 @@ def decide_corrected_blinded_case(
     *,
     config: OperatingDecisionRealismConfig,
 ) -> SavedOperatingDecision:
-    """Save a decision while treating numerical unreliability as a failure."""
+    """Save a decision after excluding numerically inadmissible candidates."""
 
     saved = decide_realistic_blinded_case(case, config=config)
-    reliability_reasons = {
-        item.fit.model_name: tuple(
-            reason
-            for condition, reason in (
-                (not item.fit.converged, "optimizer_not_converged"),
-                (item.fit.reached_bound, "fit_reached_bound"),
-                (not math.isfinite(item.normalized_score), "nonfinite_score"),
-            )
-            if condition
-        )
+    excluded_models = {
+        item.fit.model_name
         for item in saved.verifications
+        if not item.fit.converged or item.fit.reached_bound
     }
-    reliability_reasons = {
-        model_name: reasons
-        for model_name, reasons in reliability_reasons.items()
-        if reasons
-    }
-    if not reliability_reasons:
+    if not excluded_models:
         return saved
     verifications = tuple(
         CandidateVerification(
             item.fit,
             item.normalized_score,
             False,
-            reliability_reasons[item.fit.model_name][0],
+            (
+                "fit_reached_bound"
+                if item.fit.reached_bound
+                else "optimizer_not_converged"
+            ),
         )
-        if item.fit.model_name in reliability_reasons
+        if (
+            item.fit.model_name in excluded_models
+            and item.failure_reason not in (
+                "verification_failure",
+                "nonfinite_score",
+            )
+        )
         else item
         for item in saved.verifications
     )
-    additions = tuple(
-        NumericalFailure(model_name, stage, reason)
-        for model_name, reasons in reliability_reasons.items()
-        for reason in reasons
-        for stage in (
-            "verification" if reason == "nonfinite_score" else "acquisition_fit",
-        )
-        if not any(
-            failure.model_name == model_name
-            and failure.stage == stage
-            and failure.error_type == reason
-            for failure in saved.failures
+    intervals = tuple(
+        item for item in saved.model_intervals if item.model_name not in excluded_models
+    )
+    failures = tuple(
+        item
+        for item in saved.failures
+        if not (
+            item.model_name in excluded_models
+            and item.stage == "uncertainty"
         )
     )
-    failures = tuple(saved.failures) + additions
-    acquisition_failed = any(
-        failure.stage == "acquisition_fit" for failure in additions
-    ) or any(
-        failure.model_name in reliability_reasons
-        and failure.stage == "acquisition_fit"
-        for failure in saved.failures
-    )
+    candidate_envelope = envelope_margin_intervals(intervals)
+    envelope = None if failures else candidate_envelope
+    if any(item.stage == "acquisition_fit" for item in failures):
+        decision = INSUFFICIENT_EVIDENCE
+        decision_reason = "acquisition_fit_failure"
+    elif any(item.stage == "verification" for item in failures):
+        decision = INSUFFICIENT_EVIDENCE
+        decision_reason = "verification_failure"
+    elif any(item.stage == "uncertainty" for item in failures):
+        decision = INSUFFICIENT_EVIDENCE
+        decision_reason = "uncertainty_failure"
+    elif envelope is None:
+        decision = INSUFFICIENT_EVIDENCE
+        decision_reason = "no_corrected_verified_candidate"
+    else:
+        decision = classify_margin_envelope(envelope)
+        decision_reason = {
+            APPROVE: "corrected_verified_envelope_inside_band",
+            REJECT: "corrected_verified_envelope_below_zero",
+            INSUFFICIENT_EVIDENCE: "corrected_verified_envelope_crosses_zero",
+        }[decision]
     return saved._replace(
-        decision=INSUFFICIENT_EVIDENCE,
-        decision_reason=(
-            "acquisition_fit_failure" if acquisition_failed else "verification_failure"
-        ),
-        margin_envelope=None,
-        model_intervals=(),
+        decision=decision,
+        decision_reason=decision_reason,
+        margin_envelope=envelope,
+        model_intervals=intervals if not failures else (),
         verifications=verifications,
         failures=failures,
     )

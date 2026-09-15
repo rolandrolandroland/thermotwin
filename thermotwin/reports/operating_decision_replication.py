@@ -38,6 +38,7 @@ from ..studies.operating_decision_replication_guard import (
     save_corrected_guard_artifact,
 )
 from ..studies.operating_decision_replication_protocol import (
+    CorrectedReplicationPlan,
     build_corrected_generator_freeze,
     save_corrected_generator_freeze,
 )
@@ -354,9 +355,50 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     )
     commands = parser.add_subparsers(dest="command", required=True)
 
+    default_plan = CorrectedReplicationPlan()
     generator = commands.add_parser("freeze-generator")
     generator.add_argument("--repository-root", type=Path, default=PROJECT_ROOT)
     generator.add_argument("--output", type=Path, default=DEFAULT_GENERATOR_FREEZE)
+    generator.add_argument("--campaign", default=default_plan.campaign)
+    generator.add_argument(
+        "--gate-development-blocks",
+        type=int,
+        default=default_plan.gate_development_blocks,
+    )
+    generator.add_argument(
+        "--parent-calibration-blocks",
+        type=int,
+        default=default_plan.parent_calibration_blocks,
+    )
+    generator.add_argument(
+        "--parent-rehearsal-blocks",
+        type=int,
+        default=default_plan.parent_rehearsal_blocks,
+    )
+    generator.add_argument(
+        "--guard-development-blocks",
+        type=int,
+        default=default_plan.guard_development_blocks,
+    )
+    generator.add_argument(
+        "--guard-calibration-blocks",
+        type=int,
+        default=default_plan.guard_calibration_blocks,
+    )
+    generator.add_argument(
+        "--reserved-evaluation-blocks",
+        type=int,
+        default=default_plan.reserved_evaluation_blocks,
+    )
+    generator.add_argument(
+        "--bootstrap-draws",
+        type=int,
+        default=default_plan.bootstrap_draws,
+    )
+    generator.add_argument(
+        "--bootstrap-partition",
+        default=default_plan.bootstrap_partition_name,
+    )
 
     parent = commands.add_parser("freeze-parent")
     parent.add_argument("--repository-root", type=Path, default=PROJECT_ROOT)
@@ -433,7 +475,21 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     arguments = parser.parse_args(argv)
     if arguments.command == "freeze-generator":
         _preflight((), (arguments.output,))
-        artifact = build_corrected_generator_freeze(arguments.repository_root)
+        plan = CorrectedReplicationPlan(
+            campaign=arguments.campaign,
+            gate_development_blocks=arguments.gate_development_blocks,
+            parent_calibration_blocks=arguments.parent_calibration_blocks,
+            parent_rehearsal_blocks=arguments.parent_rehearsal_blocks,
+            guard_development_blocks=arguments.guard_development_blocks,
+            guard_calibration_blocks=arguments.guard_calibration_blocks,
+            reserved_evaluation_blocks=arguments.reserved_evaluation_blocks,
+            bootstrap_draws=arguments.bootstrap_draws,
+            bootstrap_partition_name=arguments.bootstrap_partition,
+        )
+        artifact = build_corrected_generator_freeze(
+            arguments.repository_root,
+            plan=plan,
+        )
         save_corrected_generator_freeze(artifact, arguments.output)
         print(f"Corrected generator frozen: {artifact.artifact_digest}")
         return 0

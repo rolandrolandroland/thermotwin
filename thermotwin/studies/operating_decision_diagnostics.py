@@ -104,6 +104,9 @@ def _fit_payload(fit) -> dict:
             "completed_iterations": fit.completed_iterations,
             "accepted_iterations": fit.accepted_iterations,
             "scaled_gradient_infinity_norm": fit.scaled_gradient_infinity_norm,
+            "scaled_projected_gradient_infinity_norm": (
+                fit.scaled_gradient_infinity_norm
+            ),
             "last_step_infinity_norm": fit.last_step_infinity_norm,
             "last_relative_objective_reduction": (
                 fit.last_relative_objective_reduction

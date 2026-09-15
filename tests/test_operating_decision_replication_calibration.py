@@ -5,6 +5,7 @@ import unittest
 from unittest.mock import patch
 
 from thermotwin.studies.operating_decision import (
+    APPROVE,
     INSUFFICIENT_EVIDENCE,
     CandidateVerification,
     MarginInterval,
@@ -80,7 +81,9 @@ class OperatingDecisionReplicationCalibrationTests(unittest.TestCase):
             evaluation_count=20,
             converged=converged,
             termination_reason=(
-                "scaled_gradient_tolerance" if converged else "fixed_iteration_limit"
+                "scaled_projected_gradient_tolerance"
+                if converged
+                else "fixed_iteration_limit"
             ),
             completed_iterations=6,
             accepted_iterations=5,
@@ -104,17 +107,6 @@ class OperatingDecisionReplicationCalibrationTests(unittest.TestCase):
                         )
                         for fit in fits
                     )
-                    failures = (
-                        ()
-                        if converged
-                        else (
-                            NumericalFailure(
-                                FOUR_STATE_MODEL,
-                                "acquisition_fit",
-                                "optimizer_not_converged",
-                            ),
-                        )
-                    )
                     saved = SavedOperatingDecision(
                         case_id=Stage3CaseId(
                             f"device-{truth}-{block}",
@@ -127,7 +119,7 @@ class OperatingDecisionReplicationCalibrationTests(unittest.TestCase):
                         margin_envelope=None,
                         model_intervals=(),
                         verifications=verifications,
-                        failures=failures,
+                        failures=(),
                         decision_computation_seconds=0.1,
                     )
                     rows.append(
@@ -198,7 +190,7 @@ class OperatingDecisionReplicationCalibrationTests(unittest.TestCase):
                         self.config,
                     )
 
-    def test_corrected_gate_rebuild_abstains_on_each_reliability_failure(self):
+    def test_corrected_gate_rebuild_excludes_unreliable_candidate(self):
         gate = VerificationGate(
             policy_name="stop_now",
             observation_count=42,
@@ -214,13 +206,12 @@ class OperatingDecisionReplicationCalibrationTests(unittest.TestCase):
         )
         base = self.trials()[0]
         cases = (
-            (False, False, 0.8, {"optimizer_not_converged"}),
-            (True, True, 0.8, {"fit_reached_bound"}),
-            (True, False, math.nan, {"nonfinite_score"}),
-            (True, True, math.nan, {"fit_reached_bound", "nonfinite_score"}),
+            (False, False, 0.8, "optimizer_not_converged"),
+            (True, True, 0.8, "fit_reached_bound"),
+            (True, True, math.nan, "fit_reached_bound"),
         )
         interval = MarginInterval(FIVE_STATE_MODEL, 0.2, 0.01, 0.18, 0.22)
-        for converged, reached_bound, score, expected in cases:
+        for converged, reached_bound, score, expected_reason in cases:
             with self.subTest(
                 converged=converged,
                 reached_bound=reached_bound,
@@ -250,18 +241,137 @@ class OperatingDecisionReplicationCalibrationTests(unittest.TestCase):
                         gate,
                         self.physical,
                     )
+                self.assertEqual(rebuilt.saved.decision, APPROVE)
+                self.assertEqual(
+                    rebuilt.saved.decision_reason,
+                    "corrected_verified_envelope_inside_band",
+                )
+                self.assertEqual(rebuilt.saved.margin_envelope, (0.18, 0.22))
+                self.assertEqual(rebuilt.saved.model_intervals, (interval,))
+                self.assertEqual(rebuilt.saved.failures, ())
+                self.assertFalse(rebuilt.saved.verifications[0].passed)
+                self.assertEqual(
+                    rebuilt.saved.verifications[0].failure_reason,
+                    expected_reason,
+                )
+                self.assertTrue(rebuilt.saved.verifications[1].passed)
+
+    def test_corrected_gate_rebuild_keeps_verification_failures_case_fatal(self):
+        gate = VerificationGate(
+            policy_name="stop_now",
+            observation_count=42,
+            matched_development_block_count=10,
+            matched_development_rank=10,
+            target_block_retention=0.90,
+            matched_block_scores=(1.0,) * 10,
+            noise_reference_quantile=0.99,
+            noise_reference_threshold=1.0,
+            threshold=2.0,
+            monte_carlo_draws=1_000,
+            seed=1,
+        )
+        base = self.trials()[0]
+        interval = MarginInterval(FIVE_STATE_MODEL, 0.2, 0.01, 0.18, 0.22)
+        for converged, reached_bound, score, original_reason, expected_reason in (
+            (True, False, math.nan, "nonfinite_score", "nonfinite_score"),
+            (False, False, math.nan, "nonfinite_score", "nonfinite_score"),
+            (
+                True,
+                True,
+                math.inf,
+                "verification_failure",
+                "verification_failure",
+            ),
+        ):
+            with self.subTest(
+                converged=converged,
+                reached_bound=reached_bound,
+                original_reason=original_reason,
+            ):
+                verifications = list(base.saved.verifications)
+                first = verifications[0]
+                verifications[0] = first._replace(
+                    fit=first.fit._replace(
+                        converged=converged,
+                        reached_bound=reached_bound,
+                    ),
+                    normalized_score=score,
+                    passed=False,
+                    failure_reason=original_reason,
+                )
+                trial = base._replace(
+                    saved=base.saved._replace(
+                        verifications=tuple(verifications),
+                        failures=(),
+                    )
+                )
+                with patch(
+                    "thermotwin.studies.operating_decision_replication_calibration.forecast_realistic_margin_interval",
+                    return_value=interval,
+                ):
+                    rebuilt = rebuild_with_corrected_gate(trial, gate, self.physical)
                 self.assertEqual(rebuilt.saved.decision, INSUFFICIENT_EVIDENCE)
-                self.assertEqual(rebuilt.saved.decision_reason, "verification_failure")
+                self.assertEqual(
+                    rebuilt.saved.decision_reason,
+                    "verification_failure",
+                )
                 self.assertIsNone(rebuilt.saved.margin_envelope)
                 self.assertEqual(rebuilt.saved.model_intervals, ())
-                reasons = {
-                    item.error_type
-                    for item in rebuilt.saved.failures
-                    if item.stage == "verification"
-                }
-                self.assertTrue(expected.issubset(reasons))
+                self.assertEqual(
+                    rebuilt.saved.failures,
+                    (
+                        NumericalFailure(
+                            FOUR_STATE_MODEL,
+                            "verification",
+                            expected_reason,
+                        ),
+                    ),
+                )
 
-    def test_nonconvergence_becomes_unbounded_abstention_in_parent_calibration(self):
+    def test_corrected_gate_rebuild_abstains_when_all_candidates_are_excluded(self):
+        gate = VerificationGate(
+            policy_name="stop_now",
+            observation_count=42,
+            matched_development_block_count=10,
+            matched_development_rank=10,
+            target_block_retention=0.90,
+            matched_block_scores=(1.0,) * 10,
+            noise_reference_quantile=0.99,
+            noise_reference_threshold=1.0,
+            threshold=2.0,
+            monte_carlo_draws=1_000,
+            seed=1,
+        )
+        base = self.trials()[0]
+        first, second = base.saved.verifications
+        trial = base._replace(
+            saved=base.saved._replace(
+                verifications=(
+                    first._replace(fit=first.fit._replace(converged=False)),
+                    second._replace(fit=second.fit._replace(reached_bound=True)),
+                ),
+                failures=(),
+            )
+        )
+        with patch(
+            "thermotwin.studies.operating_decision_replication_calibration.forecast_realistic_margin_interval"
+        ) as forecast:
+            rebuilt = rebuild_with_corrected_gate(trial, gate, self.physical)
+        forecast.assert_not_called()
+        self.assertEqual(rebuilt.saved.decision, INSUFFICIENT_EVIDENCE)
+        self.assertEqual(
+            rebuilt.saved.decision_reason,
+            "no_corrected_verified_candidate",
+        )
+        self.assertIsNone(rebuilt.saved.margin_envelope)
+        self.assertEqual(rebuilt.saved.model_intervals, ())
+        self.assertEqual(rebuilt.saved.failures, ())
+        self.assertEqual(
+            tuple(item.failure_reason for item in rebuilt.saved.verifications),
+            ("optimizer_not_converged", "fit_reached_bound"),
+        )
+
+    def test_all_nonconverged_candidates_emit_no_parent_calibration_intervals(self):
         gates, _ = calibrate_corrected_verification_gates(
             self.trials(),
             self.physical,

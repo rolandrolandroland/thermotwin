@@ -100,6 +100,7 @@ CORRECTED_FINAL_SCHEDULE_ID = "operating_decision_corrected_final_v2"
 FIT_SCALED_GRADIENT_TOLERANCE = 1.0e-4
 FIT_STEP_TOLERANCE = 1.0e-6
 FIT_RELATIVE_OBJECTIVE_TOLERANCE = 1.0e-8
+FIT_BOUND_TOLERANCE = 1.0e-5
 
 
 @dataclass(frozen=True)
@@ -675,6 +676,47 @@ def _parameter_spec(
     )
 
 
+def _box_projected_gradient(
+    values: Sequence[float],
+    gradient: Sequence[float],
+    bounds: Sequence[Tuple[float, float]],
+    *,
+    active_tolerance: float = FIT_BOUND_TOLERANCE,
+) -> Tuple[float, ...]:
+    """Return the first-order KKT residual for box-constrained parameters."""
+
+    values = tuple(values)
+    gradient = tuple(gradient)
+    bounds = tuple(bounds)
+    if len(values) != len(gradient) or len(values) != len(bounds) or not values:
+        raise ValueError("projected gradient inputs must have equal nonzero length")
+    if not math.isfinite(active_tolerance) or active_tolerance < 0.0:
+        raise ValueError("projected gradient tolerance must be finite and nonnegative")
+    projected = []
+    for value, component, (lower, upper) in zip(values, gradient, bounds):
+        if (
+            not math.isfinite(value)
+            or not math.isfinite(component)
+            or not math.isfinite(lower)
+            or not math.isfinite(upper)
+            or lower > upper
+            or value < lower - active_tolerance
+            or value > upper + active_tolerance
+        ):
+            raise ValueError("projected gradient input is nonfinite or outside bounds")
+        at_lower = value <= lower + active_tolerance
+        at_upper = value >= upper - active_tolerance
+        if at_lower and at_upper:
+            projected.append(0.0)
+        elif at_lower:
+            projected.append(min(component, 0.0))
+        elif at_upper:
+            projected.append(max(component, 0.0))
+        else:
+            projected.append(component)
+    return tuple(projected)
+
+
 def _decoded_parameters(
     model_name: str,
     offsets: Sequence[float],
@@ -952,15 +994,23 @@ def fit_realistic_candidate(
         sum(derivative * error for derivative, error in zip(column, final_errors))
         for column in columns
     )
-    residual_norm = math.sqrt(sum(error * error for error in final_errors))
-    scaled_gradient_infinity_norm = max(
-        abs(component)
-        / (
-            max(1.0e-15, math.sqrt(information[index][index]))
-            * max(1.0, residual_norm)
-        )
-        for index, component in enumerate(final_gradient)
+    projected_gradient = _box_projected_gradient(
+        best,
+        final_gradient,
+        spec.log_bounds,
     )
+    residual_norm = math.sqrt(sum(error * error for error in final_errors))
+    def scaled_infinity_norm(components: Sequence[float]) -> float:
+        return max(
+            abs(component)
+            / (
+                max(1.0e-15, math.sqrt(information[index][index]))
+                * max(1.0, residual_norm)
+            )
+            for index, component in enumerate(components)
+        )
+
+    scaled_gradient_infinity_norm = scaled_infinity_norm(projected_gradient)
     gradient_converged = (
         scaled_gradient_infinity_norm <= FIT_SCALED_GRADIENT_TOLERANCE
     )
@@ -970,12 +1020,12 @@ def fit_realistic_candidate(
         and last_step_infinity_norm <= FIT_STEP_TOLERANCE
         and last_relative_objective_reduction <= FIT_RELATIVE_OBJECTIVE_TOLERANCE
     )
-    converged = gradient_converged or step_converged
+    converged = gradient_converged
     termination_reason = (
-        "scaled_gradient_tolerance"
+        "scaled_projected_gradient_tolerance"
         if gradient_converged
         else (
-            "step_and_objective_tolerance"
+            "step_and_objective_stagnation"
             if step_converged
             else "fixed_iteration_limit"
         )
@@ -997,7 +1047,8 @@ def fit_realistic_candidate(
         objective=objective(best),
         covariance=covariance,
         reached_bound=any(
-            abs(value - lower) <= 1.0e-5 or abs(upper - value) <= 1.0e-5
+            abs(value - lower) <= FIT_BOUND_TOLERANCE
+            or abs(upper - value) <= FIT_BOUND_TOLERANCE
             for value, (lower, upper) in zip(best, spec.log_bounds)
         ),
         evaluation_count=evaluation_count,
@@ -1964,6 +2015,7 @@ def run_operating_decision_realism_truth(
 
 __all__ = [
     "CORRECTED_FINAL_SCHEDULE_ID",
+    "FIT_BOUND_TOLERANCE",
     "FIT_RELATIVE_OBJECTIVE_TOLERANCE",
     "FIT_SCALED_GRADIENT_TOLERANCE",
     "FIT_STEP_TOLERANCE",

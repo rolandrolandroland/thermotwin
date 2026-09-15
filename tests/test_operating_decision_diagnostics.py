@@ -68,12 +68,14 @@ class OperatingDecisionDiagnosticTests(unittest.TestCase):
         self.assertIn(
             optimizer["termination_reason"],
             {
-                "scaled_gradient_tolerance",
-                "step_and_objective_tolerance",
+                "scaled_projected_gradient_tolerance",
+                "step_and_objective_stagnation",
                 "fixed_iteration_limit",
             },
         )
         self.assertIsInstance(optimizer["converged"], bool)
+        self.assertIn("scaled_gradient_infinity_norm", optimizer)
+        self.assertIn("scaled_projected_gradient_infinity_norm", optimizer)
         self.assertTrue(payload["truth_after_reveal"]["final_cold_face_temperature"])
         resources = payload["resources"]
         self.assertIn("nominal_selection_energy_proxy_joules", resources)

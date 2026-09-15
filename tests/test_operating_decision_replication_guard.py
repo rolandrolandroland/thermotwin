@@ -95,7 +95,7 @@ class OperatingDecisionReplicationGuardTests(unittest.TestCase):
             reached_bound=False,
             evaluation_count=10,
             converged=True,
-            termination_reason="scaled_gradient_tolerance",
+            termination_reason="scaled_projected_gradient_tolerance",
             completed_iterations=3,
             accepted_iterations=2,
             scaled_gradient_infinity_norm=1.0e-7,
