@@ -1,11 +1,11 @@
 # Corrected operating-decision replication
 
-Status: corrected generator v4 and the corrected parent rule are frozen. Parent
-protocol digest
+Status: corrected generator v4 and the corrected parent rule are frozen, and
+the scientific parent rehearsal is complete. Parent protocol digest
 `5a3262b2cfd3d1560d961a5dcd54bf5cd20f5cb8721795e1ea469fff2bc28362`
 binds the gate-development and parent-calibration evidence. Both random-stream
-audits are clean. Parent rehearsal, guard development, guard calibration, and
-reserved evaluation remain unopened.
+audits and the rehearsal random-stream audit are clean. Guard development,
+guard calibration, bootstrap, and reserved evaluation remain unopened.
 
 Generator freeze `c120e29` is superseded. An independent decision-rule audit
 found that its corrected wrapper turned either candidate's bound hit or
@@ -187,8 +187,34 @@ The verification thresholds are 1.276697 for stop now, 1.272123 for fixed
 thermal, 1.223269 for fixed voltage, and 1.221628 for fixed face temperature.
 The fitted margin paddings are 0 K for stop now and fixed thermal, 0.070730 K
 for fixed voltage, 0.057124 K for fixed face temperature, and 0.030400 K for
-the decision-directed selector. These are calibration results; the separate
-parent rehearsal remains unopened until this artifact is committed.
+the decision-directed selector. These calibration results were committed in
+the parent artifact before the separate rehearsal partition was opened.
+
+## Scientific parent rehearsal
+
+On 2026-09-16, a new process at source commit
+`fa9eb898e5bbd7e6d47a19020a5ea7885be0a566` verified the committed parent
+artifact and source manifest before opening `r2_parent_rehearsal` once. The
+partition contains 240 complete records from 20 paired blocks per family. Its
+deterministic evidence digest is
+`c9d4dd8d69c78ecbb27e228bed9282f0065ad1291819f51b668e3025cde50f20`.
+The exhaustive audit found 2,560 unique keys and seeds across 4,040 uses, with
+zero unintended reuse.
+
+All five procedures had zero false approvals, zero false rejections, and zero
+numerical failures. The decision-directed selector chose stop now in 17 cases
+and fixed voltage in 43. It produced 45/60 definitive decisions (75.0%), used
+81.45 J mean realized terminal energy, and had 0.427 empirical balanced loss.
+Its simultaneous block interval coverage was 16/20 (80.0%), below the 90%
+target. This unfavorable result is retained without a rule or protocol change;
+the guard stages remain unopened and may only replace a parent decision with
+abstention.
+
+The tracked external-evidence manifest has canonical digest
+`0ae40fd44828dc9c189bb094781419b152f0a603546872267d9e30a1f34cff03`.
+Its content-addressed gzip archive has SHA-256
+`df4bb3abbee2a5d2e0adc6298d71166c7d64309f4771478cc27d204aa936228e`
+and expands to the exact 32,497,890-byte diagnostic JSON.
 
 ## Resource accounting
 
@@ -273,14 +299,15 @@ boundary.
 The following semantic partitions are reserved under replacement campaign
 `operating_decision_audit_replication_corrected_v2_2026_09`. Their namespaces
 are disjoint from Stages 1–5 and the abandoned v3 campaign. Gate development
-and parent calibration were each generated once for the parent freeze; every
-later partition remains unopened.
+and parent calibration were each generated once for the parent freeze. The
+parent rehearsal was then generated once after that artifact was committed;
+every later partition remains unopened.
 
 | Partition | Paired blocks per family | Status | Use |
 | --- | ---: | --- | --- |
 | `r2_gate_development` | 20 | Frozen | Refit the matched A/B verification gates. |
 | `r2_parent_calibration` | 30 | Frozen | Refit fixed-policy and stop-or-voltage conformal paddings. |
-| `r2_parent_rehearsal` | 20 | Unopened | One frozen-rule development rehearsal. |
+| `r2_parent_rehearsal` | 20 | Completed | One frozen-rule development rehearsal. |
 | `r2_guard_development` | 30 | Unopened | Refit the scalar acquisition guard on matched A/B only. |
 | `r2_guard_calibration` | 30 | Unopened | Refit the complete guarded-procedure padding. |
 | `r2_reserved_evaluation` | 50 | Unopened | One final A/B/C paired comparison after the artifact is committed. |

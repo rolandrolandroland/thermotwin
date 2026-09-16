@@ -42,3 +42,11 @@ The file retains the disposable campaign, boundary commits, linked artifact and
 evidence digests, compact stream-audit counts, output hashes, and independent
 post-run validation. The generated cohorts and descriptive result are
 engineering evidence only.
+
+`scientific_parent_rehearsal_report.md` records the one scientific rehearsal
+opened on 2026-09-16 after the parent artifact was committed. Its compact
+outcomes and external-evidence manifest are tracked at the repository root;
+the manifest binds the complete diagnostics to a content-addressed immutable
+release archive. The selector made 45/60 decisions without a decision error,
+while simultaneous block coverage was 16/20 (80.0%), below the 90% target.
+That result is preserved unchanged before guard development and calibration.
