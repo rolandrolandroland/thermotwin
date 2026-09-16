@@ -7,3 +7,13 @@ build/
 thermotwin/figures/*
 !thermotwin/figures/README.md
 thermotwin/notes/
+
+# Full corrected operating-decision diagnostics are archived as content-addressed
+# release assets. Compact outcomes, frozen artifacts, reports, and evidence
+# manifests remain tracked. The already committed parent diagnostics stay in
+# history; these rules apply to later reveal stages.
+/thermotwin/OPERATING_DECISION_CORRECTED_REHEARSAL_DIAGNOSTICS.json
+/thermotwin/OPERATING_DECISION_CORRECTED_GUARD_DEVELOPMENT_DIAGNOSTICS.json
+/thermotwin/OPERATING_DECISION_CORRECTED_GUARD_CALIBRATION_DIAGNOSTICS.json
+/thermotwin/OPERATING_DECISION_CORRECTED_FINAL_DIAGNOSTICS.json
+/.artifacts/operating-decision/

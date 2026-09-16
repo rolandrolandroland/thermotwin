@@ -226,6 +226,48 @@ scores and failures, raw and calibrated envelopes, final truth margin,
 decision, error indicators, selected action, and both nominal and realized
 resources.
 
+## External evidence policy
+
+The gate-development and parent-calibration diagnostics were already committed
+as complete JSON records when the parent rule froze. They remain immutable in
+history; rewriting those commits would weaken the reveal chronology. Later
+complete diagnostic files are kept outside normal Git history so rehearsal,
+guard, and final evidence do not add hundreds of megabytes to every checkout.
+
+Git continues to track each frozen rule artifact, compact outcome table,
+human-readable report, and a content-addressed evidence manifest. The complete
+diagnostic JSON is validated, compressed with deterministic gzip metadata, and
+uploaded to the immutable GitHub release named in that manifest. Each manifest
+records the generating commit and canonical command, scientific partition,
+record and stream-audit counts, deterministic evidence digest, exact raw and
+archive byte counts and SHA-256 hashes, and the release URL. Downloading and
+decompressing the archive must reproduce the raw JSON hash before its evidence
+is used.
+
+The archiver is an unbound postprocessor at
+`tools/archive_operating_decision_evidence.py`. It is intentionally outside the
+generator-v4 numerical source manifest: changing the already frozen replication
+CLI merely to package an output would invalidate the parent artifact. The
+postprocessor cannot generate or reinterpret a cohort. It rejects incomplete
+partitions, dirty stream audits, changed evidence digests, non-HTTPS locations,
+local absolute command arguments, and a source commit different from `HEAD`.
+
+The raw defaults and local archive staging directory are ignored explicitly;
+there is no repository-wide JSON ignore rule. The compact manifests are:
+
+| Command | Tracked manifest | External complete diagnostics |
+| --- | --- | --- |
+| `rehearse-parent` | `thermotwin/OPERATING_DECISION_CORRECTED_REHEARSAL_EVIDENCE_MANIFEST.json` | `r2_parent_rehearsal` |
+| `freeze-guard` | `thermotwin/OPERATING_DECISION_CORRECTED_GUARD_EVIDENCE_MANIFEST.json` | `r2_guard_development`, `r2_guard_calibration` |
+| `evaluate-reserved` | `thermotwin/OPERATING_DECISION_CORRECTED_FINAL_EVIDENCE_MANIFEST.json` | `r2_reserved_evaluation` |
+
+For every command, capture the full `HEAD` immediately before invoking the
+synchronous replication process and pass that literal SHA to the postprocessor.
+Commit the compact outputs and manifest, create the manifest's immutable release
+tag at that evidence commit, upload the content-addressed archive, then download
+and verify its SHA-256 and gzip round trip before proceeding to the next reveal
+boundary.
+
 ## Fresh namespaces and chronology
 
 The following semantic partitions are reserved under replacement campaign
