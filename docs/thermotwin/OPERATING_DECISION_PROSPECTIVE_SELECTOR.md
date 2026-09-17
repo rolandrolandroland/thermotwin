@@ -1,9 +1,9 @@
 # Prospective four-action selector
 
-Status: roadmap Steps 1 and 2 are implemented as development interfaces. No
-new scientific partition has been generated or opened. The completed corrected
+Status: roadmap Steps 1–3 are implemented as development interfaces. No new
+scientific partition has been generated or opened. The completed corrected
 `r2` replication, its artifacts, and its procedure names remain unchanged.
-Steps 3–7 are still pending.
+Steps 4–7 are still pending.
 
 ## Purpose
 
@@ -40,10 +40,10 @@ snapshot, observations, final current, and physical-protocol digest are bound
 by a canonical acquisition-evidence digest. A caller cannot substitute a fit
 made from an added action, verification response, or final response.
 
-Action scores remain separate from the acquisition snapshot. Step 2 now
-calculates authenticated, cost-free uncertainty scores. Step 3 will attach the
-declared energy, time, and instrumentation costs before the Step 1 selector
-ranks the actions.
+Action scores remain separate from the acquisition snapshot. Step 2 calculates
+authenticated, cost-free uncertainty scores. Step 3 now attaches the declared
+energy, time, and instrumentation costs before the Step 1 selector ranks the
+actions.
 
 ## Candidate reliability
 
@@ -121,6 +121,65 @@ action. Run-bias and white-noise streams are unique to one action, run, and
 channel. The saved audit detects undeclared key reuse and derived-seed
 collisions, and the estimator refuses a result when that audit is not clean.
 
+## Step 3 resource accounting
+
+The cost layer is incremental over the complete `stop_now` diagnostic plan.
+The common initial acquisition cancels. The mandatory verification schedule
+also cancels except when the face probe remains installed and changes its
+nominal terminal energy. Every joule is calculated with the existing frozen
+nominal selection proxy; hidden device truth and realized energy are not
+accepted as inputs.
+
+Raw resources remain visible beside the scalar cost:
+
+| Action | Added runs | Incremental bench time | Added instrument | Incremental nominal energy |
+| --- | ---: | ---: | --- | ---: |
+| `stop_now` | 0 | 0 s | none | 0 J |
+| `fixed_thermal` | 3 | 480 s | none | 38.5717 J |
+| `fixed_voltage` | 1 | 160 s | terminal voltage | 28.8143 J |
+| `fixed_face_temperature` | 1 | 160 s | cold-face temperature | 28.6909 J |
+
+The development time model assigns one explicit 80-second reset assumption to
+each added 80-second schedule. It is an assumption, not a simulated or measured
+reset. Reset energy and sensor electronics are not in the terminal-energy
+model. Voltage and face-temperature instruments remain distinct typed
+resources even though each adds one channel. The raw-time sensitivity values
+are predeclared as `0`, `80`, and `240` reset seconds per added run. Because
+elapsed time and its reference use the same per-run reset, these values change
+reported raw seconds and protocol identity but leave normalized time
+`{0, 3, 1, 1}` and selection unchanged under this uniform-reset model.
+Computation time is not captured by the Step 3 artifact; it must be reported
+separately in Step 7.
+
+The scalar cost uses dimensionless normalized resources:
+
+```text
+e = incremental nominal energy / voltage-action incremental energy
+t = incremental bench time / one added run-and-reset slot
+i = voltage instruments + m_face * face instruments
+C = w_energy * e + w_time * t + w_instrumentation * i
+```
+
+The nonnegative weights sum to one and the energy and time weights cannot both
+be zero. This makes the voltage action the unit-cost anchor and prevents raw
+joules, seconds, and instrument counts from being added directly. The primary
+development scenario is balanced: all three weights are `1/3` and `m_face =
+1`. Its declared costs are `1.44621` for thermal, `1.0` for voltage, and
+`0.998573` for face temperature. These are sensitivity units, not dollars.
+
+Step 3 predeclares the Step 4 cost grid without applying it to a cohort. Four
+resource mixes—balanced, energy-dominant, bench-time-dominant, and
+instrumentation-dominant—are crossed with face-instrument multipliers `0.25`,
+`1`, and `4`. The primary scenario appears exactly once in this 12-cell grid.
+Changing these assumptions after seeing outcomes requires a new versioned
+protocol.
+
+An ineligible Step 2 action stays ineligible and receives no partial Step 1
+score. Eligible actions copy the Step 2 uncertainty values and draw counts
+exactly. Negative uncertainty reduction is retained, giving negative utility
+per cost; it is never clipped into an apparent benefit. `stop_now` keeps zero
+raw resources and remains outside the cost ratio.
+
 ## Selection rule
 
 The selector first applies a stopping clearance to the provisional margin
@@ -168,13 +227,28 @@ predictive draws, and random-stream audit. The saved offsets and semantic
 stream keys make synthetic observations reproducible; their digests detect a
 different replay.
 
+The Step 3 protocol digest binds the nominal physical protocol, Step 2
+protocol, energy convention, reset assumption, normalization references,
+scenario weights, typed sensor burden, raw resource table, and scalar formula.
+Its result digest binds one complete Step 2 result to every raw resource,
+component cost, and selector-ready evaluation. The selection wrapper always
+uses the acquisition snapshot contained in that same Step 2 result, preventing
+a scorecard from one case being paired with another case's snapshot.
+A later nondefault selector rule must be saved through the Step 1 rule payload
+and bound by the Step 5 freeze; the Step 3 scorecard does not authenticate a
+calibrated rule that has not yet been developed.
+
 These are development protocol identities. A future scientific freeze must
-also bind the final draw count, cost scenarios, prospective generator, source
-manifest, development evidence, and calibration evidence.
+also bind the final draw count, selected cost and sensor scenarios,
+prospective generator, source manifest, development evidence, and calibration
+evidence.
 
 ## Next roadmap step
 
-Step 3 will divide each eligible action's expected uncertainty reduction by
-predeclared energy, elapsed-time, and instrumentation costs. It must preserve
-the Step 2 values, retain negative reductions, and keep cost assumptions
-separate from the acquisition evidence.
+Step 4 will evaluate the selected action across the predeclared 12-cell cost
+grid and declared sensor-quality conditions, then produce the measurement map.
+It must reuse the authenticated Step 2 evidence and Step 3 cost calculation,
+retain cells where no acquisition action is usable, and avoid opening a named
+development, calibration, or reserved partition. The measurement-map protocol
+must bind the complete ordered scenario and reset-sensitivity catalogs, rather
+than only the scenario used in one cell.
