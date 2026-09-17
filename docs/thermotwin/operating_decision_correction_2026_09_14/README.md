@@ -59,5 +59,14 @@ On calibration, the guard reduced decisions from 56/90 to 54/90 and mean
 realized terminal energy from 80.51 J to 78.80 J, while simultaneous block
 coverage rose from 26/30 to 28/30. Both procedures made zero decision errors.
 The compact outcomes and external-evidence manifest are tracked; the two full
-diagnostic files remain in content-addressed release archives. Reserved
-evaluation remains unopened.
+diagnostic files remain in content-addressed release archives. That frozen
+guard was then used unchanged for the reserved evaluation below.
+
+`scientific_reserved_evaluation_report.md` records the final scientific
+comparison completed on 2026-09-17. The balanced guarded-minus-parent loss was
++0.018487 with a 95% paired-block interval of [-0.003231, +0.045153], so the
+predeclared success criterion was not met. The guard reduced mean energy from
+79.54 J to 74.86 J and decisions from 98/150 to 93/150; simultaneous block
+coverage rose from 38/50 to 40/50 but remained below the 90% target. All six
+procedures had zero decision errors and zero numerical failures. The scalar
+guard is retained as a negative result and is not promoted.

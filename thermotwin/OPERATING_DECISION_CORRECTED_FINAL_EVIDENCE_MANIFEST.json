@@ -1,0 +1,62 @@
+{
+  "evidence": [
+    {
+      "archive": {
+        "asset_name": "r2_reserved_evaluation-d06ee288ebf149c5f46d59e2c4e1db274206380366e4c1c4cec231da9cadcbe8.json.gz",
+        "byte_count": 8465973,
+        "compression_level": 9,
+        "format": "gzip",
+        "media_type": "application/gzip",
+        "mtime": 0,
+        "sha256": "d06ee288ebf149c5f46d59e2c4e1db274206380366e4c1c4cec231da9cadcbe8"
+      },
+      "deterministic_evidence_digest": "f1df0029d452c1b8fee68bf0ef622ad88e2f18a7148ee29779c59e101064295a",
+      "diagnostic_schema_version": 1,
+      "generator_version": "operating_decision_generator_v4",
+      "partition": {
+        "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
+        "name": "r2_reserved_evaluation",
+        "paired_blocks_per_family": 50
+      },
+      "random_stream_protocol_version": "thermotwin-operating-decision-rng-v2",
+      "raw": {
+        "byte_count": 81327382,
+        "logical_name": "OPERATING_DECISION_CORRECTED_FINAL_DIAGNOSTICS.json",
+        "media_type": "application/json",
+        "sha256": "c7a9b0061174c8568139098b7fec29dc5cf9a8de2d7b219177117d9105fb9361"
+      },
+      "record_count": 600,
+      "retrieval": {
+        "release_tag": "operating-decision-corrected-final-v1",
+        "url": "https://github.com/rolandrolandroland/thermotwin/releases/download/operating-decision-corrected-final-v1/r2_reserved_evaluation-d06ee288ebf149c5f46d59e2c4e1db274206380366e4c1c4cec231da9cadcbe8.json.gz"
+      },
+      "stream_audit": {
+        "unique_key_count": 6400,
+        "unique_seed_count": 6400,
+        "use_count": 10100
+      }
+    }
+  ],
+  "manifest_digest": "c0126cef25434e8a054dcf55fc072ea71919c8345455f3b820b294f15f57d5a0",
+  "manifest_type": "thermotwin_operating_decision_external_evidence",
+  "producer": {
+    "canonical_arguments": [
+      "--repository-root",
+      ".",
+      "--artifact",
+      "thermotwin/OPERATING_DECISION_CORRECTED_GUARD_ARTIFACT.json",
+      "--diagnostics-output",
+      "thermotwin/OPERATING_DECISION_CORRECTED_FINAL_DIAGNOSTICS.json",
+      "--outcomes-output",
+      "thermotwin/OPERATING_DECISION_CORRECTED_FINAL_OUTCOMES.json",
+      "--report-output",
+      "docs/thermotwin/operating_decision_correction_2026_09_14/scientific_reserved_evaluation_report.md",
+      "--workers",
+      "4"
+    ],
+    "command": "evaluate-reserved",
+    "module": "thermotwin.operating_decision_replication",
+    "source_commit": "f509329dde422377145ddcc31368decb01f75fdb"
+  },
+  "schema_version": 1
+}

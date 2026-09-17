@@ -1,13 +1,14 @@
 # Corrected operating-decision replication
 
-Status: corrected generator v4, the corrected parent rule, and the scalar
-mismatch guard are frozen. Parent protocol digest
+Status: the corrected replication is complete. Corrected generator v4, the
+parent rule, and the scalar mismatch guard are frozen. Parent protocol digest
 `5a3262b2cfd3d1560d961a5dcd54bf5cd20f5cb8721795e1ea469fff2bc28362`
 binds the gate-development and parent-calibration evidence; guard protocol
 digest `d96696f265937b8d8f584aff6684c33cc1c279b9687bf864a4555e30c3ef63f2`
-binds the guard-development and guard-calibration evidence. All five opened
-scientific partitions have clean random-stream audits. Bootstrap and reserved
-evaluation remain unopened.
+binds the guard-development and guard-calibration evidence. All six scientific
+device partitions have clean random-stream audits, and the paired bootstrap is
+complete. The scalar guard did not meet its primary reserved-cohort success
+criterion and is not promoted.
 
 Generator freeze `c120e29` is superseded. An independent decision-rule audit
 found that its corrected wrapper turned either candidate's bound hit or
@@ -209,8 +210,8 @@ and fixed voltage in 43. It produced 45/60 definitive decisions (75.0%), used
 81.45 J mean realized terminal energy, and had 0.427 empirical balanced loss.
 Its simultaneous block interval coverage was 16/20 (80.0%), below the 90%
 target. This unfavorable result is retained without a rule or protocol change;
-the guard stages remain unopened and may only replace a parent decision with
-abstention.
+at that checkpoint, the guard stages remained unopened and were restricted to
+replacing a parent decision with abstention.
 
 The tracked external-evidence manifest has canonical digest
 `0ae40fd44828dc9c189bb094781419b152f0a603546872267d9e30a1f34cff03`.
@@ -249,6 +250,41 @@ Their tracked external-evidence manifest has canonical digest
 The two deterministic gzip archives have SHA-256
 `65d55550a2d9e0375129438957008e67a36b490f3ba44fd896a9e98b27b3b199`
 and `68347d1970b7ad59139f8234dc7e30ff0c380922f495dc7d7a2618f923d4fac8`.
+
+## Scientific reserved evaluation
+
+On 2026-09-17, a new process at committed source and artifact state
+`f509329dde422377145ddcc31368decb01f75fdb` verified the complete chain before
+opening `r2_reserved_evaluation` once. The partition contains 600 complete
+diagnostic records from 50 paired blocks per family and produced 900 compact
+procedure outcomes. Its deterministic evidence digest is
+`f1df0029d452c1b8fee68bf0ef622ad88e2f18a7148ee29779c59e101064295a`.
+The exhaustive audit found 6,400 unique keys and seeds across 10,100 uses, with
+zero unintended reuse.
+
+The primary balanced-loss contrast, guarded minus parent, was +0.018487 with a
+95% paired-block bootstrap interval of [-0.003231, +0.045153]. The predeclared
+success criterion required the upper bound to be below zero, so it was not met.
+The bench-time-dominant contrast was +0.023287 [-0.000030, +0.049954], and the
+instrumentation-expensive contrast was -0.005513 [-0.029829, +0.019188]. None
+of the three intervals excluded zero in the favorable direction.
+
+The parent selector made 98/150 definitive decisions (65.3%), versus 93/150
+(62.0%) for the guarded selector. Mean realized terminal energy fell from
+79.54 J to 74.86 J. The guard triggered in 2/50 matched four-state blocks,
+4/50 extra interface mass blocks, and 8/50 temperature-dependent-contact
+blocks. Parent and guarded simultaneous block interval coverage were 38/50
+(76.0%) and 40/50 (80.0%), both below the 90% target. All six procedures had
+zero false approvals, zero false rejections, and zero numerical failures.
+
+The complete 20,000-draw bootstrap arithmetic was reproduced independently
+from the compact outcomes. The tracked external-evidence manifest has canonical
+digest `c0126cef25434e8a054dcf55fc072ea71919c8345455f3b820b294f15f57d5a0`.
+Its deterministic gzip archive has SHA-256
+`d06ee288ebf149c5f46d59e2c4e1db274206380366e4c1c4cec231da9cadcbe8`
+and expands to the exact 81,327,382-byte diagnostic JSON. The scalar guard is
+therefore retained as a negative result and is not recommended over the parent
+selector.
 
 ## Resource accounting
 
@@ -336,7 +372,8 @@ are disjoint from Stages 1–5 and the abandoned v3 campaign. Gate development
 and parent calibration were each generated once for the parent freeze. The
 parent rehearsal was generated once after that artifact was committed. Guard
 development and guard calibration were then generated once for the guard
-freeze; bootstrap and reserved evaluation remain unopened.
+freeze. Finally, reserved evaluation and its bootstrap were generated once
+after that artifact was committed. No scientific partition will be reopened.
 
 | Partition | Paired blocks per family | Status | Use |
 | --- | ---: | --- | --- |
@@ -345,8 +382,8 @@ freeze; bootstrap and reserved evaluation remain unopened.
 | `r2_parent_rehearsal` | 20 | Completed | One frozen-rule development rehearsal. |
 | `r2_guard_development` | 30 | Frozen | Refit the scalar acquisition guard on matched A/B only. |
 | `r2_guard_calibration` | 30 | Frozen | Refit the complete guarded-procedure padding. |
-| `r2_reserved_evaluation` | 50 | Unopened | One final A/B/C paired comparison after the artifact is committed. |
-| `r2_bootstrap` | 20,000 draws | Unopened | Paired block uncertainty for the final contrasts. |
+| `r2_reserved_evaluation` | 50 | Completed | One final A/B/C paired comparison after the artifact is committed. |
+| `r2_bootstrap` | 20,000 draws | Completed | Paired block uncertainty for the final contrasts. |
 
 Execution order is enforced:
 
@@ -431,8 +468,9 @@ preferred.
 
 ## Following experiment
 
-After this replication closes the generator defect, the next protocol will
-implement the original prospective selector. From the common acquisition it
+This replication is complete and does not promote the scalar mismatch guard.
+The next protocol should implement the original prospective selector. From the
+common acquisition it
 will estimate the expected change in final-margin uncertainty for stop,
 thermal, voltage, and face-temperature actions, divide that change by frozen
 costs, and map the selected action over sensor and test-cost ratios. That
