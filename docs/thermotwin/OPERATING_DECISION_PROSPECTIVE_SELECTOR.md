@@ -1,9 +1,9 @@
 # Prospective four-action selector
 
-Status: roadmap Step 1 is implemented as a development interface. No new
-scientific partition has been generated or opened. The completed corrected
+Status: roadmap Steps 1 and 2 are implemented as development interfaces. No
+new scientific partition has been generated or opened. The completed corrected
 `r2` replication, its artifacts, and its procedure names remain unchanged.
-Steps 2–7 are still pending.
+Steps 3–7 are still pending.
 
 ## Purpose
 
@@ -31,18 +31,19 @@ saved snapshot contains candidate status and provisional margin intervals. It
 has no truth-family label, device identity, verification result, selected
 action outcome, true margin, or final response.
 
-The fit-set type does not itself prove which observations were used to produce
-the fits. Step 1 therefore treats fit provenance as unauthenticated alongside
-the action scores. Before any named partition is opened, later orchestration
-must bind the fit record to the common initial acquisition data and reject fits
-that used an added-action, verification, or final response.
+The Step 2 evidence factory closes the fit-provenance gap in the Step 1 data
+type. It accepts one exact common-initial run, the known final current regime,
+and the physical configuration. It verifies the initial regime, channels,
+instrumentation, sample grid, and final regime; then it fits both candidates
+internally with the declared three-start procedure. The resulting fit set,
+snapshot, observations, final current, and physical-protocol digest are bound
+by a canonical acquisition-evidence digest. A caller cannot substitute a fit
+made from an added action, verification response, or final response.
 
-Action scores are deliberately separate from this acquisition-only snapshot.
-Step 1 accepts a complete scorecard so the selection mechanics can be tested,
-but does not calculate or authenticate those scores. Step 2 must create them
-inside an acquisition-only prospective calculation and bind the evidence to
-that calculation's protocol before the selector can be used in a scientific
-campaign.
+Action scores remain separate from the acquisition snapshot. Step 2 now
+calculates authenticated, cost-free uncertainty scores. Step 3 will attach the
+declared energy, time, and instrumentation costs before the Step 1 selector
+ranks the actions.
 
 ## Candidate reliability
 
@@ -51,11 +52,74 @@ failed, or excluded. A bound hit or nonconvergence excludes only that
 candidate. A fit exception remains a case-level selection failure. An
 uncertainty-propagation exception for an otherwise admissible candidate also
 remains case-fatal. Failed snapshots cannot retain partial intervals or a
-provisional envelope.
+provisional envelope. The evidence factory still returns and serializes that
+failed acquisition record, so a later campaign cannot omit it from its
+coverage denominator; uncertainty scoring itself requires a usable baseline.
 
 This preserves the corrected replication rule that recovered Family A
 coverage: one unreliable candidate does not discard another reliable
 candidate.
+
+## Step 2 uncertainty calculation
+
+The estimator starts from the full width of the Step 1 provisional
+candidate-envelope interval. This is the single pre-action baseline for all
+three measurement actions. For every candidate that is admissible after the
+common acquisition, and for every predictive draw, it:
+
+1. draws bounded, correlated log-parameters from that candidate's local fit
+   covariance;
+2. uses the same physical draw for the thermal, voltage, and face-temperature
+   alternatives;
+3. draws the temporary face probe's loading and response nuisance parameters
+   independently for the face-temperature alternative;
+4. simulates the exact additional regimes in the existing fixed policy;
+5. appends those synthetic observations to the real common-initial run;
+6. refits both candidate models with the same frozen three-start multistart
+   procedure; and
+7. forecasts the unloaded final operating-margin intervals and records the
+   full width of their conservative envelope.
+
+The synthetic future data come only from acquisition-time fits. The estimator
+does not accept a truth-family label, device token, trial index, verification
+result, realized action outcome, true margin, or final response.
+
+Within one source candidate, the expected post-action width is the arithmetic
+mean over all declared draws. Across source candidates, the estimator takes
+the largest of those means. It assigns no model probabilities. The reported
+expected uncertainty reduction is the common baseline width minus this
+worst-case expected width, so a harmful action can retain a negative value.
+
+## Numerical failures and candidate transitions
+
+Every declared draw remains in the denominator. A sampling, simulation,
+refit, or uncertainty-propagation failure receives the pre-action width rather
+than being dropped. Bound hits and nonconvergence still exclude candidates
+individually.
+
+If a candidate that was initially admissible becomes inadmissible after a
+hypothetical action, the draw is marked unstable and its scored width is the
+larger of its actual envelope width and the pre-action width. Candidate loss
+therefore cannot look like information gain. An action is eligible only when
+each source candidate has at least `ceil(0.90 * N)` stable draws. A candidate
+that was excluded initially may re-enter after added data; that transition is
+recorded explicitly.
+
+The development default is `N = 4` predictive draws. This is an implementation
+and runtime setting, not the final scientific replicate count. Before a named
+partition is opened, a disposable stability study must compare prefix-matched
+`N = 4`, `8`, and `16` results and choose the final count without looking at a
+reserved cohort.
+
+## Prospective random streams
+
+Step 2 uses a new semantic random-stream namespace bound to campaign,
+partition, block, source model, draw index, and acquisition-evidence digest.
+Physical parameter draws are explicitly shared across the three alternative
+actions as common random numbers. Probe parameters belong only to the face
+action. Run-bias and white-noise streams are unique to one action, run, and
+channel. The saved audit detects undeclared key reuse and derived-seed
+collisions, and the estimator refuses a result when that audit is not clean.
 
 ## Selection rule
 
@@ -92,21 +156,25 @@ ranking, ties, provisional decision, and selection reason for audit.
 
 The Step 1 rule has strict JSON serialization and a canonical SHA-256 protocol
 digest over the action packages, action order, thresholds, precision, and
-procedure and algorithm identities. The algorithm identity commits to the stop
-gate, strict value thresholds, and four-key ranking semantics. Semantically
-identical numeric inputs such as `0`, `0.0`, and `-0.0` normalize to the same
-digest.
+procedure and algorithm identities. The Step 2 protocol digest additionally
+binds the estimator, uncertainty metric, draw count, stability threshold,
+within- and across-model aggregation, failure policy, candidate-attrition
+policy, multistart refit procedure, prospective random-stream protocol,
+physical protocol, and exact action packages. Its result digest binds every
+draw, action summary, stream use, and stream audit to the authenticated common
+acquisition. The JSON-ready record includes the normalized physical
+configuration, common observations, acquisition fits, snapshot, final regime,
+predictive draws, and random-stream audit. The saved offsets and semantic
+stream keys make synthetic observations reproducible; their digests detect a
+different replay.
 
-This digest freezes the selection mechanics only. A future scientific freeze
-must also bind the uncertainty estimator, prospective sampling plan, cost
-scenario, generator, source manifest, development evidence, and calibration
-evidence.
+These are development protocol identities. A future scientific freeze must
+also bind the final draw count, cost scenarios, prospective generator, source
+manifest, development evidence, and calibration evidence.
 
 ## Next roadmap step
 
-Step 2 will estimate each action's expected reduction in final operating-margin
-uncertainty from synthetic future observations generated under the admissible
-fitted models. That calculation must use acquisition information only, use
-independent prospective random streams, preserve both candidate models, and
-produce one shared pre-action uncertainty baseline for all three measurement
-actions. Frozen resource costs are introduced in Step 3.
+Step 3 will divide each eligible action's expected uncertainty reduction by
+predeclared energy, elapsed-time, and instrumentation costs. It must preserve
+the Step 2 values, retain negative reductions, and keep cost assumptions
+separate from the acquisition evidence.

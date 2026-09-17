@@ -8,7 +8,8 @@ claims, and the collision-free corrected replication is now complete; see
 The audit also confirmed that the completed selector is narrower than the
 cost-dependent choice among thermal, voltage, and face-temperature packages
 specified below. The prospective experiment has now implemented its isolated
-four-action selection interface, without opening a new partition; see
+four-action selection interface and cost-free posterior-predictive uncertainty
+estimator, without opening a new partition; see
 [`OPERATING_DECISION_PROSPECTIVE_SELECTOR.md`](OPERATING_DECISION_PROSPECTIVE_SELECTOR.md).
 
 ## 1. Problem and research question
