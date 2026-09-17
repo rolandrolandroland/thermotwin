@@ -2,14 +2,14 @@
 
 Status: Stages 1–5 produced a baseline, realism stress test, calibrated
 stop-or-voltage selector, mismatch-guard revision, and one reserved synthetic
-evaluation. A September 2026 audit found deterministic random-stream reuse
-across runs and adjacent device blocks. The stored counts remain descriptive,
-but their conformal and bootstrap guarantees are superseded. The audit also
-confirmed that the implemented selector is narrower than the cost-dependent
-choice among thermal, voltage, and face-temperature packages specified below.
-See [`OPERATING_DECISION_AUDIT.md`](OPERATING_DECISION_AUDIT.md). A versioned,
-collision-free replication must be completed before the original selector
-hypothesis receives a new final evaluation.
+evaluation. A September 2026 audit superseded that campaign's inferential
+claims, and the collision-free corrected replication is now complete; see
+[`OPERATING_DECISION_CORRECTED_REPLICATION.md`](OPERATING_DECISION_CORRECTED_REPLICATION.md).
+The audit also confirmed that the completed selector is narrower than the
+cost-dependent choice among thermal, voltage, and face-temperature packages
+specified below. The prospective experiment has now implemented its isolated
+four-action selection interface, without opening a new partition; see
+[`OPERATING_DECISION_PROSPECTIVE_SELECTOR.md`](OPERATING_DECISION_PROSPECTIVE_SELECTOR.md).
 
 ## 1. Problem and research question
 
