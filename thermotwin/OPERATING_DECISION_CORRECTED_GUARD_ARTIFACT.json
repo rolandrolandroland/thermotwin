@@ -1,0 +1,1099 @@
+{
+  "chronology": {
+    "guard_artifact_precedes_reserved_evaluation": true,
+    "reserved_evaluation_instantiated": false
+  },
+  "guard_artifact": {
+    "bootstrap": {
+      "draws": 20000,
+      "partition": "r2_bootstrap",
+      "random_stream_keys": [
+        {
+          "block": 0,
+          "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
+          "channel": null,
+          "family": null,
+          "partition": "r2_bootstrap",
+          "protocol_version": "thermotwin-operating-decision-rng-v2",
+          "purpose": "paired_loss_bootstrap/bench_time_dominant",
+          "run": null,
+          "stream_kind": "calibration"
+        },
+        {
+          "block": 0,
+          "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
+          "channel": null,
+          "family": null,
+          "partition": "r2_bootstrap",
+          "protocol_version": "thermotwin-operating-decision-rng-v2",
+          "purpose": "paired_loss_bootstrap/balanced",
+          "run": null,
+          "stream_kind": "calibration"
+        },
+        {
+          "block": 0,
+          "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
+          "channel": null,
+          "family": null,
+          "partition": "r2_bootstrap",
+          "protocol_version": "thermotwin-operating-decision-rng-v2",
+          "purpose": "paired_loss_bootstrap/instrumentation_expensive",
+          "run": null,
+          "stream_kind": "calibration"
+        }
+      ]
+    },
+    "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
+    "cost_scenarios": [
+      {
+        "abstention_weight": 1.0,
+        "added_run_weight": 0.1,
+        "added_sensor_weight": 0.02,
+        "false_approval_weight": 100.0,
+        "false_rejection_weight": 20.0,
+        "incremental_energy_weight": 0.1,
+        "name": "bench_time_dominant"
+      },
+      {
+        "abstention_weight": 1.0,
+        "added_run_weight": 0.1,
+        "added_sensor_weight": 0.1,
+        "false_approval_weight": 100.0,
+        "false_rejection_weight": 20.0,
+        "incremental_energy_weight": 0.1,
+        "name": "balanced"
+      },
+      {
+        "abstention_weight": 1.0,
+        "added_run_weight": 0.1,
+        "added_sensor_weight": 0.5,
+        "false_approval_weight": 100.0,
+        "false_rejection_weight": 20.0,
+        "incremental_energy_weight": 0.1,
+        "name": "instrumentation_expensive"
+      }
+    ],
+    "generator_freeze_digest": "0f2ca2d80f53fe5df2ebd77e8046a2b6920026c9b034719577a1b0a6dfca43f7",
+    "guard": {
+      "block_count": 30,
+      "conformal_rank": 28,
+      "matched_block_scores": [
+        1.0282400595912478,
+        1.09634767252384,
+        1.0845240082038599,
+        1.159551549591197,
+        1.0870889585148158,
+        1.1134596579304203,
+        0.895907987214802,
+        1.115185917713157,
+        1.0173919734288013,
+        1.0183946022095622,
+        1.2984451643720023,
+        0.9165005042156604,
+        1.14498227380841,
+        1.072514257828582,
+        1.1009161608606626,
+        1.087338902813377,
+        1.072090575906368,
+        1.0661398317927109,
+        1.0712507582173973,
+        1.270376360407573,
+        0.9343551049459382,
+        0.9631725298080213,
+        1.1235610641436877,
+        1.0958668225079473,
+        0.9656043351820965,
+        1.1069135864859392,
+        1.0943846218412243,
+        0.9393760691747357,
+        1.1784390517234427,
+        1.0647096059370262
+      ],
+      "target_matched_block_retention": 0.9,
+      "threshold": 1.1784390517234427
+    },
+    "guard_calibration_evidence_digest": "5f27e55ec1a186fa63cd5b9cbeea9750a8fb17f511c22eb8034676a2f53a5b2c",
+    "guard_development_evidence_digest": "9701fa2368e1d3496dc16fd6fb1bcfdcc9923fd22e391a1b290ade28ed9b2799",
+    "parent_protocol_digest": "5a3262b2cfd3d1560d961a5dcd54bf5cd20f5cb8721795e1ea469fff2bc28362",
+    "parent_selector_padding_floor": 0.03039972706060093,
+    "partitions": {
+      "guard_calibration": {
+        "name": "r2_guard_calibration",
+        "paired_blocks_per_family": 30
+      },
+      "guard_development": {
+        "name": "r2_guard_development",
+        "paired_blocks_per_family": 30
+      },
+      "reserved_evaluation": {
+        "name": "r2_reserved_evaluation",
+        "paired_blocks_per_family": 50
+      }
+    },
+    "physical_protocol_digest": "a00db724edc9567b5e3d2f6b9e25324a098ed4b43b8088c29b92ec2cab49fe83",
+    "procedure_calibration": {
+      "additive_margin_padding": 0.03039972706060093,
+      "block_count": 30,
+      "block_nonconformity": [
+        0.0,
+        0.0,
+        0.0,
+        0.00797167289940278,
+        0.0,
+        0.028387670157292412,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.061361988591514406,
+        0.0,
+        0.0,
+        0.02068196560270416,
+        0.0,
+        0.027732142893647754,
+        0.02245456134952349,
+        0.01746229198295346,
+        0.0,
+        0.0,
+        0.01035769243553461,
+        0.0,
+        0.0,
+        0.0,
+        0.0635907312554555,
+        0.01985119763656923,
+        0.0
+      ],
+      "calibrated_interval_covered_count": 77,
+      "conformal_rank": 28,
+      "emitted_interval_count": 79,
+      "procedure_name": "mismatch_guarded_selector_v2",
+      "raw_interval_covered_count": 68,
+      "target_block_coverage": 0.9
+    },
+    "protocol_digest": "d96696f265937b8d8f584aff6684c33cc1c279b9687bf864a4555e30c3ef63f2",
+    "protocol_version": "operating_decision_corrected_guard_v1",
+    "selector": {
+      "fallback_policy": "fixed_voltage",
+      "mismatch_policy": "early_mismatch_abstention",
+      "resolved_policy": "stop_now"
+    },
+    "source_manifest_digest": "c5a52ab1c1261df4cb3cbacbdd9557557c6b2495ab1943ca1f366942a62d6968"
+  },
+  "guard_config": {
+    "confidence_level": 0.95,
+    "guard_target_block_retention": 0.9,
+    "primary_scenario_name": "balanced",
+    "selector": {
+      "fallback_policy": "fixed_voltage",
+      "mismatch_policy": "early_mismatch_abstention",
+      "resolved_policy": "stop_now"
+    },
+    "target_block_coverage": 0.9
+  },
+  "parent_artifact": {
+    "chronology": {
+      "parent_artifact_precedes_rehearsal": true,
+      "reserved_evaluation_instantiated": false
+    },
+    "generator_freeze": {
+      "artifact_digest": "0f2ca2d80f53fe5df2ebd77e8046a2b6920026c9b034719577a1b0a6dfca43f7",
+      "generator_version": "operating_decision_generator_v4",
+      "physical_protocol_digest": "a00db724edc9567b5e3d2f6b9e25324a098ed4b43b8088c29b92ec2cab49fe83",
+      "plan": {
+        "bootstrap": {
+          "draws": 20000,
+          "partition": "r2_bootstrap"
+        },
+        "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
+        "partitions": [
+          {
+            "name": "r2_gate_development",
+            "paired_blocks_per_family": 20
+          },
+          {
+            "name": "r2_parent_calibration",
+            "paired_blocks_per_family": 30
+          },
+          {
+            "name": "r2_parent_rehearsal",
+            "paired_blocks_per_family": 20
+          },
+          {
+            "name": "r2_guard_development",
+            "paired_blocks_per_family": 30
+          },
+          {
+            "name": "r2_guard_calibration",
+            "paired_blocks_per_family": 30
+          },
+          {
+            "name": "r2_reserved_evaluation",
+            "paired_blocks_per_family": 50
+          }
+        ]
+      },
+      "protocol_version": "operating_decision_audit_replication_v3",
+      "random_stream_protocol_version": "thermotwin-operating-decision-rng-v2",
+      "schema_version": 1,
+      "source_manifest": {
+        "digest": "c5a52ab1c1261df4cb3cbacbdd9557557c6b2495ab1943ca1f366942a62d6968",
+        "files": [
+          {
+            "byte_count": 3456,
+            "path": "pyproject.toml",
+            "sha256": "4a2c4b7237f174605a39c26df9b765ec5de074b7f78aed131cdda11b1ad514ca"
+          },
+          {
+            "byte_count": 302,
+            "path": "thermotwin/__init__.py",
+            "sha256": "2711fbcc0a9bcbd0ac320b1cb83937bc04527f20e3e03be177d32b3c521b29ae"
+          },
+          {
+            "byte_count": 8541,
+            "path": "thermotwin/_public_api.py",
+            "sha256": "cfb96fa3a7fd6a685783d7e776c246fb6df189c8b80082b1ff39944bca230206"
+          },
+          {
+            "byte_count": 223,
+            "path": "thermotwin/core/__init__.py",
+            "sha256": "b99d9fa6be14cc8d2df1b6435de0e51ab6d257f9d69624176b2eb9b4f76f2cab"
+          },
+          {
+            "byte_count": 5772,
+            "path": "thermotwin/core/controls.py",
+            "sha256": "bb2c257ab9a447b2b51e1cf5dc0731152dff4603dd70d856a9e4aab36dda3dc9"
+          },
+          {
+            "byte_count": 1090,
+            "path": "thermotwin/design/__init__.py",
+            "sha256": "26dea61942495fb1cf22e969116978ec40c0aa78001e37e6d62dd6eb5f66a8e2"
+          },
+          {
+            "byte_count": 11037,
+            "path": "thermotwin/design/ag2se_substitution.py",
+            "sha256": "cd0ebe22f995264f43ca95424df338a7ec1441c53e5c7ee15fb36d18d5e1f31a"
+          },
+          {
+            "byte_count": 1928,
+            "path": "thermotwin/design/codesign/__init__.py",
+            "sha256": "d31e294c3fae100b2e08b226664c0b70d206f03000461d431e1e63c0ef4869eb"
+          },
+          {
+            "byte_count": 6780,
+            "path": "thermotwin/design/codesign/campaign.py",
+            "sha256": "3c5a9f7524b08e767e90af96f4246fe38ce08c428c3197fd69fff9eac1c9203e"
+          },
+          {
+            "byte_count": 13590,
+            "path": "thermotwin/design/codesign/evaluation.py",
+            "sha256": "38553e6f8f01ae2dfab0c7802156db0b4858a14baa3986784ceff4a8f5a35022"
+          },
+          {
+            "byte_count": 10831,
+            "path": "thermotwin/design/codesign/models.py",
+            "sha256": "2a2d80fbe5647436bb036e4962d2e41e1a21e621e8e20825f46e2e24c8985450"
+          },
+          {
+            "byte_count": 8172,
+            "path": "thermotwin/design/codesign/optimization.py",
+            "sha256": "cca3e8cd98a9b52f0f15093bed06cafec562b495792d88f085818da25517d06d"
+          },
+          {
+            "byte_count": 2951,
+            "path": "thermotwin/design/codesign/robustness.py",
+            "sha256": "cfab74ac65475088b44ee3456dae535b6b76dadd2d96090bc1d53fb0cae1fa38"
+          },
+          {
+            "byte_count": 3103,
+            "path": "thermotwin/design/codesign/sampling.py",
+            "sha256": "8850e53beab22c0c5349a0e15f92a4d0aba1f253482219714c994c5e4e1103d2"
+          },
+          {
+            "byte_count": 17508,
+            "path": "thermotwin/design/contact_process_window.py",
+            "sha256": "997e890e29cced175da7508c652cf6a84de68cb41355526143c0c7210bbea61e"
+          },
+          {
+            "byte_count": 24718,
+            "path": "thermotwin/design/control_comparison.py",
+            "sha256": "c27aa544b7d3daf4feb05daff128a4b21739ca543e8756cae89faefebfdbae5b"
+          },
+          {
+            "byte_count": 5103,
+            "path": "thermotwin/design/literature_materials.py",
+            "sha256": "f3ddb42c8d64deeeda6a7b1a4c766a557bd8e6f9a73d8a9f6ff1710b0d7be3b8"
+          },
+          {
+            "byte_count": 20128,
+            "path": "thermotwin/design/material_pair.py",
+            "sha256": "b4115c63a0687b9686af99933ad701917e5fc8e578c7fbc352fb7395f843c748"
+          },
+          {
+            "byte_count": 6627,
+            "path": "thermotwin/design/materials.py",
+            "sha256": "1e9d5cb2570cc488ced9b4d59057ece536264ee7a8ef51a25f797e80e8327115"
+          },
+          {
+            "byte_count": 21978,
+            "path": "thermotwin/design/operating_map.py",
+            "sha256": "b46a803328dec7de79e37030b26bb9b0d6876483cce1e521641b61436d43b0a0"
+          },
+          {
+            "byte_count": 15417,
+            "path": "thermotwin/design/power_electronics.py",
+            "sha256": "fa80555050a345d73a5cb792b52b1b8f40d1e02a60d1b83406b14bddfb82b84b"
+          },
+          {
+            "byte_count": 5543,
+            "path": "thermotwin/design/pulse_map.py",
+            "sha256": "c0d707e771428790b4b84b281222e6fb3cf9bee97e02bfa0b24c37a1eabb6633"
+          },
+          {
+            "byte_count": 3129,
+            "path": "thermotwin/inference/__init__.py",
+            "sha256": "ac66a76c13550127930c709428958fb15bc0e8958e3aca0f7f9231e55d19f6e1"
+          },
+          {
+            "byte_count": 22345,
+            "path": "thermotwin/inference/contact_resistance.py",
+            "sha256": "b8513a412a04493f56fdd55aa2a74ac85e710ab8fa3056da6cf708c57e4253a5"
+          },
+          {
+            "byte_count": 10767,
+            "path": "thermotwin/inference/distributed_experiment_selection.py",
+            "sha256": "6b6d62ccaf916f0f01c8821e9514471877b3c1b6850c96e330ec65a3edb7714e"
+          },
+          {
+            "byte_count": 14654,
+            "path": "thermotwin/inference/distributed_identifiability.py",
+            "sha256": "ebc1e5d56ad2966aa0137add819713c749fe4aef91f6a6cb7e296d8e219307ef"
+          },
+          {
+            "byte_count": 19359,
+            "path": "thermotwin/inference/distributed_profile_likelihood.py",
+            "sha256": "28abc79b8aac021eb792f01d963468d6998816d19aafa1767c80fe6792fce921"
+          },
+          {
+            "byte_count": 15088,
+            "path": "thermotwin/inference/distributed_properties.py",
+            "sha256": "9ceb452443bb6fcb2650ab9d423011864eb51a742cfce249a464d659aff3e7ee"
+          },
+          {
+            "byte_count": 1152,
+            "path": "thermotwin/inference/distributed_regularization.py",
+            "sha256": "16632d453ccf2e4fd97b7681d99334a6712951a262d0ed7e75210a79e4fddffa"
+          },
+          {
+            "byte_count": 16289,
+            "path": "thermotwin/inference/experiment_selection.py",
+            "sha256": "49e7912a564a914534ef054ceaec438a59b5c4e6da315979098b8237258077bd"
+          },
+          {
+            "byte_count": 25442,
+            "path": "thermotwin/inference/joint_thermal_parameters.py",
+            "sha256": "180f33121bf8e9aeb647ea85474f0cdaf76b6c4652b1b4382acfd532a02fa64b"
+          },
+          {
+            "byte_count": 27033,
+            "path": "thermotwin/inference/sparse_sensors.py",
+            "sha256": "3b5323a7e376abd1e9948cefefff0c5a0ef3082a3ceb6e3c217bfd384815528f"
+          },
+          {
+            "byte_count": 638,
+            "path": "thermotwin/numerics/__init__.py",
+            "sha256": "18027080d8517dbc12c7beb0d7e05e06f0c2afeb2460b79cc01de42b219e1aca"
+          },
+          {
+            "byte_count": 4370,
+            "path": "thermotwin/numerics/integration.py",
+            "sha256": "fc376d4bdefd91f7cee170411b9c54cb605b7c507042ca28aada1a308fafc390"
+          },
+          {
+            "byte_count": 3841,
+            "path": "thermotwin/numerics/matrices.py",
+            "sha256": "5f77f2f5c661ee0c44895289ae620dda2e484afb1d203e434913d458f0799416"
+          },
+          {
+            "byte_count": 675,
+            "path": "thermotwin/numerics/statistics.py",
+            "sha256": "74671708b4794bebd803927f823e03e8d69aab493c60ab9c3d9af086e5ea319d"
+          },
+          {
+            "byte_count": 1767,
+            "path": "thermotwin/observations/__init__.py",
+            "sha256": "ceec2781c69e64ff2cf5e0305f8221b47e632057cebbc0dc54d75099431585c5"
+          },
+          {
+            "byte_count": 5994,
+            "path": "thermotwin/observations/bias.py",
+            "sha256": "812b8786a5594ea178b24b99726b11852ef080199457077f473b327ee3c66dec"
+          },
+          {
+            "byte_count": 8698,
+            "path": "thermotwin/observations/distributed.py",
+            "sha256": "5e427207edd6196bb5e4f5ff0c24ebb41a09f7c18d8de9726ce60950c91b67b4"
+          },
+          {
+            "byte_count": 6490,
+            "path": "thermotwin/observations/hardware.py",
+            "sha256": "be95bb2a7f7e955b82c0be0a3d00f0b987245d21b3f8579db089ac89674b877b"
+          },
+          {
+            "byte_count": 12844,
+            "path": "thermotwin/observations/lag.py",
+            "sha256": "7aa4f0db4ca60e63b7fe9b504df0b9f06e4b94d9d88c76b1494be5d7ff0d7aae"
+          },
+          {
+            "byte_count": 11409,
+            "path": "thermotwin/observations/metadata.py",
+            "sha256": "7b2f2499052d446463fb4eb316005189300a3fb4a053654e42a281d2e2cc0c1c"
+          },
+          {
+            "byte_count": 9002,
+            "path": "thermotwin/observations/missingness.py",
+            "sha256": "f2093b8467de1edcd5aafcaf805bb726ea54aad413ffc8135827d26310c9bf4a"
+          },
+          {
+            "byte_count": 6028,
+            "path": "thermotwin/observations/noise.py",
+            "sha256": "bef7d76aa451b926e2db42b950cf164665d0e5fdaa121b258709ccdd3471dfcf"
+          },
+          {
+            "byte_count": 14269,
+            "path": "thermotwin/observations/test_stand.py",
+            "sha256": "25e63d2e13f14b92a1b67d77380f4d8df126149b4dd96f4f0fd64870ae388661"
+          },
+          {
+            "byte_count": 197,
+            "path": "thermotwin/operating_decision_replication.py",
+            "sha256": "637c6b3b99e50dcd9e666f37931ccd0ef01568bbc47d79532f383ba8fff7cd33"
+          },
+          {
+            "byte_count": 2606,
+            "path": "thermotwin/physics/__init__.py",
+            "sha256": "3ec420fc8587bd357104bb5739e013df7a7298a51e6ef5039c85beb8dea8dfc0"
+          },
+          {
+            "byte_count": 21419,
+            "path": "thermotwin/physics/distributed.py",
+            "sha256": "847564bac5ae8334b7b1126f736ff3839756f809ca0c12f4358b8fc24306635e"
+          },
+          {
+            "byte_count": 20340,
+            "path": "thermotwin/physics/four_node.py",
+            "sha256": "e35e272766b08b9198ee07dfaced1a580fdc7b3bf66ffce863c5b3683a76fd18"
+          },
+          {
+            "byte_count": 5033,
+            "path": "thermotwin/physics/thermoelectric.py",
+            "sha256": "d9f447fb701abf07be0e11039cdf5b9f1a0b28a51744714a23e3e2ee1fb20f74"
+          },
+          {
+            "byte_count": 14293,
+            "path": "thermotwin/physics/two_node.py",
+            "sha256": "bef5f7d9d381662034d48b58852a66a737989fa2ef1ad51b24b8f50f1967c4ba"
+          },
+          {
+            "byte_count": 140,
+            "path": "thermotwin/reports/__init__.py",
+            "sha256": "78f516d3a97442c241c2810582cfb6ee4aff765bac3531a8d95c241e52e3eaf9"
+          },
+          {
+            "byte_count": 28057,
+            "path": "thermotwin/reports/operating_decision_replication.py",
+            "sha256": "1fbffa4d248106b18a560d01e6ddd884ad68368f538097d2d5d04a9329354052"
+          },
+          {
+            "byte_count": 1131,
+            "path": "thermotwin/simulation/__init__.py",
+            "sha256": "a483276626893c138afa8e511423476717858b60e6ff3614d331313b95c696be"
+          },
+          {
+            "byte_count": 16873,
+            "path": "thermotwin/simulation/distributed.py",
+            "sha256": "fc9ba81beeea2323437b02a72f0bfe6a4103a2aaddc6a338d38f5d9f60009fb0"
+          },
+          {
+            "byte_count": 7388,
+            "path": "thermotwin/simulation/four_node_diagnostics.py",
+            "sha256": "e84e59da9429c0b35dc9f2926ef77eae8cd918ddba79eff1791d04f271e49b59"
+          },
+          {
+            "byte_count": 4165,
+            "path": "thermotwin/simulation/four_node_experiments.py",
+            "sha256": "0d381191191cd55e235993c9c90537890df1f94bcd42db54be204cce09d64d3f"
+          },
+          {
+            "byte_count": 12671,
+            "path": "thermotwin/simulation/interface_mass_mismatch.py",
+            "sha256": "ab3df1ee90614afa3fb589bf0b54bce9ce877e0d4fa268586b994ec3055570ec"
+          },
+          {
+            "byte_count": 6017,
+            "path": "thermotwin/simulation/operating_realism.py",
+            "sha256": "435905ae9a69e4481bf6154691599fff3302c4eac5fba3a8e4f02a4ed65fe1d4"
+          },
+          {
+            "byte_count": 10710,
+            "path": "thermotwin/simulation/temperature_dependent_contact.py",
+            "sha256": "3f0ad27571b846c48b92d96bc74af40c3a7820a7d31a82bc10468a77a396f28d"
+          },
+          {
+            "byte_count": 20237,
+            "path": "thermotwin/simulation/temporary_face_sensor.py",
+            "sha256": "65844d45ed1b349fde4d97ebd8c826ac3bcb72f1c1b1f583c59ebc54d625ac10"
+          },
+          {
+            "byte_count": 3285,
+            "path": "thermotwin/simulation/two_node_diagnostics.py",
+            "sha256": "13f8356e05b32f375b5b92a4411b723e634b4ed72c468190eabb5ac6820364ec"
+          },
+          {
+            "byte_count": 3183,
+            "path": "thermotwin/simulation/two_node_experiments.py",
+            "sha256": "4c68f90a4162874f974d298f5d06bc363ef0cde2c3987d0c006c16bf20e20b5b"
+          },
+          {
+            "byte_count": 55,
+            "path": "thermotwin/studies/__init__.py",
+            "sha256": "67547eb665de278d2de3a74b547031f569940236403a7aaa609e7317e959cf4b"
+          },
+          {
+            "byte_count": 53266,
+            "path": "thermotwin/studies/operating_decision.py",
+            "sha256": "4b2e3220803495850a356380fd30c50f3376114c0a815c230d293fa01566d208"
+          },
+          {
+            "byte_count": 54299,
+            "path": "thermotwin/studies/operating_decision_calibration.py",
+            "sha256": "86f6eead3161b03ecb0d300a2f61b55e868d27e1ea68bc9cc225d66a72e2044f"
+          },
+          {
+            "byte_count": 12495,
+            "path": "thermotwin/studies/operating_decision_diagnostics.py",
+            "sha256": "693c31a8dd3eda6ba623a684a3effba66c32877276fac6d6989841a06f955b49"
+          },
+          {
+            "byte_count": 19404,
+            "path": "thermotwin/studies/operating_decision_provenance.py",
+            "sha256": "f2c555fecacf051c982dab08493f20166ed3913e4a8b9be5355fa9f683a77c51"
+          },
+          {
+            "byte_count": 13025,
+            "path": "thermotwin/studies/operating_decision_random_streams.py",
+            "sha256": "ced8579dbd440f14727f14619a03283a2050ec0569f7318d26e54e2870801f0a"
+          },
+          {
+            "byte_count": 73805,
+            "path": "thermotwin/studies/operating_decision_realism.py",
+            "sha256": "12a14f115981ae753d95f034c37d0656da057c12da924bb01fbb47417184489e"
+          },
+          {
+            "byte_count": 39269,
+            "path": "thermotwin/studies/operating_decision_replication.py",
+            "sha256": "df8906b1040701f7e59ba49735cc019bcd92ca19e10302f0dc43c8b5192055c2"
+          },
+          {
+            "byte_count": 47172,
+            "path": "thermotwin/studies/operating_decision_replication_calibration.py",
+            "sha256": "caad46c2a57a8bfe15b1e4405abb2126b0ce0bb8404071abe312238bdc3970a5"
+          },
+          {
+            "byte_count": 66248,
+            "path": "thermotwin/studies/operating_decision_replication_guard.py",
+            "sha256": "e43b1442888f7631be99b31096a4f8a9aa1724b9cd1e677b98b7ba36e174e250"
+          },
+          {
+            "byte_count": 18092,
+            "path": "thermotwin/studies/operating_decision_replication_protocol.py",
+            "sha256": "d49970910e4671912a18fd52cfa3202bc9336024731993e5f2e1c84b11a0a69a"
+          },
+          {
+            "byte_count": 14297,
+            "path": "thermotwin/studies/operating_decision_resources.py",
+            "sha256": "6e65595732d6de8ca27cc95915d46a4d7073516a10bb5ba8d30aaf634cfb84e1"
+          },
+          {
+            "byte_count": 39418,
+            "path": "thermotwin/studies/sensor_model_discrimination.py",
+            "sha256": "06d547c778b9d567ced335d853a1cdb3103a31d38dc7156b2b95f469414db949"
+          }
+        ],
+        "protocol_version": "thermotwin-operating-decision-source-v1",
+        "runtime": {
+          "python_implementation": "CPython",
+          "python_version": "3.10.12"
+        },
+        "schema_version": 1
+      },
+      "state": "generator_frozen_no_reserved_evaluation"
+    },
+    "parent": {
+      "calibration_evidence_digest": "1ada76adb1eb3abbc81de05fb67f32a5e17544bf013caa0b83fee77c7a2a722f",
+      "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
+      "gate_development_evidence_digest": "e39ef2ba35892c72a08f61d68bbe9bbd60a35d27a13b9fb620b806c12dd1f53b",
+      "gate_random_stream_keys": [
+        {
+          "block": 0,
+          "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
+          "channel": null,
+          "family": null,
+          "partition": "r2_gate_development",
+          "protocol_version": "thermotwin-operating-decision-rng-v2",
+          "purpose": "verification_gate_noise_reference/stop_now",
+          "run": null,
+          "stream_kind": "calibration"
+        },
+        {
+          "block": 0,
+          "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
+          "channel": null,
+          "family": null,
+          "partition": "r2_gate_development",
+          "protocol_version": "thermotwin-operating-decision-rng-v2",
+          "purpose": "verification_gate_noise_reference/fixed_thermal",
+          "run": null,
+          "stream_kind": "calibration"
+        },
+        {
+          "block": 0,
+          "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
+          "channel": null,
+          "family": null,
+          "partition": "r2_gate_development",
+          "protocol_version": "thermotwin-operating-decision-rng-v2",
+          "purpose": "verification_gate_noise_reference/fixed_voltage",
+          "run": null,
+          "stream_kind": "calibration"
+        },
+        {
+          "block": 0,
+          "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
+          "channel": null,
+          "family": null,
+          "partition": "r2_gate_development",
+          "protocol_version": "thermotwin-operating-decision-rng-v2",
+          "purpose": "verification_gate_noise_reference/fixed_face_temperature",
+          "run": null,
+          "stream_kind": "calibration"
+        }
+      ],
+      "generator_freeze_digest": "0f2ca2d80f53fe5df2ebd77e8046a2b6920026c9b034719577a1b0a6dfca43f7",
+      "partitions": {
+        "calibration": {
+          "name": "r2_parent_calibration",
+          "paired_blocks_per_family": 30
+        },
+        "gate_development": {
+          "name": "r2_gate_development",
+          "paired_blocks_per_family": 20
+        },
+        "rehearsal": {
+          "name": "r2_parent_rehearsal",
+          "paired_blocks_per_family": 20
+        },
+        "reserved_evaluation": {
+          "name": "r2_reserved_evaluation",
+          "paired_blocks_per_family": 50
+        }
+      },
+      "physical_protocol_digest": "a00db724edc9567b5e3d2f6b9e25324a098ed4b43b8088c29b92ec2cab49fe83",
+      "procedure_calibrations": [
+        {
+          "additive_margin_padding": 0.0,
+          "block_count": 30,
+          "block_nonconformity": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.01336306115546465,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "calibrated_interval_covered_count": 81,
+          "conformal_rank": 28,
+          "emitted_interval_count": 82,
+          "procedure_name": "stop_now",
+          "raw_interval_covered_count": 81,
+          "target_block_coverage": 0.9
+        },
+        {
+          "additive_margin_padding": 0.0,
+          "block_count": 30,
+          "block_nonconformity": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.004884683316070393,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.031541558729163144,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "calibrated_interval_covered_count": 85,
+          "conformal_rank": 28,
+          "emitted_interval_count": 87,
+          "procedure_name": "fixed_thermal",
+          "raw_interval_covered_count": 85,
+          "target_block_coverage": 0.9
+        },
+        {
+          "additive_margin_padding": 0.07073026969530988,
+          "block_count": 30,
+          "block_nonconformity": [
+            0.07073026969530988,
+            0.0,
+            0.0,
+            0.0,
+            0.0018334497092065138,
+            0.03039972706060093,
+            0.0,
+            0.0,
+            0.020370325692184638,
+            0.09996530158207101,
+            0.0017976403593911727,
+            0.004017631653895015,
+            0.0,
+            0.01585581080670978,
+            0.0,
+            0.0329678382315684,
+            0.0,
+            0.0,
+            0.08261434779438565,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.011471455234635747,
+            0.0,
+            0.0,
+            0.0,
+            0.010365519018082303
+          ],
+          "calibrated_interval_covered_count": 79,
+          "conformal_rank": 28,
+          "emitted_interval_count": 81,
+          "procedure_name": "fixed_voltage",
+          "raw_interval_covered_count": 66,
+          "target_block_coverage": 0.9
+        },
+        {
+          "additive_margin_padding": 0.0571237596426081,
+          "block_count": 30,
+          "block_nonconformity": [
+            0.020101398433978734,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.04048259332061058,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.001597628518327343,
+            0.10064722090253991,
+            0.03436602403546879,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0571237596426081,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.08220946616625491,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "calibrated_interval_covered_count": 79,
+          "conformal_rank": 28,
+          "emitted_interval_count": 81,
+          "procedure_name": "fixed_face_temperature",
+          "raw_interval_covered_count": 72,
+          "target_block_coverage": 0.9
+        },
+        {
+          "additive_margin_padding": 0.03039972706060093,
+          "block_count": 30,
+          "block_nonconformity": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.03039972706060093,
+            0.0,
+            0.0,
+            0.020370325692184638,
+            0.09996530158207101,
+            0.0017976403593911727,
+            0.004017631653895015,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.08261434779438565,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.011471455234635747,
+            0.0,
+            0.0,
+            0.0,
+            0.003158053098299196
+          ],
+          "calibrated_interval_covered_count": 79,
+          "conformal_rank": 28,
+          "emitted_interval_count": 81,
+          "procedure_name": "decision_directed_selector",
+          "raw_interval_covered_count": 73,
+          "target_block_coverage": 0.9
+        }
+      ],
+      "protocol_digest": "5a3262b2cfd3d1560d961a5dcd54bf5cd20f5cb8721795e1ea469fff2bc28362",
+      "protocol_version": "operating_decision_corrected_parent_v1",
+      "statistical_config": {
+        "cost_scenarios": [
+          {
+            "abstention_weight": 1.0,
+            "added_run_weight": 0.1,
+            "added_sensor_weight": 0.02,
+            "false_approval_weight": 100.0,
+            "false_rejection_weight": 20.0,
+            "incremental_energy_weight": 0.1,
+            "name": "bench_time_dominant"
+          },
+          {
+            "abstention_weight": 1.0,
+            "added_run_weight": 0.1,
+            "added_sensor_weight": 0.1,
+            "false_approval_weight": 100.0,
+            "false_rejection_weight": 20.0,
+            "incremental_energy_weight": 0.1,
+            "name": "balanced"
+          },
+          {
+            "abstention_weight": 1.0,
+            "added_run_weight": 0.1,
+            "added_sensor_weight": 0.5,
+            "false_approval_weight": 100.0,
+            "false_rejection_weight": 20.0,
+            "incremental_energy_weight": 0.1,
+            "name": "instrumentation_expensive"
+          }
+        ],
+        "gate_monte_carlo_draws": 50000,
+        "gate_null_quantile": 0.99,
+        "gate_target_block_retention": 0.9,
+        "selector": {
+          "fallback_policy": "fixed_voltage",
+          "resolved_policy": "stop_now"
+        },
+        "target_block_coverage": 0.9
+      },
+      "verification_gates": [
+        {
+          "matched_block_scores": [
+            1.2146980171791057,
+            1.0974448558074676,
+            1.1299289780878459,
+            1.0804140484927762,
+            1.0808123061787538,
+            1.2732182293650236,
+            0.9482130682323067,
+            1.1764857692729624,
+            1.048074043035847,
+            1.2174169329320472,
+            0.9571867039012605,
+            1.097040547864908,
+            1.1928863688392577,
+            1.1923545170058665,
+            1.0215596572130468,
+            0.9183576228842523,
+            1.083780606235771,
+            1.1552630388441538,
+            0.9592212914556323,
+            1.0994187097216372
+          ],
+          "matched_development_block_count": 20,
+          "matched_development_rank": 19,
+          "monte_carlo_draws": 50000,
+          "noise_reference_quantile": 0.99,
+          "noise_reference_threshold": 1.2766972644336614,
+          "observation_count": 162,
+          "policy_name": "stop_now",
+          "seed": 54308515419669543662457695071427742077867036568213303461986143320862132166072,
+          "target_block_retention": 0.9,
+          "threshold": 1.2766972644336614
+        },
+        {
+          "matched_block_scores": [
+            1.2000927183178671,
+            1.0734104478654705,
+            1.0825723143650947,
+            1.0683923462851561,
+            1.0837624885732202,
+            1.2426564774673166,
+            0.9453098150865754,
+            1.1313472945516572,
+            1.0580948085810946,
+            1.1426294943582578,
+            0.9552673626791941,
+            1.086870706574971,
+            1.1610343927100992,
+            1.1940509072076901,
+            1.05701110152819,
+            0.8698606649366316,
+            1.0437743200818066,
+            1.112035666048886,
+            0.9289481387721069,
+            1.0729856042954533
+          ],
+          "matched_development_block_count": 20,
+          "matched_development_rank": 19,
+          "monte_carlo_draws": 50000,
+          "noise_reference_quantile": 0.99,
+          "noise_reference_threshold": 1.2721230344435002,
+          "observation_count": 162,
+          "policy_name": "fixed_thermal",
+          "seed": 39579022075355360519635709587086050741301466746666526689082175515632146240864,
+          "target_block_retention": 0.9,
+          "threshold": 1.2721230344435002
+        },
+        {
+          "matched_block_scores": [
+            1.1316716353702028,
+            1.0162577543848759,
+            1.0938630468659916,
+            1.1410885162690514,
+            1.0914984785882786,
+            1.189986615967626,
+            1.0023597437517562,
+            1.1678478371355738,
+            0.985093596000277,
+            1.1316874211910861,
+            0.9640691187827621,
+            1.0863556517549033,
+            1.12039904382031,
+            1.0840915532584532,
+            1.0501224672378318,
+            0.9033395726860849,
+            1.1196856772402606,
+            1.0521530444768197,
+            0.9779968636499232,
+            1.1124511680564315
+          ],
+          "matched_development_block_count": 20,
+          "matched_development_rank": 19,
+          "monte_carlo_draws": 50000,
+          "noise_reference_quantile": 0.99,
+          "noise_reference_threshold": 1.223268972221155,
+          "observation_count": 243,
+          "policy_name": "fixed_voltage",
+          "seed": 100662564874839473871032799781115850328790917340763596265664620909235110539124,
+          "target_block_retention": 0.9,
+          "threshold": 1.223268972221155
+        },
+        {
+          "matched_block_scores": [
+            1.136193667189391,
+            1.117438463910368,
+            0.9825316985255516,
+            1.0650230417489381,
+            1.133821439583705,
+            1.1098364408490455,
+            1.1092894333975334,
+            1.1780490417360552,
+            1.246025312718191,
+            1.0684065764339181,
+            0.9765024569503872,
+            1.0056044603164171,
+            1.021464752786877,
+            1.1527022115469079,
+            1.0670747639919727,
+            0.961442423417227,
+            1.0948571068507524,
+            1.0341657875343933,
+            1.0659113478851074,
+            1.0285964536396695
+          ],
+          "matched_development_block_count": 20,
+          "matched_development_rank": 19,
+          "monte_carlo_draws": 50000,
+          "noise_reference_quantile": 0.99,
+          "noise_reference_threshold": 1.221628296532682,
+          "observation_count": 243,
+          "policy_name": "fixed_face_temperature",
+          "seed": 74540921631379944511143638719946401026361477435968937696729592918826731272258,
+          "target_block_retention": 0.9,
+          "threshold": 1.221628296532682
+        }
+      ]
+    },
+    "schema_version": 1
+  },
+  "schema_version": 1
+}

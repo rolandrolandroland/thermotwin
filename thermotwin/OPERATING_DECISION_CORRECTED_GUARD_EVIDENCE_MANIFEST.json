@@ -1,0 +1,102 @@
+{
+  "evidence": [
+    {
+      "archive": {
+        "asset_name": "r2_guard_calibration-68347d1970b7ad59139f8234dc7e30ff0c380922f495dc7d7a2618f923d4fac8.json.gz",
+        "byte_count": 5079257,
+        "compression_level": 9,
+        "format": "gzip",
+        "media_type": "application/gzip",
+        "mtime": 0,
+        "sha256": "68347d1970b7ad59139f8234dc7e30ff0c380922f495dc7d7a2618f923d4fac8"
+      },
+      "deterministic_evidence_digest": "5f27e55ec1a186fa63cd5b9cbeea9750a8fb17f511c22eb8034676a2f53a5b2c",
+      "diagnostic_schema_version": 1,
+      "generator_version": "operating_decision_generator_v4",
+      "partition": {
+        "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
+        "name": "r2_guard_calibration",
+        "paired_blocks_per_family": 30
+      },
+      "random_stream_protocol_version": "thermotwin-operating-decision-rng-v2",
+      "raw": {
+        "byte_count": 48765721,
+        "logical_name": "OPERATING_DECISION_CORRECTED_GUARD_CALIBRATION_DIAGNOSTICS.json",
+        "media_type": "application/json",
+        "sha256": "eae9852412722acfeb9e79bd3e68350464a928c8253f33cfdf12b7a3046fe27f"
+      },
+      "record_count": 360,
+      "retrieval": {
+        "release_tag": "operating-decision-corrected-guard-v1",
+        "url": "https://github.com/rolandrolandroland/thermotwin/releases/download/operating-decision-corrected-guard-v1/r2_guard_calibration-68347d1970b7ad59139f8234dc7e30ff0c380922f495dc7d7a2618f923d4fac8.json.gz"
+      },
+      "stream_audit": {
+        "unique_key_count": 3840,
+        "unique_seed_count": 3840,
+        "use_count": 6060
+      }
+    },
+    {
+      "archive": {
+        "asset_name": "r2_guard_development-65d55550a2d9e0375129438957008e67a36b490f3ba44fd896a9e98b27b3b199.json.gz",
+        "byte_count": 5077867,
+        "compression_level": 9,
+        "format": "gzip",
+        "media_type": "application/gzip",
+        "mtime": 0,
+        "sha256": "65d55550a2d9e0375129438957008e67a36b490f3ba44fd896a9e98b27b3b199"
+      },
+      "deterministic_evidence_digest": "9701fa2368e1d3496dc16fd6fb1bcfdcc9923fd22e391a1b290ade28ed9b2799",
+      "diagnostic_schema_version": 1,
+      "generator_version": "operating_decision_generator_v4",
+      "partition": {
+        "campaign": "operating_decision_audit_replication_corrected_v2_2026_09",
+        "name": "r2_guard_development",
+        "paired_blocks_per_family": 30
+      },
+      "random_stream_protocol_version": "thermotwin-operating-decision-rng-v2",
+      "raw": {
+        "byte_count": 48765617,
+        "logical_name": "OPERATING_DECISION_CORRECTED_GUARD_DEVELOPMENT_DIAGNOSTICS.json",
+        "media_type": "application/json",
+        "sha256": "877d4571511edb5beecd66c8566b40239eb8e4f074ec37ae4580b3506bfcc8ba"
+      },
+      "record_count": 360,
+      "retrieval": {
+        "release_tag": "operating-decision-corrected-guard-v1",
+        "url": "https://github.com/rolandrolandroland/thermotwin/releases/download/operating-decision-corrected-guard-v1/r2_guard_development-65d55550a2d9e0375129438957008e67a36b490f3ba44fd896a9e98b27b3b199.json.gz"
+      },
+      "stream_audit": {
+        "unique_key_count": 3840,
+        "unique_seed_count": 3840,
+        "use_count": 6060
+      }
+    }
+  ],
+  "manifest_digest": "31116f4f9558331acce8237c61501f8634e65fb63caae756c056cbcd7a1eeaad",
+  "manifest_type": "thermotwin_operating_decision_external_evidence",
+  "producer": {
+    "canonical_arguments": [
+      "--repository-root",
+      ".",
+      "--parent-artifact",
+      "thermotwin/OPERATING_DECISION_CORRECTED_PARENT_ARTIFACT.json",
+      "--artifact-output",
+      "thermotwin/OPERATING_DECISION_CORRECTED_GUARD_ARTIFACT.json",
+      "--development-diagnostics",
+      "thermotwin/OPERATING_DECISION_CORRECTED_GUARD_DEVELOPMENT_DIAGNOSTICS.json",
+      "--calibration-diagnostics",
+      "thermotwin/OPERATING_DECISION_CORRECTED_GUARD_CALIBRATION_DIAGNOSTICS.json",
+      "--calibration-outcomes",
+      "thermotwin/OPERATING_DECISION_CORRECTED_GUARD_CALIBRATION_OUTCOMES.json",
+      "--report-output",
+      "docs/thermotwin/operating_decision_correction_2026_09_14/scientific_guard_freeze_report.md",
+      "--workers",
+      "4"
+    ],
+    "command": "freeze-guard",
+    "module": "thermotwin.operating_decision_replication",
+    "source_commit": "9c51e59cb4dcedc72b06b75ab7918064c1021a28"
+  },
+  "schema_version": 1
+}

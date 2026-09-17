@@ -50,3 +50,14 @@ the manifest binds the complete diagnostics to a content-addressed immutable
 release archive. The selector made 45/60 decisions without a decision error,
 while simultaneous block coverage was 16/20 (80.0%), below the 90% target.
 That result is preserved unchanged before guard development and calibration.
+
+`scientific_guard_freeze_report.md` records the scientific guard development
+and calibration opened once on 2026-09-16. The guard threshold is 1.178439 and
+the complete artifact digest is
+`d96696f265937b8d8f584aff6684c33cc1c279b9687bf864a4555e30c3ef63f2`.
+On calibration, the guard reduced decisions from 56/90 to 54/90 and mean
+realized terminal energy from 80.51 J to 78.80 J, while simultaneous block
+coverage rose from 26/30 to 28/30. Both procedures made zero decision errors.
+The compact outcomes and external-evidence manifest are tracked; the two full
+diagnostic files remain in content-addressed release archives. Reserved
+evaluation remains unopened.
