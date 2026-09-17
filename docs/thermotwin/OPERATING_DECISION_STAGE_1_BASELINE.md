@@ -42,13 +42,9 @@ The relevant frozen artifacts at that revision are:
 
 ThermoTwin declares Python 3.10 or newer. The default system interpreter was
 Python 3.9.6 and failed during import when it encountered modern union-type
-syntax. The reproduction therefore used the available bundled Python 3.12.14
-interpreter:
-
-```text
-/Users/rolandbennett/.cache/codex-runtimes/
-codex-primary-runtime/dependencies/python/bin/python3
-```
+syntax. The reproduction therefore used a bundled CPython 3.12.14 interpreter. Its
+machine-specific installation path is omitted because it is not a portable
+reproduction requirement.
 
 This interpreter did not provide Matplotlib. The numerical report was therefore
 reproduced with `--no-figure`; no PNG, JSON, or TXT sidecar was generated.
@@ -58,7 +54,7 @@ reproduced with `--no-figure`; no PNG, JSON, or TXT sidecar was generated.
 Command:
 
 ```bash
-/Users/rolandbennett/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 \
+python3 \
   -m unittest \
   tests.test_adaptive_experiment_campaign \
   tests.test_sensor_model_discrimination \
@@ -78,7 +74,7 @@ complete numerical table.
 Command:
 
 ```bash
-/Users/rolandbennett/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 \
+python3 \
   -m thermotwin.sensor_model_discrimination \
   --trials 20 \
   --no-figure

@@ -12,6 +12,10 @@ four-action selection interface, cost-free posterior-predictive uncertainty
 estimator, and frozen energy/time/instrumentation cost layer, without opening a
 new partition; see
 [`OPERATING_DECISION_PROSPECTIVE_SELECTOR.md`](OPERATING_DECISION_PROSPECTIVE_SELECTOR.md).
+The current authoritative boundary and replacement execution sequence are in
+[`OPERATING_DECISION_PROJECT_STATUS.md`](OPERATING_DECISION_PROJECT_STATUS.md),
+and the unopened campaign namespaces are recorded in the
+[`prospective partition ledger`](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md).
 
 ## 1. Problem and research question
 
@@ -265,6 +269,13 @@ threshold after examining evaluation labels.
 
 ## 10. Trial plan and implementation stages
 
+The numbered list below is the original outline. Stages 1–5 were later
+implemented as a narrower stop-or-voltage and mismatch-guard experiment. Its
+collision-free correction is complete, but the parent selector covered only
+80/100 fresh blocks against its 90% target and cannot support a superiority
+claim over fixed policies. That result remains historical evidence; it does not
+complete the four-action question in this outline.
+
 1. **Reproduce the foundation.** Confirm the documented sensor-discrimination
    baseline and its report before extending it. At outline creation, the
    supporting adaptive and sensor studies are in the existing `dev` worktree;
@@ -287,6 +298,26 @@ threshold after examining evaluation labels.
    runtime before revealing evaluation results. Keep failures and abstentions.
 7. **Produce the report.** Include the frozen configuration, source revision,
    device-level outputs, all failure cases, and reproducible figures.
+
+The prospective continuation uses the following superseding execution status:
+
+| Phase | Current status |
+| --- | --- |
+| Reconcile source, audits, and partitions | Complete in documentation; no new cohort opened. |
+| Harden padded scoring, stopping, eligibility, and numerical checks | Pending before data generation. |
+| Run the 12-case disposable draw-count pilot | Unopened. |
+| Develop offsets, thresholds, and measurement maps | Unopened; 20 tuning and 10 internal-check paired blocks allocated. |
+| Freeze analysis and independently calibrate | Unopened; 100 paired blocks planned, subject to a committed pre-generation precision review. |
+| Execute the reserved comparison once | Unopened; 100 paired blocks planned, subject to the same pre-generation review. |
+| Audit, archive, report, and present | Unstarted. |
+
+The prospective experiment keeps all four fixed comparators, treats the
+balanced-cost and nominal-sensing cell as primary, and separates physical
+sensor-quality changes from price-only sensitivity. Development offsets may
+guide action selection, but the complete frozen procedure receives one later
+independent block-level calibration correction. Sizes or rules may change only
+in a reviewed protocol revision committed before the affected partition is
+generated.
 
 A fit crash is an insufficient-evidence outcome and a separately reported
 numerical failure. Unexpected truth-solver failures require repair and a

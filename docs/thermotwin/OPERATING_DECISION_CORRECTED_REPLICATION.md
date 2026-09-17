@@ -8,7 +8,11 @@ digest `d96696f265937b8d8f584aff6684c33cc1c279b9687bf864a4555e30c3ef63f2`
 binds the guard-development and guard-calibration evidence. All six scientific
 device partitions have clean random-stream audits, and the paired bootstrap is
 complete. The scalar guard did not meet its primary reserved-cohort success
-criterion and is not promoted.
+criterion and is not promoted. A post-completion audit also found that the
+frozen parent selector covered only 80/100 fresh blocks across rehearsal,
+guard-calibration, and reserved cohorts, below its 90% target. The selector is
+therefore not promoted over the fixed policies. See
+[`THERMOTWIN_AUDIT_2026_09_17.md`](THERMOTWIN_AUDIT_2026_09_17.md).
 
 Generator freeze `c120e29` is superseded. An independent decision-rule audit
 found that its corrected wrapper turned either candidate's bound hit or
@@ -36,7 +40,7 @@ breaks the sampling assumptions behind the Stage 4 conformal calibration and
 the Stage 5 block bootstrap. This replication repairs the generator and repeats
 the existing decision procedures before a more capable selector is developed.
 
-The old Stage 3–5 outputs remain immutable, exposed descriptive records. Their
+The old Stage 3–5 outputs remain preserved, exposed descriptive records. Their
 device labels, residuals, thresholds, paddings, and final outcomes cannot enter
 this replication.
 
@@ -133,11 +137,14 @@ the KKT test passes.
 
 At decision time, a bound-hit or finite nonconverged candidate is excluded and
 the envelope is rebuilt from the remaining candidates. The case abstains when
-none remain. Actual acquisition failures, verification exceptions, returned
-nonfinite verification scores, and uncertainty failures for an otherwise
-eligible candidate remain case-fatal. Matched gate development also continues
-to abort on an unreliable matched candidate rather than silently changing its
-calibration sample.
+none remain. An acquisition-fit failure for either candidate is case-fatal.
+A verification exception or returned nonfinite verification score is also
+case-fatal, including when that candidate is otherwise numerically
+inadmissible. An uncertainty-propagation failure is removed only when it
+belongs to a candidate already excluded for a bound hit or nonconvergence; a
+failure for a retained candidate is case-fatal. Matched gate development also
+continues to abort on an unreliable matched candidate rather than silently
+changing its calibration sample.
 
 ## Disposable recovery probe
 
@@ -286,6 +293,59 @@ and expands to the exact 81,327,382-byte diagnostic JSON. The scalar guard is
 therefore retained as a negative result and is not recommended over the parent
 selector.
 
+## Post-completion audit conclusion
+
+The parent selector's simultaneous block interval covered 16/20 rehearsal
+blocks, 26/30 guard-calibration blocks, and 38/50 reserved blocks. These are
+100 fresh blocks drawn after the parent rule froze. Combined coverage was
+80/100, with a 95% Wilson interval of 71.1% to 86.7% and a two-sided binomial
+test p-value of 0.002 against the 90% target. This is evidence that this frozen
+artifact under-covered in the declared synthetic generator. It does not prove
+that a random-stream defect remains or that pooled conformal calibration is
+intrinsically invalid.
+
+The post hoc diagnosis localized 19/20 misses to the selector's voltage branch
+under temperature-dependent-contact truth. The selector used 0.030400 K of
+padding, compared with 0.070730 K for fixed voltage; fixed voltage covered 14
+of those 19 missed devices. Small-sample calibration variation and pooling
+heterogeneous action branches are both plausible contributors. This diagnosis
+was not predeclared and is not a universal causal result.
+
+The reserved fixed-policy results provide the following descriptive tradeoff.
+No selector-versus-fixed contrast was predeclared before the reserved cohort,
+so the table does not support a confirmatory superiority claim.
+
+| Procedure | Definitive decisions | Block coverage | Mean runs | Mean realized energy | Balanced loss |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Stop now | 69/150 | 45/50 | 2.00 | 60.86 J | 0.540 |
+| Fixed thermal | 87/150 | 45/50 | 5.00 | 99.49 J | 0.783 |
+| Fixed voltage | 89/150 | 45/50 | 3.00 | 89.73 J | 0.654 |
+| Fixed face temperature | 83/150 | 45/50 | 3.00 | 89.62 J | 0.694 |
+| Parent stop-or-voltage selector | 98/150 | 38/50 | 2.65 | 79.54 J | 0.507 |
+| Guarded selector | 93/150 | 40/50 | 2.49 | 74.86 J | 0.525 |
+
+The fixed policies all reached 45/50 block coverage, while the parent and
+guarded selectors reached 38/50 and 40/50. The selectors' higher decision
+coverage or lower scalar loss cannot be read as evidence that they beat the
+fixed policies because those apparent advantages coincided with undercoverage.
+All procedures observed zero decision errors, but the approval counts are too
+small to establish a near-zero conditional risk.
+
+Nominal selection energy and realized terminal energy were close in this
+cohort. The fixed procedures differed by at most 0.24% in their cohort means;
+the parent selector's nominal mean was 79.35 J versus 79.54 J realized, and the
+guarded selector's nominal mean was 74.64 J versus 74.86 J realized. The
+nominal proxy therefore preserved the energy ordering in this cohort. This is
+a descriptive result for the frozen generator, not evidence about reset
+energy, sensor electronics, wall-clock time, or hardware energy.
+
+Differences from the original Stage 3–5 campaign cannot be attributed to the
+random-stream repair alone. The corrected replication also used twelve fit
+iterations, buffered inference bounds, projected-KKT convergence, candidate
+exclusion for bound hits and nonconvergence, and realized terminal-energy
+accounting. Historical comparisons must identify this complete numerical
+protocol change.
+
 ## Resource accounting
 
 The action rule may use a predeclared nominal energy proxy because hidden device
@@ -297,6 +357,14 @@ on every acquisition and verification run. Reports label the two quantities as
 Reset time, reset energy, sensor electronics, and complete wall-clock decision
 time remain outside the simulator. Reports must not call the energized schedule
 duration total bench time or use the incomplete timer as a resource claim.
+
+## Recorded runtime
+
+The corrected scientific chain was generated with CPython 3.10.12. That exact
+implementation and version are stored in the source manifest, and artifact
+verification rejects a different runtime. This requirement applies to exact
+replay of the corrected replication; the package itself continues to declare
+Python 3.10 or newer for ordinary use.
 
 ## Source and diagnostic freeze
 
@@ -325,16 +393,19 @@ resources.
 ## External evidence policy
 
 The gate-development and parent-calibration diagnostics were already committed
-as complete JSON records when the parent rule froze. They remain immutable in
-history; rewriting those commits would weaken the reveal chronology. Later
-complete diagnostic files are kept outside normal Git history so rehearsal,
-guard, and final evidence do not add hundreds of megabytes to every checkout.
+as complete JSON records when the parent rule froze. They remain preserved in
+the existing commits; rewriting those commits would weaken the reveal
+chronology. Later complete diagnostic files are kept outside normal Git history
+so rehearsal, guard, and final evidence do not add hundreds of megabytes to
+every checkout.
 
 Git continues to track each frozen rule artifact, compact outcome table,
 human-readable report, and a content-addressed evidence manifest. The complete
 diagnostic JSON is validated, compressed with deterministic gzip metadata, and
-uploaded to the immutable GitHub release named in that manifest. Each manifest
-records the generating commit and canonical command, scientific partition,
+uploaded to the GitHub release named in that manifest. Those releases were
+reported by the GitHub API as mutable on 2026-09-17: their committed hashes make
+replacement detectable, but do not prevent deletion or replacement. Each
+manifest records the generating commit and canonical command, scientific partition,
 record and stream-audit counts, deterministic evidence digest, exact raw and
 archive byte counts and SHA-256 hashes, and the release URL. Downloading and
 decompressing the archive must reproduce the raw JSON hash before its evidence
@@ -359,8 +430,8 @@ there is no repository-wide JSON ignore rule. The compact manifests are:
 
 For every command, capture the full `HEAD` immediately before invoking the
 synchronous replication process and pass that literal SHA to the postprocessor.
-Commit the compact outputs and manifest, create the manifest's immutable release
-tag at that evidence commit, upload the content-addressed archive, then download
+Commit the compact outputs and manifest, create the manifest's release tag at
+that evidence commit, upload the content-addressed archive, then download
 and verify its SHA-256 and gzip round trip before proceeding to the next reveal
 boundary.
 
@@ -469,11 +540,11 @@ preferred.
 ## Following experiment
 
 This replication is complete and does not promote the scalar mismatch guard.
-The next protocol should implement the original prospective selector. From the
-common acquisition it
-will estimate the expected change in final-margin uncertainty for stop,
-thermal, voltage, and face-temperature actions, divide that change by frozen
-costs, and map the selected action over sensor and test-cost ratios. That
-selector will receive its own development partitions and an unseen final
-cohort; the corrected replication's reserved labels will not be used to tune
-it.
+The separate prospective protocol has implemented development interfaces for
+four-action selection, uncertainty estimation, and resource cost. It has not
+opened a pilot, development, calibration, or reserved partition. Its next work
+is to harden padded scoring and stopping semantics before a small disposable
+draw-count pilot; see
+[`OPERATING_DECISION_PROJECT_STATUS.md`](OPERATING_DECISION_PROJECT_STATUS.md)
+and the
+[`prospective partition ledger`](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md).

@@ -3,6 +3,16 @@
 Status: Stage 2 development pilot complete on 2026-09-10. This is synthetic
 development evidence, not a frozen evaluation or hardware validation.
 
+Audit note (2026-09-17): the September 11–12 audit reproduced every displayed
+Stage 2 number, then found deterministic random-stream collisions in the
+shared historical generator. The table below is retained unchanged as
+descriptive development history; it has no independent-sample or inferential
+interpretation. The later collision-free corrected replication and the
+prospective four-action experiment supersede it for current conclusions. See
+[`OPERATING_DECISION_AUDIT.md`](../docs/thermotwin/OPERATING_DECISION_AUDIT.md)
+and
+[`OPERATING_DECISION_PROJECT_STATUS.md`](../docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md).
+
 Stage 3 now reruns these unchanged policies with electrical-contact loss,
 temporary face-probe loading, and an omitted temperature-dependent-contact
 truth family. See [the realism stress test](OPERATING_DECISION_REALISM.md).
@@ -106,9 +116,12 @@ idealized pilot, with voltage close behind and with the same run count and
 modeled energy. The four-run acquisition package spends two more total runs
 than either added-sensor policy while resolving fewer devices.
 
-The absence of observed false approvals is not a zero-risk result. For example,
-zero false approvals among seven approvals still has a 35.4% upper 95% Wilson
-bound. The cohort is small, both truths come from candidate model families, the
+The absence of observed false approvals is not a zero-risk result. The
+historical report calculated 35.4% as the upper endpoint of a two-sided 95%
+Wilson interval for zero false approvals among seven approvals. That
+descriptive endpoint is not a predeclared one-sided risk bound, and the audited
+stream dependence removes an independent-sample interpretation from this
+cohort. The cohort is small, both truths come from candidate model families, the
 verification threshold is uncalibrated, and local covariance propagation can
 understate uncertainty for a margin defined by a minimum over time. One of 20
 face-policy intervals and one of 20 thermal-policy intervals miss the true

@@ -30,6 +30,7 @@ from thermotwin.studies.operating_decision_prospective import (
     CandidateExclusion,
     ProspectiveAcquisitionSnapshot,
     ProspectiveActionEvaluation,
+    ProspectiveDevelopmentOffsets,
     ProspectiveSelectorRule,
     build_prospective_acquisition_snapshot,
     prospective_selector_protocol_digest,
@@ -64,6 +65,9 @@ def _evaluation(
     after=0.5,
     cost=1.0,
     eligible=True,
+    raw_before=None,
+    raw_after=None,
+    development_offset=None,
 ):
     if policy_name == STOP_NOW:
         return ProspectiveActionEvaluation(STOP_NOW, True)
@@ -76,6 +80,9 @@ def _evaluation(
         expected_uncertainty_after=after,
         declared_cost=cost,
         prospective_draw_count=8,
+        raw_uncertainty_before=raw_before,
+        raw_expected_uncertainty_after=raw_after,
+        development_offset=development_offset,
     )
 
 
@@ -241,7 +248,7 @@ class OperatingDecisionProspectiveTests(unittest.TestCase):
 
     def test_resolved_envelope_stops_but_still_requires_verification(self):
         selection = select_prospective_action(
-            _acquisition_snapshot(MarginEnvelope(0.10, 0.30)),
+            _acquisition_snapshot(MarginEnvelope(0.10, 1.10)),
             _evaluations(),
         )
         self.assertEqual(selection.selected_policy, STOP_NOW)
@@ -252,7 +259,7 @@ class OperatingDecisionProspectiveTests(unittest.TestCase):
 
     def test_unresolved_envelope_selects_maximum_value_per_cost(self):
         selection = select_prospective_action(
-            _acquisition_snapshot(MarginEnvelope(-0.10, 0.30)),
+            _acquisition_snapshot(MarginEnvelope(-0.10, 0.90)),
             _evaluations(),
         )
         self.assertEqual(selection.selected_policy, FIXED_VOLTAGE)
@@ -276,7 +283,7 @@ class OperatingDecisionProspectiveTests(unittest.TestCase):
             ),
         )
         selection = select_prospective_action(
-            _acquisition_snapshot(MarginEnvelope(-0.10, 0.30)),
+            _acquisition_snapshot(MarginEnvelope(-0.10, 0.90)),
             evaluations,
         )
         self.assertEqual(selection.selected_policy, FIXED_THERMAL)
@@ -297,7 +304,7 @@ class OperatingDecisionProspectiveTests(unittest.TestCase):
             _evaluation(FIXED_FACE_TEMPERATURE, after=0.8, cost=0.2),
         )
         selection = select_prospective_action(
-            _acquisition_snapshot(MarginEnvelope(-0.10, 0.30)),
+            _acquisition_snapshot(MarginEnvelope(-0.10, 0.90)),
             evaluations,
         )
         self.assertEqual(selection.selected_policy, FIXED_VOLTAGE)
@@ -315,7 +322,7 @@ class OperatingDecisionProspectiveTests(unittest.TestCase):
             _evaluation(FIXED_FACE_TEMPERATURE, before=1.0, after=1.0),
         )
         selection = select_prospective_action(
-            _acquisition_snapshot(MarginEnvelope(-0.10, 0.30)),
+            _acquisition_snapshot(MarginEnvelope(-0.10, 0.90)),
             evaluations,
         )
         self.assertEqual(selection.selected_policy, STOP_NOW)
@@ -337,6 +344,180 @@ class OperatingDecisionProspectiveTests(unittest.TestCase):
         self.assertFalse(selection.verification_required)
         self.assertEqual(selection.reason, "no_scored_acquisition_action")
 
+    def test_padded_stop_gate_records_single_candidate_surcharge(self):
+        offsets = ProspectiveDevelopmentOffsets(
+            version="development_probe_v1",
+            stop_now=0.05,
+        )
+        rule = ProspectiveSelectorRule(
+            development_offsets=offsets,
+            stopping_clearance=0.05,
+            single_candidate_stopping_clearance=0.03,
+        )
+        snapshot = _acquisition_snapshot(MarginEnvelope(0.12, 0.30))
+        padded_evaluations = (
+            _evaluation(STOP_NOW),
+            _evaluation(
+                FIXED_THERMAL,
+                before=0.28,
+                after=0.24,
+                raw_before=0.18,
+                raw_after=0.24,
+                development_offset=0.0,
+            ),
+            _evaluation(
+                FIXED_VOLTAGE,
+                before=0.28,
+                after=0.20,
+                raw_before=0.18,
+                raw_after=0.20,
+                development_offset=0.0,
+            ),
+            _evaluation(
+                FIXED_FACE_TEMPERATURE,
+                before=0.28,
+                after=0.22,
+                raw_before=0.18,
+                raw_after=0.22,
+                development_offset=0.0,
+            ),
+        )
+        selection = select_prospective_action(snapshot, padded_evaluations, rule)
+        self.assertEqual(selection.selected_policy, FIXED_VOLTAGE)
+        self.assertAlmostEqual(
+            selection.padded_initial_margin_envelope.lower,
+            0.07,
+        )
+        self.assertAlmostEqual(
+            selection.padded_initial_margin_envelope.upper,
+            0.35,
+        )
+        self.assertEqual(selection.admissible_candidate_count, 1)
+        self.assertEqual(
+            selection.candidate_reliability_stratum,
+            "one_admissible_candidate",
+        )
+        self.assertEqual(selection.effective_stopping_clearance, 0.08)
+        self.assertEqual(
+            selection.selector_protocol_digest,
+            prospective_selector_protocol_digest(rule),
+        )
+
+        resolved = select_prospective_action(
+            _acquisition_snapshot(MarginEnvelope(0.14, 0.30)),
+            (
+                _evaluation(STOP_NOW),
+                _evaluation(
+                    FIXED_THERMAL,
+                    before=0.26,
+                    after=0.22,
+                    raw_before=0.16,
+                    raw_after=0.22,
+                    development_offset=0.0,
+                ),
+                _evaluation(
+                    FIXED_VOLTAGE,
+                    before=0.26,
+                    after=0.18,
+                    raw_before=0.16,
+                    raw_after=0.18,
+                    development_offset=0.0,
+                ),
+                _evaluation(
+                    FIXED_FACE_TEMPERATURE,
+                    before=0.26,
+                    after=0.20,
+                    raw_before=0.16,
+                    raw_after=0.20,
+                    development_offset=0.0,
+                ),
+            ),
+            rule,
+        )
+        self.assertEqual(resolved.selected_policy, STOP_NOW)
+        self.assertTrue(resolved.verification_required)
+
+    def test_rule_digest_binds_offsets_and_single_candidate_clearance(self):
+        first = ProspectiveSelectorRule(
+            development_offsets=ProspectiveDevelopmentOffsets(
+                version="development_offsets_v1",
+                fixed_voltage=0.02,
+            ),
+            single_candidate_stopping_clearance=0.01,
+        )
+        second = ProspectiveSelectorRule(
+            development_offsets=ProspectiveDevelopmentOffsets(
+                version="development_offsets_v2",
+                fixed_voltage=0.02,
+            ),
+            single_candidate_stopping_clearance=0.01,
+        )
+        third = ProspectiveSelectorRule(
+            development_offsets=first.development_offsets,
+            single_candidate_stopping_clearance=0.02,
+        )
+        self.assertNotEqual(
+            prospective_selector_protocol_digest(first),
+            prospective_selector_protocol_digest(second),
+        )
+        self.assertNotEqual(
+            prospective_selector_protocol_digest(first),
+            prospective_selector_protocol_digest(third),
+        )
+        self.assertEqual(
+            prospective_selector_rule_from_payload(
+                prospective_selector_rule_payload(first)
+            ),
+            first,
+        )
+
+    def test_reserved_unfitted_offset_version_requires_zero_values(self):
+        with self.assertRaisesRegex(ValueError, "unfitted-zero"):
+            ProspectiveDevelopmentOffsets(stop_now=0.01)
+
+    def test_selector_rejects_mispaired_or_incorrectly_padded_baselines(self):
+        snapshot = _acquisition_snapshot(MarginEnvelope(-0.10, 0.90))
+        mispaired = list(_evaluations())
+        mispaired[1] = _evaluation(
+            FIXED_THERMAL,
+            before=1.0,
+            after=0.6,
+            raw_before=0.9,
+            raw_after=0.6,
+            development_offset=0.0,
+        )
+        with self.assertRaisesRegex(ValueError, "raw uncertainty baseline"):
+            select_prospective_action(snapshot, mispaired)
+
+        offsets = ProspectiveDevelopmentOffsets(
+            version="development_offsets_v1",
+            stop_now=0.05,
+        )
+        with self.assertRaisesRegex(ValueError, "padded uncertainty baseline"):
+            select_prospective_action(
+                snapshot,
+                _evaluations(),
+                ProspectiveSelectorRule(development_offsets=offsets),
+            )
+
+    def test_thresholds_select_the_best_qualifying_action(self):
+        evaluations = (
+            _evaluation(STOP_NOW),
+            _evaluation(FIXED_THERMAL, after=0.8, cost=0.1),
+            _evaluation(FIXED_VOLTAGE, after=0.6, cost=1.0),
+            _evaluation(FIXED_FACE_TEMPERATURE, after=0.9, cost=1.0),
+        )
+        selection = select_prospective_action(
+            _acquisition_snapshot(MarginEnvelope(-0.10, 0.90)),
+            evaluations,
+            ProspectiveSelectorRule(
+                minimum_expected_reduction=0.3,
+                minimum_utility_per_cost=0.1,
+            ),
+        )
+        self.assertEqual(selection.ranked_policies[0], FIXED_THERMAL)
+        self.assertEqual(selection.selected_policy, FIXED_VOLTAGE)
+
     def test_all_eligible_actions_share_the_common_uncertainty_baseline(self):
         evaluations = list(_evaluations())
         evaluations[2] = _evaluation(
@@ -351,7 +532,7 @@ class OperatingDecisionProspectiveTests(unittest.TestCase):
             )
 
     def test_selection_boundaries_are_frozen(self):
-        snapshot = _acquisition_snapshot(MarginEnvelope(-0.10, 0.30))
+        snapshot = _acquisition_snapshot(MarginEnvelope(-0.10, 0.90))
         evaluations = (
             _evaluation(STOP_NOW),
             _evaluation(FIXED_THERMAL, after=0.6),
@@ -380,21 +561,24 @@ class OperatingDecisionProspectiveTests(unittest.TestCase):
         self.assertEqual(below_threshold.selected_policy, FIXED_THERMAL)
 
         positive_boundary = select_prospective_action(
-            _acquisition_snapshot(MarginEnvelope(0.10, 0.30)),
+            _acquisition_snapshot(MarginEnvelope(0.10, 1.10)),
             evaluations,
             ProspectiveSelectorRule(stopping_clearance=0.10),
         )
         self.assertEqual(positive_boundary.selected_policy, STOP_NOW)
 
         negative_boundary = select_prospective_action(
-            _acquisition_snapshot(MarginEnvelope(-0.30, -0.10)),
+            _acquisition_snapshot(MarginEnvelope(-1.10, -0.10)),
             evaluations,
             ProspectiveSelectorRule(stopping_clearance=0.10),
         )
         self.assertEqual(negative_boundary.selected_policy, FIXED_THERMAL)
         below_negative_boundary = select_prospective_action(
             _acquisition_snapshot(
-                MarginEnvelope(-0.30, math.nextafter(-0.10, -math.inf))
+                MarginEnvelope(
+                    math.nextafter(-0.10, -math.inf) - 1.0,
+                    math.nextafter(-0.10, -math.inf),
+                )
             ),
             evaluations,
             ProspectiveSelectorRule(stopping_clearance=0.10),
@@ -414,7 +598,7 @@ class OperatingDecisionProspectiveTests(unittest.TestCase):
             ),
         )
         selection = select_prospective_action(
-            _acquisition_snapshot(MarginEnvelope(-0.10, 0.30)),
+            _acquisition_snapshot(MarginEnvelope(-5.0e307, 5.0e307)),
             evaluations,
         )
         self.assertEqual(selection.selected_policy, FIXED_THERMAL)
@@ -425,7 +609,7 @@ class OperatingDecisionProspectiveTests(unittest.TestCase):
     def test_selection_output_copies_mutable_scorecard_inputs(self):
         evaluations = list(_evaluations())
         selection = select_prospective_action(
-            _acquisition_snapshot(MarginEnvelope(-0.10, 0.30)),
+            _acquisition_snapshot(MarginEnvelope(-0.10, 0.90)),
             evaluations,
         )
         evaluations.append(_evaluation(FIXED_VOLTAGE))

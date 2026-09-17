@@ -31,15 +31,22 @@ from .operating_decision_prospective import (
     ProspectiveActionEvaluation,
     ProspectiveSelection,
     ProspectiveSelectorRule,
+    prospective_action_catalog_digest,
     prospective_selector_protocol_digest,
+    prospective_selector_rule_from_payload,
+    prospective_selector_rule_payload,
     select_prospective_action,
 )
 from .operating_decision_prospective_uncertainty import (
     ProspectiveActionUncertainty,
+    ProspectivePaddedActionUncertainty,
+    ProspectivePaddedModelActionSummary,
+    PROSPECTIVE_PADDED_SCORING_PROTOCOL,
     ProspectiveUncertaintyConfig,
     ProspectiveUncertaintyResult,
     prospective_uncertainty_protocol_digest,
-    prospective_uncertainty_result_payload,
+    score_prospective_uncertainty_with_offsets,
+    validate_prospective_uncertainty_result_integrity,
 )
 from .operating_decision_realism import (
     OperatingDecisionRealismConfig,
@@ -57,9 +64,11 @@ from .sensor_model_discrimination import (
 )
 
 
-PROSPECTIVE_COST_SCHEMA_VERSION = 1
-PROSPECTIVE_COST_PROTOCOL_VERSION = "operating_decision_prospective_cost_v1"
-PROSPECTIVE_COST_FORMULA = "convex_weighted_normalized_resource_sum_v1"
+PROSPECTIVE_COST_SCHEMA_VERSION = 2
+PROSPECTIVE_COST_PROTOCOL_VERSION = "operating_decision_prospective_cost_v2"
+PROSPECTIVE_COST_FORMULA = (
+    "development_padded_width_reduction_over_normalized_resource_cost_v2"
+)
 PROSPECTIVE_COST_ENERGY_CONVENTION = (
     "full_diagnostic_plan_incremental_nominal_terminal_energy_vs_stop_v1"
 )
@@ -463,6 +472,14 @@ def _action_evaluation_payload(evaluation: ProspectiveActionEvaluation) -> dict:
         "failure_reason": evaluation.failure_reason,
         "uncertainty_before": evaluation.uncertainty_before,
         "expected_uncertainty_after": evaluation.expected_uncertainty_after,
+        "raw_uncertainty_before": evaluation.raw_uncertainty_before,
+        "raw_expected_uncertainty_after": (
+            evaluation.raw_expected_uncertainty_after
+        ),
+        "raw_expected_uncertainty_reduction": (
+            evaluation.raw_expected_uncertainty_reduction
+        ),
+        "development_offset": evaluation.development_offset,
         "expected_uncertainty_reduction": (
             evaluation.expected_uncertainty_reduction
         ),
@@ -630,11 +647,31 @@ def _build_action_costs(
 
 
 def _build_action_evaluations(
-    uncertainties: Sequence[ProspectiveActionUncertainty],
+    uncertainties: Sequence[
+        ProspectivePaddedActionUncertainty | ProspectiveActionUncertainty
+    ],
     costs: Sequence[ProspectiveActionCost],
 ) -> Tuple[ProspectiveActionEvaluation, ...]:
     uncertainties = tuple(uncertainties)
     costs = tuple(costs)
+    uncertainties = tuple(
+        item
+        if isinstance(item, ProspectivePaddedActionUncertainty)
+        else ProspectivePaddedActionUncertainty(
+            raw_action=item,
+            development_offset=0.0,
+            padded_uncertainty_before=item.uncertainty_before,
+            padded_expected_uncertainty_after=item.expected_uncertainty_after,
+            source_summaries=tuple(
+                ProspectivePaddedModelActionSummary(
+                    raw_summary=summary,
+                    padded_mean_after_width=summary.mean_after_width,
+                )
+                for summary in item.source_summaries
+            ),
+        )
+        for item in uncertainties
+    )
     if tuple(item.policy_name for item in uncertainties) != POLICY_NAMES:
         raise ValueError("uncertainty actions must use canonical policy order")
     if tuple(item.policy_name for item in costs) != POLICY_NAMES:
@@ -656,12 +693,21 @@ def _build_action_evaluations(
                 ProspectiveActionEvaluation(
                     policy_name=uncertainty.policy_name,
                     eligible=True,
-                    uncertainty_before=uncertainty.uncertainty_before,
+                    uncertainty_before=uncertainty.padded_uncertainty_before,
                     expected_uncertainty_after=(
-                        uncertainty.expected_uncertainty_after
+                        uncertainty.padded_expected_uncertainty_after
                     ),
                     declared_cost=cost.declared_cost,
-                    prospective_draw_count=uncertainty.prospective_draw_count,
+                    prospective_draw_count=(
+                        uncertainty.raw_action.prospective_draw_count
+                    ),
+                    raw_uncertainty_before=(
+                        uncertainty.raw_action.uncertainty_before
+                    ),
+                    raw_expected_uncertainty_after=(
+                        uncertainty.raw_action.expected_uncertainty_after
+                    ),
+                    development_offset=uncertainty.development_offset,
                 )
             )
     return tuple(evaluations)
@@ -671,6 +717,7 @@ def prospective_cost_protocol_digest(
     physical_config: OperatingDecisionRealismConfig,
     uncertainty_config: ProspectiveUncertaintyConfig = ProspectiveUncertaintyConfig(),
     scenario: ProspectiveCostScenario = PRIMARY_PROSPECTIVE_COST_SCENARIO,
+    selector_rule: ProspectiveSelectorRule = ProspectiveSelectorRule(),
 ) -> str:
     """Bind Step 3 resources, normalization, and upstream Step 2 protocol."""
 
@@ -680,6 +727,8 @@ def prospective_cost_protocol_digest(
         raise ValueError("prospective cost protocol needs an uncertainty configuration")
     if not isinstance(scenario, ProspectiveCostScenario):
         raise ValueError("prospective cost protocol needs a cost scenario")
+    if not isinstance(selector_rule, ProspectiveSelectorRule):
+        raise ValueError("prospective cost protocol needs a selector rule")
     resources = _build_action_resources(physical_config, scenario)
     costs, energy_reference, time_reference = _build_action_costs(
         resources,
@@ -691,6 +740,7 @@ def prospective_cost_protocol_digest(
             "schema_version": PROSPECTIVE_COST_SCHEMA_VERSION,
             "protocol_version": PROSPECTIVE_COST_PROTOCOL_VERSION,
             "formula": PROSPECTIVE_COST_FORMULA,
+            "padded_scoring_protocol": PROSPECTIVE_PADDED_SCORING_PROTOCOL,
             "energy_convention": PROSPECTIVE_COST_ENERGY_CONVENTION,
             "time_convention": PROSPECTIVE_COST_TIME_CONVENTION,
             "instrumentation_convention": (
@@ -706,7 +756,11 @@ def prospective_cost_protocol_digest(
                 physical_config,
                 uncertainty_config,
             ),
-            "selector_protocol_digest": prospective_selector_protocol_digest(),
+            "action_catalog_digest": prospective_action_catalog_digest(),
+            "selector_protocol_digest": prospective_selector_protocol_digest(
+                selector_rule
+            ),
+            "selector_rule": prospective_selector_rule_payload(selector_rule),
             "scenario": _scenario_payload(scenario),
             "energy_reference_joules": energy_reference,
             "bench_time_reference_seconds": time_reference,
@@ -722,6 +776,7 @@ def _result_digest(
     *,
     uncertainty_result: ProspectiveUncertaintyResult,
     scenario: ProspectiveCostScenario,
+    selector_rule: ProspectiveSelectorRule,
     protocol_digest: str,
     energy_reference_joules: float,
     bench_time_reference_seconds: float,
@@ -737,6 +792,7 @@ def _result_digest(
                 uncertainty_result.acquisition_evidence.evidence_digest
             ),
             "scenario": _scenario_payload(scenario),
+            "selector_rule": prospective_selector_rule_payload(selector_rule),
             "protocol_digest": protocol_digest,
             "energy_reference_joules": energy_reference_joules,
             "bench_time_reference_seconds": bench_time_reference_seconds,
@@ -757,6 +813,7 @@ class ProspectiveCostedScorecard:
 
     uncertainty_result: ProspectiveUncertaintyResult
     scenario: ProspectiveCostScenario
+    selector_rule: ProspectiveSelectorRule
     protocol_digest: str
     energy_reference_joules: float
     bench_time_reference_seconds: float
@@ -768,9 +825,13 @@ class ProspectiveCostedScorecard:
     def __post_init__(self) -> None:
         if not isinstance(self.uncertainty_result, ProspectiveUncertaintyResult):
             raise ValueError("costed scorecard needs a Step-2 uncertainty result")
-        prospective_uncertainty_result_payload(self.uncertainty_result)
+        validate_prospective_uncertainty_result_integrity(
+            self.uncertainty_result
+        )
         if not isinstance(self.scenario, ProspectiveCostScenario):
             raise ValueError("costed scorecard needs a cost scenario")
+        if not isinstance(self.selector_rule, ProspectiveSelectorRule):
+            raise ValueError("costed scorecard needs its actual selector rule")
         resources = tuple(self.action_resources)
         costs = tuple(self.action_costs)
         evaluations = tuple(self.action_evaluations)
@@ -795,8 +856,12 @@ class ProspectiveCostedScorecard:
         expected_costs, expected_energy_reference, expected_time_reference = (
             _build_action_costs(expected_resources, self.scenario)
         )
+        padded_uncertainties = score_prospective_uncertainty_with_offsets(
+            self.uncertainty_result,
+            self.selector_rule.development_offsets,
+        )
         expected_evaluations = _build_action_evaluations(
-            self.uncertainty_result.action_uncertainties,
+            padded_uncertainties,
             expected_costs,
         )
         if resources != expected_resources:
@@ -815,6 +880,7 @@ class ProspectiveCostedScorecard:
             self.uncertainty_result.physical_config,
             self.uncertainty_result.config,
             self.scenario,
+            self.selector_rule,
         )
         if self.protocol_digest != expected_protocol:
             raise ValueError("prospective cost protocol digest is invalid")
@@ -822,6 +888,7 @@ class ProspectiveCostedScorecard:
         expected_result = _result_digest(
             uncertainty_result=self.uncertainty_result,
             scenario=self.scenario,
+            selector_rule=self.selector_rule,
             protocol_digest=self.protocol_digest,
             energy_reference_joules=energy_reference,
             bench_time_reference_seconds=time_reference,
@@ -836,31 +903,40 @@ class ProspectiveCostedScorecard:
 def cost_prospective_uncertainty(
     uncertainty_result: ProspectiveUncertaintyResult,
     scenario: ProspectiveCostScenario = PRIMARY_PROSPECTIVE_COST_SCENARIO,
+    selector_rule: ProspectiveSelectorRule = ProspectiveSelectorRule(),
 ) -> ProspectiveCostedScorecard:
-    """Attach frozen resource costs to one authenticated Step-2 result."""
+    """Attach costs and one actual padded selector rule to raw Step-2 evidence."""
 
     if not isinstance(uncertainty_result, ProspectiveUncertaintyResult):
         raise ValueError("prospective costing needs a Step-2 uncertainty result")
-    prospective_uncertainty_result_payload(uncertainty_result)
+    validate_prospective_uncertainty_result_integrity(uncertainty_result)
     if not isinstance(scenario, ProspectiveCostScenario):
         raise ValueError("prospective costing needs a cost scenario")
+    if not isinstance(selector_rule, ProspectiveSelectorRule):
+        raise ValueError("prospective costing needs a selector rule")
     resources = _build_action_resources(uncertainty_result.physical_config, scenario)
     costs, energy_reference, time_reference = _build_action_costs(
         resources,
         scenario,
     )
+    padded_uncertainties = score_prospective_uncertainty_with_offsets(
+        uncertainty_result,
+        selector_rule.development_offsets,
+    )
     evaluations = _build_action_evaluations(
-        uncertainty_result.action_uncertainties,
+        padded_uncertainties,
         costs,
     )
     protocol_digest = prospective_cost_protocol_digest(
         uncertainty_result.physical_config,
         uncertainty_result.config,
         scenario,
+        selector_rule,
     )
     result_digest = _result_digest(
         uncertainty_result=uncertainty_result,
         scenario=scenario,
+        selector_rule=selector_rule,
         protocol_digest=protocol_digest,
         energy_reference_joules=energy_reference,
         bench_time_reference_seconds=time_reference,
@@ -871,6 +947,7 @@ def cost_prospective_uncertainty(
     return ProspectiveCostedScorecard(
         uncertainty_result=uncertainty_result,
         scenario=scenario,
+        selector_rule=selector_rule,
         protocol_digest=protocol_digest,
         energy_reference_joules=energy_reference,
         bench_time_reference_seconds=time_reference,
@@ -883,18 +960,23 @@ def cost_prospective_uncertainty(
 
 def select_costed_prospective_action(
     scorecard: ProspectiveCostedScorecard,
-    rule: ProspectiveSelectorRule = ProspectiveSelectorRule(),
+    rule: ProspectiveSelectorRule | None = None,
 ) -> ProspectiveSelection:
     """Select from the scorecard and its bound acquisition snapshot."""
 
     if not isinstance(scorecard, ProspectiveCostedScorecard):
         raise ValueError("costed selection needs a prospective scorecard")
-    if not isinstance(rule, ProspectiveSelectorRule):
+    if rule is not None and not isinstance(rule, ProspectiveSelectorRule):
         raise ValueError("costed selection needs a prospective selector rule")
+    selected_rule = scorecard.selector_rule if rule is None else rule
+    if prospective_selector_protocol_digest(selected_rule) != (
+        prospective_selector_protocol_digest(scorecard.selector_rule)
+    ):
+        raise ValueError("costed selection rule does not match its scorecard")
     return select_prospective_action(
         scorecard.uncertainty_result.acquisition_evidence.snapshot,
         scorecard.action_evaluations,
-        rule,
+        selected_rule,
     )
 
 
@@ -908,6 +990,7 @@ def prospective_costed_scorecard_payload(
     expected_result = _result_digest(
         uncertainty_result=scorecard.uncertainty_result,
         scenario=scorecard.scenario,
+        selector_rule=scorecard.selector_rule,
         protocol_digest=scorecard.protocol_digest,
         energy_reference_joules=scorecard.energy_reference_joules,
         bench_time_reference_seconds=scorecard.bench_time_reference_seconds,
@@ -921,6 +1004,7 @@ def prospective_costed_scorecard_payload(
         "schema_version": PROSPECTIVE_COST_SCHEMA_VERSION,
         "protocol_version": PROSPECTIVE_COST_PROTOCOL_VERSION,
         "formula": PROSPECTIVE_COST_FORMULA,
+        "padded_scoring_protocol": PROSPECTIVE_PADDED_SCORING_PROTOCOL,
         "energy_convention": PROSPECTIVE_COST_ENERGY_CONVENTION,
         "time_convention": PROSPECTIVE_COST_TIME_CONVENTION,
         "instrumentation_convention": (
@@ -932,6 +1016,13 @@ def prospective_costed_scorecard_payload(
         ),
         "uncertainty_protocol_digest": scorecard.uncertainty_result.protocol_digest,
         "uncertainty_result_digest": scorecard.uncertainty_result.result_digest,
+        "action_catalog_digest": prospective_action_catalog_digest(),
+        "selector_protocol_digest": prospective_selector_protocol_digest(
+            scorecard.selector_rule
+        ),
+        "selector_rule": prospective_selector_rule_payload(
+            scorecard.selector_rule
+        ),
         "acquisition_evidence_digest": (
             scorecard.uncertainty_result.acquisition_evidence.evidence_digest
         ),
@@ -1063,6 +1154,10 @@ def _action_evaluation_from_payload(payload: object) -> ProspectiveActionEvaluat
             "failure_reason",
             "uncertainty_before",
             "expected_uncertainty_after",
+            "raw_uncertainty_before",
+            "raw_expected_uncertainty_after",
+            "raw_expected_uncertainty_reduction",
+            "development_offset",
             "expected_uncertainty_reduction",
             "declared_cost",
             "utility_per_cost",
@@ -1078,10 +1173,17 @@ def _action_evaluation_from_payload(payload: object) -> ProspectiveActionEvaluat
         expected_uncertainty_after=item["expected_uncertainty_after"],
         declared_cost=item["declared_cost"],
         prospective_draw_count=item["prospective_draw_count"],
+        raw_uncertainty_before=item["raw_uncertainty_before"],
+        raw_expected_uncertainty_after=(
+            item["raw_expected_uncertainty_after"]
+        ),
+        development_offset=item["development_offset"],
     )
     if (
         item["expected_uncertainty_reduction"]
         != evaluation.expected_uncertainty_reduction
+        or item["raw_expected_uncertainty_reduction"]
+        != evaluation.raw_expected_uncertainty_reduction
         or item["utility_per_cost"] != evaluation.utility_per_cost
     ):
         raise ValueError("prospective action evaluation derivatives are invalid")
@@ -1100,6 +1202,7 @@ def prospective_costed_scorecard_from_payload(
             "schema_version",
             "protocol_version",
             "formula",
+            "padded_scoring_protocol",
             "energy_convention",
             "time_convention",
             "instrumentation_convention",
@@ -1107,6 +1210,9 @@ def prospective_costed_scorecard_from_payload(
             "physical_protocol_digest",
             "uncertainty_protocol_digest",
             "uncertainty_result_digest",
+            "action_catalog_digest",
+            "selector_protocol_digest",
+            "selector_rule",
             "acquisition_evidence_digest",
             "protocol_digest",
             "result_digest",
@@ -1119,11 +1225,15 @@ def prospective_costed_scorecard_from_payload(
         },
         "prospective costed scorecard",
     )
-    if type(item["schema_version"]) is not int or item["schema_version"] != 1:
+    if (
+        type(item["schema_version"]) is not int
+        or item["schema_version"] != PROSPECTIVE_COST_SCHEMA_VERSION
+    ):
         raise ValueError("prospective cost schema version is unsupported")
     fixed_values = {
         "protocol_version": PROSPECTIVE_COST_PROTOCOL_VERSION,
         "formula": PROSPECTIVE_COST_FORMULA,
+        "padded_scoring_protocol": PROSPECTIVE_PADDED_SCORING_PROTOCOL,
         "energy_convention": PROSPECTIVE_COST_ENERGY_CONVENTION,
         "time_convention": PROSPECTIVE_COST_TIME_CONVENTION,
         "instrumentation_convention": (
@@ -1147,12 +1257,20 @@ def prospective_costed_scorecard_from_payload(
     }
     if any(item[name] != value for name, value in expected_refs.items()):
         raise ValueError("prospective cost payload does not match its Step-2 result")
+    selector_rule = prospective_selector_rule_from_payload(item["selector_rule"])
+    if (
+        item["action_catalog_digest"] != prospective_action_catalog_digest()
+        or item["selector_protocol_digest"]
+        != prospective_selector_protocol_digest(selector_rule)
+    ):
+        raise ValueError("prospective cost payload selector provenance is invalid")
     for name in ("action_resources", "action_costs", "action_evaluations"):
         if not isinstance(item[name], list):
             raise ValueError(f"prospective cost {name} must be a list")
     return ProspectiveCostedScorecard(
         uncertainty_result=uncertainty_result,
         scenario=_scenario_from_payload(item["scenario"]),
+        selector_rule=selector_rule,
         protocol_digest=item["protocol_digest"],
         energy_reference_joules=item["energy_reference_joules"],
         bench_time_reference_seconds=item["bench_time_reference_seconds"],

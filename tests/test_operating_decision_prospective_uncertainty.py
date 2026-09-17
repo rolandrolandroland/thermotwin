@@ -49,6 +49,8 @@ from thermotwin.studies.sensor_model_discrimination import (
     ObservableValue,
 )
 import thermotwin.studies.operating_decision_prospective_uncertainty as prospective
+import thermotwin.studies.operating_decision_prospective as selector
+import thermotwin.studies.operating_decision_prospective_costs as costs
 
 
 def _final_regime(config: OperatingDecisionRealismConfig) -> OperatingRegime:
@@ -343,10 +345,10 @@ class ProspectiveUncertaintyValidationTests(unittest.TestCase):
             ("draw_count", True),
             ("max_parameter_draw_attempts", 0),
             ("max_parameter_draw_attempts", True),
-            ("minimum_stable_fraction", 0.0),
-            ("minimum_stable_fraction", -0.01),
-            ("minimum_stable_fraction", 1.01),
-            ("minimum_stable_fraction", math.nan),
+            ("max_unstable_draws_per_source_action", -1),
+            ("max_unstable_draws_per_source_action", True),
+            ("max_unstable_draws_per_source_action", 4),
+            ("max_unstable_draws_per_source_action", 0.5),
         ):
             with self.subTest(name=name, value=value):
                 with self.assertRaises(ValueError):
@@ -777,10 +779,18 @@ class ProspectiveUncertaintyScoringTests(unittest.TestCase):
             acquisition_evidence_digest=self.evidence.evidence_digest,
         )
 
-    def _mocked_result(self, *, draw_count=1):
+    def _mocked_result(
+        self,
+        *,
+        draw_count=1,
+        max_unstable_draws_per_source_action=0,
+        failed_policy=None,
+    ):
         scoring = prospective.ProspectiveUncertaintyConfig(
             draw_count=draw_count,
-            minimum_stable_fraction=1.0,
+            max_unstable_draws_per_source_action=(
+                max_unstable_draws_per_source_action
+            ),
         )
 
         def parameter_draw(fit, namespace, draw_index, _physical, _scoring, registry):
@@ -793,6 +803,23 @@ class ProspectiveUncertaintyScoringTests(unittest.TestCase):
 
         def evaluate(**kwargs):
             _register_observation_uses(kwargs)
+            if (
+                kwargs["policy"].name == failed_policy
+                and kwargs["draw_index"] == 0
+            ):
+                return prospective._failed_draw(
+                    policy_name=kwargs["policy"].name,
+                    generator_model=kwargs["generator_fit"].model_name,
+                    draw_index=kwargs["draw_index"],
+                    generator_offsets=kwargs["generator_offsets"],
+                    face_probe_offsets=kwargs.get("face_probe_offsets"),
+                    baseline_width=(
+                        self.evidence.snapshot.provisional_margin_envelope.upper
+                        - self.evidence.snapshot.provisional_margin_envelope.lower
+                    ),
+                    stage="prospective_simulation",
+                    error_type="ArithmeticError",
+                )
             return _completed_draw(
                 kwargs["policy"].name,
                 kwargs["generator_fit"].model_name,
@@ -1088,7 +1115,7 @@ class ProspectiveUncertaintyScoringTests(unittest.TestCase):
             source_models,
             prospective.ProspectiveUncertaintyConfig(
                 draw_count=2,
-                minimum_stable_fraction=0.5,
+                max_unstable_draws_per_source_action=1,
             ),
         )
         self.assertEqual(tuple(item.policy_name for item in actions), POLICY_NAMES)
@@ -1105,7 +1132,7 @@ class ProspectiveUncertaintyScoringTests(unittest.TestCase):
             source_models,
             prospective.ProspectiveUncertaintyConfig(
                 draw_count=2,
-                minimum_stable_fraction=0.75,
+                max_unstable_draws_per_source_action=0,
             ),
         )
         for action in stricter[1:]:
@@ -1145,7 +1172,7 @@ class ProspectiveUncertaintyScoringTests(unittest.TestCase):
     def test_estimator_pairs_one_parameter_draw_across_all_three_actions(self):
         config = prospective.ProspectiveUncertaintyConfig(
             draw_count=2,
-            minimum_stable_fraction=1.0,
+            max_unstable_draws_per_source_action=0,
         )
         parameter_calls = []
         probe_calls = []
@@ -1283,7 +1310,7 @@ class ProspectiveUncertaintyScoringTests(unittest.TestCase):
                 self.config,
                 prospective.ProspectiveUncertaintyConfig(
                     draw_count=1,
-                    minimum_stable_fraction=1.0,
+                    max_unstable_draws_per_source_action=0,
                 ),
             )
         probe.assert_not_called()
@@ -1408,7 +1435,7 @@ class ProspectiveUncertaintyScoringTests(unittest.TestCase):
                 self.config,
                 prospective.ProspectiveUncertaintyConfig(
                     draw_count=1,
-                    minimum_stable_fraction=1.0,
+                    max_unstable_draws_per_source_action=0,
                 ),
             )
         self.assertEqual(set(evaluated), {FIXED_THERMAL, FIXED_VOLTAGE})
@@ -1511,6 +1538,146 @@ class ProspectiveUncertaintyScoringTests(unittest.TestCase):
                 replace(draw, raw_after_width=0.01, scored_after_width=0.01),
                 result.acquisition_evidence.snapshot,
                 baseline,
+            )
+
+    def test_development_padding_preserves_raw_results_and_scores_failures_safely(self):
+        result = self._mocked_result(draw_count=2)
+        original_digest = result.result_digest
+        offsets = prospective.ProspectiveDevelopmentOffsets(
+            version="development_offsets_probe_v1",
+            stop_now=0.20,
+            fixed_thermal=0.05,
+            fixed_voltage=0.10,
+            fixed_face_temperature=0.15,
+        )
+        scored = prospective.score_prospective_uncertainty_with_offsets(
+            result,
+            offsets,
+        )
+        raw_baseline = result.action_uncertainties[0].uncertainty_before
+        padded_baseline = raw_baseline + 0.40
+        self.assertEqual(scored[0].padded_uncertainty_before, padded_baseline)
+        for action in scored[1:]:
+            expected = (
+                action.raw_action.expected_uncertainty_after
+                + 2.0 * action.development_offset
+            )
+            self.assertAlmostEqual(
+                action.padded_expected_uncertainty_after,
+                expected,
+            )
+        self.assertEqual(result.result_digest, original_digest)
+
+        failed = prospective._failed_draw(
+            policy_name=FIXED_VOLTAGE,
+            generator_model=FOUR_STATE_MODEL,
+            draw_index=0,
+            generator_offsets=(),
+            face_probe_offsets=None,
+            baseline_width=raw_baseline,
+            stage="prospective_parameter_draw",
+            error_type="ValueError",
+        )
+        attrition = _completed_draw(
+            FIXED_VOLTAGE,
+            FOUR_STATE_MODEL,
+            0,
+            0.25,
+            stable=False,
+        )
+        stable = _completed_draw(
+            FIXED_VOLTAGE,
+            FOUR_STATE_MODEL,
+            0,
+            0.25,
+        )
+        self.assertEqual(
+            prospective._padded_scored_draw_width(
+                failed,
+                padded_baseline_width=padded_baseline,
+                action_offset=offsets.fixed_voltage,
+            ),
+            padded_baseline,
+        )
+        self.assertEqual(
+            prospective._padded_scored_draw_width(
+                attrition,
+                padded_baseline_width=padded_baseline,
+                action_offset=offsets.fixed_voltage,
+            ),
+            padded_baseline,
+        )
+        self.assertAlmostEqual(
+            prospective._padded_scored_draw_width(
+                stable,
+                padded_baseline_width=padded_baseline,
+                action_offset=offsets.fixed_voltage,
+            ),
+            0.45,
+        )
+
+    def test_failed_draw_with_unequal_offsets_survives_costed_selection(self):
+        result = self._mocked_result(
+            draw_count=2,
+            max_unstable_draws_per_source_action=1,
+            failed_policy=FIXED_THERMAL,
+        )
+        offsets = selector.ProspectiveDevelopmentOffsets(
+            version="development_offsets_failed_draw_v1",
+            stop_now=0.20,
+            fixed_thermal=0.01,
+            fixed_voltage=0.02,
+            fixed_face_temperature=0.03,
+        )
+        rule = selector.ProspectiveSelectorRule(development_offsets=offsets)
+        scorecard = costs.cost_prospective_uncertainty(
+            result,
+            selector_rule=rule,
+        )
+        thermal = next(
+            item
+            for item in scorecard.action_evaluations
+            if item.policy_name == FIXED_THERMAL
+        )
+        self.assertNotAlmostEqual(
+            thermal.expected_uncertainty_after,
+            thermal.raw_expected_uncertainty_after
+            + 2.0 * thermal.development_offset,
+        )
+        selection = costs.select_costed_prospective_action(scorecard)
+        self.assertTrue(selection.selection_succeeded)
+
+    def test_authenticated_prefix_reuses_draws_and_refuses_expansion(self):
+        result = self._mocked_result(draw_count=2)
+        with patch.object(
+            prospective,
+            "_validate_acquisition_evidence",
+            side_effect=AssertionError("prefixing must not refit acquisition evidence"),
+        ):
+            prefix = prospective.prefix_prospective_uncertainty_result(
+                result,
+                draw_count=1,
+                max_unstable_draws_per_source_action=0,
+            )
+        self.assertEqual(prefix.config.draw_count, 1)
+        self.assertEqual(
+            prefix.config.max_unstable_draws_per_source_action,
+            0,
+        )
+        self.assertEqual(
+            prefix.draw_outcomes,
+            tuple(draw for draw in result.draw_outcomes if draw.draw_index == 0),
+        )
+        self.assertTrue(
+            all(use.stream.key.draw_index == 0 for use in prefix.stream_uses)
+        )
+        self.assertNotEqual(prefix.protocol_digest, result.protocol_digest)
+        self.assertNotEqual(prefix.result_digest, result.result_digest)
+        with self.assertRaisesRegex(ValueError, "cannot expand"):
+            prospective.prefix_prospective_uncertainty_result(
+                result,
+                draw_count=3,
+                max_unstable_draws_per_source_action=0,
             )
 
     def test_protocol_and_result_digests_bind_config_physics_and_contents(self):

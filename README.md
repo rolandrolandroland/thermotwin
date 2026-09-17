@@ -70,7 +70,8 @@ and application constraints determine whether the material advantage survives.
 | Can calibrated uncertainty and an initial-data selector turn that stress test into a defensible measurement decision? | [Operating-decision calibration and selector](thermotwin/OPERATING_DECISION_CALIBRATION.md) |
 | Can acquisition lack of fit avoid a futile diagnostic before the reserved final comparison? | [Mismatch-guarded selector and final evaluation](thermotwin/OPERATING_DECISION_FINAL_EVALUATION.md) |
 | Are the operating-decision physics, inference boundaries, random streams, and final claims reproducible and valid? | [Operating-decision audit](docs/thermotwin/OPERATING_DECISION_AUDIT.md) |
-| How will the audited operating-decision study be repeated without stream collisions or nominal-energy ambiguity? | [Corrected operating-decision replication](docs/thermotwin/OPERATING_DECISION_CORRECTED_REPLICATION.md) |
+| What did the collision-free corrected operating-decision replication establish? | [Corrected operating-decision replication](docs/thermotwin/OPERATING_DECISION_CORRECTED_REPLICATION.md) |
+| Can software prospectively choose among stopping, thermal testing, voltage, and face temperature by uncertainty reduction and resource cost? | [Current operating-decision status](docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md) and [prospective selector](docs/thermotwin/OPERATING_DECISION_PROSPECTIVE_SELECTOR.md) |
 | Can an inverse PINN recover contact resistance with noise and missing turn-off data? | [Imperfect-observation inverse PINN](thermotwin/IMPERFECT_INVERSE_PINN.md) |
 | Can finished assemblies be ranked by hidden interface quality? | [Assembly fingerprinting](thermotwin/ASSEMBLY_FINGERPRINT_EXPERIMENT.md) |
 | What does a PINN add beyond a conventional solver? | [PINN showcase](thermotwin/PINN_SHOWCASE.md) |

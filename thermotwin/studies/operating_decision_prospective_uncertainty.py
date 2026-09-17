@@ -36,9 +36,10 @@ from .operating_decision import (
 )
 from .operating_decision_prospective import (
     PROSPECTIVE_ACQUISITION_ACTIONS,
+    ProspectiveDevelopmentOffsets,
     ProspectiveAcquisitionSnapshot,
     build_prospective_acquisition_snapshot,
-    prospective_selector_protocol_digest,
+    prospective_action_catalog_digest,
 )
 from .operating_decision_prospective_random_streams import (
     PARAMETER_DRAW,
@@ -81,17 +82,23 @@ from .sensor_model_discrimination import (
 )
 
 
-PROSPECTIVE_UNCERTAINTY_SCHEMA_VERSION = 1
+PROSPECTIVE_UNCERTAINTY_SCHEMA_VERSION = 2
 PROSPECTIVE_UNCERTAINTY_PROTOCOL_VERSION = (
-    "operating_decision_prospective_uncertainty_v1"
+    "operating_decision_prospective_uncertainty_v2"
 )
-PROSPECTIVE_UNCERTAINTY_ESTIMATOR = "bounded_posterior_predictive_refit_v1"
+PROSPECTIVE_UNCERTAINTY_ESTIMATOR = "bounded_posterior_predictive_refit_v2"
 PROSPECTIVE_UNCERTAINTY_METRIC = "candidate_envelope_full_width_kelvin"
 PROSPECTIVE_WITHIN_GENERATOR_AGGREGATION = "arithmetic_mean"
 PROSPECTIVE_ACROSS_GENERATOR_AGGREGATION = "worst_case_maximum"
 PROSPECTIVE_DRAW_FAILURE_POLICY = "baseline_width_imputation"
 PROSPECTIVE_CANDIDATE_ATTRITION_POLICY = "no_positive_gain_and_unstable"
 PROSPECTIVE_REFIT_START_PROTOCOL = "frozen_three_start_multistart"
+PROSPECTIVE_ELIGIBILITY_PROTOCOL = (
+    "explicit_draw_count_and_max_unstable_per_source_action_v1"
+)
+PROSPECTIVE_PADDED_SCORING_PROTOCOL = (
+    "development_offsets_with_padded_failure_floor_v1"
+)
 _FINAL_REGIME_NAME = "untouched_final_operating_schedule"
 _ACQUISITION_EVIDENCE_DOMAIN = "thermotwin.prospective_acquisition_evidence"
 _RESULT_DIGEST_DOMAIN = "thermotwin.prospective_uncertainty_result"
@@ -136,7 +143,7 @@ class ProspectiveUncertaintyConfig:
 
     draw_count: int = 4
     max_parameter_draw_attempts: int = 256
-    minimum_stable_fraction: float = 0.90
+    max_unstable_draws_per_source_action: int = 0
     estimator: str = PROSPECTIVE_UNCERTAINTY_ESTIMATOR
     uncertainty_metric: str = PROSPECTIVE_UNCERTAINTY_METRIC
     within_generator_aggregation: str = PROSPECTIVE_WITHIN_GENERATOR_AGGREGATION
@@ -158,14 +165,15 @@ class ProspectiveUncertaintyConfig:
             or self.max_parameter_draw_attempts <= 0
         ):
             raise ValueError("parameter draw attempts must be a positive integer")
-        fraction = _finite(
-            "minimum stable fraction",
-            self.minimum_stable_fraction,
-            nonnegative=True,
-        )
-        if fraction <= 0.0 or fraction > 1.0:
-            raise ValueError("minimum stable fraction must be greater than zero and at most one")
-        object.__setattr__(self, "minimum_stable_fraction", fraction)
+        if (
+            not isinstance(self.max_unstable_draws_per_source_action, int)
+            or isinstance(self.max_unstable_draws_per_source_action, bool)
+            or self.max_unstable_draws_per_source_action < 0
+            or self.max_unstable_draws_per_source_action >= self.draw_count
+        ):
+            raise ValueError(
+                "maximum unstable draws must be a nonnegative integer below draw count"
+            )
         expected = {
             "estimator": PROSPECTIVE_UNCERTAINTY_ESTIMATOR,
             "uncertainty_metric": PROSPECTIVE_UNCERTAINTY_METRIC,
@@ -366,6 +374,7 @@ class ProspectiveModelActionSummary:
     failed_draw_count: int
     mean_after_width: float
     eligible: bool
+    max_unstable_draws: int = 0
 
     def __post_init__(self) -> None:
         if self.policy_name not in PROSPECTIVE_ACQUISITION_ACTIONS:
@@ -392,6 +401,21 @@ class ProspectiveModelActionSummary:
         )
         if not isinstance(self.eligible, bool):
             raise ValueError("model-action eligibility must be boolean")
+        if (
+            not isinstance(self.max_unstable_draws, int)
+            or isinstance(self.max_unstable_draws, bool)
+            or self.max_unstable_draws < 0
+            or self.max_unstable_draws >= self.draw_count
+        ):
+            raise ValueError("summary maximum unstable draws is inconsistent")
+        if self.eligible != (
+            self.unstable_draw_count <= self.max_unstable_draws
+        ):
+            raise ValueError("model-action eligibility does not match unstable draws")
+
+    @property
+    def unstable_draw_count(self) -> int:
+        return self.draw_count - self.stable_draw_count
 
 
 @dataclass(frozen=True)
@@ -464,6 +488,94 @@ class ProspectiveActionUncertainty:
     @property
     def expected_uncertainty_reduction(self) -> float:
         return self.uncertainty_before - self.expected_uncertainty_after
+
+
+@dataclass(frozen=True)
+class ProspectivePaddedModelActionSummary:
+    """A raw source summary plus its cheaply recomputed padded mean width."""
+
+    raw_summary: ProspectiveModelActionSummary
+    padded_mean_after_width: float
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.raw_summary, ProspectiveModelActionSummary):
+            raise ValueError("padded source summary needs its raw summary")
+        padded = _finite(
+            "padded mean after width",
+            self.padded_mean_after_width,
+            nonnegative=True,
+        )
+        if padded < self.raw_summary.mean_after_width:
+            raise ValueError("development padding cannot reduce a source mean width")
+        object.__setattr__(self, "padded_mean_after_width", padded)
+
+
+@dataclass(frozen=True)
+class ProspectivePaddedActionUncertainty:
+    """Development-padded widths derived without repeating predictive fits."""
+
+    raw_action: ProspectiveActionUncertainty
+    development_offset: float
+    padded_uncertainty_before: float
+    padded_expected_uncertainty_after: float
+    source_summaries: Tuple[ProspectivePaddedModelActionSummary, ...]
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.raw_action, ProspectiveActionUncertainty):
+            raise ValueError("padded action uncertainty needs its raw action")
+        offset = _finite(
+            "development action offset",
+            self.development_offset,
+            nonnegative=True,
+        )
+        before = _finite(
+            "padded uncertainty before",
+            self.padded_uncertainty_before,
+            nonnegative=True,
+        )
+        after = _finite(
+            "padded expected uncertainty after",
+            self.padded_expected_uncertainty_after,
+            nonnegative=True,
+        )
+        summaries = tuple(self.source_summaries)
+        object.__setattr__(self, "development_offset", offset)
+        object.__setattr__(self, "padded_uncertainty_before", before)
+        object.__setattr__(self, "padded_expected_uncertainty_after", after)
+        object.__setattr__(self, "source_summaries", summaries)
+        if before < self.raw_action.uncertainty_before:
+            raise ValueError("padded baseline cannot be narrower than the raw baseline")
+        if after < self.raw_action.expected_uncertainty_after:
+            raise ValueError("padded action width cannot be narrower than its raw width")
+        if self.policy_name == STOP_NOW:
+            if summaries or before != after:
+                raise ValueError("padded stop action must preserve its padded baseline")
+            return
+        if tuple(item.raw_summary for item in summaries) != (
+            self.raw_action.source_summaries
+        ):
+            raise ValueError("padded source summaries do not match raw evidence")
+        if after != max(item.padded_mean_after_width for item in summaries):
+            raise ValueError("padded action width must be the worst source mean")
+
+    @property
+    def policy_name(self) -> str:
+        return self.raw_action.policy_name
+
+    @property
+    def eligible(self) -> bool:
+        return self.raw_action.eligible
+
+    @property
+    def failure_reason(self) -> Optional[str]:
+        return self.raw_action.failure_reason
+
+    @property
+    def expected_uncertainty_reduction(self) -> float:
+        return (
+            self.padded_uncertainty_before
+            - self.padded_expected_uncertainty_after
+        )
 
 
 @dataclass(frozen=True)
@@ -987,7 +1099,10 @@ def _uncertainty_config_payload(config: ProspectiveUncertaintyConfig) -> dict:
         "uncertainty_metric": config.uncertainty_metric,
         "draw_count": config.draw_count,
         "max_parameter_draw_attempts": config.max_parameter_draw_attempts,
-        "minimum_stable_fraction": config.minimum_stable_fraction,
+        "max_unstable_draws_per_source_action": (
+            config.max_unstable_draws_per_source_action
+        ),
+        "eligibility_protocol": PROSPECTIVE_ELIGIBILITY_PROTOCOL,
         "within_generator_aggregation": config.within_generator_aggregation,
         "across_generator_aggregation": config.across_generator_aggregation,
         "draw_failure_policy": config.draw_failure_policy,
@@ -1031,14 +1146,14 @@ def _prospective_uncertainty_protocol_digest_from_physical_digest(
         {
             "domain": "thermotwin.prospective_uncertainty_protocol",
             "config": _uncertainty_config_payload(config),
-            "selector_protocol_digest": prospective_selector_protocol_digest(),
+            "action_catalog_digest": prospective_action_catalog_digest(),
             "physical_protocol_digest": physical_protocol_digest,
             "random_stream_protocol": PROSPECTIVE_RANDOM_STREAM_PROTOCOL_VERSION,
             "actions": [_policy_payload(item) for item in default_fixed_policies()],
             "candidate_models": list(MODEL_NAMES),
             "candidate_exclusion": "bound_or_nonconverged_individual_exclusion",
             "new_candidate_attrition": "max_actual_or_baseline_and_unstable",
-            "failed_draw": "baseline_width_imputation_retained_denominator",
+            "failed_draw": "raw_baseline_width_imputation_retained_denominator",
         }
     )
 
@@ -1804,7 +1919,6 @@ def _summarize_uncertainty_draws(
             source_summaries=(),
         )
     ]
-    required_stable = math.ceil(config.minimum_stable_fraction * config.draw_count)
     for policy_name in PROSPECTIVE_ACQUISITION_ACTIONS:
         summaries = []
         for generator_model in source_models:
@@ -1830,7 +1944,13 @@ def _summarize_uncertainty_draws(
                     mean_after_width=fmean(
                         item.scored_after_width for item in selected
                     ),
-                    eligible=stable_count >= required_stable,
+                    eligible=(
+                        len(selected) - stable_count
+                        <= config.max_unstable_draws_per_source_action
+                    ),
+                    max_unstable_draws=(
+                        config.max_unstable_draws_per_source_action
+                    ),
                 )
             )
         expected_after = max(item.mean_after_width for item in summaries)
@@ -1851,6 +1971,105 @@ def _summarize_uncertainty_draws(
             )
         )
     return tuple(actions)
+
+
+def _padded_scored_draw_width(
+    draw: ProspectiveDrawOutcome,
+    *,
+    padded_baseline_width: float,
+    action_offset: float,
+) -> float:
+    """Score one authenticated raw draw under development padding."""
+
+    if draw.failed:
+        return padded_baseline_width
+    if draw.raw_after_width is None:
+        raise ValueError("completed prospective draw is missing its raw width")
+    padded_width = draw.raw_after_width + 2.0 * action_offset
+    if draw.initially_admissible_became_inadmissible:
+        return max(padded_baseline_width, padded_width)
+    return padded_width
+
+
+def score_prospective_uncertainty_with_offsets(
+    result: ProspectiveUncertaintyResult,
+    offsets: ProspectiveDevelopmentOffsets,
+) -> Tuple[ProspectivePaddedActionUncertainty, ...]:
+    """Apply versioned offsets to reusable raw predictive evidence.
+
+    Failed draws receive exactly the padded stop baseline.  A completed draw
+    that loses an initially admissible candidate receives at least that same
+    baseline.  Stable completed draws receive the selected action's offset.
+    No simulation, fit, or random draw is repeated by this operation.
+    """
+
+    if not isinstance(result, ProspectiveUncertaintyResult):
+        raise ValueError("padded scoring needs a prospective uncertainty result")
+    if not isinstance(offsets, ProspectiveDevelopmentOffsets):
+        raise ValueError("padded scoring needs development action offsets")
+    raw_by_policy = {
+        item.policy_name: item for item in result.action_uncertainties
+    }
+    raw_baseline = raw_by_policy[STOP_NOW].uncertainty_before
+    padded_baseline = raw_baseline + 2.0 * offsets.stop_now
+    scored = [
+        ProspectivePaddedActionUncertainty(
+            raw_action=raw_by_policy[STOP_NOW],
+            development_offset=offsets.stop_now,
+            padded_uncertainty_before=padded_baseline,
+            padded_expected_uncertainty_after=padded_baseline,
+            source_summaries=(),
+        )
+    ]
+    for policy_name in PROSPECTIVE_ACQUISITION_ACTIONS:
+        raw_action = raw_by_policy[policy_name]
+        action_offset = offsets.for_policy(policy_name)
+        padded_summaries = []
+        for raw_summary in raw_action.source_summaries:
+            selected = tuple(
+                draw
+                for draw in result.draw_outcomes
+                if draw.policy_name == policy_name
+                and draw.generator_model == raw_summary.generator_model
+            )
+            if not selected and not result.draw_outcomes:
+                if any(
+                    offsets.for_policy(policy) != 0.0
+                    for policy in POLICY_NAMES
+                ):
+                    raise ValueError(
+                        "nonzero development offsets need retained predictive draws"
+                    )
+                padded_mean = raw_summary.mean_after_width
+            elif len(selected) != raw_summary.draw_count:
+                raise ValueError("raw action summary does not match predictive draws")
+            else:
+                padded_mean = fmean(
+                    _padded_scored_draw_width(
+                        draw,
+                        padded_baseline_width=padded_baseline,
+                        action_offset=action_offset,
+                    )
+                    for draw in selected
+                )
+            padded_summaries.append(
+                ProspectivePaddedModelActionSummary(
+                    raw_summary=raw_summary,
+                    padded_mean_after_width=padded_mean,
+                )
+            )
+        scored.append(
+            ProspectivePaddedActionUncertainty(
+                raw_action=raw_action,
+                development_offset=action_offset,
+                padded_uncertainty_before=padded_baseline,
+                padded_expected_uncertainty_after=max(
+                    item.padded_mean_after_width for item in padded_summaries
+                ),
+                source_summaries=tuple(padded_summaries),
+            )
+        )
+    return tuple(scored)
 
 
 def _candidate_outcome_payload(outcome: ProspectiveCandidateOutcome) -> dict:
@@ -1911,6 +2130,8 @@ def _action_uncertainty_payload(action: ProspectiveActionUncertainty) -> dict:
                 "draw_count": item.draw_count,
                 "stable_draw_count": item.stable_draw_count,
                 "failed_draw_count": item.failed_draw_count,
+                "unstable_draw_count": item.unstable_draw_count,
+                "max_unstable_draws": item.max_unstable_draws,
                 "mean_after_width": item.mean_after_width,
                 "eligible": item.eligible,
             }
@@ -1982,6 +2203,75 @@ def _result_digest(
             "stream_audit": _stream_audit_payload(stream_audit),
         }
     )
+
+
+def validate_prospective_uncertainty_result_integrity(
+    result: ProspectiveUncertaintyResult,
+) -> None:
+    """Check in-memory provenance without repeating the acquisition fit.
+
+    This is the inexpensive boundary used when the same immutable result is
+    rescored for prefixes, offsets, or costs.  Full archive serialization still
+    calls :func:`prospective_uncertainty_result_payload`, which independently
+    refits the common acquisition before emitting evidence.
+    """
+
+    if not isinstance(result, ProspectiveUncertaintyResult):
+        raise ValueError("prospective integrity check needs an uncertainty result")
+    evidence = result.acquisition_evidence
+    expected_physical = corrected_physical_protocol_digest(result.physical_config)
+    if evidence.physical_protocol_digest != expected_physical:
+        raise ValueError("prospective result physical protocol is inconsistent")
+    expected_evidence = _acquisition_evidence_digest(
+        evidence.common_initial_run,
+        evidence.fit_set,
+        evidence.snapshot,
+        evidence.final_regime,
+        result.physical_config,
+    )
+    if evidence.evidence_digest != expected_evidence:
+        raise ValueError("prospective acquisition evidence digest is invalid")
+    expected_protocol = prospective_uncertainty_protocol_digest(
+        result.physical_config,
+        result.config,
+    )
+    if result.protocol_digest != expected_protocol:
+        raise ValueError("prospective uncertainty protocol digest is invalid")
+    expected_result = _result_digest(
+        config=result.config,
+        physical_config=result.physical_config,
+        acquisition_evidence_digest=evidence.evidence_digest,
+        protocol_digest=result.protocol_digest,
+        actions=result.action_uncertainties,
+        draws=result.draw_outcomes,
+        stream_uses=result.stream_uses,
+        stream_audit=result.stream_audit,
+    )
+    if result.result_digest != expected_result:
+        raise ValueError("prospective uncertainty result digest is invalid")
+
+
+def prospective_uncertainty_summary_payload(
+    result: ProspectiveUncertaintyResult,
+) -> dict:
+    """Return a compact authenticated summary without acquisition refitting."""
+
+    validate_prospective_uncertainty_result_integrity(result)
+    return {
+        "schema_version": PROSPECTIVE_UNCERTAINTY_SCHEMA_VERSION,
+        "protocol_version": PROSPECTIVE_UNCERTAINTY_PROTOCOL_VERSION,
+        "protocol_digest": result.protocol_digest,
+        "result_digest": result.result_digest,
+        "physical_protocol_digest": result.acquisition_evidence.physical_protocol_digest,
+        "acquisition_evidence_digest": result.acquisition_evidence.evidence_digest,
+        "config": _uncertainty_config_payload(result.config),
+        "action_uncertainties": [
+            _action_uncertainty_payload(item) for item in result.action_uncertainties
+        ],
+        "stream_audit": _stream_audit_payload(result.stream_audit),
+        "retained_draw_outcome_count": len(result.draw_outcomes),
+        "retained_stream_use_count": len(result.stream_uses),
+    }
 
 
 def estimate_prospective_action_uncertainty(
@@ -2137,6 +2427,83 @@ def estimate_prospective_action_uncertainty(
     )
 
 
+def prefix_prospective_uncertainty_result(
+    result: ProspectiveUncertaintyResult,
+    *,
+    draw_count: int,
+    max_unstable_draws_per_source_action: int,
+) -> ProspectiveUncertaintyResult:
+    """Derive an authenticated matched prefix without repeating any fit.
+
+    Prefixing may reduce the retained draw count or change its explicit
+    instability allowance.  It can never expand the raw result.
+    """
+
+    if not isinstance(result, ProspectiveUncertaintyResult):
+        raise ValueError("prospective prefix needs an uncertainty result")
+    validate_prospective_uncertainty_result_integrity(result)
+    if (
+        not isinstance(draw_count, int)
+        or isinstance(draw_count, bool)
+        or draw_count <= 0
+    ):
+        raise ValueError("prospective prefix draw count must be positive")
+    if draw_count > result.config.draw_count:
+        raise ValueError("prospective prefix cannot expand its source result")
+    config = replace(
+        result.config,
+        draw_count=draw_count,
+        max_unstable_draws_per_source_action=(
+            max_unstable_draws_per_source_action
+        ),
+    )
+    draws = tuple(
+        item for item in result.draw_outcomes if item.draw_index < draw_count
+    )
+    uses = tuple(
+        item
+        for item in result.stream_uses
+        if item.stream.key.draw_index < draw_count
+    )
+    envelope = result.acquisition_evidence.snapshot.provisional_margin_envelope
+    if envelope is None:
+        raise ValueError("prospective prefix needs a provisional envelope")
+    baseline_width = envelope.upper - envelope.lower
+    actions = _summarize_uncertainty_draws(
+        draws,
+        baseline_width,
+        result.acquisition_evidence.snapshot.admissible_candidate_models,
+        config,
+    )
+    audit = _audit_stream_uses(uses)
+    audit.assert_clean()
+    protocol_digest = prospective_uncertainty_protocol_digest(
+        result.physical_config,
+        config,
+    )
+    result_digest = _result_digest(
+        config=config,
+        physical_config=result.physical_config,
+        acquisition_evidence_digest=result.acquisition_evidence.evidence_digest,
+        protocol_digest=protocol_digest,
+        actions=actions,
+        draws=draws,
+        stream_uses=uses,
+        stream_audit=audit,
+    )
+    return ProspectiveUncertaintyResult(
+        config=config,
+        physical_config=result.physical_config,
+        acquisition_evidence=result.acquisition_evidence,
+        protocol_digest=protocol_digest,
+        action_uncertainties=actions,
+        draw_outcomes=draws,
+        stream_uses=uses,
+        stream_audit=audit,
+        result_digest=result_digest,
+    )
+
+
 def prospective_uncertainty_result_payload(
     result: ProspectiveUncertaintyResult,
 ) -> dict:
@@ -2194,6 +2561,8 @@ __all__ = [
     "PROSPECTIVE_ACROSS_GENERATOR_AGGREGATION",
     "PROSPECTIVE_CANDIDATE_ATTRITION_POLICY",
     "PROSPECTIVE_DRAW_FAILURE_POLICY",
+    "PROSPECTIVE_ELIGIBILITY_PROTOCOL",
+    "PROSPECTIVE_PADDED_SCORING_PROTOCOL",
     "PROSPECTIVE_REFIT_START_PROTOCOL",
     "PROSPECTIVE_UNCERTAINTY_ESTIMATOR",
     "PROSPECTIVE_UNCERTAINTY_METRIC",
@@ -2205,11 +2574,17 @@ __all__ = [
     "ProspectiveCandidateOutcome",
     "ProspectiveDrawOutcome",
     "ProspectiveModelActionSummary",
+    "ProspectivePaddedActionUncertainty",
+    "ProspectivePaddedModelActionSummary",
     "ProspectiveUncertaintyConfig",
     "ProspectiveUncertaintyResult",
     "estimate_prospective_action_uncertainty",
+    "prefix_prospective_uncertainty_result",
     "prepare_prospective_acquisition_evidence",
     "prospective_acquisition_evidence_payload",
     "prospective_uncertainty_protocol_digest",
     "prospective_uncertainty_result_payload",
+    "prospective_uncertainty_summary_payload",
+    "score_prospective_uncertainty_with_offsets",
+    "validate_prospective_uncertainty_result_integrity",
 ]

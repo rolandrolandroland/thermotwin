@@ -250,10 +250,14 @@ python3 -m unittest \
 
 ## Interpretation boundary
 
-The split-conformal statement is finite-sample calibration under the declared
-synthetic generator and block-exchangeability assumption. It is not a hardware
-confidence guarantee, and it does not cover a new discrepancy family outside
-the calibration distribution. The rehearsal is development evidence. Its
+The intended split-conformal statement required exchangeable blocks under the
+declared synthetic generator. The later audit found deterministic stream
+collisions, so the historical Stage 4 outputs do not carry that finite-sample
+interpretation. Even under a corrected exchangeable generator, split conformal
+coverage would be marginal over calibration and evaluation draws; it would not
+be a calibration-conditional confidence statement, a hardware guarantee, or a
+guarantee for a new discrepancy family outside the calibration distribution.
+The rehearsal is development evidence. Its
 results cannot update the saved gate, paddings, or selector, and it is not a
 substitute for the reserved Stage 5 evaluation. The 90% target applies to the
 procedure-set block event, with only a missing envelope interpreted as an

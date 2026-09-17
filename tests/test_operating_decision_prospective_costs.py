@@ -25,6 +25,7 @@ import thermotwin.studies.operating_decision_calibration as calibration
 from thermotwin.studies.operating_decision_prospective import (
     CandidateExclusion,
     ProspectiveAcquisitionSnapshot,
+    ProspectiveDevelopmentOffsets,
     ProspectiveSelectorRule,
     prospective_selector_protocol_digest,
 )
@@ -50,6 +51,7 @@ from thermotwin.studies.sensor_model_discrimination import (
     VOLTAGE,
 )
 import thermotwin.studies.operating_decision_prospective_costs as costs
+import thermotwin.studies.operating_decision_prospective_uncertainty as prospective_uncertainty
 
 
 _ENERGY_BY_REGIME = {
@@ -200,8 +202,8 @@ def _cost_environment(call_log=None):
         ),
         patch.object(
             costs,
-            "prospective_uncertainty_result_payload",
-            return_value={"validated": True},
+            "validate_prospective_uncertainty_result_integrity",
+            return_value=None,
         ),
     ):
         yield
@@ -477,12 +479,38 @@ class ProspectiveCostIntegrationTests(unittest.TestCase):
         self.physical = OperatingDecisionRealismConfig()
         self.uncertainty = _uncertainty_result(self.physical)
 
-    def _scorecard(self, scenario=costs.PRIMARY_PROSPECTIVE_COST_SCENARIO):
+    def _scorecard(
+        self,
+        scenario=costs.PRIMARY_PROSPECTIVE_COST_SCENARIO,
+        selector_rule=ProspectiveSelectorRule(),
+    ):
         with _cost_environment():
             return costs.cost_prospective_uncertainty(
                 self.uncertainty,
                 scenario,
+                selector_rule,
             )
+
+    def test_cost_rescoring_does_not_refit_acquisition_evidence(self):
+        with (
+            patch.object(
+                costs,
+                "nominal_selection_cost_proxy",
+                side_effect=_fake_nominal_energy(),
+            ),
+            patch.object(
+                costs,
+                "validate_prospective_uncertainty_result_integrity",
+                return_value=None,
+            ),
+            patch.object(
+                prospective_uncertainty,
+                "_validate_acquisition_evidence",
+                side_effect=AssertionError("cost rescoring must not refit"),
+            ),
+        ):
+            scorecard = costs.cost_prospective_uncertainty(self.uncertainty)
+        self.assertEqual(scorecard.uncertainty_result, self.uncertainty)
 
     def test_costed_scorecard_is_bound_to_the_selector_snapshot(self):
         scorecard = self._scorecard()
@@ -492,6 +520,7 @@ class ProspectiveCostIntegrationTests(unittest.TestCase):
 
         sentinel = object()
         rule = ProspectiveSelectorRule(minimum_expected_reduction=0.1)
+        scorecard = self._scorecard(selector_rule=rule)
         with patch.object(
             costs,
             "select_prospective_action",
@@ -504,6 +533,39 @@ class ProspectiveCostIntegrationTests(unittest.TestCase):
             scorecard.action_evaluations,
             rule,
         )
+
+        with self.assertRaisesRegex(ValueError, "does not match"):
+            costs.select_costed_prospective_action(
+                scorecard,
+                ProspectiveSelectorRule(minimum_expected_reduction=0.2),
+            )
+
+    def test_scorecard_provenance_binds_the_actual_offset_rule(self):
+        rule = ProspectiveSelectorRule(
+            development_offsets=ProspectiveDevelopmentOffsets(
+                version="development_zero_probe_v2"
+            ),
+            single_candidate_stopping_clearance=0.04,
+        )
+        scorecard = self._scorecard(selector_rule=rule)
+        payload = costs.prospective_costed_scorecard_payload(scorecard)
+        self.assertEqual(scorecard.selector_rule, rule)
+        self.assertEqual(
+            payload["selector_protocol_digest"],
+            prospective_selector_protocol_digest(rule),
+        )
+        self.assertEqual(
+            payload["selector_rule"]["development_offsets"]["version"],
+            "development_zero_probe_v2",
+        )
+        with _cost_environment():
+            self.assertNotEqual(
+                scorecard.protocol_digest,
+                costs.prospective_cost_protocol_digest(
+                    self.physical,
+                    self.uncertainty.config,
+                ),
+            )
 
     def test_protocol_digest_binds_scenario_upstream_and_physics(self):
         with _cost_environment():

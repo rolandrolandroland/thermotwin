@@ -46,8 +46,9 @@ engineering evidence only.
 `scientific_parent_rehearsal_report.md` records the one scientific rehearsal
 opened on 2026-09-16 after the parent artifact was committed. Its compact
 outcomes and external-evidence manifest are tracked at the repository root;
-the manifest binds the complete diagnostics to a content-addressed immutable
-release archive. The selector made 45/60 decisions without a decision error,
+the manifest binds the complete diagnostics to a content-addressed release
+archive. The committed hash makes replacement detectable, although the GitHub
+release itself was mutable when audited on 2026-09-17. The selector made 45/60 decisions without a decision error,
 while simultaneous block coverage was 16/20 (80.0%), below the 90% target.
 That result is preserved unchanged before guard development and calibration.
 
@@ -70,3 +71,11 @@ predeclared success criterion was not met. The guard reduced mean energy from
 coverage rose from 38/50 to 40/50 but remained below the 90% target. All six
 procedures had zero decision errors and zero numerical failures. The scalar
 guard is retained as a negative result and is not promoted.
+
+A post-completion audit combined the three fresh parent-selector cohorts and
+found 80/100 simultaneous block coverage against the 90% target. Fixed voltage
+covered 92/100 of the same blocks. The selector's higher decision rate and
+lower apparent balanced loss are therefore not evidence that it beat the fixed
+policies. The complete interpretation and descriptive fixed-policy comparison
+are recorded in
+[`../OPERATING_DECISION_CORRECTED_REPLICATION.md`](../OPERATING_DECISION_CORRECTED_REPLICATION.md).

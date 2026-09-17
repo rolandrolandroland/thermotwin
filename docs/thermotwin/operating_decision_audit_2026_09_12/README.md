@@ -26,6 +26,10 @@ The provenance probe always mocks the final generator. The final stored-result p
 | `minimal_runtime_tests.log` | Initial run without optional dependencies; superseded by the full-environment result |
 | `source_manifest.json` | SHA-256 snapshot of tracked source, tests, documents, and result files at final audit revision |
 
-Full-suite environment: `/Users/rolandbennett/.pyenv/versions/pinn-env/bin/python` (3.10.12). Standard-library probes and baseline reproductions used `/Users/rolandbennett/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3` (3.12.14). No dependencies were installed during the audit.
+The full suite used CPython 3.10.12 with the optional dependencies. The
+standard-library probes and baseline reproductions used a bundled CPython
+3.12.14 interpreter. Machine-specific executable paths are omitted here; the
+raw historical logs retain them. No dependencies were installed during the
+audit.
 
 The source manifest also records pre-existing unrelated local report edits, because the test suite ran against the working tree. Numerical operating-decision source matched `f95538a`; later reviewed commits `93e401f` and `3a030de` added calibration/final artifacts and documentation.

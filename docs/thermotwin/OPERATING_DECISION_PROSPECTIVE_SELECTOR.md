@@ -1,9 +1,15 @@
 # Prospective four-action selector
 
-Status: roadmap Steps 1–3 are implemented as development interfaces. No new
-scientific partition has been generated or opened. The completed corrected
-`r2` replication, its artifacts, and its procedure names remain unchanged.
-Steps 4–7 are still pending.
+Status: the reviewed `9a21aa7` baseline implements roadmap Steps 1–3 as
+development interfaces. Phase B versions the active rule as
+`prospective_four_action_selector_v2` to add development-padded scoring and
+explicit stop strata. No new scientific partition has been generated or
+opened. The completed corrected `r2` replication, its artifacts, and its
+procedure names remain unchanged. The disposable pilot, development maps,
+independent calibration, reserved evaluation, and final report remain pending.
+See the [current project status](OPERATING_DECISION_PROJECT_STATUS.md),
+[Phase B acceptance record](OPERATING_DECISION_PHASE_B_ACCEPTANCE.md), and
+[partition ledger](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md).
 
 ## Purpose
 
@@ -18,8 +24,9 @@ acquisition:
 | `fixed_face_temperature` | 1 run | 1 |
 
 The implementation reuses the exact packages returned by
-`default_fixed_policies()`. It gives the new procedure the distinct name
-`prospective_four_action_selector_v1`; the historical
+`default_fixed_policies()`. The active Phase B procedure has the distinct name
+`prospective_four_action_selector_v2`; `prospective_four_action_selector_v1`
+identifies the audited development baseline at `9a21aa7`, and the historical
 `decision_directed_selector` continues to mean the completed stop-or-voltage
 rule.
 
@@ -72,7 +79,9 @@ common acquisition, and for every predictive draw, it:
 2. uses the same physical draw for the thermal, voltage, and face-temperature
    alternatives;
 3. draws the temporary face probe's loading and response nuisance parameters
-   independently for the face-temperature alternative;
+   independently for the face-temperature alternative, using the declared
+   truth support of 1–12 J/K and 0.5–6 s with the prior spread rather than the
+   wider inference bounds;
 4. simulates the exact additional regimes in the existing fixed policy;
 5. appends those synthetic observations to the real common-initial run;
 6. refits both candidate models with the same frozen three-start multistart
@@ -85,10 +94,13 @@ does not accept a truth-family label, device token, trial index, verification
 result, realized action outcome, true margin, or final response.
 
 Within one source candidate, the expected post-action width is the arithmetic
-mean over all declared draws. Across source candidates, the estimator takes
-the largest of those means. It assigns no model probabilities. The reported
-expected uncertainty reduction is the common baseline width minus this
-worst-case expected width, so a harmful action can retain a negative value.
+mean over all declared draws. Across surviving source candidates, the estimator
+takes the largest of those means and assigns no model probabilities. When only
+one candidate survives the acquisition checks, this aggregation is necessarily
+a single-model calculation; the result record and stop stratum must expose that
+fact. The reported expected uncertainty reduction is the common baseline width
+minus this worst-source expected width, so a harmful action can retain a
+negative value.
 
 ## Numerical failures and candidate transitions
 
@@ -100,16 +112,22 @@ individually.
 If a candidate that was initially admissible becomes inadmissible after a
 hypothetical action, the draw is marked unstable and its scored width is the
 larger of its actual envelope width and the pre-action width. Candidate loss
-therefore cannot look like information gain. An action is eligible only when
-each source candidate has at least `ceil(0.90 * N)` stable draws. A candidate
-that was excluded initially may re-enter after added data; that transition is
+therefore cannot look like information gain. At the reviewed Step 2 baseline,
+an action is eligible only when each source candidate has at least
+`ceil(0.90 * N)` stable draws. That means 4/4, 8/8, and 15/16 stable draws at
+the three planned pilot counts; these are different eligibility rules and must
+not be described as a pure Monte Carlo precision comparison. A candidate that
+was excluded initially may re-enter after added data; that transition is
 recorded explicitly.
 
 The development default is `N = 4` predictive draws. This is an implementation
-and runtime setting, not the final scientific replicate count. Before a named
-partition is opened, a disposable stability study must compare prefix-matched
-`N = 4`, `8`, and `16` results and choose the final count without looking at a
-reserved cohort.
+and runtime setting, not the final scientific replicate count. The disposable
+pilot must generate 16 draws for all 12 cases and compare the prefix-matched
+`N = 4`, `8`, and `16` results while reporting complete stable counts and
+eligibility-driven changes. The final scientific rule will freeze eligibility
+as the explicit pair `(N, maximum unstable draws per source/action)` before a
+development partition is opened. It will not infer that pair from an unlabeled
+percentage or inspect a reserved cohort.
 
 ## Prospective random streams
 
@@ -180,12 +198,40 @@ exactly. Negative uncertainty reduction is retained, giving negative utility
 per cost; it is never clipped into an apparent benefit. `stop_now` keeps zero
 raw resources and remains outside the cost ratio.
 
+## Phase B development padding
+
+Selector v2 keeps the authenticated raw predictive widths and applies
+versioned, nonnegative development offsets without rerunning the predictive
+fits. For stop offset `d_stop` and action offset `d_a`, it uses:
+
+```text
+B = raw initial width + 2 * d_stop
+P_a = worst-source mean of the per-draw padded future widths
+value_a = (B - P_a) / declared cost_a
+```
+
+The offsets are development heuristics for selecting an action. They are not
+the independent final calibration correction. Raw and padded values are both
+serialized, and the selector rejects a scorecard whose offsets or raw baseline
+do not match its rule.
+
+For a stable draw, the padded future width is the raw future width plus
+`2*d_a`. A failed draw receives exactly the padded baseline `B`. Candidate
+loss receives the greater of `B` and the padded future width. These rules are
+applied to each draw before the within-source mean and worst-source maximum;
+adding an action offset therefore cannot turn failure or attrition into
+apparent information gain. Cost-only or offset-only sensitivity can reuse the
+expensive raw predictive evidence.
+
 ## Selection rule
 
-The selector first applies a stopping clearance to the provisional margin
-envelope. If the envelope is decisively positive or negative, it selects
-`stop_now`. Stop means no added fitting run; the common verification schedule
-is still required before an approve/reject decision.
+The selector first pads the provisional margin envelope by `d_stop`, then
+applies the general stopping clearance. A separate nonnegative clearance is
+added when only one candidate remains. The output records the admissible model
+names, one- versus two-candidate reliability stratum, padded envelope, and
+effective clearance. If that gate is decisively positive or negative, it
+selects `stop_now`. Stop means no added fitting run; the common verification
+schedule is still required before an approve/reject decision.
 
 For an unresolved envelope, eligible measurement actions are ranked by:
 
@@ -213,8 +259,9 @@ ranking, ties, provisional decision, and selection reason for audit.
 
 ## Reproducibility boundary
 
-The Step 1 rule has strict JSON serialization and a canonical SHA-256 protocol
-digest over the action packages, action order, thresholds, precision, and
+The selector-v2 rule has strict JSON serialization and a canonical SHA-256
+protocol digest over the action packages, action order, thresholds, precision,
+development offsets, general and single-candidate stopping clearances, and
 procedure and algorithm identities. The Step 2 protocol digest additionally
 binds the estimator, uncertainty metric, draw count, stability threshold,
 within- and across-model aggregation, failure policy, candidate-attrition
@@ -245,10 +292,17 @@ evidence.
 
 ## Next roadmap step
 
-Step 4 will evaluate the selected action across the predeclared 12-cell cost
-grid and declared sensor-quality conditions, then produce the measurement map.
-It must reuse the authenticated Step 2 evidence and Step 3 cost calculation,
-retain cells where no acquisition action is usable, and avoid opening a named
-development, calibration, or reserved partition. The measurement-map protocol
-must bind the complete ordered scenario and reset-sensitivity catalogs, rather
-than only the scenario used in one cell.
+After the Phase B source, focused checks, and acceptance record are committed,
+the next data-generating step is the four-block, 12-case disposable pilot in
+`p1_disposable_draw_count_pilot`. It will measure complete-case runtime,
+failures, candidate transitions, stable counts, action agreement, and utility
+regret for prefix-matched `N = 4`, `8`, and `16` before fixing the campaign draw
+count and worker budget.
+
+Only after the pilot passes may development produce the measurement map. The
+map must reuse authenticated raw Step 2 evidence for cost-only changes, apply
+the versioned Phase B development offsets without predictive refitting, retain
+cells where no acquisition action is usable, and distinguish price changes
+from sensor noise/loading changes that require new simulations. Its protocol
+must bind the complete ordered cost, sensor-quality, and reset-sensitivity
+catalogs rather than only the scenario used in one cell.

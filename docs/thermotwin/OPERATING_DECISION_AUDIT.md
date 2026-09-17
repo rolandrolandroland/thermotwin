@@ -116,7 +116,7 @@ The optimizer has a fixed six-iteration budget without an explicit convergence s
 
 **Execution and result verification.**
 
-- Full repository suite: **602 tests passed, no skips**, in **287.341 seconds**, using `/Users/rolandbennett/.pyenv/versions/pinn-env/bin/python` (Python 3.10.12 with the optional scientific/reporting dependencies). [Full log](operating_decision_audit_2026_09_12/full_test_suite.log).
+- Full repository suite: **602 tests passed, no skips**, in **287.341 seconds**, using CPython 3.10.12 with the optional scientific/reporting dependencies. The machine-specific interpreter path is omitted; the historical log retains it. [Full log](operating_decision_audit_2026_09_12/full_test_suite.log).
 - The initial bundled Python 3.12 run had 10 errors and 106 skips due to absent optional Matplotlib/PyTorch dependencies. The full-environment run above resolved them; those were not failures of the operating-decision physics. [Initial log](operating_decision_audit_2026_09_12/minimal_runtime_tests.log).
 - Full sensor-discrimination baseline: 20 devices per family, seed `91001`; all displayed values reproduce, including failed packages and false-confidence cases. [Reproduction](operating_decision_audit_2026_09_12/baseline_reproduction.txt).
 - Full Stage 2: all eight policy/family table rows reproduce at documented precision, including margins, prevalence, interval coverage, energy proxies, and zero numerical failures. [Reproduction](operating_decision_audit_2026_09_12/stage2_reproduction.txt).

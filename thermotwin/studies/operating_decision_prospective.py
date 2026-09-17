@@ -8,7 +8,7 @@ partition, use revealed truth, or alter the completed corrected replication.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from decimal import Decimal, ROUND_HALF_EVEN, localcontext
 import hashlib
 import json
@@ -41,19 +41,25 @@ from .sensor_model_discrimination import MODEL_NAMES
 
 
 PROSPECTIVE_SELECTOR_PROTOCOL_VERSION = (
-    "operating_decision_prospective_selector_v1"
+    "operating_decision_prospective_selector_v2"
 )
 PROSPECTIVE_SELECTOR_ALGORITHM_VERSION = (
-    "resolved-stop-strict-threshold-four-key-ranking-v1"
+    "development-padded-stop-and-four-key-ranking-v2"
 )
-PROSPECTIVE_SELECTOR_SCHEMA_VERSION = 1
-PROSPECTIVE_FOUR_ACTION_SELECTOR = "prospective_four_action_selector_v1"
+PROSPECTIVE_SELECTOR_SCHEMA_VERSION = 2
+PROSPECTIVE_FOUR_ACTION_SELECTOR = "prospective_four_action_selector_v2"
+PROSPECTIVE_DEVELOPMENT_OFFSETS_SCHEMA_VERSION = 1
+PROSPECTIVE_DEVELOPMENT_OFFSETS_PROTOCOL_VERSION = (
+    "operating_decision_development_action_offsets_v1"
+)
+PROSPECTIVE_UNFITTED_ZERO_OFFSETS_VERSION = "unfitted_zero_offsets_v1"
 PROSPECTIVE_ACTIONS = POLICY_NAMES
 PROSPECTIVE_ACQUISITION_ACTIONS = (
     FIXED_THERMAL,
     FIXED_VOLTAGE,
     FIXED_FACE_TEMPERATURE,
 )
+_WIDTH_CONSISTENCY_TOLERANCE = 1.0e-12
 
 
 def _label(name: str, value: str) -> None:
@@ -75,6 +81,14 @@ def _finite_number(name: str, value: float) -> float:
     return converted
 
 
+def _sha256(name: str, value: str) -> None:
+    _label(name, value)
+    if len(value) != 64 or any(
+        character not in "0123456789abcdef" for character in value
+    ):
+        raise ValueError(f"{name} must be a lowercase SHA-256 digest")
+
+
 @dataclass(frozen=True)
 class CandidateExclusion:
     """One acquisition candidate excluded before prospective scoring."""
@@ -90,12 +104,119 @@ class CandidateExclusion:
 
 
 @dataclass(frozen=True)
-class ProspectiveActionEvaluation:
-    """Precomputed uncertainty-and-cost evidence for one frozen action.
+class ProspectiveDevelopmentOffsets:
+    """Versioned development-only half-width offsets for action selection.
 
-    Step 1 consumes these records but does not calculate them.  Steps 2 and 3
-    will populate the uncertainty and declared-cost fields using fitted-model
-    predictions and predeclared resource assumptions.
+    These offsets are heuristics learned from development evidence.  They are
+    deliberately distinct from the later independent calibration correction.
+    The default is named as unfitted so it cannot be mistaken for a calibrated
+    scientific rule in serialized provenance.
+    """
+
+    version: str = PROSPECTIVE_UNFITTED_ZERO_OFFSETS_VERSION
+    stop_now: float = 0.0
+    fixed_thermal: float = 0.0
+    fixed_voltage: float = 0.0
+    fixed_face_temperature: float = 0.0
+
+    def __post_init__(self) -> None:
+        _label("development offsets version", self.version)
+        for attribute, label in (
+            ("stop_now", "stop development offset"),
+            ("fixed_thermal", "thermal development offset"),
+            ("fixed_voltage", "voltage development offset"),
+            (
+                "fixed_face_temperature",
+                "face-temperature development offset",
+            ),
+        ):
+            converted = _finite_number(label, getattr(self, attribute))
+            if converted < 0.0:
+                raise ValueError(f"{label} must be nonnegative")
+            object.__setattr__(
+                self,
+                attribute,
+                0.0 if converted == 0.0 else converted,
+            )
+        if self.version == PROSPECTIVE_UNFITTED_ZERO_OFFSETS_VERSION and any(
+            self.for_policy(policy_name) != 0.0
+            for policy_name in PROSPECTIVE_ACTIONS
+        ):
+            raise ValueError(
+                "the reserved unfitted-zero offset version requires zero values"
+            )
+
+    def for_policy(self, policy_name: str) -> float:
+        if policy_name == STOP_NOW:
+            return self.stop_now
+        if policy_name == FIXED_THERMAL:
+            return self.fixed_thermal
+        if policy_name == FIXED_VOLTAGE:
+            return self.fixed_voltage
+        if policy_name == FIXED_FACE_TEMPERATURE:
+            return self.fixed_face_temperature
+        raise ValueError("development offset requested for an unknown policy")
+
+
+def prospective_development_offsets_payload(
+    offsets: ProspectiveDevelopmentOffsets,
+) -> dict:
+    """Return a strict JSON-ready development-offset record."""
+
+    if not isinstance(offsets, ProspectiveDevelopmentOffsets):
+        raise ValueError("prospective offsets need a development-offset record")
+    return {
+        "schema_version": PROSPECTIVE_DEVELOPMENT_OFFSETS_SCHEMA_VERSION,
+        "protocol_version": PROSPECTIVE_DEVELOPMENT_OFFSETS_PROTOCOL_VERSION,
+        "version": offsets.version,
+        "values": {
+            STOP_NOW: offsets.stop_now,
+            FIXED_THERMAL: offsets.fixed_thermal,
+            FIXED_VOLTAGE: offsets.fixed_voltage,
+            FIXED_FACE_TEMPERATURE: offsets.fixed_face_temperature,
+        },
+    }
+
+
+def prospective_development_offsets_from_payload(
+    payload: dict,
+) -> ProspectiveDevelopmentOffsets:
+    """Load development offsets while rejecting schema and catalog drift."""
+
+    if not isinstance(payload, dict) or set(payload) != {
+        "schema_version",
+        "protocol_version",
+        "version",
+        "values",
+    }:
+        raise ValueError("prospective development offsets payload is malformed")
+    if (
+        type(payload["schema_version"]) is not int
+        or payload["schema_version"]
+        != PROSPECTIVE_DEVELOPMENT_OFFSETS_SCHEMA_VERSION
+        or payload["protocol_version"]
+        != PROSPECTIVE_DEVELOPMENT_OFFSETS_PROTOCOL_VERSION
+    ):
+        raise ValueError("prospective development offsets protocol is unsupported")
+    values = payload["values"]
+    if not isinstance(values, dict) or set(values) != set(PROSPECTIVE_ACTIONS):
+        raise ValueError("prospective development offsets action catalog changed")
+    return ProspectiveDevelopmentOffsets(
+        version=payload["version"],
+        stop_now=values[STOP_NOW],
+        fixed_thermal=values[FIXED_THERMAL],
+        fixed_voltage=values[FIXED_VOLTAGE],
+        fixed_face_temperature=values[FIXED_FACE_TEMPERATURE],
+    )
+
+
+@dataclass(frozen=True)
+class ProspectiveActionEvaluation:
+    """Precomputed padded uncertainty-and-cost evidence for one action.
+
+    The existing uncertainty fields are the development-padded baseline and
+    post-action width used for ranking.  The authenticated raw counterparts are
+    retained so changing offsets or costs never requires predictive refitting.
     """
 
     policy_name: str
@@ -105,6 +226,9 @@ class ProspectiveActionEvaluation:
     expected_uncertainty_after: Optional[float] = None
     declared_cost: Optional[float] = None
     prospective_draw_count: int = 0
+    raw_uncertainty_before: Optional[float] = None
+    raw_expected_uncertainty_after: Optional[float] = None
+    development_offset: Optional[float] = None
 
     def __post_init__(self) -> None:
         if self.policy_name not in PROSPECTIVE_ACTIONS:
@@ -122,6 +246,9 @@ class ProspectiveActionEvaluation:
             self.uncertainty_before,
             self.expected_uncertainty_after,
             self.declared_cost,
+            self.raw_uncertainty_before,
+            self.raw_expected_uncertainty_after,
+            self.development_offset,
         )
         if self.policy_name == STOP_NOW:
             if not self.eligible or self.failure_reason is not None:
@@ -144,7 +271,14 @@ class ProspectiveActionEvaluation:
 
         if self.failure_reason is not None:
             raise ValueError("an eligible action cannot have a failure reason")
-        if any(value is None for value in numerical):
+        if any(
+            value is None
+            for value in (
+                self.uncertainty_before,
+                self.expected_uncertainty_after,
+                self.declared_cost,
+            )
+        ):
             raise ValueError("an eligible acquisition action needs complete scores")
         before = _finite_number(
             "uncertainty before",
@@ -155,8 +289,28 @@ class ProspectiveActionEvaluation:
             self.expected_uncertainty_after,  # type: ignore[arg-type]
         )
         cost = _finite_number("declared cost", self.declared_cost)  # type: ignore[arg-type]
+        raw_before = _finite_number(
+            "raw uncertainty before",
+            before
+            if self.raw_uncertainty_before is None
+            else self.raw_uncertainty_before,
+        )
+        raw_after = _finite_number(
+            "raw expected uncertainty after",
+            after
+            if self.raw_expected_uncertainty_after is None
+            else self.raw_expected_uncertainty_after,
+        )
+        offset = _finite_number(
+            "development action offset",
+            0.0 if self.development_offset is None else self.development_offset,
+        )
         if before < 0.0 or after < 0.0:
             raise ValueError("prospective uncertainty must be nonnegative")
+        if raw_before < 0.0 or raw_after < 0.0 or offset < 0.0:
+            raise ValueError("raw uncertainty and development offsets must be nonnegative")
+        if before < raw_before or after < raw_after:
+            raise ValueError("development padding cannot reduce an uncertainty width")
         if cost <= 0.0:
             raise ValueError("an acquisition action needs positive declared cost")
         if self.prospective_draw_count == 0:
@@ -174,6 +328,21 @@ class ProspectiveActionEvaluation:
             0.0 if after == 0.0 else after,
         )
         object.__setattr__(self, "declared_cost", cost)
+        object.__setattr__(
+            self,
+            "raw_uncertainty_before",
+            0.0 if raw_before == 0.0 else raw_before,
+        )
+        object.__setattr__(
+            self,
+            "raw_expected_uncertainty_after",
+            0.0 if raw_after == 0.0 else raw_after,
+        )
+        object.__setattr__(
+            self,
+            "development_offset",
+            0.0 if offset == 0.0 else offset,
+        )
 
     @property
     def expected_uncertainty_reduction(self) -> Optional[float]:
@@ -187,6 +356,15 @@ class ProspectiveActionEvaluation:
         if reduction is None or self.declared_cost is None:
             return None
         return reduction / self.declared_cost
+
+    @property
+    def raw_expected_uncertainty_reduction(self) -> Optional[float]:
+        if (
+            self.raw_uncertainty_before is None
+            or self.raw_expected_uncertainty_after is None
+        ):
+            return None
+        return self.raw_uncertainty_before - self.raw_expected_uncertainty_after
 
 
 @dataclass(frozen=True)
@@ -305,10 +483,14 @@ class ProspectiveAcquisitionSnapshot:
 
 @dataclass(frozen=True)
 class ProspectiveSelectorRule:
-    """Pure stopping, ranking, and tie-breaking rule for Step 1."""
+    """Pure development-padded stopping, ranking, and tie-breaking rule."""
 
     action_order: Tuple[str, ...] = PROSPECTIVE_ACTIONS
+    development_offsets: ProspectiveDevelopmentOffsets = field(
+        default_factory=ProspectiveDevelopmentOffsets
+    )
     stopping_clearance: float = 0.0
+    single_candidate_stopping_clearance: float = 0.0
     minimum_expected_reduction: float = 0.0
     minimum_utility_per_cost: float = 0.0
     utility_decimal_places: int = 12
@@ -318,8 +500,15 @@ class ProspectiveSelectorRule:
         object.__setattr__(self, "action_order", action_order)
         if action_order != PROSPECTIVE_ACTIONS:
             raise ValueError("prospective selector action order is frozen")
+        if not isinstance(self.development_offsets, ProspectiveDevelopmentOffsets):
+            raise ValueError("prospective selector needs development action offsets")
         for attribute, name, value in (
             ("stopping_clearance", "stopping clearance", self.stopping_clearance),
+            (
+                "single_candidate_stopping_clearance",
+                "single-candidate stopping clearance",
+                self.single_candidate_stopping_clearance,
+            ),
             (
                 "minimum_expected_reduction",
                 "minimum expected reduction",
@@ -360,6 +549,11 @@ class ProspectiveSelection:
     ranked_policies: Tuple[str, ...]
     tied_policies: Tuple[str, ...]
     action_evaluations: Tuple[ProspectiveActionEvaluation, ...]
+    admissible_candidate_models: Tuple[str, ...]
+    candidate_reliability_stratum: str
+    padded_initial_margin_envelope: Optional[MarginEnvelope]
+    effective_stopping_clearance: float
+    selector_protocol_digest: str
 
     def __post_init__(self) -> None:
         if any(
@@ -374,10 +568,38 @@ class ProspectiveSelection:
         ranked = tuple(self.ranked_policies)
         tied = tuple(self.tied_policies)
         evaluations = _validated_action_evaluations(self.action_evaluations)
+        admissible = tuple(self.admissible_candidate_models)
         object.__setattr__(self, "ranked_policies", ranked)
         object.__setattr__(self, "tied_policies", tied)
         object.__setattr__(self, "action_evaluations", evaluations)
+        object.__setattr__(self, "admissible_candidate_models", admissible)
         _label("selection reason", self.reason)
+        if admissible != tuple(sorted(set(admissible))) or any(
+            model not in MODEL_NAMES for model in admissible
+        ):
+            raise ValueError("selection candidate models must be sorted and unique")
+        expected_stratum = _candidate_reliability_stratum(len(admissible))
+        if self.candidate_reliability_stratum != expected_stratum:
+            raise ValueError("selection candidate reliability stratum is inconsistent")
+        clearance = _finite_number(
+            "effective stopping clearance",
+            self.effective_stopping_clearance,
+        )
+        if clearance < 0.0:
+            raise ValueError("effective stopping clearance must be nonnegative")
+        object.__setattr__(
+            self,
+            "effective_stopping_clearance",
+            0.0 if clearance == 0.0 else clearance,
+        )
+        envelope = self.padded_initial_margin_envelope
+        if envelope is not None and (
+            not math.isfinite(envelope.lower)
+            or not math.isfinite(envelope.upper)
+            or envelope.upper < envelope.lower
+        ):
+            raise ValueError("padded initial margin envelope must be finite and ordered")
+        _sha256("selector protocol digest", self.selector_protocol_digest)
         if self.provisional_decision not in (
             APPROVE,
             REJECT,
@@ -412,9 +634,13 @@ class ProspectiveSelection:
             raise ValueError("tied policies must come from the utility ranking")
         if (
             self.selected_policy in PROSPECTIVE_ACQUISITION_ACTIONS
-            and (not ranked or self.selected_policy != ranked[0])
+            and self.selected_policy not in ranked
         ):
-            raise ValueError("the selected acquisition action must lead the ranking")
+            raise ValueError("the selected acquisition action must occur in the ranking")
+
+    @property
+    def admissible_candidate_count(self) -> int:
+        return len(self.admissible_candidate_models)
 
 
 def _validated_action_evaluations(
@@ -559,6 +785,86 @@ def _provisional_decision(
     return INSUFFICIENT_EVIDENCE
 
 
+def _candidate_reliability_stratum(candidate_count: int) -> str:
+    if candidate_count == 0:
+        return "no_admissible_candidate"
+    if candidate_count == 1:
+        return "one_admissible_candidate"
+    if candidate_count == 2:
+        return "two_admissible_candidates"
+    raise ValueError("prospective selection supports at most two candidate models")
+
+
+def prospective_padded_initial_envelope(
+    acquisition_snapshot: ProspectiveAcquisitionSnapshot,
+    offsets: ProspectiveDevelopmentOffsets,
+) -> Optional[MarginEnvelope]:
+    """Apply the development stop offset to the acquisition-only envelope."""
+
+    if not isinstance(acquisition_snapshot, ProspectiveAcquisitionSnapshot):
+        raise ValueError("padded stop gate needs a prospective acquisition snapshot")
+    if not isinstance(offsets, ProspectiveDevelopmentOffsets):
+        raise ValueError("padded stop gate needs development offsets")
+    envelope = acquisition_snapshot.provisional_margin_envelope
+    if envelope is None:
+        return None
+    return MarginEnvelope(
+        envelope.lower - offsets.stop_now,
+        envelope.upper + offsets.stop_now,
+    )
+
+
+def _effective_stopping_clearance(
+    rule: ProspectiveSelectorRule,
+    admissible_candidate_count: int,
+) -> float:
+    return rule.stopping_clearance + (
+        rule.single_candidate_stopping_clearance
+        if admissible_candidate_count == 1
+        else 0.0
+    )
+
+
+def _validate_evaluations_for_rule(
+    acquisition_snapshot: ProspectiveAcquisitionSnapshot,
+    evaluations: Sequence[ProspectiveActionEvaluation],
+    rule: ProspectiveSelectorRule,
+) -> None:
+    envelope = acquisition_snapshot.provisional_margin_envelope
+    raw_baseline = None if envelope is None else envelope.upper - envelope.lower
+    padded_baseline = (
+        None
+        if raw_baseline is None
+        else raw_baseline + 2.0 * rule.development_offsets.stop_now
+    )
+    for evaluation in evaluations:
+        if (
+            evaluation.policy_name not in PROSPECTIVE_ACQUISITION_ACTIONS
+            or not evaluation.eligible
+        ):
+            continue
+        if evaluation.development_offset != rule.development_offsets.for_policy(
+            evaluation.policy_name
+        ):
+            raise ValueError("action evaluation uses different development offsets")
+        if raw_baseline is None or padded_baseline is None:
+            raise ValueError("eligible action scores need an acquisition envelope")
+        if not math.isclose(
+            evaluation.raw_uncertainty_before,  # type: ignore[arg-type]
+            raw_baseline,
+            rel_tol=_WIDTH_CONSISTENCY_TOLERANCE,
+            abs_tol=_WIDTH_CONSISTENCY_TOLERANCE,
+        ):
+            raise ValueError("raw uncertainty baseline does not match the acquisition envelope")
+        if not math.isclose(
+            evaluation.uncertainty_before,  # type: ignore[arg-type]
+            padded_baseline,
+            rel_tol=_WIDTH_CONSISTENCY_TOLERANCE,
+            abs_tol=_WIDTH_CONSISTENCY_TOLERANCE,
+        ):
+            raise ValueError("padded uncertainty baseline does not match the stop offset")
+
+
 def _quantized(value: float, decimal_places: int) -> Decimal:
     quantum = Decimal(1).scaleb(-decimal_places)
     decimal_value = Decimal(str(value))
@@ -618,10 +924,30 @@ def select_prospective_action(
 ) -> ProspectiveSelection:
     """Select a frozen action without using truth or future observations."""
 
+    if not isinstance(acquisition_snapshot, ProspectiveAcquisitionSnapshot):
+        raise ValueError("prospective selection needs an acquisition snapshot")
+    if not isinstance(rule, ProspectiveSelectorRule):
+        raise ValueError("prospective selection needs a selector rule")
     scorecard = _validated_action_evaluations(action_evaluations)
+    _validate_evaluations_for_rule(acquisition_snapshot, scorecard, rule)
+    admissible = acquisition_snapshot.admissible_candidate_models
+    padded_envelope = prospective_padded_initial_envelope(
+        acquisition_snapshot,
+        rule.development_offsets,
+    )
+    effective_clearance = _effective_stopping_clearance(rule, len(admissible))
+    selection_context = {
+        "admissible_candidate_models": admissible,
+        "candidate_reliability_stratum": _candidate_reliability_stratum(
+            len(admissible)
+        ),
+        "padded_initial_margin_envelope": padded_envelope,
+        "effective_stopping_clearance": effective_clearance,
+        "selector_protocol_digest": prospective_selector_protocol_digest(rule),
+    }
     provisional = _provisional_decision(
-        acquisition_snapshot.provisional_margin_envelope,
-        rule.stopping_clearance,
+        padded_envelope,
+        effective_clearance,
     )
     ranked = _ranked_acquisition_actions(scorecard, rule)
     ranked_names = tuple(item.policy_name for item in ranked)
@@ -640,6 +966,7 @@ def select_prospective_action(
             ranked_policies=ranked_names,
             tied_policies=(),
             action_evaluations=scorecard,
+            **selection_context,
         )
 
     if provisional != INSUFFICIENT_EVIDENCE:
@@ -653,6 +980,7 @@ def select_prospective_action(
             ranked_policies=ranked_names,
             tied_policies=(),
             action_evaluations=scorecard,
+            **selection_context,
         )
 
     if not ranked:
@@ -666,6 +994,7 @@ def select_prospective_action(
             ranked_policies=(),
             tied_policies=(),
             action_evaluations=scorecard,
+            **selection_context,
         )
 
     minimum_reduction = _quantized(
@@ -701,6 +1030,7 @@ def select_prospective_action(
             ranked_policies=ranked_names,
             tied_policies=(),
             action_evaluations=scorecard,
+            **selection_context,
         )
 
     selected = qualifying[0]
@@ -725,13 +1055,12 @@ def select_prospective_action(
         ranked_policies=ranked_names,
         tied_policies=tied,
         action_evaluations=scorecard,
+        **selection_context,
     )
 
 
-def prospective_selector_protocol_digest(
-    rule: ProspectiveSelectorRule = ProspectiveSelectorRule(),
-) -> str:
-    """Bind the Step-1 action catalog and pure selection rule."""
+def prospective_action_catalog_payload() -> dict:
+    """Return the complete acquisition catalog independently of any rule."""
 
     policies = []
     for policy in default_fixed_policies():
@@ -757,15 +1086,48 @@ def prospective_selector_protocol_digest(
                 "extra_sensor_count": policy.extra_sensor_count,
             }
         )
+    return {
+        "actions": list(PROSPECTIVE_ACTIONS),
+        "acquisition_actions": list(PROSPECTIVE_ACQUISITION_ACTIONS),
+        "policies": policies,
+    }
+
+
+def prospective_action_catalog_digest() -> str:
+    """Return the content digest of the actual four-action catalog."""
+
+    material = json.dumps(
+        prospective_action_catalog_payload(),
+        allow_nan=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return hashlib.sha256(material).hexdigest()
+
+
+def prospective_selector_protocol_digest(
+    rule: ProspectiveSelectorRule = ProspectiveSelectorRule(),
+) -> str:
+    """Bind the actual action catalog and supplied selection rule."""
+
+    if not isinstance(rule, ProspectiveSelectorRule):
+        raise ValueError("prospective selector digest needs a selector rule")
     material = json.dumps(
         {
             "protocol_version": PROSPECTIVE_SELECTOR_PROTOCOL_VERSION,
             "algorithm_version": PROSPECTIVE_SELECTOR_ALGORITHM_VERSION,
             "procedure_name": PROSPECTIVE_FOUR_ACTION_SELECTOR,
-            "policies": policies,
+            "action_catalog_digest": prospective_action_catalog_digest(),
+            "action_catalog": prospective_action_catalog_payload(),
             "rule": {
                 "action_order": list(rule.action_order),
+                "development_offsets": prospective_development_offsets_payload(
+                    rule.development_offsets
+                ),
                 "stopping_clearance": rule.stopping_clearance,
+                "single_candidate_stopping_clearance": (
+                    rule.single_candidate_stopping_clearance
+                ),
                 "minimum_expected_reduction": rule.minimum_expected_reduction,
                 "minimum_utility_per_cost": rule.minimum_utility_per_cost,
                 "utility_decimal_places": rule.utility_decimal_places,
@@ -789,8 +1151,15 @@ def prospective_selector_rule_payload(
         "algorithm_version": PROSPECTIVE_SELECTOR_ALGORITHM_VERSION,
         "protocol_digest": prospective_selector_protocol_digest(rule),
         "procedure_name": PROSPECTIVE_FOUR_ACTION_SELECTOR,
+        "action_catalog_digest": prospective_action_catalog_digest(),
         "action_order": list(rule.action_order),
+        "development_offsets": prospective_development_offsets_payload(
+            rule.development_offsets
+        ),
         "stopping_clearance": rule.stopping_clearance,
+        "single_candidate_stopping_clearance": (
+            rule.single_candidate_stopping_clearance
+        ),
         "minimum_expected_reduction": rule.minimum_expected_reduction,
         "minimum_utility_per_cost": rule.minimum_utility_per_cost,
         "utility_decimal_places": rule.utility_decimal_places,
@@ -806,8 +1175,11 @@ def prospective_selector_rule_from_payload(payload: dict) -> ProspectiveSelector
         "algorithm_version",
         "protocol_digest",
         "procedure_name",
+        "action_catalog_digest",
         "action_order",
+        "development_offsets",
         "stopping_clearance",
+        "single_candidate_stopping_clearance",
         "minimum_expected_reduction",
         "minimum_utility_per_cost",
         "utility_decimal_places",
@@ -825,12 +1197,20 @@ def prospective_selector_rule_from_payload(payload: dict) -> ProspectiveSelector
         raise ValueError("prospective selector algorithm version is unsupported")
     if payload["procedure_name"] != PROSPECTIVE_FOUR_ACTION_SELECTOR:
         raise ValueError("prospective selector procedure name is unsupported")
+    if payload["action_catalog_digest"] != prospective_action_catalog_digest():
+        raise ValueError("prospective selector action catalog digest is invalid")
     action_order = payload["action_order"]
     if not isinstance(action_order, list):
         raise ValueError("prospective selector action order must be a list")
     rule = ProspectiveSelectorRule(
         action_order=tuple(action_order),
+        development_offsets=prospective_development_offsets_from_payload(
+            payload["development_offsets"]
+        ),
         stopping_clearance=payload["stopping_clearance"],
+        single_candidate_stopping_clearance=(
+            payload["single_candidate_stopping_clearance"]
+        ),
         minimum_expected_reduction=payload["minimum_expected_reduction"],
         minimum_utility_per_cost=payload["minimum_utility_per_cost"],
         utility_decimal_places=payload["utility_decimal_places"],
@@ -844,15 +1224,24 @@ __all__ = [
     "CandidateExclusion",
     "PROSPECTIVE_ACQUISITION_ACTIONS",
     "PROSPECTIVE_ACTIONS",
+    "PROSPECTIVE_DEVELOPMENT_OFFSETS_PROTOCOL_VERSION",
+    "PROSPECTIVE_DEVELOPMENT_OFFSETS_SCHEMA_VERSION",
     "PROSPECTIVE_FOUR_ACTION_SELECTOR",
     "PROSPECTIVE_SELECTOR_PROTOCOL_VERSION",
     "PROSPECTIVE_SELECTOR_ALGORITHM_VERSION",
     "PROSPECTIVE_SELECTOR_SCHEMA_VERSION",
+    "PROSPECTIVE_UNFITTED_ZERO_OFFSETS_VERSION",
     "ProspectiveAcquisitionSnapshot",
     "ProspectiveActionEvaluation",
+    "ProspectiveDevelopmentOffsets",
     "ProspectiveSelection",
     "ProspectiveSelectorRule",
     "build_prospective_acquisition_snapshot",
+    "prospective_action_catalog_digest",
+    "prospective_action_catalog_payload",
+    "prospective_development_offsets_from_payload",
+    "prospective_development_offsets_payload",
+    "prospective_padded_initial_envelope",
     "prospective_selector_protocol_digest",
     "prospective_selector_rule_from_payload",
     "prospective_selector_rule_payload",

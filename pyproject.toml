@@ -37,6 +37,7 @@ thermotwin-operating-realism = "thermotwin.reports.operating_decision_realism:ma
 thermotwin-operating-calibration = "thermotwin.reports.operating_decision_calibration:main"
 thermotwin-operating-final = "thermotwin.reports.operating_decision_final_evaluation:main"
 thermotwin-operating-replication = "thermotwin.reports.operating_decision_replication:main"
+thermotwin-operating-prospective-pilot = "thermotwin.reports.operating_decision_prospective_pilot:main"
 thermotwin-imperfect-inverse-pinn = "thermotwin.reports.imperfect_inverse_pinn:main"
 thermotwin-forward-reconstruction = "thermotwin.reports.forward_reconstruction_comparison:main"
 thermotwin-release-audit = "thermotwin.reports.release_audit:main"
