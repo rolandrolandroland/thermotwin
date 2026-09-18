@@ -9,12 +9,14 @@ The audit also confirmed that the completed selector is narrower than the
 cost-dependent choice among thermal, voltage, and face-temperature packages
 specified below. The prospective experiment has now implemented its isolated
 four-action selection interface, cost-free posterior-predictive uncertainty
-estimator, and frozen energy/time/instrumentation cost layer, without opening a
-new partition; see
+estimator, and frozen energy/time/instrumentation cost layer. Its first
+disposable engineering partition is complete and closed after failing its
+gate; a fresh replacement pilot is allocated but unopened. See
 [`OPERATING_DECISION_PROSPECTIVE_SELECTOR.md`](OPERATING_DECISION_PROSPECTIVE_SELECTOR.md).
 The current authoritative boundary and replacement execution sequence are in
 [`OPERATING_DECISION_PROJECT_STATUS.md`](OPERATING_DECISION_PROJECT_STATUS.md),
-and the unopened campaign namespaces are recorded in the
+and the still-unopened development, calibration, and reserved namespaces are
+recorded in the
 [`prospective partition ledger`](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md).
 
 ## 1. Problem and research question
@@ -303,9 +305,9 @@ The prospective continuation uses the following superseding execution status:
 
 | Phase | Current status |
 | --- | --- |
-| Reconcile source, audits, and partitions | Complete in documentation; no new cohort opened. |
-| Harden padded scoring, stopping, eligibility, and numerical checks | Pending before data generation. |
-| Run the 12-case disposable draw-count pilot | Unopened. |
+| Reconcile source, audits, and partitions | Implemented and finally validated in the pre-P2 revision. Only the disposable v1 engineering partition has opened; P2 requires the committed and pushed revision with passing CI. |
+| Harden padded scoring, stopping, eligibility, and numerical checks | Implemented and finally validated for replacement pilot P2; uncertainty v3 and strengthened P2/N32 validators are ordinary defect repairs, not a scientific redesign. P2 requires the committed and pushed revision with passing CI. |
+| Run the 12-case disposable draw-count pilot | v1 complete and failed its gate; fresh P2 allocated but unopened until the preceding closeout. |
 | Develop offsets, thresholds, and measurement maps | Unopened; 20 tuning and 10 internal-check paired blocks allocated. |
 | Freeze analysis and independently calibrate | Unopened; 100 paired blocks planned, subject to a committed pre-generation precision review. |
 | Execute the reserved comparison once | Unopened; 100 paired blocks planned, subject to the same pre-generation review. |
@@ -318,6 +320,12 @@ guide action selection, but the complete frozen procedure receives one later
 independent block-level calibration correction. Sizes or rules may change only
 in a reviewed protocol revision committed before the affected partition is
 generated.
+
+The P2/N32 archive checks cover deterministic structure, cross-record
+identities, exact stream inventory and RNG offsets, fit invariants, and
+interval formulas. They do not rerun acquisition or predictive simulations,
+candidate refits, or post-reveal scoring. Full numerical reproduction remains
+a source-bound replay from retained raw evidence.
 
 A fit crash is an insufficient-evidence outcome and a separately reported
 numerical failure. Unexpected truth-solver failures require repair and a

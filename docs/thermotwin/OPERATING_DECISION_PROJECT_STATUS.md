@@ -1,22 +1,31 @@
 # Operating-decision project status
 
-Date: 2026-09-17. Status: Phase A reconciliation and the Phase B acceptance
-record are complete; the prospective scientific campaign remains unopened.
+Date: 2026-09-17. Last reconciled: 2026-09-18. Status: Phase A records and the
+Phase B replacement-pilot implementation are reconciled in this pending
+revision. The first disposable Phase C pilot is complete and failed its
+engineering gate. The bounded uncertainty-v3 repair and strengthened P2/N32
+archive validators are implemented, and the exact pre-P2 test record is
+complete. The fresh disposable replacement pilot has not opened and is
+authorized only from the committed and pushed form of this revision after its
+CI passes. Development, calibration, and reserved evidence remain unopened.
 
 ## Authoritative starting point
 
-The reviewed prospective source starts at `9a21aa7`. The two September 17
-independent audits found no implementation defect in prospective Steps 1–3 and
+The reviewed prospective source starts at `9a21aa7`. At that audited boundary,
+the two September 17 independent audits found no implementation defect in
+prospective Steps 1–3 and
 verified that the corrected-replication generator, parent artifact, guard
 artifact, evidence manifests, chronology, and committed arithmetic still
-reconstruct. The audits are retained as
+reconstruct. The later disposable pilot exposed the eligibility defect
+described below. The audits are retained as
 [`THERMOTWIN_AUDIT_2026_09_17.md`](THERMOTWIN_AUDIT_2026_09_17.md) and
 [`THERMOTWIN_AUDIT_2026_09_17_STEPS_2_3.md`](THERMOTWIN_AUDIT_2026_09_17_STEPS_2_3.md).
 
 This status record does not freeze a scientific procedure. It records the
 boundary between completed historical work and the unfinished prospective
-experiment. No pilot, development, calibration, or reserved case in the new
-campaign has been generated or opened.
+experiment. Only the disposable engineering partition
+`p1_disposable_draw_count_pilot` has been generated. No development,
+calibration, or reserved case in the new campaign has been opened.
 
 ## What is complete
 
@@ -68,20 +77,52 @@ The prospective experiment has development interfaces for:
 
 Those interfaces retain failed draws, prevent candidate attrition from looking
 like information gain, bind semantic random streams, and keep truth and final
-responses outside selection. The active Phase B rule is
-`prospective_four_action_selector_v2`. It retains authenticated raw widths,
+responses outside selection. The first disposable pilot exposed an additional
+eligibility defect: v2 also counted an ordinary candidate exclusion as
+whole-draw instability, so the action could be rejected even though another
+candidate supplied a valid conservatively scored interval. The bounded
+prospective-uncertainty v3 repair keeps the no-gain floor but reserves
+whole-draw instability for a true unusable draw. The selector algorithm remains
+`prospective_four_action_selector_v2`; its complete pilot protocol now binds
+the revised uncertainty identity. It retains authenticated raw widths,
 supports versioned development offsets in padded action value, records one-
 versus two-candidate stopping strata, and provides a separate single-candidate
 clearance. Its zero offsets and clearances remain unfitted development defaults.
 It is not a calibrated or frozen operating procedure.
 
+Uncertainty v3 and the later validator hardening are ordinary pre-P2 defect
+repairs. They do not consume the protocol's one planned scientific redesign
+and are not evidence that the selector works. Archive validation now checks
+deterministic record structure, cross-record identities, exact stream
+inventory and RNG offsets, fit invariants, and interval formulas. It does not
+rerun acquisition or predictive simulations, candidate refits, or post-reveal
+scoring; those calculations require a source-bound replay from the retained
+raw record.
+
+### Disposable pilot v1
+
+The 4-block, 12-case `p1_disposable_draw_count_pilot` completed at committed
+source `e32d091`. Its hashes, protocol binding, scientific digest, complete
+case matrix, acceptance calculation, and archive size verify independently.
+All 1,152 predictive draw records completed, but 422 candidate-level exclusions
+were also labeled unstable. That made voltage and face temperature ineligible
+in all 12 cases, thermal ineligible in 8/12, and left three cases with no
+selectable acquisition action. The engineering gate therefore failed and no
+draw count was accepted.
+
+The run took 1.88 wall hours on four workers. Its measured projection for all
+230 planned post-pilot blocks was 30.28 hours at N=4, 56.24 hours at N=8, and
+108.18 hours at N=16, before extra sensor-quality simulations. The complete
+diagnosis and content hashes are recorded in
+[`OPERATING_DECISION_PROSPECTIVE_PILOT_V1_RESULT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V1_RESULT.md).
+
 ## What remains
 
 | Phase | Status | Required result before advancing |
 | --- | --- | --- |
-| A — reconcile source and records | Complete in documentation | Commit this status, the audit corrections, and the partition ledger without generating a cohort. |
-| B — harden scientific interfaces | Accepted for the disposable pilot | Selector v2 versions padded scoring and stop strata; focused physics, numerics, information-boundary, and provenance checks pass. Commit the revision before pilot generation. |
-| C — disposable compute pilot | Unopened | Run the predeclared 12-case pilot and choose a draw count and worker budget from complete results. |
+| A — reconcile source and records | Implemented and validated pre-P2 | Use only the committed and pushed form of this reconciliation after its CI passes; do not generate P2 from an unverified revision. |
+| B — harden scientific interfaces | Implemented and validated pre-P2 | Candidate exclusion is versioned separately from whole-draw failure, the conservative width floor remains, and archive validation has the explicit replay boundary above. Use only the committed and pushed revision after its CI passes. |
+| C — disposable compute pilot | v1 complete and failed; P2 unopened | Run only the fresh `p2_disposable_candidate_exclusion_pilot` after A/B closeout; accept a draw count only if its full pilot gate passes, then freeze the measured compute budget in a separate commit before development. |
 | D — selector development and maps | Unopened | Use only the development partitions to fit offsets and thresholds and produce cost and physical sensor-quality maps. |
 | E — analysis freeze and calibration | Unopened | Freeze endpoints and the complete selector, then use the independent calibration partition only for the declared correction. |
 | F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
@@ -93,20 +134,28 @@ Phase B records the following boundaries for the pilot and later development:
   preserving failure and candidate-loss penalties;
 - the stop gate must use the development-padded envelope, record whether one or
   two candidates remain, and examine the one-candidate stratum separately;
-- the pilot reports the baseline 4/4, 8/8, and 15/16 eligibility behavior
-  explicitly, and the later scientific rule freezes draw eligibility as a pair
-  of draw count and maximum unstable draws before development;
+- the replacement pilot reports candidate transitions separately from true
+  whole-draw failures, compares authenticated N=4/8/16 prefixes, and freezes
+  eligibility as a pair of draw count and maximum unusable draws before
+  development;
+- if N=16 is the smallest passing prefix and P2 has zero pipeline failures and
+  zero N=16 selection failures, the predeclared all-12-case N=32 follow-up must also pass
+  the same 90% agreement and 5% regret limits with zero N=32 failures before a
+  draw count can be frozen;
 - probe nuisance draws must be described as coming from the declared truth
   support with the prior spread; and
 - the acceptance record must cover heat-flow signs, energy accounting, probe
   loading and removal, solver/time-grid convergence, information boundaries,
   saved-before-reveal decisions, and random-stream audits.
 
-The next permitted data generation is the disposable pilot named in the
+The next permitted data generation is
+`p2_disposable_candidate_exclusion_pilot` in the
 [prospective partition ledger](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md),
-and only after Phase B's interfaces and focused checks are committed. Large
-development, calibration, and reserved generation remains prohibited until its
-preceding gate is satisfied.
+and only from the revision in which the revised interfaces, diagnosis, and
+final checks are recorded, committed, pushed, and passing CI. Large
+development, calibration, and reserved generation remains
+prohibited until the pilot gate passes and the selected draw count and measured
+compute budget are frozen in a subsequent committed record.
 
 ## Evidence and runtime boundaries
 

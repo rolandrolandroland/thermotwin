@@ -1,12 +1,15 @@
 # Prospective four-action selector
 
 Status: the reviewed `9a21aa7` baseline implements roadmap Steps 1–3 as
-development interfaces. Phase B versions the active rule as
+development interfaces. Phase B versions the active selector as
 `prospective_four_action_selector_v2` to add development-padded scoring and
-explicit stop strata. No new scientific partition has been generated or
-opened. The completed corrected `r2` replication, its artifacts, and its
-procedure names remain unchanged. The disposable pilot, development maps,
-independent calibration, reserved evaluation, and final report remain pending.
+explicit stop strata. The first disposable pilot is complete and exposed an
+eligibility defect in prospective uncertainty v2. The bounded uncertainty v3
+repair, its complete pre-P2 validation, and strengthened P2/N32 archive
+validators are recorded in this source revision. These are ordinary pre-P2
+defect repairs. A fresh disposable pilot may open only from the committed and
+pushed revision after its CI passes. Development, independent calibration,
+reserved evaluation, and the final report remain pending.
 See the [current project status](OPERATING_DECISION_PROJECT_STATUS.md),
 [Phase B acceptance record](OPERATING_DECISION_PHASE_B_ACCEPTANCE.md), and
 [partition ledger](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md).
@@ -55,13 +58,15 @@ actions.
 ## Candidate reliability
 
 Every frozen candidate model must be accounted for as fitted, numerically
-failed, or excluded. A bound hit or nonconvergence excludes only that
-candidate. A fit exception remains a case-level selection failure. An
-uncertainty-propagation exception for an otherwise admissible candidate also
-remains case-fatal. Failed snapshots cannot retain partial intervals or a
-provisional envelope. The evidence factory still returns and serializes that
-failed acquisition record, so a later campaign cannot omit it from its
-coverage denominator; uncertainty scoring itself requires a usable baseline.
+failed, or excluded. A bound hit, nonconvergence, candidate-specific refit
+exception, or candidate-specific forecast exception excludes only that
+candidate when another candidate still supplies an admissible interval. A
+failure before a usable envelope exists, or loss of every candidate, remains a
+whole-draw or case-level failure as appropriate. Failed acquisition snapshots
+cannot retain partial intervals or a provisional envelope. The evidence
+factory still returns and serializes a failed acquisition record, so a later
+campaign cannot omit it from its coverage denominator; uncertainty scoring
+itself requires a usable baseline.
 
 This preserves the corrected replication rule that recovered Family A
 coverage: one unreliable candidate does not discard another reliable
@@ -110,24 +115,30 @@ than being dropped. Bound hits and nonconvergence still exclude candidates
 individually.
 
 If a candidate that was initially admissible becomes inadmissible after a
-hypothetical action, the draw is marked unstable and its scored width is the
-larger of its actual envelope width and the pre-action width. Candidate loss
-therefore cannot look like information gain. At the reviewed Step 2 baseline,
-an action is eligible only when each source candidate has at least
-`ceil(0.90 * N)` stable draws. That means 4/4, 8/8, and 15/16 stable draws at
-the three planned pilot counts; these are different eligibility rules and must
-not be described as a pure Monte Carlo precision comparison. A candidate that
-was excluded initially may re-enter after added data; that transition is
-recorded explicitly.
+hypothetical action, its scored width is the larger of its actual envelope
+width and the pre-action width. Candidate loss therefore cannot look like
+information gain. The transition remains explicit, but the draw remains usable
+when another candidate supplies a valid envelope. Bound hits and
+nonconvergence remain candidate-level exclusions; this rule does not accept the
+excluded fit.
+
+The first disposable pilot showed why the distinction matters. Uncertainty v2
+also marked every candidate transition as whole-draw instability. All 1,152
+draws completed, but 422 candidate exclusions made voltage and face temperature
+ineligible in every case and caused three selection failures. Uncertainty v3
+reserves an unstable draw for a true whole-draw failure, including sampling or
+simulation failure, an exception that prevents a usable envelope, or no
+admissible candidate. Candidate-transition counts are reported separately.
 
 The development default is `N = 4` predictive draws. This is an implementation
-and runtime setting, not the final scientific replicate count. The disposable
-pilot must generate 16 draws for all 12 cases and compare the prefix-matched
-`N = 4`, `8`, and `16` results while reporting complete stable counts and
-eligibility-driven changes. The final scientific rule will freeze eligibility
-as the explicit pair `(N, maximum unstable draws per source/action)` before a
-development partition is opened. It will not infer that pair from an unlabeled
-percentage or inspect a reserved cohort.
+and runtime setting, not the final scientific replicate count. The replacement
+pilot must generate 16 draws for all 12 fresh cases and compare the
+prefix-matched `N = 4`, `8`, and `16` results while reporting whole-draw
+failures, candidate transitions, eligibility-driven changes, and regret. The
+final scientific rule will freeze eligibility as the explicit pair `(N,
+maximum unusable draws per source/action)` before a development partition is
+opened. It will not infer that pair from an unlabeled percentage or inspect a
+reserved cohort.
 
 ## Prospective random streams
 
@@ -270,9 +281,20 @@ physical protocol, and exact action packages. Its result digest binds every
 draw, action summary, stream use, and stream audit to the authenticated common
 acquisition. The JSON-ready record includes the normalized physical
 configuration, common observations, acquisition fits, snapshot, final regime,
-predictive draws, and random-stream audit. The saved offsets and semantic
-stream keys make synthetic observations reproducible; their digests detect a
-different replay.
+predictive draws, and random-stream audit. That record retains the inputs
+needed for a deterministic source-bound replay. Archive validation itself
+checks serialized structure, cross-record identities, the exact stream
+inventory and RNG offsets, fit invariants, and interval formulas. It does not
+rerun acquisition or predictive simulations, candidate refits, or post-reveal
+scoring, so its digests bind the saved record rather than independently
+authenticating those numerical calculations. The in-memory runner validates
+the objects it produces before serialization; final scientific
+reproducibility still requires replay from the bound source and retained raw
+record.
+
+The uncertainty-v3 behavior and strengthened P2/N32 validators are ordinary
+pre-P2 corrections of demonstrated implementation and validation defects.
+They do not constitute a scientific redesign or evidence from a new cohort.
 
 The Step 3 protocol digest binds the nominal physical protocol, Step 2
 protocol, energy convention, reset assumption, normalization references,
@@ -292,12 +314,23 @@ evidence.
 
 ## Next roadmap step
 
-After the Phase B source, focused checks, and acceptance record are committed,
-the next data-generating step is the four-block, 12-case disposable pilot in
-`p1_disposable_draw_count_pilot`. It will measure complete-case runtime,
-failures, candidate transitions, stable counts, action agreement, and utility
-regret for prefix-matched `N = 4`, `8`, and `16` before fixing the campaign draw
-count and worker budget.
+The first four-block `p1_disposable_draw_count_pilot` is complete and failed its
+engineering gate under uncertainty v2. After the bounded v3 repair, regression
+checks, diagnosis, and new namespace are committed, the next data-generating
+step, after final validation is recorded and the revision is committed,
+pushed, and passes CI, is the fresh four-block, 12-case
+`p2_disposable_candidate_exclusion_pilot`. It will measure complete-case
+runtime, whole-draw failures, candidate transitions, action agreement, and
+utility regret for prefix-matched `N = 4`, `8`, and `16` before fixing the
+campaign draw count and worker budget.
+
+If N=16 is the smallest passing prefix and P2 has zero pipeline failures and
+zero N=16 selection failures, the predeclared follow-up generates N=32 for all
+same 12 cases. Its authenticated N=16 prefix must agree with N=32 in at least 90% of
+cases, have at most 5% maximum normalized utility regret, and have zero N=32
+pipeline or selection failures. A passing pilot still supplies measured
+planning evidence; the chosen draw count and compute budget must be frozen in a
+separate committed record before development opens.
 
 Only after the pilot passes may development produce the measurement map. The
 map must reuse authenticated raw Step 2 evidence for cost-only changes, apply

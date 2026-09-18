@@ -1,13 +1,17 @@
 # Prospective operating-decision partition ledger
 
-Ledger version: 1. Date declared: 2026-09-17. Status: namespaces allocated;
-no listed partition has been generated or opened.
+Ledger version: 2. Date declared: 2026-09-17. Last reconciled: 2026-09-18.
+Status: the first disposable pilot is complete and closed; its versioned
+replacement is allocated but has not been generated. The repair revision has
+its final validation record; the replacement may open only from its committed
+and pushed form after CI passes. Development, calibration, and reserved
+partitions remain unopened.
 
 ## Campaign identity
 
 ```text
 campaign: operating_decision_prospective_v1_2026_09
-procedure under development: prospective_four_action_selector_v2
+procedure under development: prospective_four_action_selector_v2 with prospective uncertainty v3
 reviewed source baseline: 9a21aa7
 ```
 
@@ -26,8 +30,9 @@ observations explicitly declared common by the protocol.
 
 | Partition | Planned size | Permitted use | Prohibited use | Reveal gate |
 | --- | ---: | --- | --- | --- |
-| `p1_disposable_draw_count_pilot` | 4 paired blocks / 12 cases | Runtime, memory, failure, eligibility, and prefix-matched `N=4/8/16` action-stability measurement. Generate 16 draws for every case; a predesignated `N=32` subset may be added only under the protocol's stated trigger. | Offset or threshold fitting; calibration; confirmatory performance claims. | Phase B interfaces and acceptance checks committed. |
-| `p1_development_tuning` | 20 paired blocks / 60 cases | Fit development action/stop offsets; choose stopping clearance, value thresholds, instability allowance, and exact sensor-quality scenarios from the declared grid. | Independent checking, final calibration, or confirmatory claims. | Pilot accepts a draw count and compute budget. |
+| `p1_disposable_draw_count_pilot` | 4 paired blocks / 12 cases, complete | Runtime, memory, failure, eligibility, and prefix-matched `N=4/8/16` action-stability measurement under prospective uncertainty v2. | Offset or threshold fitting; calibration; confirmatory performance claims; reuse as acceptance evidence for the revised rule. | Opened once at source `e32d091`; closed after the engineering gate failed. |
+| `p2_disposable_candidate_exclusion_pilot` | 4 paired blocks / 12 cases | Fresh repeat of the runtime and prefix-matched `N=4/8/16` pilot after separating candidate-level exclusion from whole-draw failure. Generate 16 draws for every case. If N=16 is the smallest passing prefix and P2 has zero pipeline failures and zero N=16 selection failures, generate N=32 for all same 12 cases and compare the authenticated N=16 prefix with N=32. An infeasible P2 fails without an N=32 run. | Offset or threshold fitting; calibration; confirmatory performance claims; favorable comparison with the exposed `p1` cases; choosing an N=32 subset after seeing P2. | Revised uncertainty and eligibility interfaces, regression tests, `p1` diagnosis, final validation record, and this namespace committed and pushed with passing CI before generation. |
+| `p1_development_tuning` | 20 paired blocks / 60 cases | Fit development action/stop offsets; choose stopping clearance, value thresholds, instability allowance, and exact sensor-quality scenarios from the declared grid. | Independent checking, final calibration, or confirmatory claims. | Pilot accepts a draw count; its measured runtime, CPU, memory, and archive projections are reviewed and a compute budget is frozen in a separate commit. |
 | `p1_development_internal_check` | 10 paired blocks / 30 cases | One internal check of the design selected on `p1_development_tuning`; draw-count sensitivity on a predetermined subset. | Final calibration or reserved claims. If its labels cause a redesign, it becomes tuning evidence and a new check namespace must be declared before generation. | Tuning design and check analysis committed before reveal. |
 | `p1_independent_calibration` | 100 paired blocks / 300 cases | Compute only the frozen procedure-level interval correction and the same declared correction for each fixed comparator; retain failed or missing intervals as infinite scores. | Selector, offset, stop, threshold, sensor-scenario, endpoint, or sample-size tuning. | Complete design and analysis specification committed; size and calibration rank verified before generation. |
 | `p1_reserved_evaluation` | 100 paired blocks / 300 cases | One final paired comparison of the frozen selector with stop, fixed thermal, fixed voltage, and fixed face temperature in the primary scenario. | Any tuning, recalibration, favorable-case selection, or reactive sample-size extension. | Finite calibration artifact, source/environment manifests, partition identities, comparison rules, and disposable end-to-end replay committed and verified. |
@@ -56,12 +61,37 @@ changed in response to its outcomes.
 ## Chronology and incident rule
 
 1. Commit Phase B source, protocol identities, tests, and acceptance record.
-2. Generate the disposable pilot once and freeze draw count and compute budget.
-3. Commit the development grid, then generate tuning and internal-check
+2. Generate `p1_disposable_draw_count_pilot`. Its all-or-action eligibility
+   rule failed because ordinary candidate exclusions also invalidated the
+   action. Preserve that result as engineering evidence.
+3. Treat uncertainty v3 and the strengthened P2/N32 validators as ordinary
+   pre-P2 defect repairs, not the planned scientific redesign. Record final
+   validation, commit and push the repairs and this ledger, and require passing
+   CI; only then generate `p2_disposable_candidate_exclusion_pilot` once.
+   Freeze draw count and the
+   compute budget only if that replacement passes its declared gate. If its
+   tested-prefix recommendation is N=16 and P2 has zero pipeline failures and
+   zero N=16 selection failures, the conditional artifact
+   `p2_disposable_candidate_exclusion_pilot_n32_all_cases_v1` must generate 32
+   draws for blocks 0--3 and all three truth families. N=16 must agree with N=32
+   in at least 90% of all 12 cases and have at most 5% maximum normalized
+   utility regret, with zero N=32 pipeline or selection failures. An infeasible
+   P2 fails without N=32. After the pilot gate passes, commit the accepted draw
+   count and measured compute budget in a separate commit before any
+   development partition opens.
+4. Commit the development grid, then generate tuning and internal-check
    partitions in that order.
-4. Freeze selector, scenarios, endpoints, comparison rules, sizes, and runtime.
-5. Generate independent calibration and commit a finite calibration artifact.
-6. Verify a disposable end-to-end replay, then open reserved evaluation once.
+5. Freeze selector, scenarios, endpoints, comparison rules, sizes, and runtime.
+6. Generate independent calibration and commit a finite calibration artifact.
+7. Verify a disposable end-to-end replay, then open reserved evaluation once.
+
+The pilot archive validators check deterministic record structure,
+cross-record identities, exact stream inventory and RNG offsets, fit
+invariants, and interval formulas. They do not rerun acquisition or predictive
+simulations, candidate refits, or post-reveal scoring. A complete numerical
+reproduction therefore still requires the bound source and retained raw
+record; archive validation alone is not an independent recomputation of the
+saved scientific calculations.
 
 Ordinary fit failures, excluded candidates, failed verification, and
 abstentions remain in their declared denominators. A material generator,

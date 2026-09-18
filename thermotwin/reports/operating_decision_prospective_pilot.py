@@ -1,15 +1,19 @@
-"""Command-line entry point for the four-block disposable prospective pilot."""
+"""Command-line entry point for the repaired four-block prospective pilot."""
 
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 import subprocess
 from typing import Optional, Sequence, Tuple
 
 from ..studies.operating_decision_prospective_pilot import (
+    PILOT_N32_FOLLOWUP_ARTIFACT_ID,
     PROSPECTIVE_PILOT_PARTITION,
     run_prospective_draw_count_pilot,
+    run_prospective_n32_followup,
+    save_prospective_n32_followup_artifacts,
     save_prospective_pilot_artifacts,
 )
 
@@ -95,10 +99,11 @@ def _output_paths(
 def main(argv: Optional[Sequence[str]] = None) -> None:
     parser = argparse.ArgumentParser(
         description=(
-            "Run the predeclared four-block disposable prospective draw-count pilot"
+            "Run the predeclared candidate-exclusion and draw-count pilot"
         )
     )
-    parser.add_argument(
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument(
         "--execute-disposable-pilot",
         action="store_true",
         help=(
@@ -106,14 +111,29 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             f"{PROSPECTIVE_PILOT_PARTITION}"
         ),
     )
+    mode.add_argument(
+        "--execute-n32-followup",
+        action="store_true",
+        help=(
+            "required acknowledgement for the conditional artifact "
+            f"{PILOT_N32_FOLLOWUP_ARTIFACT_ID}"
+        ),
+    )
+    parser.add_argument(
+        "--parent-pilot-json",
+        type=Path,
+        help="complete P2 JSON; required only for --execute-n32-followup",
+    )
     parser.add_argument("--json", type=Path, required=True)
     parser.add_argument("--report", type=Path)
     parser.add_argument("--hashes", type=Path)
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--repository-root", type=Path, default=PROJECT_ROOT)
     arguments = parser.parse_args(argv)
-    if not arguments.execute_disposable_pilot:
-        parser.error("--execute-disposable-pilot is required")
+    if arguments.execute_n32_followup and arguments.parent_pilot_json is None:
+        parser.error("--parent-pilot-json is required for --execute-n32-followup")
+    if arguments.execute_disposable_pilot and arguments.parent_pilot_json is not None:
+        parser.error("--parent-pilot-json is valid only for --execute-n32-followup")
     json_path, report_path, hash_path = _output_paths(
         arguments.json,
         arguments.report,
@@ -121,15 +141,32 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     )
     revision = _committed_source_revision(arguments.repository_root)
     _require_clean_head(arguments.repository_root, revision)
-    result = run_prospective_draw_count_pilot(
-        source_revision=revision,
-        workers=arguments.workers,
-        progress=print,
-    )
+    if arguments.execute_n32_followup:
+        parent_path = arguments.parent_pilot_json.expanduser().resolve()
+        parent_payload = json.loads(parent_path.read_text(encoding="utf-8"))
+        if not isinstance(parent_payload, dict):
+            raise ValueError("parent P2 JSON must contain an object")
+        result = run_prospective_n32_followup(
+            parent_payload,
+            source_revision=revision,
+            workers=arguments.workers,
+            progress=print,
+        )
+    else:
+        result = run_prospective_draw_count_pilot(
+            source_revision=revision,
+            workers=arguments.workers,
+            progress=print,
+        )
     # A pilot can run for hours.  Refuse to publish evidence if the checkout
     # changed after the preflight that supplied its recorded source revision.
     _require_clean_head(arguments.repository_root, revision)
-    saved = save_prospective_pilot_artifacts(
+    save = (
+        save_prospective_n32_followup_artifacts
+        if arguments.execute_n32_followup
+        else save_prospective_pilot_artifacts
+    )
+    saved = save(
         result,
         json_path=json_path,
         report_path=report_path,

@@ -1,5 +1,19 @@
 # ThermoTwin audit: pushed `origin/dev` at `9a21aa7`
 
+> **Post-audit status, 2026-09-17:** this historical audit predates the
+> disposable 12-case pilot. The pilot verified the no-gain attrition score but
+> exposed a separate eligibility defect: Step 2 also counted ordinary
+> candidate exclusion as whole-draw instability, which could invalidate an
+> otherwise usable action. The finding, hashes, and bounded versioned repair
+> are recorded in
+> [`OPERATING_DECISION_PROSPECTIVE_PILOT_V1_RESULT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V1_RESULT.md).
+> Subsequent adversarial review also strengthened the P2/N32 archive
+> validators while P2 remained unopened. Both changes are ordinary pre-P2
+> defect repairs, not favorable scientific results. Their final validation is
+> recorded in the current pre-P2 revision; P2 may open only from its committed
+> and pushed form after CI passes.
+> The original audit text below is preserved as issued.
+
 Date: 2026-09-17 (second audit of the day). Scope: the two commits pushed since the previous
 audit at `307a23a`:
 

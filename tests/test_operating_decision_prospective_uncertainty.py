@@ -205,23 +205,27 @@ def _completed_draw(
     draw_index: int,
     width: float,
     *,
-    stable: bool = True,
+    candidate_loss: bool = False,
     generator_offsets=(0.0,),
 ) -> prospective.ProspectiveDrawOutcome:
-    newly_excluded = () if stable else (FOUR_STATE_MODEL,)
-    outcomes = _candidate_outcomes(width) if stable else (
-        prospective.ProspectiveCandidateOutcome(
-            FIVE_STATE_MODEL,
-            "admissible",
-            1.0,
-            _interval(FIVE_STATE_MODEL, -0.5 * width, 0.5 * width),
-        ),
-        prospective.ProspectiveCandidateOutcome(
-            FOUR_STATE_MODEL,
-            "fit_reached_bound",
-            2.0,
-            None,
-        ),
+    newly_excluded = (FOUR_STATE_MODEL,) if candidate_loss else ()
+    outcomes = (
+        (
+            prospective.ProspectiveCandidateOutcome(
+                FIVE_STATE_MODEL,
+                "admissible",
+                1.0,
+                _interval(FIVE_STATE_MODEL, -0.5 * width, 0.5 * width),
+            ),
+            prospective.ProspectiveCandidateOutcome(
+                FOUR_STATE_MODEL,
+                "fit_reached_bound",
+                2.0,
+                None,
+            ),
+        )
+        if candidate_loss
+        else _candidate_outcomes(width)
     )
     outcomes = tuple(sorted(outcomes, key=lambda item: item.model_name))
     return prospective.ProspectiveDrawOutcome(
@@ -235,7 +239,7 @@ def _completed_draw(
         candidate_outcomes=outcomes,
         initially_admissible_became_inadmissible=newly_excluded,
         initially_excluded_became_admissible=(),
-        stable=stable,
+        stable=True,
         failed=False,
         failure_stage=None,
         failure_model=None,
@@ -917,7 +921,7 @@ class ProspectiveUncertaintyScoringTests(unittest.TestCase):
                     else:
                         self.assertIsNone(face_sensor)
 
-    def test_new_candidate_attrition_cannot_create_positive_information_value(self):
+    def test_candidate_loss_is_conservatively_scored_but_remains_eligible(self):
         policy = next(
             item for item in default_fixed_policies() if item.name == FIXED_VOLTAGE
         )
@@ -968,15 +972,52 @@ class ProspectiveUncertaintyScoringTests(unittest.TestCase):
                 baseline_width=baseline,
             )
         self.assertFalse(outcome.failed)
-        self.assertFalse(outcome.stable)
+        self.assertTrue(outcome.stable)
         self.assertEqual(
             outcome.initially_admissible_became_inadmissible,
             (FOUR_STATE_MODEL,),
         )
         self.assertEqual(outcome.raw_after_width, 0.2)
         self.assertEqual(outcome.scored_after_width, baseline)
+        with self.assertRaisesRegex(ValueError, "must be stable"):
+            replace(outcome, stable=False)
 
-    def test_failed_refit_is_retained_and_imputed_to_the_common_baseline(self):
+        draws = tuple(
+            replace(
+                outcome,
+                policy_name=policy_name,
+                face_probe_log_offsets=(0.0, 0.0)
+                if policy_name == FIXED_FACE_TEMPERATURE
+                else None,
+            )
+            for policy_name in (
+                FIXED_THERMAL,
+                FIXED_VOLTAGE,
+                FIXED_FACE_TEMPERATURE,
+            )
+        )
+        actions = prospective._summarize_uncertainty_draws(
+            tuple(sorted(
+                draws,
+                key=lambda item: (
+                    item.generator_model,
+                    item.policy_name,
+                    item.draw_index,
+                ),
+            )),
+            baseline,
+            (FOUR_STATE_MODEL,),
+            prospective.ProspectiveUncertaintyConfig(
+                draw_count=1,
+                max_unstable_draws_per_source_action=0,
+            ),
+        )
+        for action in actions[1:]:
+            self.assertTrue(action.eligible)
+            self.assertEqual(action.source_summaries[0].stable_draw_count, 1)
+            self.assertEqual(action.source_summaries[0].failed_draw_count, 0)
+
+    def test_candidate_fit_exception_with_survivor_remains_usable(self):
         policy = next(
             item for item in default_fixed_policies() if item.name == FIXED_THERMAL
         )
@@ -1017,11 +1058,326 @@ class ProspectiveUncertaintyScoringTests(unittest.TestCase):
                 registry=ProspectiveRandomStreamRegistry(),
                 baseline_width=baseline,
             )
+        statuses = {item.model_name: item.status for item in outcome.candidate_outcomes}
+        self.assertEqual(statuses[FOUR_STATE_MODEL], "acquisition_fit_failure")
+        self.assertFalse(outcome.failed)
+        self.assertTrue(outcome.stable)
+        self.assertEqual(
+            outcome.initially_admissible_became_inadmissible,
+            (FOUR_STATE_MODEL,),
+        )
+        self.assertEqual(outcome.scored_after_width, baseline)
+        self.assertEqual(outcome.raw_after_width, 0.2)
+
+    def test_candidate_forecast_exception_with_survivor_remains_usable(self):
+        policy = next(
+            item for item in default_fixed_policies() if item.name == FIXED_THERMAL
+        )
+        generator_fit = self.evidence.fit_set.fits[0]
+        refits = RealisticAcquisitionFitSet(
+            tuple(_fit(model_name, self.config) for model_name in MODEL_NAMES),
+            (),
+        )
+        baseline = (
+            self.evidence.snapshot.provisional_margin_envelope.upper
+            - self.evidence.snapshot.provisional_margin_envelope.lower
+        )
+
+        def forecast(fit, *_args):
+            if fit.model_name == FOUR_STATE_MODEL:
+                raise ValueError("candidate-only forecast failure")
+            return _interval(FIVE_STATE_MODEL, -0.1, 0.1)
+
+        with (
+            patch.object(prospective, "_simulate_action_runs", return_value=()),
+            patch.object(
+                prospective,
+                "_multistart_fit_candidates",
+                return_value=refits,
+            ),
+            patch.object(
+                prospective,
+                "forecast_realistic_margin_interval",
+                side_effect=forecast,
+            ),
+        ):
+            outcome = prospective._evaluate_hypothetical_draw(
+                policy=policy,
+                generator_fit=generator_fit,
+                generator_offsets=generator_fit.log_multipliers,
+                face_probe_offsets=None,
+                draw_index=0,
+                evidence=self.evidence,
+                namespace=self.namespace,
+                physical_config=self.config,
+                registry=ProspectiveRandomStreamRegistry(),
+                baseline_width=baseline,
+            )
+        statuses = {item.model_name: item.status for item in outcome.candidate_outcomes}
+        self.assertEqual(statuses[FOUR_STATE_MODEL], "uncertainty_failure")
+        self.assertFalse(outcome.failed)
+        self.assertTrue(outcome.stable)
+        self.assertEqual(
+            outcome.initially_admissible_became_inadmissible,
+            (FOUR_STATE_MODEL,),
+        )
+        self.assertEqual(outcome.scored_after_width, baseline)
+
+    def test_all_candidate_fit_exceptions_are_a_true_draw_failure(self):
+        policy = next(
+            item for item in default_fixed_policies() if item.name == FIXED_THERMAL
+        )
+        generator_fit = self.evidence.fit_set.fits[0]
+        refits = RealisticAcquisitionFitSet(
+            (),
+            (
+                NumericalFailure(
+                    FOUR_STATE_MODEL,
+                    "acquisition_fit",
+                    "ArithmeticError",
+                ),
+                NumericalFailure(
+                    FIVE_STATE_MODEL,
+                    "acquisition_fit",
+                    "ValueError",
+                ),
+            ),
+        )
+        baseline = (
+            self.evidence.snapshot.provisional_margin_envelope.upper
+            - self.evidence.snapshot.provisional_margin_envelope.lower
+        )
+        with (
+            patch.object(prospective, "_simulate_action_runs", return_value=()),
+            patch.object(
+                prospective,
+                "_multistart_fit_candidates",
+                return_value=refits,
+            ),
+        ):
+            outcome = prospective._evaluate_hypothetical_draw(
+                policy=policy,
+                generator_fit=generator_fit,
+                generator_offsets=generator_fit.log_multipliers,
+                face_probe_offsets=None,
+                draw_index=0,
+                evidence=self.evidence,
+                namespace=self.namespace,
+                physical_config=self.config,
+                registry=ProspectiveRandomStreamRegistry(),
+                baseline_width=baseline,
+            )
+
         self.assertTrue(outcome.failed)
         self.assertFalse(outcome.stable)
         self.assertEqual(outcome.failure_stage, "prospective_refit")
-        self.assertEqual(outcome.scored_after_width, baseline)
+        self.assertEqual(outcome.failure_model, FIVE_STATE_MODEL)
+        self.assertEqual(outcome.failure_type, "ValueError")
         self.assertIsNone(outcome.raw_after_width)
+        self.assertEqual(outcome.scored_after_width, baseline)
+        self.assertTrue(outcome.candidate_outcomes)
+        self.assertTrue(
+            all(
+                item.status == "acquisition_fit_failure"
+                and item.interval is None
+                for item in outcome.candidate_outcomes
+            )
+        )
+
+    def test_all_candidate_forecast_exceptions_are_a_true_draw_failure(self):
+        policy = next(
+            item for item in default_fixed_policies() if item.name == FIXED_THERMAL
+        )
+        generator_fit = self.evidence.fit_set.fits[0]
+        refits = RealisticAcquisitionFitSet(
+            tuple(_fit(model_name, self.config) for model_name in MODEL_NAMES),
+            (),
+        )
+        baseline = (
+            self.evidence.snapshot.provisional_margin_envelope.upper
+            - self.evidence.snapshot.provisional_margin_envelope.lower
+        )
+
+        def forecast(fit, *_args):
+            if fit.model_name == FIVE_STATE_MODEL:
+                raise ArithmeticError("five-state forecast failure")
+            raise ValueError("four-state forecast failure")
+
+        with (
+            patch.object(prospective, "_simulate_action_runs", return_value=()),
+            patch.object(
+                prospective,
+                "_multistart_fit_candidates",
+                return_value=refits,
+            ),
+            patch.object(
+                prospective,
+                "forecast_realistic_margin_interval",
+                side_effect=forecast,
+            ),
+        ):
+            outcome = prospective._evaluate_hypothetical_draw(
+                policy=policy,
+                generator_fit=generator_fit,
+                generator_offsets=generator_fit.log_multipliers,
+                face_probe_offsets=None,
+                draw_index=0,
+                evidence=self.evidence,
+                namespace=self.namespace,
+                physical_config=self.config,
+                registry=ProspectiveRandomStreamRegistry(),
+                baseline_width=baseline,
+            )
+
+        self.assertTrue(outcome.failed)
+        self.assertFalse(outcome.stable)
+        self.assertEqual(outcome.failure_stage, "prospective_uncertainty")
+        self.assertEqual(outcome.failure_model, FIVE_STATE_MODEL)
+        self.assertEqual(outcome.failure_type, "ArithmeticError")
+        self.assertIsNone(outcome.raw_after_width)
+        self.assertEqual(outcome.scored_after_width, baseline)
+        self.assertTrue(outcome.candidate_outcomes)
+        self.assertTrue(
+            all(
+                item.status == "uncertainty_failure"
+                and item.interval is None
+                for item in outcome.candidate_outcomes
+            )
+        )
+
+    def test_no_admissible_candidate_is_a_true_ineligible_draw_failure(self):
+        policy = next(
+            item for item in default_fixed_policies() if item.name == FIXED_THERMAL
+        )
+        generator_fit = self.evidence.fit_set.fits[0]
+        refits = RealisticAcquisitionFitSet(
+            tuple(
+                _fit(model_name, self.config, reached_bound=True)
+                for model_name in MODEL_NAMES
+            ),
+            (),
+        )
+        baseline = (
+            self.evidence.snapshot.provisional_margin_envelope.upper
+            - self.evidence.snapshot.provisional_margin_envelope.lower
+        )
+        with (
+            patch.object(prospective, "_simulate_action_runs", return_value=()),
+            patch.object(
+                prospective,
+                "_multistart_fit_candidates",
+                return_value=refits,
+            ),
+        ):
+            outcome = prospective._evaluate_hypothetical_draw(
+                policy=policy,
+                generator_fit=generator_fit,
+                generator_offsets=generator_fit.log_multipliers,
+                face_probe_offsets=None,
+                draw_index=0,
+                evidence=self.evidence,
+                namespace=self.namespace,
+                physical_config=self.config,
+                registry=ProspectiveRandomStreamRegistry(),
+                baseline_width=baseline,
+            )
+        self.assertTrue(outcome.failed)
+        self.assertFalse(outcome.stable)
+        self.assertEqual(outcome.failure_type, "NoAdmissibleCandidate")
+        self.assertEqual(outcome.scored_after_width, baseline)
+        draws = tuple(
+            prospective._failed_draw(
+                policy_name=policy_name,
+                generator_model=generator_fit.model_name,
+                draw_index=0,
+                generator_offsets=generator_fit.log_multipliers,
+                face_probe_offsets=None,
+                baseline_width=baseline,
+                stage=outcome.failure_stage,
+                error_type=outcome.failure_type,
+            )
+            for policy_name in (
+                FIXED_THERMAL,
+                FIXED_VOLTAGE,
+                FIXED_FACE_TEMPERATURE,
+            )
+        )
+        actions = prospective._summarize_uncertainty_draws(
+            tuple(sorted(
+                draws,
+                key=lambda item: (
+                    item.generator_model,
+                    item.policy_name,
+                    item.draw_index,
+                ),
+            )),
+            baseline,
+            (generator_fit.model_name,),
+            prospective.ProspectiveUncertaintyConfig(
+                draw_count=1,
+                max_unstable_draws_per_source_action=0,
+            ),
+        )
+        self.assertTrue(all(not action.eligible for action in actions[1:]))
+
+    def test_nonconverged_candidate_with_survivor_remains_usable(self):
+        policy = next(
+            item for item in default_fixed_policies() if item.name == FIXED_VOLTAGE
+        )
+        generator_fit = next(
+            fit
+            for fit in self.evidence.fit_set.fits
+            if fit.model_name == FOUR_STATE_MODEL
+        )
+        refits = RealisticAcquisitionFitSet(
+            tuple(
+                _fit(
+                    model_name,
+                    self.config,
+                    converged=model_name != FOUR_STATE_MODEL,
+                )
+                for model_name in MODEL_NAMES
+            ),
+            (),
+        )
+        baseline = (
+            self.evidence.snapshot.provisional_margin_envelope.upper
+            - self.evidence.snapshot.provisional_margin_envelope.lower
+        )
+        with (
+            patch.object(prospective, "_simulate_action_runs", return_value=()),
+            patch.object(
+                prospective,
+                "_multistart_fit_candidates",
+                return_value=refits,
+            ),
+            patch.object(
+                prospective,
+                "forecast_realistic_margin_interval",
+                return_value=_interval(FIVE_STATE_MODEL, -0.1, 0.1),
+            ),
+        ):
+            outcome = prospective._evaluate_hypothetical_draw(
+                policy=policy,
+                generator_fit=generator_fit,
+                generator_offsets=generator_fit.log_multipliers,
+                face_probe_offsets=None,
+                draw_index=0,
+                evidence=self.evidence,
+                namespace=self.namespace,
+                physical_config=self.config,
+                registry=ProspectiveRandomStreamRegistry(),
+                baseline_width=baseline,
+            )
+        statuses = {item.model_name: item.status for item in outcome.candidate_outcomes}
+        self.assertEqual(statuses[FOUR_STATE_MODEL], "optimizer_not_converged")
+        self.assertTrue(outcome.stable)
+        self.assertFalse(outcome.failed)
+        self.assertEqual(
+            outcome.initially_admissible_became_inadmissible,
+            (FOUR_STATE_MODEL,),
+        )
+        self.assertEqual(outcome.scored_after_width, baseline)
 
     def test_recovered_candidate_reenters_the_after_action_envelope(self):
         evidence = _evidence(self.config, excluded_model=FIVE_STATE_MODEL)
@@ -1583,7 +1939,7 @@ class ProspectiveUncertaintyScoringTests(unittest.TestCase):
             FOUR_STATE_MODEL,
             0,
             0.25,
-            stable=False,
+            candidate_loss=True,
         )
         stable = _completed_draw(
             FIXED_VOLTAGE,

@@ -82,19 +82,21 @@ from .sensor_model_discrimination import (
 )
 
 
-PROSPECTIVE_UNCERTAINTY_SCHEMA_VERSION = 2
+PROSPECTIVE_UNCERTAINTY_SCHEMA_VERSION = 3
 PROSPECTIVE_UNCERTAINTY_PROTOCOL_VERSION = (
-    "operating_decision_prospective_uncertainty_v2"
+    "operating_decision_prospective_uncertainty_v3"
 )
-PROSPECTIVE_UNCERTAINTY_ESTIMATOR = "bounded_posterior_predictive_refit_v2"
+PROSPECTIVE_UNCERTAINTY_ESTIMATOR = "bounded_posterior_predictive_refit_v3"
 PROSPECTIVE_UNCERTAINTY_METRIC = "candidate_envelope_full_width_kelvin"
 PROSPECTIVE_WITHIN_GENERATOR_AGGREGATION = "arithmetic_mean"
 PROSPECTIVE_ACROSS_GENERATOR_AGGREGATION = "worst_case_maximum"
 PROSPECTIVE_DRAW_FAILURE_POLICY = "baseline_width_imputation"
-PROSPECTIVE_CANDIDATE_ATTRITION_POLICY = "no_positive_gain_and_unstable"
+PROSPECTIVE_CANDIDATE_ATTRITION_POLICY = (
+    "no_positive_gain_candidate_exclusion_retained_as_usable"
+)
 PROSPECTIVE_REFIT_START_PROTOCOL = "frozen_three_start_multistart"
 PROSPECTIVE_ELIGIBILITY_PROTOCOL = (
-    "explicit_draw_count_and_max_unstable_per_source_action_v1"
+    "explicit_draw_count_and_max_whole_draw_failures_per_source_action_v2"
 )
 PROSPECTIVE_PADDED_SCORING_PROTOCOL = (
     "development_offsets_with_padded_failure_floor_v1"
@@ -139,7 +141,13 @@ def _sha256(name: str, value: str) -> None:
 
 @dataclass(frozen=True)
 class ProspectiveUncertaintyConfig:
-    """Frozen Monte Carlo and aggregation choices for Step 2 development."""
+    """Frozen Monte Carlo and aggregation choices for Step 2 development.
+
+    In protocol v3, the retained ``max_unstable`` field name means the maximum
+    number of true whole-draw failures per source/action.  Candidate-level
+    bound hits and nonconvergence remain recorded and conservatively scored,
+    but a surviving admissible candidate makes the completed draw usable.
+    """
 
     draw_count: int = 4
     max_parameter_draw_attempts: int = 256
@@ -245,7 +253,12 @@ class ProspectiveCandidateOutcome:
 
 @dataclass(frozen=True)
 class ProspectiveDrawOutcome:
-    """Retained result for one source-model, action, and draw index."""
+    """Retained result for one source-model, action, and draw index.
+
+    ``stable`` denotes a usable completed draw, not preservation of the exact
+    initial candidate set.  Candidate transitions are carried separately and
+    trigger the conservative baseline-width floor.
+    """
 
     policy_name: str
     generator_model: str
@@ -318,6 +331,10 @@ class ProspectiveDrawOutcome:
         if self.failed:
             if self.stable or self.raw_after_width is not None:
                 raise ValueError("a failed draw cannot be stable or retain a raw width")
+            if any(item.status == "admissible" for item in outcomes):
+                raise ValueError(
+                    "a failed draw cannot retain an admissible candidate"
+                )
             for name, value in (
                 ("failure stage", self.failure_stage),
                 ("failure type", self.failure_type),
@@ -354,9 +371,15 @@ class ProspectiveDrawOutcome:
                 "synthetic observation digest",
                 self.synthetic_observation_digest,
             )
-            if self.stable != (not newly_excluded):
-                raise ValueError("draw stability must reflect candidate attrition")
             status_by_model = {item.model_name: item.status for item in outcomes}
+            if not any(status == "admissible" for status in status_by_model.values()):
+                raise ValueError(
+                    "a completed draw needs at least one admissible candidate"
+                )
+            if not self.stable:
+                raise ValueError(
+                    "a completed draw with an admissible candidate must be stable"
+                )
             if any(status_by_model[model] == "admissible" for model in newly_excluded):
                 raise ValueError("newly excluded candidates cannot remain admissible")
             if any(status_by_model[model] != "admissible" for model in recovered):
@@ -365,7 +388,7 @@ class ProspectiveDrawOutcome:
 
 @dataclass(frozen=True)
 class ProspectiveModelActionSummary:
-    """Mean retained width for one action under one source candidate."""
+    """Mean retained width and whole-draw usability for one source/action."""
 
     policy_name: str
     generator_model: str
@@ -392,8 +415,10 @@ class ProspectiveModelActionSummary:
             raise ValueError("model-action draw counts are inconsistent")
         if self.failed_draw_count > self.draw_count:
             raise ValueError("model-action failure count is inconsistent")
-        if self.stable_draw_count + self.failed_draw_count > self.draw_count:
-            raise ValueError("stable and failed draw counts must be disjoint")
+        if self.stable_draw_count + self.failed_draw_count != self.draw_count:
+            raise ValueError(
+                "every model-action draw must be stable or a whole-draw failure"
+            )
         object.__setattr__(
             self,
             "mean_after_width",
@@ -653,7 +678,7 @@ def _validate_draw_against_acquisition(
         or draw.scored_after_width != scored_width
         or draw.initially_admissible_became_inadmissible != newly_excluded
         or draw.initially_excluded_became_admissible != recovered
-        or draw.stable != (not newly_excluded)
+        or not draw.stable
     ):
         raise ValueError("prospective draw does not match its candidate outcomes")
 
@@ -1152,7 +1177,9 @@ def _prospective_uncertainty_protocol_digest_from_physical_digest(
             "actions": [_policy_payload(item) for item in default_fixed_policies()],
             "candidate_models": list(MODEL_NAMES),
             "candidate_exclusion": "bound_or_nonconverged_individual_exclusion",
-            "new_candidate_attrition": "max_actual_or_baseline_and_unstable",
+            "new_candidate_attrition": (
+                "max_actual_or_baseline_candidate_exclusion_retained_as_usable"
+            ),
             "failed_draw": "raw_baseline_width_imputation_retained_denominator",
         }
     )
@@ -1750,7 +1777,7 @@ def _evaluate_hypothetical_draw(
     failures_by_model = {item.model_name: item for item in refit_set.failures}
     fits_by_model = {item.model_name: item for item in refit_set.fits}
     intervals = []
-    forecast_failure: Optional[Tuple[str, BaseException]] = None
+    forecast_failures: dict[str, BaseException] = {}
     for model_name in MODEL_NAMES:
         if model_name in failures_by_model:
             outcomes.append(
@@ -1798,7 +1825,7 @@ def _evaluate_hypothetical_draw(
                     None,
                 )
             )
-            forecast_failure = (model_name, error)
+            forecast_failures[model_name] = error
             continue
         outcomes.append(
             ProspectiveCandidateOutcome(
@@ -1810,40 +1837,21 @@ def _evaluate_hypothetical_draw(
         )
         intervals.append(interval)
 
-    if failures_by_model:
-        failed_model = sorted(failures_by_model)[0]
-        failure = failures_by_model[failed_model]
-        return _failed_draw(
-            policy_name=policy.name,
-            generator_model=generator_fit.model_name,
-            draw_index=draw_index,
-            generator_offsets=generator_offsets,
-            face_probe_offsets=face_probe_offsets,
-            baseline_width=baseline_width,
-            stage="prospective_refit",
-            failure_model=failed_model,
-            error_type=failure.error_type,
-            candidate_outcomes=outcomes,
-            observation_digest=observation_digest,
-        )
-    if forecast_failure is not None:
-        failed_model, error = forecast_failure
-        return _failed_draw(
-            policy_name=policy.name,
-            generator_model=generator_fit.model_name,
-            draw_index=draw_index,
-            generator_offsets=generator_offsets,
-            face_probe_offsets=face_probe_offsets,
-            baseline_width=baseline_width,
-            stage="prospective_uncertainty",
-            failure_model=failed_model,
-            error_type=type(error).__name__,
-            candidate_outcomes=outcomes,
-            observation_digest=observation_digest,
-        )
-
     envelope = envelope_margin_intervals(intervals)
     if envelope is None:
+        if failures_by_model:
+            failed_model = sorted(failures_by_model)[0]
+            failure = failures_by_model[failed_model]
+            failure_stage = "prospective_refit"
+            failure_type = failure.error_type
+        elif forecast_failures:
+            failed_model = sorted(forecast_failures)[0]
+            failure_stage = "prospective_uncertainty"
+            failure_type = type(forecast_failures[failed_model]).__name__
+        else:
+            failed_model = None
+            failure_stage = "prospective_uncertainty"
+            failure_type = "NoAdmissibleCandidate"
         return _failed_draw(
             policy_name=policy.name,
             generator_model=generator_fit.model_name,
@@ -1851,8 +1859,9 @@ def _evaluate_hypothetical_draw(
             generator_offsets=generator_offsets,
             face_probe_offsets=face_probe_offsets,
             baseline_width=baseline_width,
-            stage="prospective_uncertainty",
-            error_type="NoAdmissibleCandidate",
+            stage=failure_stage,
+            failure_model=failed_model,
+            error_type=failure_type,
             candidate_outcomes=outcomes,
             observation_digest=observation_digest,
         )
@@ -1875,7 +1884,7 @@ def _evaluate_hypothetical_draw(
         candidate_outcomes=tuple(sorted(outcomes, key=lambda item: item.model_name)),
         initially_admissible_became_inadmissible=newly_excluded,
         initially_excluded_became_admissible=recovered,
-        stable=not newly_excluded,
+        stable=True,
         failed=False,
         failure_stage=None,
         failure_model=None,
