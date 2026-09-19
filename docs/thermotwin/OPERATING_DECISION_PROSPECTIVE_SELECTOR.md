@@ -8,11 +8,11 @@ prospective uncertainty v2. The bounded uncertainty-v3 repair then ran in P2,
 but P2's saved JSON failed required load-and-validate replay because physical
 configuration tuples loaded as lists. P2 is preserved as an invalid incident;
 its gate was not evaluated and its N32 continuation never opened. The P3
-representation repair and versioned identities are implemented in the current
-working tree and passed local validation under CPython 3.10.12. Independent
-clean-clone review, commit, push, and green CI remain pending. P3, development,
-independent calibration, reserved evaluation, and the final report remain
-unopened.
+representation repair and versioned identities are committed at `8c232af`,
+passed local validation under CPython 3.10.12, and passed independent
+clean-clone review. This audit closeout is recorded in this commit, which still
+requires push and green CI on exact HEAD. P3, development, independent
+calibration, reserved evaluation, and the final report remain unopened.
 See the [current project status](OPERATING_DECISION_PROJECT_STATUS.md),
 [Phase B acceptance record](OPERATING_DECISION_PHASE_B_ACCEPTANCE.md), and
 [partition ledger](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md).
@@ -328,9 +328,10 @@ conditional N32 artifact is retired unopened. See the
 The next data-generating step is the fresh four-block, 12-case
 `p3_disposable_archive_roundtrip_replacement_pilot`, but only after pilot
 protocol v4 and N32-follow-up protocol v2, their JSON-native configuration
-payloads, and their final-byte save/load checks complete independent
-clean-clone review. Local validation has passed; commit, push, and green CI are
-still required.
+payloads, and their final-byte save/load checks have passed local validation
+and independent clean-clone review at repair commit `8c232af`. This audit
+closeout is recorded in this commit; the commit must be pushed and exact HEAD
+must pass CI.
 
 If valid P3 identifies N=16 as the smallest passing prefix with zero pipeline
 and N=16 selection failures, only

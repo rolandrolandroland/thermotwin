@@ -548,10 +548,10 @@ reserved partition has opened. P2 later executed the bounded uncertainty-v3
 rule, but its saved JSON failed required load-and-validate replay. P2 is
 preserved as invalid incident evidence, its gate was not evaluated, and its N32
 continuation did not open. The P3 archive-transport repair is an ordinary
-defect repair rather than new scientific evidence. It is implemented in the
-current working tree and passed local validation under CPython 3.10.12;
-independent clean-clone review, commit, push, and green CI remain pending. P3
-is unopened.
+defect repair rather than new scientific evidence. It is committed at
+`8c232af`, passed local validation under CPython 3.10.12, and passed independent
+clean-clone review. This audit closeout is recorded in this commit, which must
+be pushed and pass CI on exact HEAD. P3 is unopened.
 See
 [`OPERATING_DECISION_PROJECT_STATUS.md`](OPERATING_DECISION_PROJECT_STATUS.md)
 and the

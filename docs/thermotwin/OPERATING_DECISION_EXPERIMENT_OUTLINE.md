@@ -12,9 +12,9 @@ four-action selection interface, cost-free posterior-predictive uncertainty
 estimator, and frozen energy/time/instrumentation cost layer. P1 is complete
 and closed after failing its gate. P2 executed, but its saved archive failed
 the required JSON round trip, so its gate was not evaluated. P3 is allocated
-and its archive-transport repair is implemented in the current working tree,
-where it passed local validation under CPython 3.10.12. P3 remains unopened
-pending independent clean-clone review, commit, push, and green CI. See
+and its archive-transport repair is committed at `8c232af`; local validation
+and independent clean-clone review passed. P3 remains unopened until this
+audit closeout commit is pushed and exact HEAD passes CI. See
 [`OPERATING_DECISION_PROSPECTIVE_SELECTOR.md`](OPERATING_DECISION_PROSPECTIVE_SELECTOR.md).
 The current authoritative boundary and replacement execution sequence are in
 [`OPERATING_DECISION_PROJECT_STATUS.md`](OPERATING_DECISION_PROJECT_STATUS.md),
@@ -309,7 +309,7 @@ The prospective continuation uses the following superseding execution status:
 | Phase | Current status |
 | --- | --- |
 | Reconcile source, audits, and partitions | Complete through the preserved P2 archive incident. P1 and P2 have opened; P2 is invalid incident evidence with its gate not evaluated. |
-| Harden padded scoring, stopping, eligibility, and numerical checks | Numerical interfaces are retained. The P3 JSON-native representation and final-byte round-trip repair are implemented and locally validated; independent clean-clone review, commit, push, and green CI remain pending. |
+| Harden padded scoring, stopping, eligibility, and numerical checks | Numerical interfaces are retained. The P3 JSON-native representation and final-byte round-trip repair are committed at `8c232af`; local validation and independent clean-clone review passed. This closeout commit still requires push and green CI on exact HEAD. |
 | Run the 12-case disposable draw-count pilot | P1 complete and failed; P2 execution complete but archive invalid; fresh P3 and its conditional N32 identity allocated but unopened. |
 | Develop offsets, thresholds, and measurement maps | Unopened; 20 tuning and 10 internal-check paired blocks allocated. |
 | Freeze analysis and independently calibrate | Unopened; 100 paired blocks planned, subject to a committed pre-generation precision review. |

@@ -1,13 +1,14 @@
 # Operating-decision project status
 
-Date: 2026-09-17. Last reconciled: 2026-09-18. Status: P1 is complete and
+Date: 2026-09-17. Last reconciled: 2026-09-19. Status: P1 is complete and
 failed its engineering gate. P2 executed at source `9db5f3f`, but its saved
 JSON failed the required load-and-validate round trip. P2 is preserved as an
 invalid incident, its gate was not evaluated, and its N32 continuation never
-opened. The representation repair and fresh P3 namespace are implemented in
-the current working tree and passed local validation under CPython 3.10.12.
-Independent clean-clone review, commit, push, and green CI remain pending. P3,
-development, calibration, and reserved evidence remain unopened.
+opened. The representation repair and fresh P3 namespace are committed at
+`8c232af`, passed local validation under CPython 3.10.12, and passed independent
+clean-clone review. This audit closeout is recorded in this commit; the commit
+must be pushed and its exact HEAD must pass CI. P3, development, calibration, and
+reserved evidence remain unopened.
 
 ## Authoritative starting point
 
@@ -140,7 +141,7 @@ tune or trigger P3. The exact provenance, hashes, and response are in
 | Phase | Status | Required result before advancing |
 | --- | --- | --- |
 | A — reconcile source and records | Complete through the P2 incident record | Preserve P1 and invalid P2; version every replacement before opening it. |
-| B — harden scientific interfaces | Archive transport repair implemented; local validation passed under CPython 3.10.12 | Complete independent clean-clone review, then commit, push, and require green CI before P3. |
+| B — harden scientific interfaces | Repair committed at `8c232af`; local validation and independent clean-clone review passed | Push this audit closeout commit, then require green CI on exact HEAD before P3. |
 | C — disposable compute pilot | P1 failed; P2 invalid with gate not evaluated; P3 unopened | Run only `p3_disposable_archive_roundtrip_replacement_pilot` after the repair gate. If valid P3 triggers its all-case N32 continuation, complete that before evaluating the combined gate. Freeze an accepted draw count and budget only in a later commit. |
 | D — selector development and maps | Unopened | Use only the development partitions to fit offsets and thresholds and produce cost and physical sensor-quality maps. |
 | E — analysis freeze and calibration | Unopened | Freeze endpoints and the complete selector, then use the independent calibration partition only for the declared correction. |
@@ -171,10 +172,10 @@ Phase B records the following boundaries for the pilot and later development:
 The next permitted data generation is
 `p3_disposable_archive_roundtrip_replacement_pilot` in the
 [prospective partition ledger](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md),
-and only after the locally validated JSON-native representation repair and
-final-byte round-trip checks complete independent clean-clone review, then are
-recorded, committed, pushed, and passing CI. Those remaining gates are not
-claimed complete here. Large
+and only after the reviewed JSON-native representation repair and final-byte
+round-trip checks are recorded in the committed chain, pushed, and passing CI.
+This audit closeout is recorded in this commit, which is not yet pushed, and CI
+on its exact HEAD is not yet green. Large
 development, calibration, and reserved generation remains
 prohibited until the pilot gate passes and the selected draw count and measured
 compute budget are frozen in a subsequent committed record.

@@ -55,14 +55,17 @@ unopened.
 ## Required replacement
 
 The representation defect is an ordinary software repair and does not consume
-the protocol's planned scientific redesign. The current working tree
-implements JSON-native configuration payloads, final-byte validation for P3
+the protocol's planned scientific redesign. Repair commit `8c232af` implements
+JSON-native configuration payloads, final-byte validation for P3
 and conditional N32 archives, pilot protocol v4, and N32-follow-up protocol v2.
 Local validation under CPython 3.10.12 passed 8 targeted protocol/archive tests
 in 751.650 seconds, 137 prospective tests in 1330.082 seconds, 4 Phase B tests
 in 0.195 seconds, and the full dependency-equipped 810-test suite in 1489.060
 seconds. These runs overlap and are not a single summed test count. Independent
-clean-clone review, commit, push, and green CI remain pending. The
+clean-clone review on 2026-09-19 of exact commit `8c232af` passed six focused
+tests in 462.860 seconds, reproduced this incident, and found no scientific
+drift or P3 artifact. This audit closeout is recorded in this commit; the
+commit must be pushed and its exact HEAD must pass CI. The
 implementation and local checks are not scientific evidence and do not
 authorize P3.
 

@@ -1,14 +1,15 @@
 # Prospective operating-decision partition ledger
 
-Ledger version: 3. Date declared: 2026-09-17. Last reconciled: 2026-09-18.
+Ledger version: 3. Date declared: 2026-09-17. Last reconciled: 2026-09-19.
 Status: P1 is complete and closed. P2 executed once, but its saved JSON failed
 the required load-and-validate round trip; it is preserved as invalid incident
 evidence and its gate was not evaluated. P2's N32 continuation was never opened
 and is retired. P3 and its conditional N32 identity are allocated but unopened.
-Their representation repair is implemented in the current working tree. Final
-local validation passed under CPython 3.10.12 as recorded in the
+Their representation repair is committed at `8c232af`. Final local validation
+passed under CPython 3.10.12 as recorded in the
 [Phase B acceptance record](OPERATING_DECISION_PHASE_B_ACCEPTANCE.md).
-Independent clean-clone review, commit, push, and green CI remain pending.
+Independent clean-clone review also passed. This audit closeout is recorded in
+this commit; the commit must be pushed and its exact HEAD must pass CI.
 Development, calibration, and reserved partitions remain unopened.
 
 ## Campaign identity
@@ -75,12 +76,13 @@ changed in response to its outcomes.
    `9db5f3f`. Preserve its hashes, but stop interpretation when the saved JSON
    fails the required load-and-validate round trip. Record the incident, close
    P2 without evaluating its gate, and retire its unopened N32 continuation.
-4. The current working tree repairs only the representation boundary: it makes
+4. Repair commit `8c232af` changes only the representation boundary: it makes
    configuration payloads JSON-native, requires final P3 and N32 bytes to pass
    save, load, and archive validation, and versions pilot protocol v4,
    N32-follow-up protocol v2, the P3 namespace, and this ledger. Local validation
-   passed under CPython 3.10.12. Complete independent clean-clone review, then
-   commit, push, and require green CI. Those remaining gates are pending.
+   passed under CPython 3.10.12, and independent clean-clone review passed.
+   Push this audit closeout commit, then require green CI on exact HEAD. Those
+   remaining gates are pending.
 5. Generate `p3_disposable_archive_roundtrip_replacement_pilot` once. If a
    valid P3 archive triggers the conditional all-case N32 identity, complete
    that follow-up before evaluating the combined pilot gate. Only after a valid

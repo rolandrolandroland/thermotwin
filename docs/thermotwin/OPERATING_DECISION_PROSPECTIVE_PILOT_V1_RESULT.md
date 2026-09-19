@@ -114,8 +114,9 @@ hashes and error are preserved in
 [`OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md).
 
 The next allocated disposable partition is
-`p3_disposable_archive_roundtrip_replacement_pilot`. It remains unopened until
-the locally validated JSON-native representation repair and final-byte
-round-trip checks complete independent clean-clone review, then are committed,
-pushed, and passing CI. P3 retains the unchanged N=4/8/16 design and has its own
+`p3_disposable_archive_roundtrip_replacement_pilot`. The repair and final-byte
+round-trip checks are committed at `8c232af`, locally validated, and
+independently reviewed. P3 remains unopened until this audit closeout commit is
+pushed and exact HEAD passes CI. P3 retains the unchanged N=4/8/16 design and
+has its own
 predeclared all-12-case conditional N32 identity.

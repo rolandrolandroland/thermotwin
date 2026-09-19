@@ -13,9 +13,10 @@
 > recorded in the pre-P2 revision. P2 later executed at source `9db5f3f`, but
 > its saved JSON failed required load-and-validate replay. P2 is preserved as
 > invalid incident evidence, its gate was not evaluated, and its N32
-> continuation did not open. The fresh P3 representation repair is implemented
-> in the current working tree and passed local validation under CPython 3.10.12.
-> Independent clean-clone review, commit, push, and green CI remain pending. See the
+> continuation did not open. The fresh P3 representation repair is committed at
+> `8c232af`, passed local validation under CPython 3.10.12, and passed
+> independent clean-clone review. This audit closeout is recorded in this
+> commit, which still requires push and green CI on exact HEAD. See the
 > [`P2 incident record`](OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md).
 > The original audit text below is preserved as issued.
 

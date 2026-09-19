@@ -1,17 +1,18 @@
 # Operating-decision Phase B physics and data-flow acceptance
 
-Date: 2026-09-17. Last reconciled: 2026-09-18.
+Date: 2026-09-17. Last reconciled: 2026-09-19.
 
-Source basis: audited parent `9a21aa77284fb88608467a39a7ada8dc811107d5`; pilot-v1 source `e32d091a3e55387417ad5c04f76a3399d7a16727`; invalid P2 source `9db5f3f5b7a0fd92710ef5971091c16102877ac8`; P3 archive-transport repair in the current uncommitted working tree
+Source basis: audited parent `9a21aa77284fb88608467a39a7ada8dc811107d5`; pilot-v1 source `e32d091a3e55387417ad5c04f76a3399d7a16727`; invalid P2 source `9db5f3f5b7a0fd92710ef5971091c16102877ac8`; P3 archive-transport repair `8c232afece23823a3c2bcb1a25e8e039366e67a9`
 
 Status: the original acceptance authorized disposable pilot v1. That pilot is
 complete and exposed a candidate-exclusion eligibility defect. The unchanged
 physics and information-boundary findings remain accepted; the v2 eligibility
 row is superseded by the bounded uncertainty-v3 repair. P2 later executed, but
 its saved JSON failed the required load-and-validate round trip. P2's gate was
-not evaluated. The P3 representation repair is implemented in the current
-working tree and passed local validation under CPython 3.10.12. Independent
-clean-clone review, commit, push, and green CI remain pending; P3 is unopened.
+not evaluated. The P3 representation repair is committed at `8c232af`, passed
+local validation under CPython 3.10.12, and passed independent clean-clone
+review. This audit closeout is recorded in this commit; the commit must be
+pushed and its exact HEAD must pass CI before P3 opens.
 
 ## Conclusion
 
@@ -117,8 +118,12 @@ The later P3 archive-transport repair was locally validated under CPython
 prospective tests passed in 1330.082 seconds; all 4 Phase B tests passed in
 0.195 seconds; and the full dependency-equipped suite passed all 810 tests in
 1489.060 seconds. These runs overlap, so their test counts must not be added.
-No scientific partition was generated. Independent clean-clone review, commit,
-push, and green CI remain pending.
+No scientific partition was generated. Independent clean-clone review on
+2026-09-19 of exact repair commit `8c232af` also passed six focused CPython
+3.10.12 tests in 462.860 seconds, reproduced the P2 failure and preserved
+hashes, and found no scientific drift or P3 artifact. This audit closeout is
+recorded in this commit; the commit must be pushed and its exact HEAD must pass
+CI.
 
 ## Recorded limits for the next phase
 
@@ -130,7 +135,8 @@ push, and green CI remain pending.
   must preserve acquisition-only construction, save-before-reveal ordering,
   verification without refitting, complete failure records, and separate
   candidate-transition counts. P3 may open only after the locally validated
-  JSON-native payload repair and final-byte round-trip checks complete
-  independent clean-clone review, then are committed, pushed, and passing CI.
-  Those remaining gates are not complete. Development,
+  JSON-native payload repair and final-byte round-trip checks are recorded in
+  the reviewed repair commit. This audit closeout is recorded in this commit;
+  the commit must be pushed and exact HEAD must pass CI. Those remaining gates
+  are not complete. Development,
   calibration, and reserved runners remain outside this acceptance record.
