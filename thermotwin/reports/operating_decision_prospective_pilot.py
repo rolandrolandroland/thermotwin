@@ -122,7 +122,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     parser.add_argument(
         "--parent-pilot-json",
         type=Path,
-        help="complete P2 JSON; required only for --execute-n32-followup",
+        help="complete parent-pilot JSON; required only for --execute-n32-followup",
     )
     parser.add_argument("--json", type=Path, required=True)
     parser.add_argument("--report", type=Path)
@@ -145,7 +145,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         parent_path = arguments.parent_pilot_json.expanduser().resolve()
         parent_payload = json.loads(parent_path.read_text(encoding="utf-8"))
         if not isinstance(parent_payload, dict):
-            raise ValueError("parent P2 JSON must contain an object")
+            raise ValueError("parent-pilot JSON must contain an object")
         result = run_prospective_n32_followup(
             parent_payload,
             source_revision=revision,

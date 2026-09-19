@@ -9,9 +9,14 @@
 > [`OPERATING_DECISION_PROSPECTIVE_PILOT_V1_RESULT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V1_RESULT.md).
 > Subsequent adversarial review also strengthened the P2/N32 archive
 > validators while P2 remained unopened. Both changes are ordinary pre-P2
-> defect repairs, not favorable scientific results. Their final validation is
-> recorded in the current pre-P2 revision; P2 may open only from its committed
-> and pushed form after CI passes.
+> defect repairs, not favorable scientific results. Their pre-P2 validation is
+> recorded in the pre-P2 revision. P2 later executed at source `9db5f3f`, but
+> its saved JSON failed required load-and-validate replay. P2 is preserved as
+> invalid incident evidence, its gate was not evaluated, and its N32
+> continuation did not open. The fresh P3 representation repair is implemented
+> in the current working tree and passed local validation under CPython 3.10.12.
+> Independent clean-clone review, commit, push, and green CI remain pending. See the
+> [`P2 incident record`](OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md).
 > The original audit text below is preserved as issued.
 
 Date: 2026-09-17 (second audit of the day). Scope: the two commits pushed since the previous

@@ -3,9 +3,9 @@
 The default runner opens only the predeclared disposable pilot.  It generates
 sixteen predictive draws once for every case and derives the matched 4-, 8-,
 and 16-draw analyses from that authenticated result.  A separate conditional
-runner can revisit the same twelve cases at N=32 only when the authenticated P2
-artifact satisfies the frozen trigger.  Development, calibration, and reserved
-namespaces cannot be executed through either interface.
+runner can revisit the same twelve cases at N=32 only when the authenticated
+parent artifact satisfies the frozen trigger.  Development, calibration, and
+reserved namespaces cannot be executed through either interface.
 
 Truth and target-response objects are deliberately kept outside the action
 scoring call.  All fixed-policy decisions are saved before their corresponding
@@ -148,15 +148,18 @@ from .sensor_model_discrimination import (
 
 PROSPECTIVE_PILOT_SCHEMA_VERSION = 3
 PROSPECTIVE_PILOT_PROTOCOL_VERSION = (
-    "operating_decision_prospective_draw_count_pilot_v3"
+    "operating_decision_prospective_draw_count_pilot_v4"
 )
 PROSPECTIVE_N32_FOLLOWUP_SCHEMA_VERSION = 1
 PROSPECTIVE_N32_FOLLOWUP_PROTOCOL_VERSION = (
-    "operating_decision_prospective_n32_followup_v1"
+    "operating_decision_prospective_n32_followup_v2"
 )
 PROSPECTIVE_CAMPAIGN = "operating_decision_prospective_v1_2026_09"
-PROSPECTIVE_SUPERSEDED_PILOT_PARTITION = "p1_disposable_draw_count_pilot"
-PROSPECTIVE_PILOT_PARTITION = "p2_disposable_candidate_exclusion_pilot"
+PROSPECTIVE_SUPERSEDED_PILOT_PARTITIONS = (
+    "p1_disposable_draw_count_pilot",
+    "p2_disposable_candidate_exclusion_pilot",
+)
+PROSPECTIVE_PILOT_PARTITION = "p3_disposable_archive_roundtrip_replacement_pilot"
 PROSPECTIVE_DEVELOPMENT_TUNING_PARTITION = "p1_development_tuning"
 PROSPECTIVE_DEVELOPMENT_CHECK_PARTITION = "p1_development_internal_check"
 PROSPECTIVE_CALIBRATION_PARTITION = "p1_independent_calibration"
@@ -173,7 +176,7 @@ PILOT_STRICT_MAX_UNSTABLE = 0
 PILOT_SENSITIVITY_MAX_UNSTABLE = 1
 PILOT_N32_FOLLOWUP_DRAW_COUNT = 32
 PILOT_N32_FOLLOWUP_ARTIFACT_ID = (
-    "p2_disposable_candidate_exclusion_pilot_n32_all_cases_v1"
+    "p3_disposable_archive_roundtrip_replacement_pilot_n32_all_cases_v1"
 )
 PILOT_N32_FOLLOWUP_CASE_SELECTION = (
     "all_four_blocks_all_three_truth_families"
@@ -272,7 +275,7 @@ class PilotAcceptanceRule:
 def prospective_n32_followup_design_payload(
     rule: PilotAcceptanceRule = PilotAcceptanceRule(),
 ) -> dict:
-    """Return the predeclared conditional N=32 design bound before p2 opens."""
+    """Return the predeclared conditional N=32 design bound before the pilot opens."""
 
     if not isinstance(rule, PilotAcceptanceRule):
         raise ValueError("N=32 follow-up design needs the pilot acceptance rule")
@@ -282,8 +285,8 @@ def prospective_n32_followup_design_payload(
             "tested_prefix_recommendation": (
                 rule.n32_followup_trigger_draw_count
             ),
-            "requires_zero_p2_pipeline_failures": True,
-            "requires_zero_p2_n16_selection_failures": True,
+            "requires_zero_parent_pilot_pipeline_failures": True,
+            "requires_zero_parent_pilot_n16_selection_failures": True,
             "required_before_phase_d": True,
         },
         "campaign": PROSPECTIVE_CAMPAIGN,
@@ -426,7 +429,7 @@ class ProspectiveN32FollowupResult:
         object.__setattr__(self, "block_results", blocks)
         _validate_followup_case_matrix(blocks)
         if not isinstance(self.parent_payload, dict):
-            raise ValueError("N=32 result needs the complete parent P2 archive")
+            raise ValueError("N=32 result needs the complete parent pilot archive")
         parent_payload_digest = _digest(
             f"{_HASH_DOMAIN}.n32.parent_payload",
             self.parent_payload,
@@ -534,6 +537,17 @@ def _canonical_bytes(value: object) -> bytes:
     ).encode("utf-8")
 
 
+def _decoded_canonical_archive(archive_bytes: bytes, label: str) -> dict:
+    """Return the exact JSON-reader view of canonical archive bytes."""
+
+    decoded = json.loads(archive_bytes)
+    if not isinstance(decoded, dict):
+        raise RuntimeError(f"{label} canonical JSON did not decode to an object")
+    if _canonical_bytes(decoded) + b"\n" != archive_bytes:
+        raise RuntimeError(f"{label} canonical JSON did not round-trip exactly")
+    return decoded
+
+
 def _digest(domain: str, value: object) -> str:
     return hashlib.sha256(
         domain.encode("utf-8") + b"\0" + _canonical_bytes(value)
@@ -601,7 +615,9 @@ def prospective_pilot_protocol_digest(
         "protocol_version": PROSPECTIVE_PILOT_PROTOCOL_VERSION,
         "source_revision": source_revision,
         "partition_plan": prospective_partition_plan_payload(),
-        "superseded_pilot_partition": PROSPECTIVE_SUPERSEDED_PILOT_PARTITION,
+        "superseded_pilot_partitions": list(
+            PROSPECTIVE_SUPERSEDED_PILOT_PARTITIONS
+        ),
         "draw_counts": list(PILOT_DRAW_COUNTS),
         "generated_draw_count": PILOT_GENERATED_DRAW_COUNT,
         "strict_max_unstable_draws_per_source_action": (
@@ -672,7 +688,7 @@ def _validate_followup_case_matrix(
 def _parent_selector_and_cost(
     payload: Mapping[str, object],
 ) -> Tuple[ProspectiveSelectorRule, ProspectiveCostScenario]:
-    """Recover the frozen selector/cost pair retained in every P2 scorecard."""
+    """Recover the frozen selector/cost pair retained in every pilot scorecard."""
 
     try:
         selector_rule = prospective_selector_rule_from_payload(
@@ -681,7 +697,7 @@ def _parent_selector_and_cost(
         scenario = ProspectiveCostScenario(**payload["cost_scenario"])
     except (KeyError, TypeError, ValueError) as error:
         raise ValueError(
-            "parent P2 archive does not retain its selector/cost configuration"
+            "parent pilot archive does not retain its selector/cost configuration"
         ) from error
     return selector_rule, scenario
 
@@ -737,7 +753,7 @@ def _expected_corrected_stream_manifest(block: int, label: str) -> list:
     policies = default_fixed_policies()
     if label == "N=32":
         policies = tuple(policy for policy in policies if policy.name == STOP_NOW)
-    elif label != "parent P2":
+    elif label != "parent pilot":
         raise ValueError("corrected random-stream inventory label is unknown")
     initial = initial_acquisition_regime()
     for family in STAGE3_TRUTH_CONDITIONS:
@@ -2624,7 +2640,7 @@ def _validate_fixed_policy_record(
         )
     )
     if expected_id["device_token"] != device_token:
-        raise ValueError("parent P2 device identity is not reproducible")
+        raise ValueError("parent pilot device identity is not reproducible")
     case_payload = _exact_mapping(
         record["case"],
         {
@@ -2635,7 +2651,7 @@ def _validate_fixed_policy_record(
             "policy",
             "verification_run",
         },
-        "parent P2 fixed-policy case",
+        "parent pilot fixed-policy case",
     )
     policy_payload = case_payload["policy"]
     if (
@@ -2643,7 +2659,7 @@ def _validate_fixed_policy_record(
         or not isinstance(policy_payload, Mapping)
         or policy_payload.get("name") != policy_name
     ):
-        raise ValueError("parent P2 fixed-policy case identity is inconsistent")
+        raise ValueError("parent pilot fixed-policy case identity is inconsistent")
     saved = record.get("saved_before_reveal")
     post = record.get("post_reveal_score")
     if "failure" in record:
@@ -2656,7 +2672,7 @@ def _validate_fixed_policy_record(
             and saved is not None
             and post is None
         ):
-            raise ValueError("parent P2 fixed-policy failure record is inconsistent")
+            raise ValueError("parent pilot fixed-policy failure record is inconsistent")
         return
     saved = _exact_mapping(
         saved,
@@ -2670,12 +2686,12 @@ def _validate_fixed_policy_record(
             "model_intervals",
             "verifications",
         },
-        "parent P2 saved fixed-policy decision",
+        "parent pilot saved fixed-policy decision",
     )
     post = _exact_mapping(
         post,
         {"nominal_selection_energy", "realized_energy", "revealed", "scored"},
-        "parent P2 post-reveal score",
+        "parent pilot post-reveal score",
     )
     revealed = post["revealed"]
     scored = post["scored"]
@@ -2693,7 +2709,7 @@ def _validate_fixed_policy_record(
         or energy.get("truth_condition") != truth_condition
         or energy.get("trial_index") != block
     ):
-        raise ValueError("parent P2 fixed-policy cross-identity is inconsistent")
+        raise ValueError("parent pilot fixed-policy cross-identity is inconsistent")
 
 
 def _validate_parent_pilot_payload(
@@ -2705,7 +2721,7 @@ def _validate_parent_pilot_payload(
     cost_scenario: ProspectiveCostScenario,
     require_n32_trigger: bool = True,
 ) -> Tuple[Mapping[str, object], ...]:
-    """Authenticate complete P2 evidence and optionally its N=32 trigger."""
+    """Authenticate complete pilot evidence and optionally its N=32 trigger."""
 
     required_top_level = {
         "schema_version",
@@ -2729,7 +2745,7 @@ def _validate_parent_pilot_payload(
         "archive_content_digest",
         "archive_size_bytes",
     }
-    _exact_mapping(payload, required_top_level, "complete parent P2 archive")
+    _exact_mapping(payload, required_top_level, "complete parent pilot archive")
 
     expected_header = {
         "schema_version": PROSPECTIVE_PILOT_SCHEMA_VERSION,
@@ -2741,21 +2757,21 @@ def _validate_parent_pilot_payload(
     }
     for name, expected in expected_header.items():
         if payload.get(name) != expected:
-            raise ValueError(f"parent P2 {name} does not match the frozen protocol")
+            raise ValueError(f"parent pilot {name} does not match the frozen protocol")
     if (
         payload.get("selector_rule")
         != prospective_selector_rule_payload(selector_rule)
         or payload.get("cost_scenario") != _scenario_payload(cost_scenario)
     ):
-        raise ValueError("parent P2 selector/cost configuration is invalid")
+        raise ValueError("parent pilot selector/cost configuration is invalid")
     archive_digest = payload.get("archive_content_digest")
     archive_size = payload.get("archive_size_bytes")
     _validate_sha256(
-        "parent P2 archive content digest",
+        "parent pilot archive content digest",
         archive_digest,  # type: ignore[arg-type]
     )
     if not isinstance(archive_size, int) or isinstance(archive_size, bool):
-        raise ValueError("parent P2 archive size is missing")
+        raise ValueError("parent pilot archive size is missing")
     archive_material = dict(payload)
     archive_material.pop("archive_content_digest", None)
     archive_material.pop("archive_size_bytes", None)
@@ -2764,9 +2780,9 @@ def _validate_parent_pilot_payload(
         archive_material,
     )
     if archive_digest != expected_archive_digest:
-        raise ValueError("parent P2 archive content digest is invalid")
+        raise ValueError("parent pilot archive content digest is invalid")
     if archive_size != len(_canonical_bytes(payload) + b"\n"):
-        raise ValueError("parent P2 archive size does not match canonical JSON")
+        raise ValueError("parent pilot archive size does not match canonical JSON")
     expected_protocol = prospective_pilot_protocol_digest(
         physical_config,
         selector_rule,
@@ -2774,22 +2790,22 @@ def _validate_parent_pilot_payload(
         source_revision,
     )
     if payload.get("protocol_digest") != expected_protocol:
-        raise ValueError("parent P2 protocol digest does not match source/config")
+        raise ValueError("parent pilot protocol digest does not match source/config")
     blocks = payload.get("block_results")
     if not isinstance(blocks, Sequence) or isinstance(blocks, (str, bytes)):
-        raise ValueError("parent P2 block results are missing")
+        raise ValueError("parent pilot block results are missing")
     cases = _validate_followup_case_matrix(blocks)  # type: ignore[arg-type]
     if payload.get("partition_plan") != prospective_partition_plan_payload():
-        raise ValueError("parent P2 partition plan is invalid")
+        raise ValueError("parent pilot partition plan is invalid")
     if not isinstance(payload.get("worker_count"), int) or (
         payload.get("scientific_use")
         != "disposable_engineering_evidence_only"
     ):
-        raise ValueError("parent P2 runtime/archive records are incomplete")
+        raise ValueError("parent pilot runtime/archive records are incomplete")
     performance = _exact_mapping(
         payload.get("performance"),
         {"wall_seconds", "cpu_seconds", "peak_rss_bytes"},
-        "parent P2 performance record",
+        "parent pilot performance record",
     )
     if any(
         isinstance(performance[name], bool)
@@ -2798,7 +2814,7 @@ def _validate_parent_pilot_payload(
         or float(performance[name]) < 0.0
         for name in performance
     ):
-        raise ValueError("parent P2 performance record is invalid")
+        raise ValueError("parent pilot performance record is invalid")
     budget = _exact_mapping(
         payload.get("compute_budget_inputs"),
         {
@@ -2830,7 +2846,7 @@ def _validate_parent_pilot_payload(
             "conservative_measured_throughput_phase_estimates",
             "assumptions",
         },
-        "parent P2 compute-budget record",
+        "parent pilot compute-budget record",
     )
     if (
         budget["measured_worker_count"] != payload["worker_count"]
@@ -2847,7 +2863,7 @@ def _validate_parent_pilot_payload(
         ]]
         != [item.name for item in PROSPECTIVE_PARTITION_PLAN[1:]]
     ):
-        raise ValueError("parent P2 compute-budget record is invalid")
+        raise ValueError("parent pilot compute-budget record is invalid")
     _exact_mapping(
         budget["runtime_host_manifest"],
         {
@@ -2860,7 +2876,7 @@ def _validate_parent_pilot_payload(
             "logical_cpu_count",
             "host_node_sha256",
         },
-        "parent P2 runtime host manifest",
+        "parent pilot runtime host manifest",
     )
     archive_benchmark = _exact_mapping(
         payload.get("archive_benchmark"),
@@ -2877,7 +2893,7 @@ def _validate_parent_pilot_payload(
             "full_campaign_draw_count_estimates",
             "note",
         },
-        "parent P2 archive benchmark",
+        "parent pilot archive benchmark",
     )
     if (
         [item["partition"] for item in archive_benchmark[
@@ -2889,7 +2905,7 @@ def _validate_parent_pilot_payload(
         ]]
         != list(PILOT_DRAW_COUNTS)
     ):
-        raise ValueError("parent P2 archive benchmark is invalid")
+        raise ValueError("parent pilot archive benchmark is invalid")
     for block_record in blocks:
         _exact_mapping(
             block_record,
@@ -2900,7 +2916,7 @@ def _validate_parent_pilot_payload(
                 "corrected_random_stream_audit",
                 "timing",
             },
-            "parent P2 block",
+            "parent pilot block",
         )
         block_index = int(block_record["block"])
         manifest = block_record["corrected_random_stream_manifest"]
@@ -2909,17 +2925,17 @@ def _validate_parent_pilot_payload(
             isinstance(audit, Mapping)
             and set(audit) == {"clean", "not_run_due_to_block_failure"}
         ):
-            _validate_canonical_failed_p2_block(block_record, block_index)
+            _validate_canonical_failed_pilot_block(block_record, block_index)
             continue
         _validate_corrected_stream_records(
             manifest,
             audit,
             block=block_index,
-            label="parent P2",
+            label="parent pilot",
         )
         for case in block_record["cases"]:
             if case.get("block") != block_index:
-                raise ValueError("parent P2 case is nested under the wrong block")
+                raise ValueError("parent pilot case is nested under the wrong block")
             _exact_mapping(
                 case,
                 {
@@ -2939,7 +2955,7 @@ def _validate_parent_pilot_payload(
                     "pipeline_failures",
                     "timing",
                 },
-                "parent P2 case",
+                "parent pilot case",
             )
             if (
                 not isinstance(case.get("device_token"), str)
@@ -2949,23 +2965,23 @@ def _validate_parent_pilot_payload(
                 != _SELECTION_INFORMATION_BOUNDARY
                 or case.get("truth_revealed_only_after_saves") is None
             ):
-                raise ValueError("parent P2 case evidence is incomplete")
+                raise ValueError("parent pilot case evidence is incomplete")
             fixed = case.get("fixed_policy_results")
             if not isinstance(fixed, Mapping) or set(fixed) != set(POLICY_NAMES):
-                raise ValueError("parent P2 fixed-policy evidence is incomplete")
+                raise ValueError("parent pilot fixed-policy evidence is incomplete")
             for policy_name, fixed_record in fixed.items():
                 if not isinstance(fixed_record, Mapping) or set(fixed_record) not in (
                     {"case", "saved_before_reveal", "post_reveal_score"},
                     {"case", "saved_before_reveal", "post_reveal_score", "failure"},
                 ):
-                    raise ValueError("parent P2 fixed-policy result is malformed")
+                    raise ValueError("parent pilot fixed-policy result is malformed")
                 if fixed_record.get("case") is None:
-                    raise ValueError("parent P2 fixed-policy case is incomplete")
+                    raise ValueError("parent pilot fixed-policy case is incomplete")
                 if "failure" not in fixed_record and any(
                     fixed_record[name] is None
                     for name in ("saved_before_reveal", "post_reveal_score")
                 ):
-                    raise ValueError("parent P2 fixed-policy result is incomplete")
+                    raise ValueError("parent pilot fixed-policy result is incomplete")
                 _validate_fixed_policy_record(
                     fixed_record,
                     policy_name=policy_name,
@@ -2977,7 +2993,7 @@ def _validate_parent_pilot_payload(
             failures = tuple(
                 _validate_pipeline_failure(
                     failure,
-                    "parent P2 case pipeline failure",
+                    "parent pilot case pipeline failure",
                 )
                 for failure in case["pipeline_failures"]
             )
@@ -3009,7 +3025,7 @@ def _validate_parent_pilot_payload(
                     if failure["stage"] == "n16_acquisition_or_scoring"
                 )
                 if len(n16_failures) != 1:
-                    raise ValueError("parent P2 missing N=16 evidence is not canonical")
+                    raise ValueError("parent pilot missing N=16 evidence is not canonical")
                 n16_failure = n16_failures[0]
                 for prefix, draw_count in zip(
                     case["strict_prefixes"], PILOT_DRAW_COUNTS
@@ -3021,7 +3037,7 @@ def _validate_parent_pilot_payload(
                     )
                     if validated["pipeline_failure"] != n16_failure:
                         raise ValueError(
-                            "failed P2 prefix does not match its N=16 failure"
+                            "failed pilot prefix does not match its N=16 failure"
                         )
                 validated_sensitivity = _validate_failed_prefix_record(
                     case["n16_max_unstable_1_sensitivity"],
@@ -3030,7 +3046,7 @@ def _validate_parent_pilot_payload(
                 )
                 if validated_sensitivity["pipeline_failure"] != n16_failure:
                     raise ValueError(
-                        "failed P2 sensitivity does not match its N=16 failure"
+                        "failed pilot sensitivity does not match its N=16 failure"
                     )
                 if (
                     case["admissible_source_models"] is not None
@@ -3038,7 +3054,7 @@ def _validate_parent_pilot_payload(
                     or case["selected_policy_at_n16_strict"] is not None
                     or case["selected_policy_outcome"] is not None
                 ):
-                    raise ValueError("parent P2 failed N=16 case is inconsistent")
+                    raise ValueError("parent pilot failed N=16 case is inconsistent")
                 continue
             complete = _validate_complete_uncertainty_payload(
                 case.get("n16_complete_uncertainty_result"),
@@ -3057,12 +3073,12 @@ def _validate_parent_pilot_payload(
                 or case.get("admissible_source_model_count")
                 != len(source_models)
             ):
-                raise ValueError("parent P2 source-model record is inconsistent")
+                raise ValueError("parent pilot source-model record is inconsistent")
             prefixes = case.get("strict_prefixes")
             if not isinstance(prefixes, list) or [
                 prefix.get("draw_count") for prefix in prefixes
             ] != list(PILOT_DRAW_COUNTS):
-                raise ValueError("parent P2 strict prefixes are incomplete")
+                raise ValueError("parent pilot strict prefixes are incomplete")
             for prefix, draw_count in zip(prefixes, PILOT_DRAW_COUNTS):
                 expected_complete = _derive_uncertainty_prefix_payload(
                     complete,
@@ -3085,7 +3101,7 @@ def _validate_parent_pilot_payload(
                         and failure["message"] == prefix_failure["message"]
                         for failure in failures
                     ):
-                        raise ValueError("failed P2 prefix has no pipeline failure")
+                        raise ValueError("failed pilot prefix has no pipeline failure")
                 else:
                     _validate_authenticated_prefix(
                         prefix,
@@ -3121,7 +3137,7 @@ def _validate_parent_pilot_payload(
                     for failure in failures
                 ):
                     raise ValueError(
-                        "failed P2 sensitivity has no pipeline failure"
+                        "failed pilot sensitivity has no pipeline failure"
                     )
             else:
                 _validate_authenticated_prefix(
@@ -3142,13 +3158,13 @@ def _validate_parent_pilot_payload(
                 or case.get("selected_policy_outcome")
                 != (None if selected_policy is None else fixed.get(selected_policy))
             ):
-                raise ValueError("parent P2 selected-policy outcome is inconsistent")
+                raise ValueError("parent pilot selected-policy outcome is inconsistent")
     acceptance = payload.get("acceptance")
     if not isinstance(acceptance, Mapping):
-        raise ValueError("parent P2 acceptance record is missing")
+        raise ValueError("parent pilot acceptance record is missing")
     recomputed_acceptance = evaluate_pilot_acceptance(blocks)  # type: ignore[arg-type]
     if acceptance != recomputed_acceptance:
-        raise ValueError("parent P2 acceptance record does not recompute exactly")
+        raise ValueError("parent pilot acceptance record does not recompute exactly")
     if require_n32_trigger and (
         acceptance.get("feasibility_gate_passed") is not True
         or acceptance.get("stability_recommended_draw_count")
@@ -3157,7 +3173,7 @@ def _validate_parent_pilot_payload(
         or int(acceptance.get("pipeline_failure_count", -1)) != 0
         or int(acceptance.get("n16_selection_failure_count", -1)) != 0
     ):
-        raise ValueError("parent P2 does not satisfy the frozen N=32 trigger")
+        raise ValueError("parent pilot does not satisfy the frozen N=32 trigger")
     scientific = prospective_pilot_scientific_payload(
         source_revision=source_revision,
         protocol_digest=expected_protocol,
@@ -3169,29 +3185,29 @@ def _validate_parent_pilot_payload(
         scientific,
     )
     if payload.get("scientific_result_digest") != expected_scientific:
-        raise ValueError("parent P2 scientific result digest is invalid")
+        raise ValueError("parent pilot scientific result digest is invalid")
     for case in cases:
         if case.get("pipeline_failures"):
             continue
         prefix = _prefix_by_count(case, PILOT_GENERATED_DRAW_COUNT)
         if prefix.get("max_unstable_draws_per_source_action") != 0:
-            raise ValueError("parent P2 N=16 prefix is not the strict prefix")
+            raise ValueError("parent pilot N=16 prefix is not the strict prefix")
         summary = prefix.get("uncertainty_summary")
         if not isinstance(summary, Mapping):
-            raise ValueError("parent P2 N=16 uncertainty summary is missing")
+            raise ValueError("parent pilot N=16 uncertainty summary is missing")
         config = summary.get("config")
         if not isinstance(config, Mapping) or (
             config.get("draw_count") != PILOT_GENERATED_DRAW_COUNT
             or config.get("max_unstable_draws_per_source_action") != 0
         ):
-            raise ValueError("parent P2 N=16 uncertainty config is invalid")
+            raise ValueError("parent pilot N=16 uncertainty config is invalid")
     return cases
 
 
 def validate_prospective_pilot_archive(
     payload: Mapping[str, object],
 ) -> dict:
-    """Replay a complete saved P2 archive without requiring the N=32 trigger."""
+    """Replay a complete saved pilot archive without requiring the N=32 trigger."""
 
     if not isinstance(payload, Mapping):
         raise ValueError("prospective pilot archive must be a mapping")
@@ -3226,7 +3242,7 @@ def prospective_n32_followup_protocol_digest(
     cost_scenario: ProspectiveCostScenario,
     source_revision: str,
 ) -> str:
-    """Bind the continuation to source, exact P2 evidence, and frozen design."""
+    """Bind the continuation to source, exact parent evidence, and frozen design."""
 
     _validate_parent_pilot_payload(
         parent_payload,
@@ -3272,7 +3288,7 @@ def prospective_n32_followup_protocol_digest(
             "candidate": "authenticated_n16_prefix_from_n32_run",
             "reference": "strict_n32",
             "algorithm": "compare_pilot_choices_then_summarize_comparisons",
-            "require_exact_match_to_parent_p2_strict_n16": True,
+            "require_exact_match_to_parent_pilot_strict_n16": True,
             "require_zero_parent_pipeline_failures": True,
             "require_zero_parent_n16_selection_failures": True,
             "require_zero_n32_pipeline_failures": True,
@@ -3526,23 +3542,23 @@ def _validate_failed_prefix_record(
     return item
 
 
-def _validate_canonical_failed_p2_block(
+def _validate_canonical_failed_pilot_block(
     block_record: Mapping[str, object],
     block: int,
 ) -> None:
     if block_record["corrected_random_stream_manifest"] != []:
-        raise ValueError("canonical failed P2 block retained random streams")
+        raise ValueError("canonical failed pilot block retained random streams")
     audit = _exact_mapping(
         block_record["corrected_random_stream_audit"],
         {"clean", "not_run_due_to_block_failure"},
-        "canonical failed P2 block audit",
+        "canonical failed pilot block audit",
     )
     failure = _validate_pipeline_failure(
         audit["not_run_due_to_block_failure"],
-        "canonical failed P2 block failure",
+        "canonical failed pilot block failure",
     )
     if audit["clean"] is not False or failure["stage"] != "paired_block_generation":
-        raise ValueError("canonical failed P2 block audit is inconsistent")
+        raise ValueError("canonical failed pilot block audit is inconsistent")
     for case in block_record["cases"]:
         _exact_mapping(
             case,
@@ -3563,7 +3579,7 @@ def _validate_canonical_failed_p2_block(
                 "pipeline_failures",
                 "timing",
             },
-            "canonical failed P2 case",
+            "canonical failed pilot case",
         )
         if (
             case["block"] != block
@@ -3578,10 +3594,10 @@ def _validate_canonical_failed_p2_block(
             or case["fixed_policy_results"] != {}
             or case["pipeline_failures"] != [failure]
         ):
-            raise ValueError("canonical failed P2 case is inconsistent")
+            raise ValueError("canonical failed pilot case is inconsistent")
         prefixes = case["strict_prefixes"]
         if not isinstance(prefixes, list) or len(prefixes) != len(PILOT_DRAW_COUNTS):
-            raise ValueError("canonical failed P2 prefixes are incomplete")
+            raise ValueError("canonical failed pilot prefixes are incomplete")
         for prefix, draw_count in zip(prefixes, PILOT_DRAW_COUNTS):
             validated = _validate_failed_prefix_record(
                 prefix,
@@ -3590,7 +3606,7 @@ def _validate_canonical_failed_p2_block(
             )
             if validated["pipeline_failure"] != failure:
                 raise ValueError(
-                    "canonical failed P2 prefix does not match its block failure"
+                    "canonical failed pilot prefix does not match its block failure"
                 )
         validated_sensitivity = _validate_failed_prefix_record(
             case["n16_max_unstable_1_sensitivity"],
@@ -3599,7 +3615,7 @@ def _validate_canonical_failed_p2_block(
         )
         if validated_sensitivity["pipeline_failure"] != failure:
             raise ValueError(
-                "canonical failed P2 sensitivity does not match its block failure"
+                "canonical failed pilot sensitivity does not match its block failure"
             )
 
 
@@ -4788,7 +4804,7 @@ def evaluate_n32_followup_acceptance(
     """Recompute the N=16-to-N=32 gate from complete authenticated evidence."""
 
     if not isinstance(parent_payload, Mapping):
-        raise ValueError("N=32 acceptance needs the complete parent P2 payload")
+        raise ValueError("N=32 acceptance needs the complete parent pilot payload")
     if not isinstance(rule, PilotAcceptanceRule):
         raise ValueError("N=32 acceptance needs the frozen pilot rule")
     if physical_config is None:
@@ -4806,7 +4822,7 @@ def evaluate_n32_followup_acceptance(
         raise ValueError("N=32 acceptance needs a prospective cost scenario")
     source_revision = parent_payload.get("source_revision")
     if not isinstance(source_revision, str):
-        raise ValueError("parent P2 source revision is missing")
+        raise ValueError("parent pilot source revision is missing")
     parent_cases = _validate_parent_pilot_payload(
         parent_payload,
         source_revision=source_revision,
@@ -4906,7 +4922,7 @@ def evaluate_n32_followup_acceptance(
                 None,
                 parent_case.get("device_token"),
             ):
-                raise ValueError("N=32 device identity does not match parent P2")
+                raise ValueError("N=32 device identity does not match parent pilot")
             if (
                 block_failure is None
                 and case.get("device_token") is None
@@ -5025,7 +5041,7 @@ def evaluate_n32_followup_acceptance(
                 )
             elif candidate != parent_prefix:
                 raise ValueError(
-                    "authenticated N=16 prefix does not match parent P2"
+                    "authenticated N=16 prefix does not match parent pilot"
                 )
             if reference is None:
                 unavailable_diagnostics += 1
@@ -5474,7 +5490,7 @@ def run_prospective_n32_followup(
 
     _validate_revision(source_revision)
     if not isinstance(parent_payload, Mapping):
-        raise ValueError("N=32 follow-up needs the complete parent P2 payload")
+        raise ValueError("N=32 follow-up needs the complete parent pilot payload")
     if not isinstance(workers, int) or isinstance(workers, bool) or workers <= 0:
         raise ValueError("N=32 workers must be a positive integer")
     partition = CorrectedPartition(
@@ -5876,18 +5892,18 @@ def format_prospective_n32_followup_report(
             f"Protocol digest: {payload['protocol_digest']}",
             f"Parent payload digest: {payload['parent_payload_digest']}",
             f"Scientific result digest: {payload['scientific_result_digest']}",
-            "Cases: 12 in four paired blocks; all P2 cases retained.",
+            "Cases: 12 in four paired blocks; all parent-pilot cases retained.",
             "Generated N=32 once per case; N=16 is an authenticated prefix.",
             "",
             "Parent trigger valid: "
             + ("yes" if acceptance["parent_trigger_passed"] else "no"),
-            "N=16 prefixes match P2: "
+            "N=16 prefixes match parent pilot: "
             + (
                 "yes"
                 if acceptance["authenticated_n16_prefix_match"]
                 else "no"
             ),
-            "Case identities match P2: "
+            "Case identities match parent pilot: "
             + ("yes" if acceptance["case_identity_match"] else "no"),
             f"Agreement: {summary['agreement_count']}/{summary['case_count']} "
             f"({summary['agreement_rate']:.1%})",
@@ -5958,9 +5974,13 @@ def save_prospective_n32_followup_artifacts(
         payload["archive_size_bytes"] = observed
     else:
         raise RuntimeError("N=32 archive-size fixed point did not converge")
-    validate_prospective_n32_followup_archive(payload)
+    serialized_payload = _decoded_canonical_archive(
+        archive_bytes,
+        "N=32 archive",
+    )
+    validate_prospective_n32_followup_archive(serialized_payload)
     report_bytes = (
-        format_prospective_n32_followup_report(payload) + "\n"
+        format_prospective_n32_followup_report(serialized_payload) + "\n"
     ).encode("utf-8")
     json_digest = hashlib.sha256(archive_bytes).hexdigest()
     report_digest = hashlib.sha256(report_bytes).hexdigest()
@@ -6291,8 +6311,9 @@ def save_prospective_pilot_artifacts(
         path.parent.mkdir(parents=True, exist_ok=True)
 
     payload, archive_bytes = _archive_payload_and_bytes(result, destinations[0].parent)
-    validate_prospective_pilot_archive(payload)
-    report = format_prospective_pilot_report(payload) + "\n"
+    serialized_payload = _decoded_canonical_archive(archive_bytes, "pilot archive")
+    validate_prospective_pilot_archive(serialized_payload)
+    report = format_prospective_pilot_report(serialized_payload) + "\n"
     report_bytes = report.encode("utf-8")
     json_digest = hashlib.sha256(archive_bytes).hexdigest()
     report_digest = hashlib.sha256(report_bytes).hexdigest()
@@ -6303,7 +6324,7 @@ def save_prospective_pilot_artifacts(
         f"{report_digest}  {destinations[1].name}\n"
     )
     destinations[2].write_text(manifest, encoding="utf-8")
-    if destinations[0].stat().st_size != payload["archive_size_bytes"]:
+    if destinations[0].stat().st_size != serialized_payload["archive_size_bytes"]:
         raise RuntimeError("saved pilot archive size differs from its record")
     return SavedProspectivePilotArtifacts(
         json_path=destinations[0],
@@ -6338,7 +6359,7 @@ __all__ = [
     "PROSPECTIVE_N32_FOLLOWUP_PROTOCOL_VERSION",
     "PROSPECTIVE_N32_FOLLOWUP_SCHEMA_VERSION",
     "PROSPECTIVE_RESERVED_PARTITION",
-    "PROSPECTIVE_SUPERSEDED_PILOT_PARTITION",
+    "PROSPECTIVE_SUPERSEDED_PILOT_PARTITIONS",
     "RESERVED_BLOCK_COUNT",
     "PilotAcceptanceRule",
     "ProspectivePartitionSpec",

@@ -2066,7 +2066,8 @@ class ProspectiveUncertaintyScoringTests(unittest.TestCase):
         result = self._mocked_result(draw_count=1)
         with patch.object(prospective, "_validate_acquisition_evidence"):
             payload = prospective.prospective_uncertainty_result_payload(result)
-        json.dumps(payload, allow_nan=False, sort_keys=True)
+        decoded = json.loads(json.dumps(payload, allow_nan=False, sort_keys=True))
+        self.assertEqual(payload, decoded)
         rendered = json.dumps(payload, sort_keys=True)
         self.assertNotIn("declared_cost", rendered)
         self.assertNotIn("utility_per_cost", rendered)

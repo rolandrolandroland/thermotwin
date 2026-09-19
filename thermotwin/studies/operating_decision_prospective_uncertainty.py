@@ -1004,7 +1004,19 @@ def _physical_config_payload(
         "type": (
             f"{type(normalized).__module__}.{type(normalized).__qualname__}"
         ),
-        "values": asdict(normalized),
+        # ``asdict`` preserves tuple-valued dataclass fields, while JSON turns
+        # those tuples into arrays.  Keep the in-memory payload in the same
+        # JSON-native form that archive readers validate.  This normalization
+        # does not change canonical JSON bytes or any digest derived from them.
+        "values": json.loads(
+            json.dumps(
+                asdict(normalized),
+                allow_nan=False,
+                ensure_ascii=True,
+                separators=(",", ":"),
+                sort_keys=True,
+            )
+        ),
     }
 
 

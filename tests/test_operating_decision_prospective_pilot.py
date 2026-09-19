@@ -140,7 +140,7 @@ def _pilot_physical_config():
 
 
 def _corrected_stream_records(block, *, followup=False):
-    label = "N=32" if followup else "parent P2"
+    label = "N=32" if followup else "parent pilot"
     manifest = pilot._expected_corrected_stream_manifest(block, label)
     return manifest, _corrected_audit_from_manifest(manifest)
 
@@ -871,7 +871,14 @@ def _build_n32_parent_payload():
             "retained_final_scoring_wall_seconds": 1.0,
             "retained_final_scoring_cpu_seconds": 1.0,
             "draw_count_linear_projections": [
-                {"draw_count": count} for count in pilot.PILOT_DRAW_COUNTS
+                {
+                    "draw_count": count,
+                    "estimated_full_campaign_wall_seconds_at_measured_concurrency": (
+                        100.0
+                    ),
+                    "estimated_full_campaign_cpu_seconds": 200.0,
+                }
+                for count in pilot.PILOT_DRAW_COUNTS
             ],
             "one_source_case_count": 12,
             "two_source_case_count": 0,
@@ -893,7 +900,11 @@ def _build_n32_parent_payload():
                 "host_node_sha256": "0" * 64,
             },
             "conservative_measured_throughput_phase_estimates": [
-                {"partition": item.name}
+                {
+                    "partition": item.name,
+                    "estimated_wall_seconds_at_measured_worker_count": 10.0,
+                    "estimated_cpu_seconds": 20.0,
+                }
                 for item in pilot.PROSPECTIVE_PARTITION_PLAN[1:]
             ],
             "assumptions": ["test_fixture"],
@@ -1067,7 +1078,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
         self.assertEqual(
             tuple((item.name, item.block_count) for item in pilot.PROSPECTIVE_PARTITION_PLAN),
             (
-                ("p2_disposable_candidate_exclusion_pilot", 4),
+                ("p3_disposable_archive_roundtrip_replacement_pilot", 4),
                 ("p1_development_tuning", 20),
                 ("p1_development_internal_check", 10),
                 ("p1_independent_calibration", 100),
@@ -1083,18 +1094,26 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
         self.assertEqual(pilot.PROSPECTIVE_PILOT_SCHEMA_VERSION, 3)
         self.assertEqual(
             pilot.PROSPECTIVE_PILOT_PROTOCOL_VERSION,
-            "operating_decision_prospective_draw_count_pilot_v3",
+            "operating_decision_prospective_draw_count_pilot_v4",
         )
         self.assertEqual(
-            pilot.PROSPECTIVE_SUPERSEDED_PILOT_PARTITION,
-            "p1_disposable_draw_count_pilot",
+            pilot.PROSPECTIVE_SUPERSEDED_PILOT_PARTITIONS,
+            (
+                "p1_disposable_draw_count_pilot",
+                "p2_disposable_candidate_exclusion_pilot",
+            ),
+        )
+        self.assertEqual(pilot.PROSPECTIVE_N32_FOLLOWUP_SCHEMA_VERSION, 1)
+        self.assertEqual(
+            pilot.PROSPECTIVE_N32_FOLLOWUP_PROTOCOL_VERSION,
+            "operating_decision_prospective_n32_followup_v2",
         )
         self.assertEqual(pilot.PILOT_STRICT_MAX_UNSTABLE, 0)
         self.assertEqual(pilot.PILOT_SENSITIVITY_MAX_UNSTABLE, 1)
         followup = pilot.prospective_n32_followup_design_payload()
         self.assertEqual(
             followup["artifact_id"],
-            "p2_disposable_candidate_exclusion_pilot_n32_all_cases_v1",
+            "p3_disposable_archive_roundtrip_replacement_pilot_n32_all_cases_v1",
         )
         self.assertEqual(followup["partition"], pilot.PROSPECTIVE_PILOT_PARTITION)
         self.assertEqual(followup["blocks"], [0, 1, 2, 3])
@@ -1105,7 +1124,45 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
         self.assertEqual(followup["case_count"], 12)
         self.assertEqual(followup["candidate_prefix_draw_count"], 16)
         self.assertEqual(followup["reference_draw_count"], 32)
+        self.assertTrue(
+            followup["trigger"]["requires_zero_parent_pilot_pipeline_failures"]
+        )
+        self.assertTrue(
+            followup["trigger"][
+                "requires_zero_parent_pilot_n16_selection_failures"
+            ]
+        )
+        self.assertNotIn("requires_zero_p2_pipeline_failures", followup["trigger"])
         self.assertTrue(followup["trigger"]["required_before_phase_d"])
+
+    def test_pilot_protocol_digest_binds_both_superseded_partitions(self):
+        config = OperatingDecisionRealismConfig()
+        selector_rule = ProspectiveSelectorRule()
+        revision = "a" * 40
+        baseline = pilot.prospective_pilot_protocol_digest(
+            config,
+            selector_rule,
+            PRIMARY_PROSPECTIVE_COST_SCENARIO,
+            revision,
+        )
+        for superseded in (
+            ("p1_disposable_draw_count_pilot",),
+            ("p2_disposable_candidate_exclusion_pilot",),
+        ):
+            with self.subTest(superseded=superseded), patch.object(
+                pilot,
+                "PROSPECTIVE_SUPERSEDED_PILOT_PARTITIONS",
+                superseded,
+            ):
+                self.assertNotEqual(
+                    pilot.prospective_pilot_protocol_digest(
+                        config,
+                        selector_rule,
+                        PRIMARY_PROSPECTIVE_COST_SCENARIO,
+                        revision,
+                    ),
+                    baseline,
+                )
 
     def test_acceptance_uses_all_cases_and_declared_agreement_and_regret(self):
         result = pilot.evaluate_pilot_acceptance(_blocks(changed_regret=0.04))
@@ -1252,7 +1309,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
 
         incomplete_parent = _n32_parent_payload()
         incomplete_parent.pop("archive_benchmark")
-        with self.assertRaisesRegex(ValueError, "complete parent P2 archive"):
+        with self.assertRaisesRegex(ValueError, "complete parent pilot archive"):
             pilot.evaluate_n32_followup_acceptance(
                 incomplete_parent,
                 _n32_blocks(parent),
@@ -1734,7 +1791,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 manifest,
                 audit,
                 block=0,
-                label="parent P2",
+                label="parent pilot",
             )
 
     def test_n32_failed_family_streams_must_be_an_ordered_prefix(self):
@@ -1844,7 +1901,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
             )
 
     def test_n32_runner_uses_all_four_blocks_and_exposes_final_pilot_gate(self):
-        parent = _n32_parent_payload()
+        parent = json.loads(pilot._canonical_bytes(_n32_parent_payload()))
         followup_blocks = _n32_blocks(parent)
         with patch.object(
             pilot,
@@ -1869,9 +1926,30 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
             pilot.PILOT_N32_FOLLOWUP_ARTIFACT_ID,
         )
         self.assertEqual(payload["parent_payload_digest"], result.parent_payload_digest)
-        archived = _reseal_n32_payload(deepcopy(payload))
+        archived = json.loads(
+            pilot._canonical_bytes(_reseal_n32_payload(deepcopy(payload)))
+        )
         replayed = pilot.validate_prospective_n32_followup_archive(archived)
         self.assertEqual(replayed["acceptance"], result.acceptance)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            validator = pilot.validate_prospective_n32_followup_archive
+            with patch.object(
+                pilot,
+                "validate_prospective_n32_followup_archive",
+                wraps=validator,
+            ) as validate:
+                saved = pilot.save_prospective_n32_followup_artifacts(
+                    result,
+                    json_path=root / "n32.json",
+                    report_path=root / "n32.txt",
+                    hash_path=root / "n32.sha256",
+                )
+            saved_payload = json.loads(
+                saved.json_path.read_text(encoding="utf-8")
+            )
+            self.assertEqual(validate.call_args.args[0], saved_payload)
+            self.assertEqual(validator(saved_payload), saved_payload)
         tampered = deepcopy(archived)
         tampered["acceptance"]["pilot_engineering_gate_passed"] = False
         _reseal_n32_payload(tampered)
@@ -2400,7 +2478,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
         )
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            parent_path = root / "p2.json"
+            parent_path = root / "parent-pilot.json"
             parent_path.write_text('{"parent": true}', encoding="utf-8")
             with (
                 patch.object(
@@ -2490,6 +2568,11 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
         )
 
     def test_complete_archive_records_exact_size_and_detached_hashes(self):
+        result = self._result()
+        result.compute_budget_inputs["assumptions"] = (
+            "json",
+            "roundtrip",
+        )
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             with patch.object(
@@ -2498,13 +2581,14 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
                 side_effect=lambda payload: payload,
             ) as validate:
                 saved = pilot.save_prospective_pilot_artifacts(
-                    self._result(),
+                    result,
                     json_path=root / "pilot.json",
                     report_path=root / "pilot.txt",
                     hash_path=root / "pilot.sha256",
                 )
             validate.assert_called_once()
             payload = json.loads(saved.json_path.read_text(encoding="utf-8"))
+            self.assertEqual(validate.call_args.args[0], payload)
             self.assertEqual(payload["archive_size_bytes"], saved.archive_size_bytes)
             self.assertEqual(saved.archive_size_bytes, saved.json_path.stat().st_size)
             self.assertEqual(
@@ -2515,12 +2599,39 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
             self.assertIn(saved.json_sha256, manifest)
             self.assertIn(saved.report_sha256, manifest)
 
-    def test_complete_p2_archive_round_trip_and_tamper_detection(self):
-        payload = _n32_parent_payload()
+    def test_complete_p3_archive_round_trip_and_tamper_detection(self):
+        payload = json.loads(pilot._canonical_bytes(_n32_parent_payload()))
         self.assertEqual(
             pilot.validate_prospective_pilot_archive(payload),
             payload,
         )
+        result = pilot.ProspectivePilotResult(
+            source_revision=payload["source_revision"],
+            worker_count=payload["worker_count"],
+            protocol_digest=payload["protocol_digest"],
+            scientific_result_digest=payload["scientific_result_digest"],
+            block_results=tuple(payload["block_results"]),
+            acceptance=payload["acceptance"],
+            compute_budget_inputs=payload["compute_budget_inputs"],
+            wall_seconds=payload["performance"]["wall_seconds"],
+            cpu_seconds=payload["performance"]["cpu_seconds"],
+            peak_rss_bytes=payload["performance"]["peak_rss_bytes"],
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            saved = pilot.save_prospective_pilot_artifacts(
+                result,
+                json_path=root / "pilot.json",
+                report_path=root / "pilot.txt",
+                hash_path=root / "pilot.sha256",
+            )
+            saved_payload = json.loads(
+                saved.json_path.read_text(encoding="utf-8")
+            )
+            self.assertEqual(
+                pilot.validate_prospective_pilot_archive(saved_payload),
+                saved_payload,
+            )
         tampered = deepcopy(payload)
         tampered["block_results"][0]["cases"][0]["strict_prefixes"][0][
             "choice_token"
@@ -2545,13 +2656,13 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "case identity"):
             pilot.validate_prospective_pilot_archive(tampered)
 
-    def test_complete_p2_archive_replays_canonical_failed_blocks(self):
+    def test_complete_pilot_archive_replays_canonical_failed_blocks(self):
         for failed_block in (0, 2):
             with self.subTest(failed_block=failed_block):
                 payload = _n32_parent_payload()
                 payload["block_results"][failed_block] = pilot._failed_block_result(
                     failed_block,
-                    RuntimeError("deliberate P2 block failure"),
+                    RuntimeError("deliberate pilot block failure"),
                 )
                 _reseal_parent_scientific(payload)
                 replayed = pilot.validate_prospective_pilot_archive(payload)
@@ -2561,7 +2672,7 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
         payload["block_results"] = [
             pilot._failed_block_result(
                 block,
-                RuntimeError("deliberate all-block P2 failure"),
+                RuntimeError("deliberate all-block pilot failure"),
             )
             for block in range(pilot.PILOT_BLOCK_COUNT)
         ]
@@ -2569,7 +2680,7 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
         replayed = pilot.validate_prospective_pilot_archive(payload)
         self.assertFalse(replayed["acceptance"]["accepted"])
 
-    def test_failed_p2_prefixes_must_match_their_owning_failure(self):
+    def test_failed_pilot_prefixes_must_match_their_owning_failure(self):
         forged = {
             "stage": "forged_stage",
             "error_type": "ForgedError",
@@ -2578,7 +2689,7 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
         payload = _n32_parent_payload()
         payload["block_results"][0] = pilot._failed_block_result(
             0,
-            RuntimeError("deliberate P2 block failure"),
+            RuntimeError("deliberate pilot block failure"),
         )
         prefix = payload["block_results"][0]["cases"][0]["strict_prefixes"][0]
         prefix["pipeline_failure"] = forged
@@ -2619,7 +2730,7 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "match its N=16 failure"):
             pilot.validate_prospective_pilot_archive(payload)
 
-    def test_complete_p2_archive_replays_case_level_failures(self):
+    def test_complete_pilot_archive_replays_case_level_failures(self):
         payload = _n32_parent_payload()
         case = payload["block_results"][0]["cases"][0]
         error = RuntimeError("deliberate N16 acquisition failure")
@@ -2698,7 +2809,7 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
             ]
         )
 
-    def test_all_failed_p2_run_is_saved_and_replayed(self):
+    def test_all_failed_pilot_run_is_saved_and_replayed(self):
         with patch.object(
             pilot,
             "_run_pilot_block",

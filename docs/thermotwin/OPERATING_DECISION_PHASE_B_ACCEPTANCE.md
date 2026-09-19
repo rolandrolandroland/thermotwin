@@ -2,15 +2,16 @@
 
 Date: 2026-09-17. Last reconciled: 2026-09-18.
 
-Source basis: audited parent `9a21aa77284fb88608467a39a7ada8dc811107d5`; pilot-v1 source `e32d091a3e55387417ad5c04f76a3399d7a16727`; uncertainty-v3 and disposable-pilot-v2 source in the commit containing this record
+Source basis: audited parent `9a21aa77284fb88608467a39a7ada8dc811107d5`; pilot-v1 source `e32d091a3e55387417ad5c04f76a3399d7a16727`; invalid P2 source `9db5f3f5b7a0fd92710ef5971091c16102877ac8`; P3 archive-transport repair in the current uncommitted working tree
 
 Status: the original acceptance authorized disposable pilot v1. That pilot is
 complete and exposed a candidate-exclusion eligibility defect. The unchanged
 physics and information-boundary findings remain accepted; the v2 eligibility
-row is superseded by the bounded uncertainty-v3 repair. The repair and the
-strengthened pilot-archive validators are implemented pre-P2, and the final
-validation result is recorded below. Disposable pilot v2 remains unopened and
-may open only from the committed and pushed revision after its CI passes.
+row is superseded by the bounded uncertainty-v3 repair. P2 later executed, but
+its saved JSON failed the required load-and-validate round trip. P2's gate was
+not evaluated. The P3 representation repair is implemented in the current
+working tree and passed local validation under CPython 3.10.12. Independent
+clean-clone review, commit, push, and green CI remain pending; P3 is unopened.
 
 ## Conclusion
 
@@ -43,6 +44,20 @@ validator hardening is a favorable experimental result or the protocol's one
 planned scientific redesign. No P2 case was generated while either repair was
 being made.
 
+## P2 archive-transport incident
+
+P2 executed at source `9db5f3f`, and its output hashes identify the preserved
+files. Independent loading and validation failed with
+`ValueError: complete uncertainty protocol/config is invalid` because tuple
+fields in the in-memory physical configuration loaded from JSON as lists. The
+pre-P2 validation record below therefore did not close the final serialized
+transport boundary. See the
+[`P2 incident record`](OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md).
+
+This incident does not reverse the accepted physics or information-boundary
+checks. It invalidates P2 as engineering evidence. Its gate was not evaluated,
+its outcome fields are quarantined, and its N32 continuation did not open.
+
 ## Acceptance matrix
 
 | Boundary | Result | Evidence |
@@ -55,11 +70,11 @@ being made.
 | Current switches and minimum-margin grid | Pass for the frozen schedule | All four current transitions are inserted in the integration grid. A fresh refinement check at 0.5, 0.25, 0.125, and 0.0625 seconds found the worst cold-face temperature at the 58-second switch for one deterministic device from each truth family. The production 0.25-second margin differed from the 0.0625-second reference by less than `1e-6 K`; classifications remained stable at `+/-1e-6 K` around a constructed zero-margin boundary. |
 | Fit convergence boundary | Pass | Bound-constrained fit convergence uses the projected KKT residual together with step and relative-objective criteria. Bound hits and nonconvergence remain explicit candidate exclusions rather than silently usable fits or whole-case failures. |
 | Acquisition-only selection | Pass | Selector and uncertainty-estimator interfaces cannot accept truth family, device truth, verification, final response, or true margin. The evidence factory validates the exact common initial grid, refits only that run, seals the fit provenance, and binds observations into the evidence digest. |
-| Candidate failure and attrition | Pass for pilot v2 | Every declared predictive draw remains in the denominator and candidate loss retains the conservative baseline floor. Uncertainty v3 separates a recorded candidate transition with a surviving interval from a true whole-draw failure. Candidate-specific fit and forecast exceptions remain usable when another admissible candidate supplies an interval; no-admissible-candidate and upstream failures remain whole-draw failures. Focused regression tests cover each boundary. |
+| Candidate failure and attrition | Implementation pass in pre-P2 regression checks; P2 evidence invalid | Every declared predictive draw remains in the denominator and candidate loss retains the conservative baseline floor. Uncertainty v3 separates a recorded candidate transition with a surviving interval from a true whole-draw failure. Candidate-specific fit and forecast exceptions remain usable when another admissible candidate supplies an interval; no-admissible-candidate and upstream failures remain whole-draw failures. Focused regression tests cover each boundary. |
 | Verification is not a refit | Pass | Verification predictions use the saved acquisition fit. Only a regularized run-level mean residual is marginalized in the score; physical parameters and fitted probe parameters are not updated. Tests confirm arbitrarily changing verification observations cannot change acquisition fits. |
 | Decision saved before reveal | Pass for existing and disposable-pilot orchestration | Runners call build, save, reveal, and score in that order. Scoring requires a saved decision with the same case identity. Regression tests record and assert this order for every fixed policy, including the new four-action disposable pilot path. |
 | Semantic random streams | Pass | Keys bind campaign, partition, block, acquisition-evidence digest, source model, draw, purpose, action, run, and channel. Parameter sharing across actions must be explicit. Undeclared reuse, repeated use within one action, observation/probe sharing, and derived-seed collisions fail the audit. |
-| Source and artifact provenance | Pass for the pre-P2 boundary | Strict source manifests reject changed, missing, added, removed, symlinked, uncommitted, runtime-mismatched, or digest-tampered inputs. Pilot-archive validation checks deterministic structure, cross-record identities, exact stream inventory and RNG offsets, fit invariants, interval formulas, duplicate partitions, and overwrite attempts. It does not rerun acquisition or predictive simulations, candidate refits, or post-reveal scoring. |
+| Source and artifact provenance | Preflight pass; P2 saved-JSON round trip failed | Strict source manifests reject changed, missing, added, removed, symlinked, uncommitted, runtime-mismatched, or digest-tampered inputs. The validator checks deterministic structure, cross-record identities, exact stream inventory and RNG offsets, fit invariants, and interval formulas, but pre-P2 tests exercised an in-memory representation. P3 must additionally load and validate the final serialized bytes. Archive validation does not rerun acquisition or predictive simulations, candidate refits, or post-reveal scoring. |
 
 ## Numerical refinement record
 
@@ -90,12 +105,20 @@ failures. Later adversarial archive tests prompted the validator hardening
 described above, so the final combined revision is governed by the pending
 record below. None of these checks generated a scientific partition.
 
-The final combined revision was validated under CPython 3.10.12. All 136
+The pre-P2 combined revision was validated under CPython 3.10.12. All 136
 prospective tests passed in 845.235 seconds, all four cross-layer Phase B checks
 passed in 0.195 seconds, and the complete repository suite passed all 809 tests
 in 1,375.251 seconds. An independent bounded adversarial review also passed its
 archive-integrity, failure-prefix, candidate-attrition, and fit-semantics checks.
 No scientific partition was generated by any of these validation runs.
+
+The later P3 archive-transport repair was locally validated under CPython
+3.10.12. Eight targeted protocol/archive tests passed in 751.650 seconds; 137
+prospective tests passed in 1330.082 seconds; all 4 Phase B tests passed in
+0.195 seconds; and the full dependency-equipped suite passed all 810 tests in
+1489.060 seconds. These runs overlap, so their test counts must not be added.
+No scientific partition was generated. Independent clean-clone review, commit,
+push, and green CI remain pending.
 
 ## Recorded limits for the next phase
 
@@ -103,9 +126,11 @@ No scientific partition was generated by any of these validation runs.
 - The low-level `ThermoelectricParameters` type is an algebraic container and permits idealized zero values for limiting tests. The campaign fixes its thermoelectric constants to checked positive values; a future experiment that varies those constants must validate them at its own boundary.
 - Nonnegative campaign energy records are correct for the declared diagnostic schedules. A future regenerative diagnostic schedule would need an explicit gross-consumption/export policy rather than silently clipping or rejecting signed energy.
 - The prospective runner may next open only the fresh four-block
-  `p2_disposable_candidate_exclusion_pilot`. Its source-bound outputs and tests
+  `p3_disposable_archive_roundtrip_replacement_pilot`. Its source-bound outputs and tests
   must preserve acquisition-only construction, save-before-reveal ordering,
   verification without refitting, complete failure records, and separate
-  candidate-transition counts. P2 may open only from the committed and pushed
-  form of this validated revision after its CI passes. Development,
+  candidate-transition counts. P3 may open only after the locally validated
+  JSON-native payload repair and final-byte round-trip checks complete
+  independent clean-clone review, then are committed, pushed, and passing CI.
+  Those remaining gates are not complete. Development,
   calibration, and reserved runners remain outside this acceptance record.

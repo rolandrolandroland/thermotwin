@@ -3,13 +3,16 @@
 Status: the reviewed `9a21aa7` baseline implements roadmap Steps 1–3 as
 development interfaces. Phase B versions the active selector as
 `prospective_four_action_selector_v2` to add development-padded scoring and
-explicit stop strata. The first disposable pilot is complete and exposed an
-eligibility defect in prospective uncertainty v2. The bounded uncertainty v3
-repair, its complete pre-P2 validation, and strengthened P2/N32 archive
-validators are recorded in this source revision. These are ordinary pre-P2
-defect repairs. A fresh disposable pilot may open only from the committed and
-pushed revision after its CI passes. Development, independent calibration,
-reserved evaluation, and the final report remain pending.
+explicit stop strata. P1 is complete and exposed an eligibility defect in
+prospective uncertainty v2. The bounded uncertainty-v3 repair then ran in P2,
+but P2's saved JSON failed required load-and-validate replay because physical
+configuration tuples loaded as lists. P2 is preserved as an invalid incident;
+its gate was not evaluated and its N32 continuation never opened. The P3
+representation repair and versioned identities are implemented in the current
+working tree and passed local validation under CPython 3.10.12. Independent
+clean-clone review, commit, push, and green CI remain pending. P3, development,
+independent calibration, reserved evaluation, and the final report remain
+unopened.
 See the [current project status](OPERATING_DECISION_PROJECT_STATUS.md),
 [Phase B acceptance record](OPERATING_DECISION_PHASE_B_ACCEPTANCE.md), and
 [partition ledger](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md).
@@ -281,20 +284,22 @@ physical protocol, and exact action packages. Its result digest binds every
 draw, action summary, stream use, and stream audit to the authenticated common
 acquisition. The JSON-ready record includes the normalized physical
 configuration, common observations, acquisition fits, snapshot, final regime,
-predictive draws, and random-stream audit. That record retains the inputs
-needed for a deterministic source-bound replay. Archive validation itself
-checks serialized structure, cross-record identities, the exact stream
-inventory and RNG offsets, fit invariants, and interval formulas. It does not
-rerun acquisition or predictive simulations, candidate refits, or post-reveal
-scoring, so its digests bind the saved record rather than independently
-authenticating those numerical calculations. The in-memory runner validates
-the objects it produces before serialization; final scientific
-reproducibility still requires replay from the bound source and retained raw
-record.
+predictive draws, and random-stream audit. That record is intended to retain
+the inputs needed for deterministic source-bound replay. The P2 validator
+checked structure, cross-record identities, exact stream inventory and RNG
+offsets, fit invariants, and interval formulas in memory, but it did not test
+the final JSON-loaded representation. P2 therefore failed its required archive
+boundary and cannot authenticate any saved outcome field.
 
-The uncertainty-v3 behavior and strengthened P2/N32 validators are ordinary
-pre-P2 corrections of demonstrated implementation and validation defects.
-They do not constitute a scientific redesign or evidence from a new cohort.
+The current P3 repair makes the configuration payload JSON-native and validates
+the final serialized bytes after loading. Archive validation still will not rerun
+acquisition or predictive simulations, candidate refits, or post-reveal
+scoring, so final scientific reproducibility also requires replay from the
+bound source and retained raw record.
+
+The uncertainty-v3 behavior and archive-transport correction are ordinary
+repairs of demonstrated implementation defects. They do not constitute a
+scientific redesign or favorable evidence from a new cohort.
 
 The Step 3 protocol digest binds the nominal physical protocol, Step 2
 protocol, energy convention, reset assumption, normalization references,
@@ -314,23 +319,27 @@ evidence.
 
 ## Next roadmap step
 
-The first four-block `p1_disposable_draw_count_pilot` is complete and failed its
-engineering gate under uncertainty v2. After the bounded v3 repair, regression
-checks, diagnosis, and new namespace are committed, the next data-generating
-step, after final validation is recorded and the revision is committed,
-pushed, and passes CI, is the fresh four-block, 12-case
-`p2_disposable_candidate_exclusion_pilot`. It will measure complete-case
-runtime, whole-draw failures, candidate transitions, action agreement, and
-utility regret for prefix-matched `N = 4`, `8`, and `16` before fixing the
-campaign draw count and worker budget.
+P1 is complete and failed its engineering gate under uncertainty v2. P2 later
+executed at source `9db5f3f`, but its saved archive failed the required JSON
+round trip. P2's gate was not evaluated, its fields are quarantined, and its
+conditional N32 artifact is retired unopened. See the
+[`P2 incident record`](OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md).
 
-If N=16 is the smallest passing prefix and P2 has zero pipeline failures and
-zero N=16 selection failures, the predeclared follow-up generates N=32 for all
-same 12 cases. Its authenticated N=16 prefix must agree with N=32 in at least 90% of
-cases, have at most 5% maximum normalized utility regret, and have zero N=32
-pipeline or selection failures. A passing pilot still supplies measured
-planning evidence; the chosen draw count and compute budget must be frozen in a
-separate committed record before development opens.
+The next data-generating step is the fresh four-block, 12-case
+`p3_disposable_archive_roundtrip_replacement_pilot`, but only after pilot
+protocol v4 and N32-follow-up protocol v2, their JSON-native configuration
+payloads, and their final-byte save/load checks complete independent
+clean-clone review. Local validation has passed; commit, push, and green CI are
+still required.
+
+If valid P3 identifies N=16 as the smallest passing prefix with zero pipeline
+and N=16 selection failures, only
+`p3_disposable_archive_roundtrip_replacement_pilot_n32_all_cases_v1` may
+generate N=32 for all same 12 cases. Its authenticated N=16 prefix must agree
+with N=32 in at least 90% of cases, have at most 5% maximum normalized utility
+regret, and have zero N=32 pipeline or selection failures. A passing combined
+pilot still supplies planning evidence only; the chosen draw count and compute
+budget must be frozen in a separate committed record before development opens.
 
 Only after the pilot passes may development produce the measurement map. The
 map must reuse authenticated raw Step 2 evidence for cost-only changes, apply

@@ -1,8 +1,9 @@
 # Prospective disposable pilot v1 result
 
 Date run: 2026-09-17. Scientific use: disposable engineering evidence only.
-Status: complete, integrity-verified, engineering gate failed, superseded for
-the next pilot by the candidate-exclusion eligibility repair.
+Status: complete, integrity-verified, engineering gate failed, superseded by
+the candidate-exclusion eligibility repair. P2 later executed but is preserved
+as an invalid archive incident; see the postscript below.
 
 ## Provenance and integrity
 
@@ -94,19 +95,27 @@ serialization and writing. The replacement pilot must choose the smallest
 stable draw count and the later design must reduce optional sensitivity work
 before compromising the primary paired comparison.
 
-## Next gate
+## Superseded next gate
 
-Development remains closed. The only permitted data-generating step is the
-fresh four-block `p2_disposable_candidate_exclusion_pilot`, after the versioned
-repair, strengthened P2/N32 archive validators, tests, updated protocol records,
-and new namespace are committed and pushed with passing CI. These are ordinary
-pre-P2 defect repairs, not evidence that the replacement rule succeeds. If
-that pilot does not establish a usable draw count within the declared budget,
-the experiment must stop with the protocol's feasibility limitation rather
-than opening development.
+This P1 record originally allocated
+`p2_disposable_candidate_exclusion_pilot` as the next data-generating step
+after the candidate-exclusion and archive-validator repairs. Its conditional
+all-case N32 continuation would have opened only if a valid P2 archive made
+N=16 the smallest passing prefix with zero pipeline and N=16 selection
+failures. The archive incident below stopped that interpretation, so neither
+condition was evaluated and the P2 N32 continuation is retired unopened.
 
-If N=16 is the smallest passing P2 prefix and P2 otherwise has zero pipeline
-failures and zero N=16 selection failures, the predeclared follow-up uses all same 12 cases,
-generates N=32 once, and authenticates its N=16 prefix against P2. It must meet
-at least 90% agreement, at most 5% maximum normalized utility regret, and zero
-N=32 pipeline or selection failures before a draw count can be frozen.
+## Postscript: P2 archive incident
+
+P2 executed once at source `9db5f3f`, but its saved JSON failed the required
+load-and-validate round trip. Its gate was not evaluated, its saved outcome
+fields are quarantined, and its N32 continuation was never opened. The exact
+hashes and error are preserved in
+[`OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md).
+
+The next allocated disposable partition is
+`p3_disposable_archive_roundtrip_replacement_pilot`. It remains unopened until
+the locally validated JSON-native representation repair and final-byte
+round-trip checks complete independent clean-clone review, then are committed,
+pushed, and passing CI. P3 retains the unchanged N=4/8/16 design and has its own
+predeclared all-12-case conditional N32 identity.

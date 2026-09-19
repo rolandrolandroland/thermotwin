@@ -9,9 +9,12 @@ The audit also confirmed that the completed selector is narrower than the
 cost-dependent choice among thermal, voltage, and face-temperature packages
 specified below. The prospective experiment has now implemented its isolated
 four-action selection interface, cost-free posterior-predictive uncertainty
-estimator, and frozen energy/time/instrumentation cost layer. Its first
-disposable engineering partition is complete and closed after failing its
-gate; a fresh replacement pilot is allocated but unopened. See
+estimator, and frozen energy/time/instrumentation cost layer. P1 is complete
+and closed after failing its gate. P2 executed, but its saved archive failed
+the required JSON round trip, so its gate was not evaluated. P3 is allocated
+and its archive-transport repair is implemented in the current working tree,
+where it passed local validation under CPython 3.10.12. P3 remains unopened
+pending independent clean-clone review, commit, push, and green CI. See
 [`OPERATING_DECISION_PROSPECTIVE_SELECTOR.md`](OPERATING_DECISION_PROSPECTIVE_SELECTOR.md).
 The current authoritative boundary and replacement execution sequence are in
 [`OPERATING_DECISION_PROJECT_STATUS.md`](OPERATING_DECISION_PROJECT_STATUS.md),
@@ -305,9 +308,9 @@ The prospective continuation uses the following superseding execution status:
 
 | Phase | Current status |
 | --- | --- |
-| Reconcile source, audits, and partitions | Implemented and finally validated in the pre-P2 revision. Only the disposable v1 engineering partition has opened; P2 requires the committed and pushed revision with passing CI. |
-| Harden padded scoring, stopping, eligibility, and numerical checks | Implemented and finally validated for replacement pilot P2; uncertainty v3 and strengthened P2/N32 validators are ordinary defect repairs, not a scientific redesign. P2 requires the committed and pushed revision with passing CI. |
-| Run the 12-case disposable draw-count pilot | v1 complete and failed its gate; fresh P2 allocated but unopened until the preceding closeout. |
+| Reconcile source, audits, and partitions | Complete through the preserved P2 archive incident. P1 and P2 have opened; P2 is invalid incident evidence with its gate not evaluated. |
+| Harden padded scoring, stopping, eligibility, and numerical checks | Numerical interfaces are retained. The P3 JSON-native representation and final-byte round-trip repair are implemented and locally validated; independent clean-clone review, commit, push, and green CI remain pending. |
+| Run the 12-case disposable draw-count pilot | P1 complete and failed; P2 execution complete but archive invalid; fresh P3 and its conditional N32 identity allocated but unopened. |
 | Develop offsets, thresholds, and measurement maps | Unopened; 20 tuning and 10 internal-check paired blocks allocated. |
 | Freeze analysis and independently calibrate | Unopened; 100 paired blocks planned, subject to a committed pre-generation precision review. |
 | Execute the reserved comparison once | Unopened; 100 paired blocks planned, subject to the same pre-generation review. |
@@ -321,11 +324,14 @@ independent block-level calibration correction. Sizes or rules may change only
 in a reviewed protocol revision committed before the affected partition is
 generated.
 
-The P2/N32 archive checks cover deterministic structure, cross-record
+The pre-P2 archive checks covered deterministic structure, cross-record
 identities, exact stream inventory and RNG offsets, fit invariants, and
-interval formulas. They do not rerun acquisition or predictive simulations,
-candidate refits, or post-reveal scoring. Full numerical reproduction remains
-a source-bound replay from retained raw evidence.
+interval formulas in memory. P2 exposed their missing saved-JSON round trip.
+The current P3 repair adds validation of the final loaded bytes. Archive
+validation does not rerun
+acquisition or predictive simulations, candidate refits, or post-reveal
+scoring; full numerical reproduction remains a source-bound replay from
+retained raw evidence.
 
 A fit crash is an insufficient-evidence outcome and a separately reported
 numerical failure. Unexpected truth-solver failures require repair and a

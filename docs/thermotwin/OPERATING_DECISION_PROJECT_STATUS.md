@@ -1,13 +1,13 @@
 # Operating-decision project status
 
-Date: 2026-09-17. Last reconciled: 2026-09-18. Status: Phase A records and the
-Phase B replacement-pilot implementation are reconciled in this pending
-revision. The first disposable Phase C pilot is complete and failed its
-engineering gate. The bounded uncertainty-v3 repair and strengthened P2/N32
-archive validators are implemented, and the exact pre-P2 test record is
-complete. The fresh disposable replacement pilot has not opened and is
-authorized only from the committed and pushed form of this revision after its
-CI passes. Development, calibration, and reserved evidence remain unopened.
+Date: 2026-09-17. Last reconciled: 2026-09-18. Status: P1 is complete and
+failed its engineering gate. P2 executed at source `9db5f3f`, but its saved
+JSON failed the required load-and-validate round trip. P2 is preserved as an
+invalid incident, its gate was not evaluated, and its N32 continuation never
+opened. The representation repair and fresh P3 namespace are implemented in
+the current working tree and passed local validation under CPython 3.10.12.
+Independent clean-clone review, commit, push, and green CI remain pending. P3,
+development, calibration, and reserved evidence remain unopened.
 
 ## Authoritative starting point
 
@@ -23,9 +23,9 @@ described below. The audits are retained as
 
 This status record does not freeze a scientific procedure. It records the
 boundary between completed historical work and the unfinished prospective
-experiment. Only the disposable engineering partition
-`p1_disposable_draw_count_pilot` has been generated. No development,
-calibration, or reserved case in the new campaign has been opened.
+experiment. The disposable P1 and P2 partitions have been generated; P2 is not
+valid engineering evidence. No P3, development, calibration, or reserved case
+in the new campaign has been opened.
 
 ## What is complete
 
@@ -90,14 +90,18 @@ versus two-candidate stopping strata, and provides a separate single-candidate
 clearance. Its zero offsets and clearances remain unfitted development defaults.
 It is not a calibrated or frozen operating procedure.
 
-Uncertainty v3 and the later validator hardening are ordinary pre-P2 defect
-repairs. They do not consume the protocol's one planned scientific redesign
-and are not evidence that the selector works. Archive validation now checks
-deterministic record structure, cross-record identities, exact stream
-inventory and RNG offsets, fit invariants, and interval formulas. It does not
-rerun acquisition or predictive simulations, candidate refits, or post-reveal
-scoring; those calculations require a source-bound replay from the retained
-raw record.
+Uncertainty v3 and the later validator hardening are ordinary defect repairs.
+They do not consume the protocol's one planned scientific redesign and are not
+evidence that the selector works. The pre-P2 validator checked deterministic
+record structure, cross-record identities, exact stream inventory and RNG
+offsets, fit invariants, and interval formulas in memory, but P2 exposed its
+missing saved-JSON round trip. The current P3 repair adds JSON-native
+configuration payloads and validation of the final serialized bytes; its final
+local validation has passed. The exact non-additive validation runs are recorded
+in the [Phase B acceptance record](OPERATING_DECISION_PHASE_B_ACCEPTANCE.md).
+Archive validation still will not rerun acquisition or predictive simulations,
+candidate refits, or post-reveal scoring; those calculations require a
+source-bound replay from the retained raw record.
 
 ### Disposable pilot v1
 
@@ -116,13 +120,28 @@ The run took 1.88 wall hours on four workers. Its measured projection for all
 diagnosis and content hashes are recorded in
 [`OPERATING_DECISION_PROSPECTIVE_PILOT_V1_RESULT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V1_RESULT.md).
 
+### Disposable pilot v2 archive incident
+
+The 4-block, 12-case `p2_disposable_candidate_exclusion_pilot` executed once at
+source `9db5f3f`. Its detached hashes still identify the saved JSON and report,
+but an independent `json.load` followed by archive validation raised
+`ValueError: complete uncertainty protocol/config is invalid`. Tuple-valued
+physical-configuration fields in memory had become lists in JSON, and the
+validator compared those representations directly.
+
+Scientific interpretation and the conditional N32 step stopped immediately.
+P2's gate was not evaluated; no draw count or compute budget was accepted. Its
+saved outcome and runtime fields are quarantined incident material and cannot
+tune or trigger P3. The exact provenance, hashes, and response are in
+[`OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md).
+
 ## What remains
 
 | Phase | Status | Required result before advancing |
 | --- | --- | --- |
-| A — reconcile source and records | Implemented and validated pre-P2 | Use only the committed and pushed form of this reconciliation after its CI passes; do not generate P2 from an unverified revision. |
-| B — harden scientific interfaces | Implemented and validated pre-P2 | Candidate exclusion is versioned separately from whole-draw failure, the conservative width floor remains, and archive validation has the explicit replay boundary above. Use only the committed and pushed revision after its CI passes. |
-| C — disposable compute pilot | v1 complete and failed; P2 unopened | Run only the fresh `p2_disposable_candidate_exclusion_pilot` after A/B closeout; accept a draw count only if its full pilot gate passes, then freeze the measured compute budget in a separate commit before development. |
+| A — reconcile source and records | Complete through the P2 incident record | Preserve P1 and invalid P2; version every replacement before opening it. |
+| B — harden scientific interfaces | Archive transport repair implemented; local validation passed under CPython 3.10.12 | Complete independent clean-clone review, then commit, push, and require green CI before P3. |
+| C — disposable compute pilot | P1 failed; P2 invalid with gate not evaluated; P3 unopened | Run only `p3_disposable_archive_roundtrip_replacement_pilot` after the repair gate. If valid P3 triggers its all-case N32 continuation, complete that before evaluating the combined gate. Freeze an accepted draw count and budget only in a later commit. |
 | D — selector development and maps | Unopened | Use only the development partitions to fit offsets and thresholds and produce cost and physical sensor-quality maps. |
 | E — analysis freeze and calibration | Unopened | Freeze endpoints and the complete selector, then use the independent calibration partition only for the declared correction. |
 | F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
@@ -138,8 +157,9 @@ Phase B records the following boundaries for the pilot and later development:
   whole-draw failures, compares authenticated N=4/8/16 prefixes, and freezes
   eligibility as a pair of draw count and maximum unusable draws before
   development;
-- if N=16 is the smallest passing prefix and P2 has zero pipeline failures and
-  zero N=16 selection failures, the predeclared all-12-case N=32 follow-up must also pass
+- if N=16 is the smallest passing prefix and valid P3 has zero pipeline
+  failures and zero N=16 selection failures, the predeclared P3 all-12-case
+  N=32 follow-up must also pass
   the same 90% agreement and 5% regret limits with zero N=32 failures before a
   draw count can be frozen;
 - probe nuisance draws must be described as coming from the declared truth
@@ -149,10 +169,12 @@ Phase B records the following boundaries for the pilot and later development:
   saved-before-reveal decisions, and random-stream audits.
 
 The next permitted data generation is
-`p2_disposable_candidate_exclusion_pilot` in the
+`p3_disposable_archive_roundtrip_replacement_pilot` in the
 [prospective partition ledger](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md),
-and only from the revision in which the revised interfaces, diagnosis, and
-final checks are recorded, committed, pushed, and passing CI. Large
+and only after the locally validated JSON-native representation repair and
+final-byte round-trip checks complete independent clean-clone review, then are
+recorded, committed, pushed, and passing CI. Those remaining gates are not
+claimed complete here. Large
 development, calibration, and reserved generation remains
 prohibited until the pilot gate passes and the selected draw count and measured
 compute budget are frozen in a subsequent committed record.
