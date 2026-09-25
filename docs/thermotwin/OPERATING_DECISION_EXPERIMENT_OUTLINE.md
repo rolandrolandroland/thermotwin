@@ -18,6 +18,8 @@ eligibility-driven choice change had unevaluable regret. See
 [`OPERATING_DECISION_PROSPECTIVE_SELECTOR.md`](OPERATING_DECISION_PROSPECTIVE_SELECTOR.md)
 and
 [`OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md).
+The one permitted bounded redesign is now specified as unopened P4; see
+[`OPERATING_DECISION_PROSPECTIVE_PILOT_V4_PROTOCOL.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_PROTOCOL.md).
 The current authoritative boundary and replacement execution sequence are in
 [`OPERATING_DECISION_PROJECT_STATUS.md`](OPERATING_DECISION_PROJECT_STATUS.md),
 and the still-unopened development, calibration, and reserved namespaces are
@@ -311,8 +313,8 @@ The prospective continuation uses the following superseding execution status:
 | Phase | Current status |
 | --- | --- |
 | Reconcile source, audits, and partitions | Complete through the preserved P3 and N32 result. P1 failed, P2 is invalid incident evidence, and valid P3/N32 failed the combined engineering gate. |
-| Harden padded scoring, stopping, eligibility, and numerical checks | Archive-transport repair and exact-HEAD CI completed at `2f906a2`; P3 later exposed a discontinuous zero-failure eligibility cutoff. |
-| Run the 12-case disposable draw-count pilot | P1 failed; P2 was invalid; valid P3 and its required N32 continuation failed the combined gate. One bounded eligibility redesign remains permitted before a feasibility stop. |
+| Harden padded scoring, stopping, eligibility, and numerical checks | Archive-transport repair and exact-HEAD CI completed at `2f906a2`; P4 now versions the permitted bounded eligibility redesign. |
+| Run the 12-case disposable draw-count pilot | P4 parent and conditional all-case N32 identities are allocated but unopened. Run P4 once after exact-HEAD CI; freeze the draw count and compute budget only if its complete gate passes, otherwise stop with a feasibility result. |
 | Develop offsets, thresholds, and measurement maps | Unopened; 20 tuning and 10 internal-check paired blocks allocated. |
 | Freeze analysis and independently calibrate | Unopened; 100 paired blocks planned, subject to a committed pre-generation precision review. |
 | Execute the reserved comparison once | Unopened; 100 paired blocks planned, subject to the same pre-generation review. |

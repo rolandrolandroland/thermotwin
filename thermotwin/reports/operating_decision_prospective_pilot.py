@@ -1,4 +1,4 @@
-"""Command-line entry point for the repaired four-block prospective pilot."""
+"""Command-line entry point for the bounded-instability P4 pilot."""
 
 from __future__ import annotations
 
@@ -99,7 +99,7 @@ def _output_paths(
 def main(argv: Optional[Sequence[str]] = None) -> None:
     parser = argparse.ArgumentParser(
         description=(
-            "Run the predeclared candidate-exclusion and draw-count pilot"
+            "Run the predeclared bounded-instability draw-count pilot"
         )
     )
     mode = parser.add_mutually_exclusive_group(required=True)

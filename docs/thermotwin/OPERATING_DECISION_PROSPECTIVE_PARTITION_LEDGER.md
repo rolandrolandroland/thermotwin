@@ -1,20 +1,20 @@
 # Prospective operating-decision partition ledger
 
-Ledger version: 3. Date declared: 2026-09-17. Last reconciled: 2026-09-25.
+Ledger version: 4. Date declared: 2026-09-17. Last reconciled: 2026-09-25.
 Status: P1 is complete and failed. P2 is closed as invalid incident evidence.
 P3 and its conditional all-case N32 continuation executed at source `2f906a2`;
 both archives validate, and the combined engineering gate failed. No draw count
 or compute budget is frozen. Development, calibration, and reserved partitions
-remain unopened. A new ledger version must predeclare the one bounded
-eligibility redesign and its fresh disposable namespace before any additional
-data generation.
+remain unopened. P4 is the one bounded eligibility redesign. Its source,
+protocol, and fresh disposable namespace are predeclared here, but no P4 data
+have been generated.
 
 ## Campaign identity
 
 ```text
 campaign: operating_decision_prospective_v1_2026_09
 procedure under development: prospective_four_action_selector_v2 with prospective uncertainty v3
-next disposable protocol: draw-count pilot v4 with N32 follow-up v2
+next disposable protocol: draw-count pilot v5 with N32 follow-up v3
 reviewed source baseline: 9a21aa7
 ```
 
@@ -37,7 +37,9 @@ observations explicitly declared common by the protocol.
 | `p2_disposable_candidate_exclusion_pilot` | 4 paired blocks / 12 cases, execution complete, archive invalid | Diagnose the saved-JSON round-trip incident only. Preserve its exact bytes and hashes as identified in the [P2 incident record](OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md). | Draw-count or compute-budget selection; N32 triggering; action-stability, feasibility, calibration, development, or confirmatory claims; outcome-directed changes to P3; rerun or overwrite. | Opened once at source `9db5f3f`; closed after archive validation failed. Gate not evaluated. |
 | `p3_disposable_archive_roundtrip_replacement_pilot` | 4 paired blocks / 12 cases, complete and valid | Fresh repeat of the unchanged runtime and prefix-matched `N=4/8/16` pilot after repairing final-byte JSON round-trip validation. | Offset or threshold fitting; calibration; confirmatory performance claims; rerunning or overwriting. | Opened once at source `2f906a2`; N=16 triggered the conditional continuation. Closed. |
 | `p3_disposable_archive_roundtrip_replacement_pilot_n32_all_cases_v1` | 4 paired blocks / 12 cases at N=32, complete and valid | Compare the authenticated N=16 prefix with N=32 after the frozen trigger passed. | Choosing a subset; offset or threshold fitting; calibration; confirmatory claims; rerunning or overwriting. | Opened once at source `2f906a2`; combined gate failed because one eligibility-driven choice change had unevaluable regret. Closed. |
-| `p1_development_tuning` | 20 paired blocks / 60 cases | Fit development action/stop offsets; choose stopping clearance, value thresholds, instability allowance, and exact sensor-quality scenarios from the declared grid. | Independent checking, final calibration, or confirmatory claims. | Pilot accepts a draw count; its measured runtime, CPU, memory, and archive projections are reviewed and a compute budget is frozen in a separate commit. |
+| `p4_disposable_bounded_instability_pilot` | 4 paired blocks / 12 cases, allocated and unopened | Test authenticated `N=4/8/16` prefixes under the frozen whole-draw allowances `0/0/1`, while retaining every failed draw at the no-gain baseline. | Offset or threshold fitting; calibration; confirmatory performance claims; using P3 outcomes as validation; rerunning or overwriting after P4 opens. | May open once only after the P4 source and protocol commit passes exact-HEAD CI. Every N=16 measurement action must remain eligible. |
+| `p4_disposable_bounded_instability_pilot_n32_all_cases_v1` | Conditional 4 paired blocks / 12 cases at N=32, allocated and unopened | Compare the authenticated N=16 prefix with N=32 under one allowed whole-draw failure per source/action. | Opening unless N=16 is the smallest passing P4 prefix with zero pipeline failures, selection failures, and ineligible N=16 actions; choosing a subset; calibration or confirmatory claims. | Opens once only if the authenticated P4 parent trigger passes. Every N=32 measurement action must remain eligible. |
+| `p1_development_tuning` | 20 paired blocks / 60 cases | Fit development action/stop offsets; choose stopping clearance, value thresholds, and exact sensor-quality scenarios from the declared grid under the P4-frozen eligibility rule. | Changing the draw count or instability allowance; independent checking, final calibration, or confirmatory claims. | Pilot accepts a draw count; its measured runtime, CPU, memory, and archive projections are reviewed and a compute budget is frozen in a separate commit. |
 | `p1_development_internal_check` | 10 paired blocks / 30 cases | One internal check of the design selected on `p1_development_tuning`; draw-count sensitivity on a predetermined subset. | Final calibration or reserved claims. If its labels cause a redesign, it becomes tuning evidence and a new check namespace must be declared before generation. | Tuning design and check analysis committed before reveal. |
 | `p1_independent_calibration` | 100 paired blocks / 300 cases | Compute only the frozen procedure-level interval correction and the same declared correction for each fixed comparator; retain failed or missing intervals as infinite scores. | Selector, offset, stop, threshold, sensor-scenario, endpoint, or sample-size tuning. | Complete design and analysis specification committed; size and calibration rank verified before generation. |
 | `p1_reserved_evaluation` | 100 paired blocks / 300 cases | One final paired comparison of the frozen selector with stop, fixed thermal, fixed voltage, and fixed face temperature in the primary scenario. | Any tuning, recalibration, favorable-case selection, or reactive sample-size extension. | Finite calibration artifact, source/environment manifests, partition identities, comparison rules, and disposable end-to-end replay committed and verified. |
@@ -82,15 +84,22 @@ changed in response to its outcomes.
 5. P3 and its triggered all-case N32 continuation executed once at `2f906a2`.
    Both archives validate, and the combined gate failed. Preserve their hashes
    and result record without rerunning or overwriting either namespace.
-6. Version the one permitted bounded eligibility redesign and allocate a fresh
-   disposable namespace. Only after that fresh gate passes may a separate
-   commit freeze a draw count and measured compute budget. If it fails, stop
-   the large campaign and complete the feasibility report.
-7. Commit the development grid, then generate tuning and internal-check
+6. Version the one permitted bounded eligibility redesign as P4. Freeze
+   whole-draw allowances at 0 for N=4, 0 for N=8, 1 for N=16, and 1 for a
+   triggered N=32 continuation. Failed draws remain in the denominator and are
+   scored as no gain; every measurement action must remain eligible at the
+   reference draw count. The complete design is in the
+   [P4 protocol](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_PROTOCOL.md).
+7. After the P4 source/protocol commit passes exact-HEAD CI, open the P4 parent
+   once. Open its all-case N32 continuation only if the authenticated parent
+   trigger passes. Only after the complete P4 gate passes may a separate commit
+   freeze a draw count and measured compute budget. If it fails, stop the large
+   campaign and complete the feasibility report.
+8. Commit the development grid, then generate tuning and internal-check
    partitions in that order.
-8. Freeze selector, scenarios, endpoints, comparison rules, sizes, and runtime.
-9. Generate independent calibration and commit a finite calibration artifact.
-10. Verify a disposable end-to-end replay, then open reserved evaluation once.
+9. Freeze selector, scenarios, endpoints, comparison rules, sizes, and runtime.
+10. Generate independent calibration and commit a finite calibration artifact.
+11. Verify a disposable end-to-end replay, then open reserved evaluation once.
 
 The pre-P2 archive tests checked deterministic record structure, cross-record
 identities, exact stream inventory and RNG offsets, fit invariants, and interval

@@ -2,10 +2,12 @@
 
 The default runner opens only the predeclared disposable pilot.  It generates
 sixteen predictive draws once for every case and derives the matched 4-, 8-,
-and 16-draw analyses from that authenticated result.  A separate conditional
-runner can revisit the same twelve cases at N=32 only when the authenticated
-parent artifact satisfies the frozen trigger.  Development, calibration, and
-reserved namespaces cannot be executed through either interface.
+and 16-draw analyses from that authenticated result.  The primary rule permits
+one retained whole-draw failure per source/action at N=16 while scoring every
+failed draw as no gain.  A separate conditional runner can revisit the same
+twelve cases at N=32 only when the authenticated parent artifact satisfies the
+frozen trigger.  Development, calibration, and reserved namespaces cannot be
+executed through either interface.
 
 Truth and target-response objects are deliberately kept outside the action
 scoring call.  All fixed-policy decisions are saved before their corresponding
@@ -146,20 +148,21 @@ from .sensor_model_discrimination import (
 )
 
 
-PROSPECTIVE_PILOT_SCHEMA_VERSION = 3
+PROSPECTIVE_PILOT_SCHEMA_VERSION = 4
 PROSPECTIVE_PILOT_PROTOCOL_VERSION = (
-    "operating_decision_prospective_draw_count_pilot_v4"
+    "operating_decision_prospective_draw_count_pilot_v5"
 )
-PROSPECTIVE_N32_FOLLOWUP_SCHEMA_VERSION = 1
+PROSPECTIVE_N32_FOLLOWUP_SCHEMA_VERSION = 2
 PROSPECTIVE_N32_FOLLOWUP_PROTOCOL_VERSION = (
-    "operating_decision_prospective_n32_followup_v2"
+    "operating_decision_prospective_n32_followup_v3"
 )
 PROSPECTIVE_CAMPAIGN = "operating_decision_prospective_v1_2026_09"
 PROSPECTIVE_SUPERSEDED_PILOT_PARTITIONS = (
     "p1_disposable_draw_count_pilot",
     "p2_disposable_candidate_exclusion_pilot",
+    "p3_disposable_archive_roundtrip_replacement_pilot",
 )
-PROSPECTIVE_PILOT_PARTITION = "p3_disposable_archive_roundtrip_replacement_pilot"
+PROSPECTIVE_PILOT_PARTITION = "p4_disposable_bounded_instability_pilot"
 PROSPECTIVE_DEVELOPMENT_TUNING_PARTITION = "p1_development_tuning"
 PROSPECTIVE_DEVELOPMENT_CHECK_PARTITION = "p1_development_internal_check"
 PROSPECTIVE_CALIBRATION_PARTITION = "p1_independent_calibration"
@@ -172,11 +175,17 @@ CALIBRATION_BLOCK_COUNT = 100
 RESERVED_BLOCK_COUNT = 100
 PILOT_DRAW_COUNTS = (4, 8, 16)
 PILOT_GENERATED_DRAW_COUNT = 16
-PILOT_STRICT_MAX_UNSTABLE = 0
-PILOT_SENSITIVITY_MAX_UNSTABLE = 1
+PILOT_MAX_UNSTABLE_BY_DRAW_COUNT = {
+    4: 0,
+    8: 0,
+    16: 1,
+    32: 1,
+}
+PILOT_PRIMARY_MAX_UNSTABLE = PILOT_MAX_UNSTABLE_BY_DRAW_COUNT[16]
+PILOT_SENSITIVITY_MAX_UNSTABLE = 0
 PILOT_N32_FOLLOWUP_DRAW_COUNT = 32
 PILOT_N32_FOLLOWUP_ARTIFACT_ID = (
-    "p3_disposable_archive_roundtrip_replacement_pilot_n32_all_cases_v1"
+    "p4_disposable_bounded_instability_pilot_n32_all_cases_v1"
 )
 PILOT_N32_FOLLOWUP_CASE_SELECTION = (
     "all_four_blocks_all_three_truth_families"
@@ -202,6 +211,15 @@ _SELECTION_INFORMATION_BOUNDARY = {
         "true_margin",
     ],
 }
+
+
+def pilot_max_unstable_draws(draw_count: int) -> int:
+    """Return the predeclared whole-draw allowance for a tested prefix."""
+
+    try:
+        return PILOT_MAX_UNSTABLE_BY_DRAW_COUNT[draw_count]
+    except (KeyError, TypeError) as error:
+        raise ValueError("pilot draw count has no instability allowance") from error
 
 
 @dataclass(frozen=True)
@@ -287,6 +305,7 @@ def prospective_n32_followup_design_payload(
             ),
             "requires_zero_parent_pilot_pipeline_failures": True,
             "requires_zero_parent_pilot_n16_selection_failures": True,
+            "requires_zero_parent_pilot_n16_ineligible_actions": True,
             "required_before_phase_d": True,
         },
         "campaign": PROSPECTIVE_CAMPAIGN,
@@ -298,8 +317,8 @@ def prospective_n32_followup_design_payload(
         "generated_draw_count": PILOT_N32_FOLLOWUP_DRAW_COUNT,
         "candidate_prefix_draw_count": PILOT_GENERATED_DRAW_COUNT,
         "reference_draw_count": PILOT_N32_FOLLOWUP_DRAW_COUNT,
-        "max_whole_draw_failures_per_source_action": (
-            PILOT_STRICT_MAX_UNSTABLE
+        "max_whole_draw_failures_per_source_action": pilot_max_unstable_draws(
+            PILOT_N32_FOLLOWUP_DRAW_COUNT
         ),
         "minimum_action_agreement": rule.minimum_action_agreement,
         "maximum_normalized_utility_regret": (
@@ -311,7 +330,8 @@ def prospective_n32_followup_design_payload(
         ),
         "acceptance_rule": (
             "agreement_and_regret_pass_with_zero_n32_pipeline_failures_and_"
-            "zero_n32_selection_failures_and_zero_n32_whole_draw_failures"
+            "zero_n32_selection_failures_and_all_n32_actions_within_the_"
+            "predeclared_whole_draw_allowance"
         ),
     }
 
@@ -606,9 +626,11 @@ def prospective_pilot_protocol_digest(
     """Bind source, physics, scoring, cost, selector, and pilot decisions."""
 
     _validate_revision(source_revision)
-    strict_config = ProspectiveUncertaintyConfig(
+    primary_config = ProspectiveUncertaintyConfig(
         draw_count=PILOT_GENERATED_DRAW_COUNT,
-        max_unstable_draws_per_source_action=PILOT_STRICT_MAX_UNSTABLE,
+        max_unstable_draws_per_source_action=pilot_max_unstable_draws(
+            PILOT_GENERATED_DRAW_COUNT
+        ),
     )
     material = {
         "schema_version": PROSPECTIVE_PILOT_SCHEMA_VERSION,
@@ -620,9 +642,10 @@ def prospective_pilot_protocol_digest(
         ),
         "draw_counts": list(PILOT_DRAW_COUNTS),
         "generated_draw_count": PILOT_GENERATED_DRAW_COUNT,
-        "strict_max_unstable_draws_per_source_action": (
-            PILOT_STRICT_MAX_UNSTABLE
-        ),
+        "max_unstable_draws_by_draw_count": {
+            str(draw_count): pilot_max_unstable_draws(draw_count)
+            for draw_count in (*PILOT_DRAW_COUNTS, PILOT_N32_FOLLOWUP_DRAW_COUNT)
+        },
         "sensitivity_max_unstable_draws_per_source_action": (
             PILOT_SENSITIVITY_MAX_UNSTABLE
         ),
@@ -633,11 +656,11 @@ def prospective_pilot_protocol_digest(
         ),
         "uncertainty_protocol_digest": prospective_uncertainty_protocol_digest(
             physical_config,
-            strict_config,
+            primary_config,
         ),
         "cost_protocol_digest": prospective_cost_protocol_digest(
             physical_config,
-            strict_config,
+            primary_config,
             cost_scenario,
             selector_rule,
         ),
@@ -2947,9 +2970,9 @@ def _validate_parent_pilot_payload(
                     "admissible_source_models",
                     "admissible_source_model_count",
                     "n16_complete_uncertainty_result",
-                    "strict_prefixes",
-                    "n16_max_unstable_1_sensitivity",
-                    "selected_policy_at_n16_strict",
+                    "primary_prefixes",
+                    "n16_max_unstable_0_sensitivity",
+                    "selected_policy_at_n16_primary",
                     "selected_policy_outcome",
                     "fixed_policy_results",
                     "pipeline_failures",
@@ -3028,19 +3051,19 @@ def _validate_parent_pilot_payload(
                     raise ValueError("parent pilot missing N=16 evidence is not canonical")
                 n16_failure = n16_failures[0]
                 for prefix, draw_count in zip(
-                    case["strict_prefixes"], PILOT_DRAW_COUNTS
+                    case["primary_prefixes"], PILOT_DRAW_COUNTS
                 ):
                     validated = _validate_failed_prefix_record(
                         prefix,
                         draw_count=draw_count,
-                        max_unstable_draws=PILOT_STRICT_MAX_UNSTABLE,
+                        max_unstable_draws=pilot_max_unstable_draws(draw_count),
                     )
                     if validated["pipeline_failure"] != n16_failure:
                         raise ValueError(
                             "failed pilot prefix does not match its N=16 failure"
                         )
                 validated_sensitivity = _validate_failed_prefix_record(
-                    case["n16_max_unstable_1_sensitivity"],
+                    case["n16_max_unstable_0_sensitivity"],
                     draw_count=PILOT_GENERATED_DRAW_COUNT,
                     max_unstable_draws=PILOT_SENSITIVITY_MAX_UNSTABLE,
                 )
@@ -3051,7 +3074,7 @@ def _validate_parent_pilot_payload(
                 if (
                     case["admissible_source_models"] is not None
                     or case["admissible_source_model_count"] is not None
-                    or case["selected_policy_at_n16_strict"] is not None
+                    or case["selected_policy_at_n16_primary"] is not None
                     or case["selected_policy_outcome"] is not None
                 ):
                     raise ValueError("parent pilot failed N=16 case is inconsistent")
@@ -3061,7 +3084,9 @@ def _validate_parent_pilot_payload(
                 physical_config=physical_config,
                 block=block_index,
                 draw_count=PILOT_GENERATED_DRAW_COUNT,
-                max_unstable_draws=PILOT_STRICT_MAX_UNSTABLE,
+                max_unstable_draws=pilot_max_unstable_draws(
+                    PILOT_GENERATED_DRAW_COUNT
+                ),
             )
             source_models = list(
                 complete["acquisition_evidence"]["snapshot"][
@@ -3074,24 +3099,24 @@ def _validate_parent_pilot_payload(
                 != len(source_models)
             ):
                 raise ValueError("parent pilot source-model record is inconsistent")
-            prefixes = case.get("strict_prefixes")
+            prefixes = case.get("primary_prefixes")
             if not isinstance(prefixes, list) or [
                 prefix.get("draw_count") for prefix in prefixes
             ] != list(PILOT_DRAW_COUNTS):
-                raise ValueError("parent pilot strict prefixes are incomplete")
+                raise ValueError("parent pilot primary prefixes are incomplete")
             for prefix, draw_count in zip(prefixes, PILOT_DRAW_COUNTS):
                 expected_complete = _derive_uncertainty_prefix_payload(
                     complete,
                     physical_config=physical_config,
                     block=block_index,
                     draw_count=draw_count,
-                    max_unstable_draws=PILOT_STRICT_MAX_UNSTABLE,
+                    max_unstable_draws=pilot_max_unstable_draws(draw_count),
                 )
                 if isinstance(prefix, Mapping) and "pipeline_failure" in prefix:
                     failed_prefix = _validate_failed_prefix_record(
                         prefix,
                         draw_count=draw_count,
-                        max_unstable_draws=PILOT_STRICT_MAX_UNSTABLE,
+                        max_unstable_draws=pilot_max_unstable_draws(draw_count),
                     )
                     prefix_failure = failed_prefix["pipeline_failure"]
                     if not any(
@@ -3110,14 +3135,14 @@ def _validate_parent_pilot_payload(
                         selector_rule=selector_rule,
                         cost_scenario=cost_scenario,
                     )
-            relaxed_complete = _derive_uncertainty_prefix_payload(
+            sensitivity_complete = _derive_uncertainty_prefix_payload(
                 complete,
                 physical_config=physical_config,
                 block=block_index,
                 draw_count=PILOT_GENERATED_DRAW_COUNT,
                 max_unstable_draws=PILOT_SENSITIVITY_MAX_UNSTABLE,
             )
-            sensitivity = case.get("n16_max_unstable_1_sensitivity")
+            sensitivity = case.get("n16_max_unstable_0_sensitivity")
             if isinstance(sensitivity, Mapping) and "pipeline_failure" in sensitivity:
                 failed_sensitivity = _validate_failed_prefix_record(
                     sensitivity,
@@ -3129,7 +3154,7 @@ def _validate_parent_pilot_payload(
                     failure["stage"]
                     == (
                         f"{sensitivity_failure['stage']}_n16_"
-                        "max_unstable_1"
+                        "max_unstable_0"
                     )
                     and failure["error_type"]
                     == sensitivity_failure["error_type"]
@@ -3142,7 +3167,7 @@ def _validate_parent_pilot_payload(
             else:
                 _validate_authenticated_prefix(
                     sensitivity,
-                    complete=relaxed_complete,
+                    complete=sensitivity_complete,
                     physical_config=physical_config,
                     selector_rule=selector_rule,
                     cost_scenario=cost_scenario,
@@ -3154,7 +3179,7 @@ def _validate_parent_pilot_payload(
                 else reference["selection"]["selected_policy"]
             )
             if (
-                case.get("selected_policy_at_n16_strict") != selected_policy
+                case.get("selected_policy_at_n16_primary") != selected_policy
                 or case.get("selected_policy_outcome")
                 != (None if selected_policy is None else fixed.get(selected_policy))
             ):
@@ -3172,6 +3197,7 @@ def _validate_parent_pilot_payload(
         or acceptance.get("n32_followup_required") is not True
         or int(acceptance.get("pipeline_failure_count", -1)) != 0
         or int(acceptance.get("n16_selection_failure_count", -1)) != 0
+        or int(acceptance.get("n16_ineligible_action_count", -1)) != 0
     ):
         raise ValueError("parent pilot does not satisfy the frozen N=32 trigger")
     scientific = prospective_pilot_scientific_payload(
@@ -3190,15 +3216,18 @@ def _validate_parent_pilot_payload(
         if case.get("pipeline_failures"):
             continue
         prefix = _prefix_by_count(case, PILOT_GENERATED_DRAW_COUNT)
-        if prefix.get("max_unstable_draws_per_source_action") != 0:
-            raise ValueError("parent pilot N=16 prefix is not the strict prefix")
+        if prefix.get("max_unstable_draws_per_source_action") != (
+            pilot_max_unstable_draws(PILOT_GENERATED_DRAW_COUNT)
+        ):
+            raise ValueError("parent pilot N=16 prefix is not the primary prefix")
         summary = prefix.get("uncertainty_summary")
         if not isinstance(summary, Mapping):
             raise ValueError("parent pilot N=16 uncertainty summary is missing")
         config = summary.get("config")
         if not isinstance(config, Mapping) or (
             config.get("draw_count") != PILOT_GENERATED_DRAW_COUNT
-            or config.get("max_unstable_draws_per_source_action") != 0
+            or config.get("max_unstable_draws_per_source_action")
+            != pilot_max_unstable_draws(PILOT_GENERATED_DRAW_COUNT)
         ):
             raise ValueError("parent pilot N=16 uncertainty config is invalid")
     return cases
@@ -3271,14 +3300,18 @@ def prospective_n32_followup_protocol_digest(
             physical_config,
             ProspectiveUncertaintyConfig(
                 draw_count=PILOT_N32_FOLLOWUP_DRAW_COUNT,
-                max_unstable_draws_per_source_action=PILOT_STRICT_MAX_UNSTABLE,
+                max_unstable_draws_per_source_action=pilot_max_unstable_draws(
+                    PILOT_N32_FOLLOWUP_DRAW_COUNT
+                ),
             ),
         ),
         "cost_protocol_digest": prospective_cost_protocol_digest(
             physical_config,
             ProspectiveUncertaintyConfig(
                 draw_count=PILOT_N32_FOLLOWUP_DRAW_COUNT,
-                max_unstable_draws_per_source_action=PILOT_STRICT_MAX_UNSTABLE,
+                max_unstable_draws_per_source_action=pilot_max_unstable_draws(
+                    PILOT_N32_FOLLOWUP_DRAW_COUNT
+                ),
             ),
             cost_scenario,
             selector_rule,
@@ -3286,14 +3319,15 @@ def prospective_n32_followup_protocol_digest(
         "selector_rule": prospective_selector_rule_payload(selector_rule),
         "comparison": {
             "candidate": "authenticated_n16_prefix_from_n32_run",
-            "reference": "strict_n32",
+            "reference": "primary_n32",
             "algorithm": "compare_pilot_choices_then_summarize_comparisons",
-            "require_exact_match_to_parent_pilot_strict_n16": True,
+            "require_exact_match_to_parent_pilot_primary_n16": True,
             "require_zero_parent_pipeline_failures": True,
             "require_zero_parent_n16_selection_failures": True,
+            "require_zero_parent_n16_ineligible_actions": True,
             "require_zero_n32_pipeline_failures": True,
             "require_zero_n32_selection_failures": True,
-            "require_zero_n32_whole_draw_failures": True,
+            "require_all_n32_actions_within_whole_draw_allowance": True,
         },
     }
     return _digest(f"{_HASH_DOMAIN}.n32.protocol", material)
@@ -3571,9 +3605,9 @@ def _validate_canonical_failed_pilot_block(
                 "admissible_source_models",
                 "admissible_source_model_count",
                 "n16_complete_uncertainty_result",
-                "strict_prefixes",
-                "n16_max_unstable_1_sensitivity",
-                "selected_policy_at_n16_strict",
+                "primary_prefixes",
+                "n16_max_unstable_0_sensitivity",
+                "selected_policy_at_n16_primary",
                 "selected_policy_outcome",
                 "fixed_policy_results",
                 "pipeline_failures",
@@ -3589,27 +3623,27 @@ def _validate_canonical_failed_pilot_block(
             or case["admissible_source_models"] is not None
             or case["admissible_source_model_count"] is not None
             or case["n16_complete_uncertainty_result"] is not None
-            or case["selected_policy_at_n16_strict"] is not None
+            or case["selected_policy_at_n16_primary"] is not None
             or case["selected_policy_outcome"] is not None
             or case["fixed_policy_results"] != {}
             or case["pipeline_failures"] != [failure]
         ):
             raise ValueError("canonical failed pilot case is inconsistent")
-        prefixes = case["strict_prefixes"]
+        prefixes = case["primary_prefixes"]
         if not isinstance(prefixes, list) or len(prefixes) != len(PILOT_DRAW_COUNTS):
             raise ValueError("canonical failed pilot prefixes are incomplete")
         for prefix, draw_count in zip(prefixes, PILOT_DRAW_COUNTS):
             validated = _validate_failed_prefix_record(
                 prefix,
                 draw_count=draw_count,
-                max_unstable_draws=PILOT_STRICT_MAX_UNSTABLE,
+                max_unstable_draws=pilot_max_unstable_draws(draw_count),
             )
             if validated["pipeline_failure"] != failure:
                 raise ValueError(
                     "canonical failed pilot prefix does not match its block failure"
                 )
         validated_sensitivity = _validate_failed_prefix_record(
-            case["n16_max_unstable_1_sensitivity"],
+            case["n16_max_unstable_0_sensitivity"],
             draw_count=PILOT_GENERATED_DRAW_COUNT,
             max_unstable_draws=PILOT_SENSITIVITY_MAX_UNSTABLE,
         )
@@ -3780,7 +3814,7 @@ def _run_pilot_family(
                 ProspectiveUncertaintyConfig(
                     draw_count=PILOT_GENERATED_DRAW_COUNT,
                     max_unstable_draws_per_source_action=(
-                        PILOT_STRICT_MAX_UNSTABLE
+                        pilot_max_unstable_draws(PILOT_GENERATED_DRAW_COUNT)
                     ),
                 ),
             )
@@ -3793,7 +3827,7 @@ def _run_pilot_family(
                         n16,
                         draw_count=draw_count,
                         max_unstable_draws_per_source_action=(
-                            PILOT_STRICT_MAX_UNSTABLE
+                            pilot_max_unstable_draws(draw_count)
                         ),
                     )
                     return _prefix_record(
@@ -3808,7 +3842,7 @@ def _run_pilot_family(
             except Exception as error:  # retained as a failed pilot case
                 prefix_records[draw_count] = _failed_prefix_record(
                     draw_count,
-                    PILOT_STRICT_MAX_UNSTABLE,
+                    pilot_max_unstable_draws(draw_count),
                     error,
                     "prefix_score",
                 )
@@ -3834,7 +3868,7 @@ def _run_pilot_family(
                     cost_scenario=cost_scenario,
                 )
 
-            sensitivity_record, prefix_timings["16_max_unstable_1"] = _timed(
+            sensitivity_record, prefix_timings["16_max_unstable_0"] = _timed(
                 derive_sensitivity
             )
         except Exception as error:  # retained as a failed sensitivity result
@@ -3846,7 +3880,7 @@ def _run_pilot_family(
             )
             pipeline_failures.append(
                 {
-                    "stage": "sensitivity_score_n16_max_unstable_1",
+                    "stage": "sensitivity_score_n16_max_unstable_0",
                     "error_type": type(error).__name__,
                     "message": str(error),
                 }
@@ -3861,7 +3895,7 @@ def _run_pilot_family(
         for draw_count in PILOT_DRAW_COUNTS:
             prefix_records[draw_count] = _failed_prefix_record(
                 draw_count,
-                PILOT_STRICT_MAX_UNSTABLE,
+                pilot_max_unstable_draws(draw_count),
                 error,
                 failure["stage"],
             )
@@ -3986,9 +4020,9 @@ def _run_pilot_family(
             else len(admissible_source_models)
         ),
         "n16_complete_uncertainty_result": n16_complete_payload,
-        "strict_prefixes": [prefix_records[item] for item in PILOT_DRAW_COUNTS],
-        "n16_max_unstable_1_sensitivity": sensitivity_record,
-        "selected_policy_at_n16_strict": selected_policy,
+        "primary_prefixes": [prefix_records[item] for item in PILOT_DRAW_COUNTS],
+        "n16_max_unstable_0_sensitivity": sensitivity_record,
+        "selected_policy_at_n16_primary": selected_policy,
         "selected_policy_outcome": selected_outcome,
         "fixed_policy_results": fixed_results,
         "pipeline_failures": pipeline_failures,
@@ -4073,7 +4107,7 @@ def _failed_block_result(block: int, error: BaseException) -> dict:
         prefixes = [
             _failed_prefix_record(
                 draw_count,
-                PILOT_STRICT_MAX_UNSTABLE,
+                pilot_max_unstable_draws(draw_count),
                 error,
                 failure["stage"],
             )
@@ -4089,14 +4123,14 @@ def _failed_block_result(block: int, error: BaseException) -> dict:
                 "admissible_source_models": None,
                 "admissible_source_model_count": None,
                 "n16_complete_uncertainty_result": None,
-                "strict_prefixes": prefixes,
-                "n16_max_unstable_1_sensitivity": _failed_prefix_record(
+                "primary_prefixes": prefixes,
+                "n16_max_unstable_0_sensitivity": _failed_prefix_record(
                     PILOT_GENERATED_DRAW_COUNT,
                     PILOT_SENSITIVITY_MAX_UNSTABLE,
                     error,
                     failure["stage"],
                 ),
-                "selected_policy_at_n16_strict": None,
+                "selected_policy_at_n16_primary": None,
                 "selected_policy_outcome": None,
                 "fixed_policy_results": {},
                 "pipeline_failures": [failure],
@@ -4193,7 +4227,9 @@ def _run_n32_followup_family(
                 physical_config,
                 ProspectiveUncertaintyConfig(
                     draw_count=PILOT_N32_FOLLOWUP_DRAW_COUNT,
-                    max_unstable_draws_per_source_action=PILOT_STRICT_MAX_UNSTABLE,
+                    max_unstable_draws_per_source_action=pilot_max_unstable_draws(
+                        PILOT_N32_FOLLOWUP_DRAW_COUNT
+                    ),
                 ),
             )
         )
@@ -4208,7 +4244,7 @@ def _run_n32_followup_family(
                         n32,
                         draw_count=draw_count,
                         max_unstable_draws_per_source_action=(
-                            PILOT_STRICT_MAX_UNSTABLE
+                            pilot_max_unstable_draws(draw_count)
                         ),
                     )
                     return _prefix_record(
@@ -4223,7 +4259,7 @@ def _run_n32_followup_family(
             except Exception as error:
                 prefixes[draw_count] = _failed_prefix_record(
                     draw_count,
-                    PILOT_STRICT_MAX_UNSTABLE,
+                    pilot_max_unstable_draws(draw_count),
                     error,
                     "n32_prefix_score",
                 )
@@ -4247,7 +4283,7 @@ def _run_n32_followup_family(
         ):
             prefixes[draw_count] = _failed_prefix_record(
                 draw_count,
-                PILOT_STRICT_MAX_UNSTABLE,
+                pilot_max_unstable_draws(draw_count),
                 error,
                 failure["stage"],
             )
@@ -4268,7 +4304,7 @@ def _run_n32_followup_family(
             else None
         ),
         "n32_complete_uncertainty_result": complete_payload,
-        "strict_prefixes": [
+        "primary_prefixes": [
             prefixes[PILOT_GENERATED_DRAW_COUNT],
             prefixes[PILOT_N32_FOLLOWUP_DRAW_COUNT],
         ],
@@ -4355,10 +4391,10 @@ def _failed_n32_followup_block(block: int, error: BaseException) -> dict:
                 "admissible_source_models": None,
                 "admissible_source_model_count": None,
                 "n32_complete_uncertainty_result": None,
-                "strict_prefixes": [
+                "primary_prefixes": [
                     _failed_prefix_record(
                         draw_count,
-                        PILOT_STRICT_MAX_UNSTABLE,
+                        pilot_max_unstable_draws(draw_count),
                         error,
                         failure["stage"],
                     )
@@ -4398,7 +4434,7 @@ def _failed_n32_followup_block(block: int, error: BaseException) -> dict:
 def _prefix_by_count(case: Mapping[str, object], draw_count: int) -> Mapping[str, object]:
     selected = tuple(
         item
-        for item in case["strict_prefixes"]  # type: ignore[index]
+        for item in case["primary_prefixes"]  # type: ignore[index]
         if item["draw_count"] == draw_count
     )
     if len(selected) != 1:
@@ -4690,7 +4726,7 @@ def evaluate_pilot_acceptance(
             "block": case["block"],
             "truth_condition": case["truth_condition"],
             **compare_pilot_choices(
-                case["n16_max_unstable_1_sensitivity"],
+                case["n16_max_unstable_0_sensitivity"],
                 _prefix_by_count(case, PILOT_GENERATED_DRAW_COUNT),
             ),
         }
@@ -4700,8 +4736,8 @@ def evaluate_pilot_acceptance(
         sensitivity_comparisons,
         rule,
     )
-    sensitivity_summary["candidate_rule"] = "n16_max_unstable_1"
-    sensitivity_summary["reference_rule"] = "n16_max_unstable_0"
+    sensitivity_summary["candidate_rule"] = "n16_max_unstable_0"
+    sensitivity_summary["reference_rule"] = "n16_max_unstable_1"
 
     pipeline_failures = sum(
         len(case.get("pipeline_failures", ())) for case in cases
@@ -4741,8 +4777,11 @@ def evaluate_pilot_acceptance(
         if qualifying
         else None
     )
+    reference_ineligible_action_count = sum(reference_ineligible_action_counts)
     feasibility_passed = (
-        pipeline_failures == 0 and reference_selection_failures == 0
+        pipeline_failures == 0
+        and reference_selection_failures == 0
+        and reference_ineligible_action_count == 0
     )
     n32_followup_required = (
         feasibility_passed
@@ -4759,15 +4798,15 @@ def evaluate_pilot_acceptance(
     )
     return {
         "rule": asdict(rule),
-        "strict_comparisons": detailed,
-        "strict_summaries": summaries,
-        "n16_max_unstable_1_sensitivity": {
+        "primary_comparisons": detailed,
+        "primary_summaries": summaries,
+        "n16_max_unstable_0_sensitivity": {
             "comparisons": list(sensitivity_comparisons),
             "summary": sensitivity_summary,
         },
         "pipeline_failure_count": pipeline_failures,
         "n16_selection_failure_count": reference_selection_failures,
-        "n16_ineligible_action_count": sum(reference_ineligible_action_counts),
+        "n16_ineligible_action_count": reference_ineligible_action_count,
         "n16_cases_with_ineligible_actions": sum(
             count > 0 for count in reference_ineligible_action_counts
         ),
@@ -4841,6 +4880,8 @@ def evaluate_n32_followup_acceptance(
     selection_failures = 0
     unavailable_diagnostics = 0
     whole_draw_failures = 0
+    ineligible_action_count = 0
+    cases_with_ineligible_actions = 0
     n16_prefix_mismatches = []
     for block_record in sorted(block_results, key=lambda item: int(item["block"])):
         _exact_mapping(
@@ -4889,7 +4930,7 @@ def evaluate_n32_followup_acceptance(
                     "admissible_source_models",
                     "admissible_source_model_count",
                     "n32_complete_uncertainty_result",
-                    "strict_prefixes",
+                    "primary_prefixes",
                     "pipeline_failures",
                     "timing",
                 },
@@ -4929,13 +4970,13 @@ def evaluate_n32_followup_acceptance(
                 and not failures
             ):
                 raise ValueError("N=32 device identity is missing")
-            prefixes = case.get("strict_prefixes")
+            prefixes = case.get("primary_prefixes")
             if not isinstance(prefixes, list) or [
                 value.get("draw_count")
                 for value in prefixes
                 if isinstance(value, Mapping)
             ] != [PILOT_GENERATED_DRAW_COUNT, PILOT_N32_FOLLOWUP_DRAW_COUNT]:
-                raise ValueError("N=32 strict prefixes are incomplete")
+                raise ValueError("N=32 primary prefixes are incomplete")
             complete_payload = case.get("n32_complete_uncertainty_result")
             if complete_payload is None:
                 if not failures:
@@ -4947,7 +4988,7 @@ def evaluate_n32_followup_acceptance(
                     failed = _validate_failed_prefix_record(
                         prefix,
                         draw_count=draw_count,
-                        max_unstable_draws=PILOT_STRICT_MAX_UNSTABLE,
+                        max_unstable_draws=pilot_max_unstable_draws(draw_count),
                     )
                     prefix_failure = failed["pipeline_failure"]
                     if not any(
@@ -4974,7 +5015,9 @@ def evaluate_n32_followup_acceptance(
                 physical_config=physical_config,
                 block=block_index,
                 draw_count=PILOT_N32_FOLLOWUP_DRAW_COUNT,
-                max_unstable_draws=PILOT_STRICT_MAX_UNSTABLE,
+                max_unstable_draws=pilot_max_unstable_draws(
+                    PILOT_N32_FOLLOWUP_DRAW_COUNT
+                ),
             )
             snapshot = complete["acquisition_evidence"]["snapshot"]
             source_models = list(snapshot["admissible_candidate_models"])
@@ -4989,7 +5032,9 @@ def evaluate_n32_followup_acceptance(
                 physical_config=physical_config,
                 block=block_index,
                 draw_count=PILOT_GENERATED_DRAW_COUNT,
-                max_unstable_draws=PILOT_STRICT_MAX_UNSTABLE,
+                max_unstable_draws=pilot_max_unstable_draws(
+                    PILOT_GENERATED_DRAW_COUNT
+                ),
             )
             validated_prefixes = []
             for prefix, expected_complete, draw_count in (
@@ -5004,7 +5049,7 @@ def evaluate_n32_followup_acceptance(
                     failed = _validate_failed_prefix_record(
                         prefix,
                         draw_count=draw_count,
-                        max_unstable_draws=PILOT_STRICT_MAX_UNSTABLE,
+                        max_unstable_draws=pilot_max_unstable_draws(draw_count),
                     )
                     prefix_failure = failed["pipeline_failure"]
                     if not any(
@@ -5050,6 +5095,17 @@ def evaluate_n32_followup_acceptance(
                 _SELECTION_FAILURE_PREFIX
             ):
                 selection_failures += 1
+            eligibility = reference.get("eligibility", {})
+            case_ineligible_actions = sum(
+                isinstance(item, Mapping) and item.get("eligible") is False
+                for item in (
+                    eligibility.values()
+                    if isinstance(eligibility, Mapping)
+                    else ()
+                )
+            )
+            ineligible_action_count += case_ineligible_actions
+            cases_with_ineligible_actions += case_ineligible_actions > 0
             validated_references.append(reference)
             diagnostics = reference.get("draw_diagnostics")
             if not isinstance(diagnostics, Mapping) or (
@@ -5075,7 +5131,7 @@ def evaluate_n32_followup_acceptance(
         and pipeline_failures == 0
         and selection_failures == 0
         and unavailable_diagnostics == 0
-        and whole_draw_failures == 0
+        and ineligible_action_count == 0
         and len(comparisons) == PILOT_BLOCK_COUNT * len(STAGE3_TRUTH_CONDITIONS)
         and bool(summary["meets_acceptance_rule"])
     )
@@ -5092,6 +5148,8 @@ def evaluate_n32_followup_acceptance(
         "n32_selection_failure_count": selection_failures,
         "n32_unavailable_draw_diagnostic_count": unavailable_diagnostics,
         "n32_whole_draw_failure_count": whole_draw_failures,
+        "n32_ineligible_action_count": ineligible_action_count,
+        "n32_cases_with_ineligible_actions": cases_with_ineligible_actions,
         "pilot_engineering_gate_passed": pilot_gate,
         "phase_d_entry_authorized": False,
         "recommended_draw_count": (
@@ -5912,6 +5970,10 @@ def format_prospective_n32_followup_report(
             f"N=32 pipeline failures: {acceptance['n32_pipeline_failure_count']}",
             f"N=32 selection failures: {acceptance['n32_selection_failure_count']}",
             f"N=32 whole-draw failures: {acceptance['n32_whole_draw_failure_count']}",
+            "N=32 maximum whole-draw failures per source/action: "
+            f"{pilot_max_unstable_draws(PILOT_N32_FOLLOWUP_DRAW_COUNT)}",
+            f"N=32 ineligible action records: "
+            f"{acceptance['n32_ineligible_action_count']}",
             "Recommended draw count: "
             + (
                 str(acceptance["recommended_draw_count"])
@@ -6158,13 +6220,18 @@ def format_prospective_pilot_report(payload: Mapping[str, object]) -> str:
         f"Scientific result digest: {payload['scientific_result_digest']}",
         f"Cases: {payload['case_count']} in {PILOT_BLOCK_COUNT} paired blocks",
         "Generated N=16 once per case; N=4/8/16 are authenticated prefixes.",
-        "Primary eligibility comparison: maximum whole-draw failures = 0.",
+        "Primary eligibility allowances by draw count: "
+        + ", ".join(
+            f"N={draw_count}: {pilot_max_unstable_draws(draw_count)}"
+            for draw_count in PILOT_DRAW_COUNTS
+        )
+        + ".",
         "Completed candidate transitions are baseline-floored and counted separately.",
-        "Sensitivity only: N=16 with maximum whole-draw failures = 1.",
+        "Sensitivity only: N=16 with maximum whole-draw failures = 0.",
         "",
-        "Draw-count acceptance relative to strict N=16:",
+        "Draw-count acceptance relative to primary N=16:",
     ]
-    for summary in acceptance["strict_summaries"]:
+    for summary in acceptance["primary_summaries"]:
         lines.append(
             f"  N={summary['draw_count']}: agreement "
             f"{summary['agreement_count']}/{summary['case_count']} "
@@ -6175,27 +6242,27 @@ def format_prospective_pilot_report(payload: Mapping[str, object]) -> str:
             f"{summary['selected_action_eligibility_difference_count']}; "
             f"{'PASS' if summary['meets_acceptance_rule'] else 'FAIL'}"
         )
-    sensitivity = acceptance["n16_max_unstable_1_sensitivity"]["summary"]
+    sensitivity = acceptance["n16_max_unstable_0_sensitivity"]["summary"]
     draw_diagnostics = acceptance["n16_draw_diagnostics"]
     lines.extend(
         (
             "",
             "Eligibility sensitivity:",
-            f"  strict versus one allowed whole-draw failure: agreement "
+            f"  zero-failure sensitivity versus one allowed failure: agreement "
             f"{sensitivity['agreement_count']}/{sensitivity['case_count']}; "
             f"selected-action eligibility differences "
             f"{sensitivity['selected_action_eligibility_difference_count']}",
             "",
             f"Pipeline failures: {acceptance['pipeline_failure_count']}",
-            f"Strict N=16 selection failures: "
+            f"Primary N=16 selection failures: "
             f"{acceptance['n16_selection_failure_count']}",
-            f"Strict N=16 ineligible action records: "
+            f"Primary N=16 ineligible action records: "
             f"{acceptance['n16_ineligible_action_count']}",
-            f"Strict N=16 retained predictive draws: "
+            f"Primary N=16 retained predictive draws: "
             f"{draw_diagnostics['retained_draw_count']}",
-            f"Strict N=16 whole-draw failures: "
+            f"Primary N=16 whole-draw failures: "
             f"{draw_diagnostics['failed_draw_count']}",
-            f"Strict N=16 completed candidate-transition draws: "
+            f"Primary N=16 completed candidate-transition draws: "
             f"{draw_diagnostics['candidate_transition_draw_count']}",
             f"  candidate-loss draws: "
             f"{draw_diagnostics['candidate_loss_draw_count']}",
@@ -6343,11 +6410,12 @@ __all__ = [
     "PILOT_BLOCK_COUNT",
     "PILOT_DRAW_COUNTS",
     "PILOT_GENERATED_DRAW_COUNT",
+    "PILOT_MAX_UNSTABLE_BY_DRAW_COUNT",
     "PILOT_N32_FOLLOWUP_ARTIFACT_ID",
     "PILOT_N32_FOLLOWUP_CASE_SELECTION",
     "PILOT_N32_FOLLOWUP_DRAW_COUNT",
     "PILOT_SENSITIVITY_MAX_UNSTABLE",
-    "PILOT_STRICT_MAX_UNSTABLE",
+    "PILOT_PRIMARY_MAX_UNSTABLE",
     "PROSPECTIVE_CALIBRATION_PARTITION",
     "PROSPECTIVE_CAMPAIGN",
     "PROSPECTIVE_DEVELOPMENT_CHECK_PARTITION",
@@ -6371,6 +6439,7 @@ __all__ = [
     "evaluate_n32_followup_acceptance",
     "format_prospective_n32_followup_report",
     "format_prospective_pilot_report",
+    "pilot_max_unstable_draws",
     "prospective_partition_plan_payload",
     "prospective_n32_followup_design_payload",
     "prospective_n32_followup_protocol_digest",

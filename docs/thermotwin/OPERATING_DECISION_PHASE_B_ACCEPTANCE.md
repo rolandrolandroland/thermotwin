@@ -13,7 +13,8 @@ not evaluated. The P3 representation repair passed local validation,
 independent clean-clone review, and exact-HEAD CI at `2f906a2`. P3 and its
 required N32 continuation later executed and validated, but their combined
 engineering gate failed. This does not alter the physics or information-flow
-acceptance below.
+acceptance below. P4 now versions the permitted bounded eligibility redesign;
+its partition remains unopened.
 
 ## Conclusion
 
@@ -135,10 +136,16 @@ rule. Phase B's physics and information-boundary conclusions remain unchanged;
 Phase D is not authorized. See
 [`OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md).
 
+P4 is the one permitted bounded scientific redesign. Its reviewed rule allows
+0/0/1 whole-draw failures per source/action at N=4/8/16 and one at conditional
+N=32, retains each failed draw at the no-gain baseline, and requires every
+reference-count measurement action to remain eligible. The fresh P4 parent and
+conditional N32 namespaces are allocated but unopened. See the
+[`P4 protocol`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_PROTOCOL.md).
+
 - Predictive draws are an approximate local-covariance calculation. Worst-case aggregation protects only across the surviving four- and five-state candidates.
 - The low-level `ThermoelectricParameters` type is an algebraic container and permits idealized zero values for limiting tests. The campaign fixes its thermoelectric constants to checked positive values; a future experiment that varies those constants must validate them at its own boundary.
 - Nonnegative campaign energy records are correct for the declared diagnostic schedules. A future regenerative diagnostic schedule would need an explicit gross-consumption/export policy rather than silently clipping or rejecting signed energy.
-- No data-generating runner may open next. The protocol's one bounded
-  eligibility redesign and a fresh disposable identity must first be reviewed,
-  committed, pushed, and pass exact-HEAD CI. Development, calibration, and
-  reserved runners remain outside this acceptance record.
+- The P4 parent is the only data-generating runner that may open next, and only
+  after the P4 source and protocol commit passes exact-HEAD CI. Development,
+  calibration, and reserved runners remain outside this acceptance record.

@@ -35,7 +35,16 @@ from thermotwin.reports.operating_decision_prospective_pilot import (
 )
 
 
-def _prefix(draw_count, selected, *, voltage_utility=0.96, eligibility=None):
+def _prefix(
+    draw_count,
+    selected,
+    *,
+    voltage_utility=0.96,
+    eligibility=None,
+    max_unstable=None,
+):
+    if max_unstable is None:
+        max_unstable = pilot.pilot_max_unstable_draws(draw_count)
     if eligibility is None:
         eligibility = {
             name: {"eligible": True, "failure_reason": None}
@@ -57,7 +66,7 @@ def _prefix(draw_count, selected, *, voltage_utility=0.96, eligibility=None):
     ]
     return {
         "draw_count": draw_count,
-        "max_unstable_draws_per_source_action": 0,
+        "max_unstable_draws_per_source_action": max_unstable,
         "choice_token": f"action:{selected}",
         "eligibility": eligibility,
         "draw_diagnostics": {
@@ -77,7 +86,7 @@ def _prefix(draw_count, selected, *, voltage_utility=0.96, eligibility=None):
         "uncertainty_summary": {
             "config": {
                 "draw_count": draw_count,
-                "max_unstable_draws_per_source_action": 0,
+                "max_unstable_draws_per_source_action": max_unstable,
             }
         },
     }
@@ -98,13 +107,16 @@ def _blocks(*, changed_regret=0.04, pipeline_failure=False):
             )
             n8 = _prefix(8, FIXED_THERMAL, voltage_utility=voltage_utility)
             sensitivity = deepcopy(reference)
-            sensitivity["max_unstable_draws_per_source_action"] = 1
+            sensitivity["max_unstable_draws_per_source_action"] = 0
+            sensitivity["uncertainty_summary"]["config"][
+                "max_unstable_draws_per_source_action"
+            ] = 0
             cases.append(
                 {
                     "block": block,
                     "truth_condition": family,
-                    "strict_prefixes": [n4, n8, reference],
-                    "n16_max_unstable_1_sensitivity": sensitivity,
+                    "primary_prefixes": [n4, n8, reference],
+                    "n16_max_unstable_0_sensitivity": sensitivity,
                     "pipeline_failures": (
                         [{"stage": "test"}]
                         if pipeline_failure and block == 0 and family_index == 0
@@ -172,7 +184,9 @@ def _complete_uncertainty(block, draw_count):
     physical_config = _pilot_physical_config()
     config = pilot.ProspectiveUncertaintyConfig(
         draw_count=draw_count,
-        max_unstable_draws_per_source_action=0,
+        max_unstable_draws_per_source_action=(
+            pilot.pilot_max_unstable_draws(draw_count)
+        ),
     )
     source_model = "four_state"
     excluded_model = "five_state"
@@ -704,22 +718,22 @@ def _build_n32_parent_payload():
     case_index = 0
     for block in range(pilot.PILOT_BLOCK_COUNT):
         complete = _complete_uncertainty(block, 16)
-        strict = []
+        primary = []
         for draw_count in pilot.PILOT_DRAW_COUNTS:
             derived = pilot._derive_uncertainty_prefix_payload(
                 complete,
                 physical_config=physical_config,
                 block=block,
                 draw_count=draw_count,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(draw_count),
             )
-            strict.append(_authenticated_prefix(derived))
-        relaxed = pilot._derive_uncertainty_prefix_payload(
+            primary.append(_authenticated_prefix(derived))
+        zero_failure = pilot._derive_uncertainty_prefix_payload(
             complete,
             physical_config=physical_config,
             block=block,
             draw_count=16,
-            max_unstable_draws=1,
+            max_unstable_draws=0,
         )
         cases = []
         for family in pilot.STAGE3_TRUTH_CONDITIONS:
@@ -778,7 +792,7 @@ def _build_n32_parent_payload():
                         },
                     },
                 }
-            selected = strict[-1]["selection"]["selected_policy"]
+            selected = primary[-1]["selection"]["selected_policy"]
             cases.append(
                 {
                     "block": block,
@@ -793,11 +807,11 @@ def _build_n32_parent_payload():
                     "admissible_source_models": ["four_state"],
                     "admissible_source_model_count": 1,
                     "n16_complete_uncertainty_result": deepcopy(complete),
-                    "strict_prefixes": deepcopy(strict),
-                    "n16_max_unstable_1_sensitivity": _authenticated_prefix(
-                        relaxed
+                    "primary_prefixes": deepcopy(primary),
+                    "n16_max_unstable_0_sensitivity": _authenticated_prefix(
+                        zero_failure
                     ),
-                    "selected_policy_at_n16_strict": selected,
+                    "selected_policy_at_n16_primary": selected,
                     "selected_policy_outcome": deepcopy(fixed[selected]),
                     "fixed_policy_results": fixed,
                     "pipeline_failures": [],
@@ -1016,7 +1030,7 @@ def _build_n32_blocks(parent_payload):
             physical_config=physical_config,
             block=parent_block["block"],
             draw_count=16,
-            max_unstable_draws=0,
+            max_unstable_draws=pilot.pilot_max_unstable_draws(16),
         )
         n16 = _authenticated_prefix(derived_n16)
         n32 = _authenticated_prefix(complete)
@@ -1030,7 +1044,7 @@ def _build_n32_blocks(parent_payload):
                     "admissible_source_models": ["four_state"],
                     "admissible_source_model_count": 1,
                     "n32_complete_uncertainty_result": deepcopy(complete),
-                    "strict_prefixes": [deepcopy(n16), deepcopy(n32)],
+                    "primary_prefixes": [deepcopy(n16), deepcopy(n32)],
                     "pipeline_failures": [],
                     "timing": {"case_wall_seconds": 1.0},
                 }
@@ -1078,7 +1092,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
         self.assertEqual(
             tuple((item.name, item.block_count) for item in pilot.PROSPECTIVE_PARTITION_PLAN),
             (
-                ("p3_disposable_archive_roundtrip_replacement_pilot", 4),
+                ("p4_disposable_bounded_instability_pilot", 4),
                 ("p1_development_tuning", 20),
                 ("p1_development_internal_check", 10),
                 ("p1_independent_calibration", 100),
@@ -1091,29 +1105,40 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
         )
         self.assertEqual(pilot.PILOT_DRAW_COUNTS, (4, 8, 16))
         self.assertEqual(pilot.PILOT_N32_FOLLOWUP_DRAW_COUNT, 32)
-        self.assertEqual(pilot.PROSPECTIVE_PILOT_SCHEMA_VERSION, 3)
+        self.assertEqual(pilot.PROSPECTIVE_PILOT_SCHEMA_VERSION, 4)
         self.assertEqual(
             pilot.PROSPECTIVE_PILOT_PROTOCOL_VERSION,
-            "operating_decision_prospective_draw_count_pilot_v4",
+            "operating_decision_prospective_draw_count_pilot_v5",
         )
         self.assertEqual(
             pilot.PROSPECTIVE_SUPERSEDED_PILOT_PARTITIONS,
             (
                 "p1_disposable_draw_count_pilot",
                 "p2_disposable_candidate_exclusion_pilot",
+                "p3_disposable_archive_roundtrip_replacement_pilot",
             ),
         )
-        self.assertEqual(pilot.PROSPECTIVE_N32_FOLLOWUP_SCHEMA_VERSION, 1)
+        self.assertEqual(pilot.PROSPECTIVE_N32_FOLLOWUP_SCHEMA_VERSION, 2)
         self.assertEqual(
             pilot.PROSPECTIVE_N32_FOLLOWUP_PROTOCOL_VERSION,
-            "operating_decision_prospective_n32_followup_v2",
+            "operating_decision_prospective_n32_followup_v3",
         )
-        self.assertEqual(pilot.PILOT_STRICT_MAX_UNSTABLE, 0)
-        self.assertEqual(pilot.PILOT_SENSITIVITY_MAX_UNSTABLE, 1)
+        self.assertEqual(pilot.PILOT_PRIMARY_MAX_UNSTABLE, 1)
+        self.assertEqual(pilot.PILOT_SENSITIVITY_MAX_UNSTABLE, 0)
+        self.assertEqual(
+            pilot.PILOT_MAX_UNSTABLE_BY_DRAW_COUNT,
+            {4: 0, 8: 0, 16: 1, 32: 1},
+        )
+        self.assertEqual(
+            [pilot.pilot_max_unstable_draws(count) for count in (4, 8, 16, 32)],
+            [0, 0, 1, 1],
+        )
+        with self.assertRaisesRegex(ValueError, "no instability allowance"):
+            pilot.pilot_max_unstable_draws(64)
         followup = pilot.prospective_n32_followup_design_payload()
         self.assertEqual(
             followup["artifact_id"],
-            "p3_disposable_archive_roundtrip_replacement_pilot_n32_all_cases_v1",
+            "p4_disposable_bounded_instability_pilot_n32_all_cases_v1",
         )
         self.assertEqual(followup["partition"], pilot.PROSPECTIVE_PILOT_PARTITION)
         self.assertEqual(followup["blocks"], [0, 1, 2, 3])
@@ -1130,6 +1155,11 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
         self.assertTrue(
             followup["trigger"][
                 "requires_zero_parent_pilot_n16_selection_failures"
+            ]
+        )
+        self.assertTrue(
+            followup["trigger"][
+                "requires_zero_parent_pilot_n16_ineligible_actions"
             ]
         )
         self.assertNotIn("requires_zero_p2_pipeline_failures", followup["trigger"])
@@ -1166,7 +1196,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
 
     def test_acceptance_uses_all_cases_and_declared_agreement_and_regret(self):
         result = pilot.evaluate_pilot_acceptance(_blocks(changed_regret=0.04))
-        n4, n8, n16 = result["strict_summaries"]
+        n4, n8, n16 = result["primary_summaries"]
         self.assertEqual(n4["agreement_count"], 11)
         self.assertAlmostEqual(n4["agreement_rate"], 11 / 12)
         self.assertAlmostEqual(
@@ -1181,19 +1211,19 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
 
     def test_excess_regret_moves_recommendation_to_next_draw_count(self):
         result = pilot.evaluate_pilot_acceptance(_blocks(changed_regret=0.06))
-        self.assertFalse(result["strict_summaries"][0]["meets_regret_rule"])
+        self.assertFalse(result["primary_summaries"][0]["meets_regret_rule"])
         self.assertEqual(result["recommended_draw_count"], 8)
 
     def test_n16_recommendation_requires_n32_before_phase_d(self):
         blocks = _blocks()
         cases = [case for block in blocks for case in block["cases"]]
         for case in cases[:2]:
-            for prefix in case["strict_prefixes"][:2]:
+            for prefix in case["primary_prefixes"][:2]:
                 prefix["choice_token"] = "action:fixed_voltage"
                 prefix["selection"]["selected_policy"] = FIXED_VOLTAGE
         result = pilot.evaluate_pilot_acceptance(blocks)
-        self.assertFalse(result["strict_summaries"][0]["meets_agreement_rule"])
-        self.assertFalse(result["strict_summaries"][1]["meets_agreement_rule"])
+        self.assertFalse(result["primary_summaries"][0]["meets_agreement_rule"])
+        self.assertFalse(result["primary_summaries"][1]["meets_agreement_rule"])
         self.assertEqual(result["stability_recommended_draw_count"], 16)
         self.assertTrue(result["feasibility_gate_passed"])
         self.assertTrue(result["n32_followup_required"])
@@ -1225,13 +1255,13 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
             pilot.evaluate_n32_followup_acceptance(parent, blocks)
 
         blocks = _n32_blocks(parent)
-        blocks[0]["cases"][1]["strict_prefixes"][0]["choice_token"] = (
+        blocks[0]["cases"][1]["primary_prefixes"][0]["choice_token"] = (
             "action:fixed_voltage"
         )
         with self.assertRaisesRegex(ValueError, "choice token"):
             pilot.evaluate_n32_followup_acceptance(parent, blocks)
 
-    def test_n32_followup_rejects_any_whole_draw_or_selection_failure(self):
+    def test_n32_followup_rejects_pipeline_failure(self):
         parent = _n32_parent_payload()
         blocks = _n32_blocks(parent)
         blocks[0] = pilot._failed_n32_followup_block(
@@ -1243,6 +1273,8 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
         self.assertFalse(acceptance["pilot_engineering_gate_passed"])
         self.assertFalse(acceptance["accepted"])
 
+    def test_n32_followup_retains_one_whole_draw_failure_per_action(self):
+        parent = _n32_parent_payload()
         blocks = _n32_blocks(parent)
         case = blocks[0]["cases"][0]
         complete = case["n32_complete_uncertainty_result"]
@@ -1273,10 +1305,54 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
             )
         ]
         _recompute_uncertainty_actions(complete, 0)
-        case["strict_prefixes"][1] = _authenticated_prefix(complete)
+        case["primary_prefixes"][1] = _authenticated_prefix(complete)
         acceptance = pilot.evaluate_n32_followup_acceptance(parent, blocks)
         self.assertEqual(acceptance["n32_whole_draw_failure_count"], 3)
-        self.assertEqual(acceptance["n32_selection_failure_count"], 1)
+        self.assertEqual(acceptance["n32_selection_failure_count"], 0)
+        self.assertEqual(acceptance["n32_ineligible_action_count"], 0)
+        self.assertTrue(acceptance["pilot_engineering_gate_passed"])
+
+    def test_n32_followup_rejects_action_that_exceeds_failure_allowance(self):
+        parent = _n32_parent_payload()
+        blocks = _n32_blocks(parent)
+        case = blocks[0]["cases"][0]
+        complete = case["n32_complete_uncertainty_result"]
+        for draw in complete["draw_outcomes"]:
+            if (
+                draw["draw_index"] not in (20, 21)
+                or draw["policy_name"] != FIXED_VOLTAGE
+            ):
+                continue
+            draw.update(
+                {
+                    "candidate_outcomes": [],
+                    "initially_admissible_became_inadmissible": [],
+                    "initially_excluded_became_admissible": [],
+                    "stable": False,
+                    "failed": True,
+                    "failure_stage": "prospective_simulation",
+                    "failure_model": None,
+                    "failure_type": "ValueError",
+                    "raw_after_width": None,
+                    "scored_after_width": 2.0,
+                    "synthetic_observation_digest": None,
+                }
+            )
+        complete["stream_uses"] = [
+            use
+            for use in complete["stream_uses"]
+            if not (
+                use["key"]["draw_index"] in (20, 21)
+                and use["key"]["action"] == FIXED_VOLTAGE
+                and use["key"]["purpose"] in ("run_bias", "white_noise")
+            )
+        ]
+        _recompute_uncertainty_actions(complete, 0)
+        case["primary_prefixes"][1] = _authenticated_prefix(complete)
+        acceptance = pilot.evaluate_n32_followup_acceptance(parent, blocks)
+        self.assertEqual(acceptance["n32_whole_draw_failure_count"], 2)
+        self.assertEqual(acceptance["n32_ineligible_action_count"], 1)
+        self.assertEqual(acceptance["n32_cases_with_ineligible_actions"], 1)
         self.assertFalse(acceptance["pilot_engineering_gate_passed"])
 
     def test_n32_rejects_missing_complete_payload_and_minimal_prefix(self):
@@ -1287,7 +1363,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
             pilot.evaluate_n32_followup_acceptance(parent, blocks)
 
         blocks = _n32_blocks(parent)
-        blocks[0]["cases"][0]["strict_prefixes"][0] = _prefix(
+        blocks[0]["cases"][0]["primary_prefixes"][0] = _prefix(
             16,
             FIXED_THERMAL,
         )
@@ -1391,7 +1467,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
     def test_complete_evidence_rejects_forged_failed_draw_shape(self):
@@ -1424,7 +1500,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
     def test_complete_evidence_replays_in_bounds_rng_values_after_n16(self):
@@ -1447,7 +1523,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
     def test_complete_evidence_rejects_impossible_partial_sampling_failures(self):
@@ -1484,7 +1560,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1501,7 +1577,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
     def test_complete_evidence_validates_fit_and_interval_structure(self):
@@ -1516,7 +1592,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1529,7 +1605,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1542,7 +1618,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1555,7 +1631,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1568,7 +1644,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1581,7 +1657,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1594,7 +1670,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1607,7 +1683,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1620,7 +1696,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1633,7 +1709,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1655,7 +1731,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
     def test_complete_evidence_rejects_invalid_draw_state_and_attrition_floor(self):
@@ -1668,7 +1744,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1699,7 +1775,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
     def test_complete_evidence_rejects_parameter_probe_and_fit_tampering(self):
@@ -1712,7 +1788,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1728,7 +1804,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
         complete = _complete_uncertainty(0, 32)
@@ -1741,7 +1817,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 physical_config=physical_config,
                 block=0,
                 draw_count=32,
-                max_unstable_draws=0,
+                max_unstable_draws=pilot.pilot_max_unstable_draws(32),
             )
 
     def test_corrected_stream_inventory_rejects_cleanly_resealed_deletion(self):
@@ -2002,8 +2078,13 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
                 "admissible_source_models": None,
                 "admissible_source_model_count": None,
                 "n32_complete_uncertainty_result": None,
-                "strict_prefixes": [
-                    pilot._failed_prefix_record(count, 0, error, failure["stage"])
+                "primary_prefixes": [
+                    pilot._failed_prefix_record(
+                        count,
+                        pilot.pilot_max_unstable_draws(count),
+                        error,
+                        failure["stage"],
+                    )
                     for count in (16, 32)
                 ],
                 "pipeline_failures": [failure],
@@ -2089,7 +2170,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
         blocks = _blocks()
         for block in blocks:
             for case in block["cases"]:
-                for prefix in case["strict_prefixes"]:
+                for prefix in case["primary_prefixes"]:
                     prefix["choice_token"] = (
                         "selection_failure:no_scored_acquisition_action"
                     )
@@ -2099,6 +2180,21 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
         self.assertEqual(result["stability_recommended_draw_count"], 4)
         self.assertEqual(result["n16_selection_failure_count"], 12)
         self.assertFalse(result["feasibility_gate_passed"])
+        self.assertIsNone(result["recommended_draw_count"])
+        self.assertFalse(result["accepted"])
+
+    def test_reference_ineligible_action_blocks_overall_pilot_gate(self):
+        blocks = _blocks()
+        reference = blocks[0]["cases"][0]["primary_prefixes"][-1]
+        reference["eligibility"][FIXED_FACE_TEMPERATURE] = {
+            "eligible": False,
+            "failure_reason": "insufficient_stable_prospective_draws",
+        }
+        result = pilot.evaluate_pilot_acceptance(blocks)
+        self.assertEqual(result["n16_ineligible_action_count"], 1)
+        self.assertEqual(result["n16_cases_with_ineligible_actions"], 1)
+        self.assertFalse(result["feasibility_gate_passed"])
+        self.assertFalse(result["n32_followup_required"])
         self.assertIsNone(result["recommended_draw_count"])
         self.assertFalse(result["accepted"])
 
@@ -2140,7 +2236,7 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
         blocks = _blocks()
         for block in blocks:
             for case in block["cases"]:
-                reference = case["strict_prefixes"][-1]
+                reference = case["primary_prefixes"][-1]
                 reference["draw_diagnostics"].update(
                     {
                         "failed_draw_count": 1,
@@ -2307,17 +2403,17 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
         estimate.assert_called_once()
         config = estimate.call_args.args[3]
         self.assertEqual(config.draw_count, 16)
-        self.assertEqual(config.max_unstable_draws_per_source_action, 0)
-        self.assertEqual(prefix_calls, [(4, 0), (8, 0), (16, 0), (16, 1)])
+        self.assertEqual(config.max_unstable_draws_per_source_action, 1)
+        self.assertEqual(prefix_calls, [(4, 0), (8, 0), (16, 1), (16, 0)])
         first_reveal = next(index for index, item in enumerate(events) if item[0] == "reveal")
         self.assertEqual(first_reveal, len(policies))
         self.assertTrue(all(item[0] == "save" for item in events[:first_reveal]))
         self.assertIs(result["n16_complete_uncertainty_result"], complete_n16)
         self.assertTrue(
-            all("uncertainty_result" not in item for item in result["strict_prefixes"])
+            all("uncertainty_result" not in item for item in result["primary_prefixes"])
         )
 
-    def test_n32_family_generates_once_and_derives_strict_n16_prefix(self):
+    def test_n32_family_generates_once_and_derives_primary_n16_prefix(self):
         prefix_calls = []
         case = SimpleNamespace(
             case_id=SimpleNamespace(device_token="device-token"),
@@ -2387,10 +2483,10 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
             )
         config = estimate.call_args.args[3]
         self.assertEqual(config.draw_count, 32)
-        self.assertEqual(config.max_unstable_draws_per_source_action, 0)
-        self.assertEqual(prefix_calls, [(16, 0), (32, 0)])
+        self.assertEqual(config.max_unstable_draws_per_source_action, 1)
+        self.assertEqual(prefix_calls, [(16, 1), (32, 1)])
         self.assertEqual(
-            [item["draw_count"] for item in result["strict_prefixes"]],
+            [item["draw_count"] for item in result["primary_prefixes"]],
             [16, 32],
         )
 
@@ -2633,7 +2729,7 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
                 saved_payload,
             )
         tampered = deepcopy(payload)
-        tampered["block_results"][0]["cases"][0]["strict_prefixes"][0][
+        tampered["block_results"][0]["cases"][0]["primary_prefixes"][0][
             "choice_token"
         ] = "selection_failure:forged"
         _reseal_parent_payload(tampered)
@@ -2691,7 +2787,7 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
             0,
             RuntimeError("deliberate pilot block failure"),
         )
-        prefix = payload["block_results"][0]["cases"][0]["strict_prefixes"][0]
+        prefix = payload["block_results"][0]["cases"][0]["primary_prefixes"][0]
         prefix["pipeline_failure"] = forged
         prefix["choice_token"] = "pipeline_failure:forged_stage:ForgedError"
         _reseal_parent_scientific(payload)
@@ -2711,19 +2807,24 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
                 "admissible_source_models": None,
                 "admissible_source_model_count": None,
                 "n16_complete_uncertainty_result": None,
-                "strict_prefixes": [
-                    pilot._failed_prefix_record(count, 0, error, owner["stage"])
+                "primary_prefixes": [
+                    pilot._failed_prefix_record(
+                        count,
+                        pilot.pilot_max_unstable_draws(count),
+                        error,
+                        owner["stage"],
+                    )
                     for count in pilot.PILOT_DRAW_COUNTS
                 ],
-                "n16_max_unstable_1_sensitivity": pilot._failed_prefix_record(
-                    16, 1, error, owner["stage"]
+                "n16_max_unstable_0_sensitivity": pilot._failed_prefix_record(
+                    16, 0, error, owner["stage"]
                 ),
-                "selected_policy_at_n16_strict": None,
+                "selected_policy_at_n16_primary": None,
                 "selected_policy_outcome": None,
                 "pipeline_failures": [owner],
             }
         )
-        prefix = case["strict_prefixes"][0]
+        prefix = case["primary_prefixes"][0]
         prefix["pipeline_failure"] = forged
         prefix["choice_token"] = "pipeline_failure:forged_stage:ForgedError"
         _reseal_parent_scientific(payload)
@@ -2744,14 +2845,19 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
                 "admissible_source_models": None,
                 "admissible_source_model_count": None,
                 "n16_complete_uncertainty_result": None,
-                "strict_prefixes": [
-                    pilot._failed_prefix_record(count, 0, error, failure["stage"])
+                "primary_prefixes": [
+                    pilot._failed_prefix_record(
+                        count,
+                        pilot.pilot_max_unstable_draws(count),
+                        error,
+                        failure["stage"],
+                    )
                     for count in pilot.PILOT_DRAW_COUNTS
                 ],
-                "n16_max_unstable_1_sensitivity": pilot._failed_prefix_record(
-                    16, 1, error, failure["stage"]
+                "n16_max_unstable_0_sensitivity": pilot._failed_prefix_record(
+                    16, 0, error, failure["stage"]
                 ),
-                "selected_policy_at_n16_strict": None,
+                "selected_policy_at_n16_primary": None,
                 "selected_policy_outcome": None,
                 "pipeline_failures": [failure],
             }
@@ -2836,7 +2942,7 @@ class ProspectivePilotArchiveTests(unittest.TestCase):
         payload = _n32_parent_payload()
         case = payload["block_results"][0]["cases"][0]
         error = RuntimeError("deliberate prefix failure")
-        case["strict_prefixes"][0] = pilot._failed_prefix_record(
+        case["primary_prefixes"][0] = pilot._failed_prefix_record(
             4, 0, error, "prefix_score"
         )
         case["pipeline_failures"] = [

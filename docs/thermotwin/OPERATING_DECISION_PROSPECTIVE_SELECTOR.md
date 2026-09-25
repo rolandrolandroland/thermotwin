@@ -13,7 +13,8 @@ representation repair and versioned identities passed exact-HEAD CI at
 archives validate, but the combined engineering gate failed because one
 eligibility-driven choice change had unevaluable regret. Development,
 independent calibration, reserved evaluation, and the final report remain
-unopened.
+unopened. P4 now versions the one permitted bounded redesign, with explicit
+whole-draw allowances and fresh namespaces, but no P4 data have been generated.
 See the [current project status](OPERATING_DECISION_PROJECT_STATUS.md),
 [Phase B acceptance record](OPERATING_DECISION_PHASE_B_ACCEPTANCE.md), and
 [partition ledger](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md). The
@@ -137,14 +138,16 @@ simulation failure, an exception that prevents a usable envelope, or no
 admissible candidate. Candidate-transition counts are reported separately.
 
 The development default is `N = 4` predictive draws. This is an implementation
-and runtime setting, not the final scientific replicate count. The replacement
-pilot must generate 16 draws for all 12 fresh cases and compare the
-prefix-matched `N = 4`, `8`, and `16` results while reporting whole-draw
-failures, candidate transitions, eligibility-driven changes, and regret. The
-final scientific rule will freeze eligibility as the explicit pair `(N,
-maximum unusable draws per source/action)` before a development partition is
-opened. It will not infer that pair from an unlabeled percentage or inspect a
-reserved cohort.
+and runtime setting, not the final scientific replicate count. P4 generates 16
+draws for all 12 fresh cases and compares the prefix-matched `N = 4`, `8`, and
+`16` results while reporting whole-draw failures, candidate transitions,
+eligibility-driven changes, and regret. Its primary whole-draw allowances per
+source/action are frozen at 0, 0, and 1 for N=4, N=8, and N=16. A triggered
+N=32 continuation permits one. Every failed draw remains in the denominator
+and is scored at the no-gain baseline, and every measurement action must remain
+eligible at the reference draw count. The zero-failure N=16 rescore is a named
+sensitivity only. A final draw count can be frozen only after this fresh gate;
+the rule will not inspect a reserved cohort.
 
 ## Prospective random streams
 
@@ -333,12 +336,14 @@ failed when one retained no-admissible-candidate draw made face temperature
 ineligible under the strict zero-failure cutoff, changing one of 12 choices.
 No draw count or compute budget is frozen.
 
-The next permitted work is the protocol's one bounded scientific redesign:
-version an explicit nonzero whole-draw allowance while retaining no-gain
-failure scoring and the complete denominator, then allocate and review a fresh
-disposable namespace. P3 may motivate that design but cannot validate it. If
-the fresh pilot remains unstable, stop the large campaign and report the
-prospective estimator as not ready.
+That bounded redesign is now versioned for review as P4. The complete rule,
+trigger, and chronology are in the
+[`P4 protocol`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_PROTOCOL.md), and the
+fresh namespaces are in ledger v4. P3 motivated the design but does not
+validate it. No P4 data exist yet. After the source commit passes exact-HEAD
+CI, run the P4 parent once and run the all-case N32 continuation only if its
+authenticated trigger passes. If the complete fresh gate fails, stop the large
+campaign and report the prospective estimator as not ready.
 
 Only after the pilot passes may development produce the measurement map. The
 map must reuse authenticated raw Step 2 evidence for cost-only changes, apply

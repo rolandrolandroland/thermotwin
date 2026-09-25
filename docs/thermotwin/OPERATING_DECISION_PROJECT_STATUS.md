@@ -7,7 +7,9 @@ saved archives independently validate. The N32 comparison failed the frozen
 engineering gate because one conservatively retained whole-draw failure made
 the face-temperature action ineligible in one case. No draw count or compute
 budget is frozen. Development, calibration, and reserved evidence remain
-unopened.
+unopened. The one permitted bounded redesign is now specified as P4 with
+whole-draw allowances of 0/0/1 at N=4/8/16 and 1 at conditional N=32. P4 is
+allocated but unopened pending exact-HEAD validation.
 
 ## Authoritative starting point
 
@@ -150,13 +152,28 @@ at N=16 to thermal at N=32 and made regret unevaluable. Full hashes, resources,
 and interpretation are in
 [`OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md).
 
+### Disposable pilot v4 protocol
+
+P4 is the completion plan's one bounded scientific redesign. It preserves the
+complete denominator and no-gain failure score, but allows one whole-draw
+failure per source/action at N=16 and conditional N=32. N=4 and N=8 retain
+zero tolerance. Every measurement action must remain eligible at the reference
+draw count, so the allowance cannot hide an unusable action. The same N=16
+evidence is rescored at zero tolerance as a named sensitivity.
+
+The parent schema is v4 under draw-count protocol v5; the conditional N32
+schema is v2 under follow-up protocol v3. The fresh parent and continuation
+namespaces are allocated in ledger v4. The implementation has not opened P4,
+and P3 cannot validate this revised rule. See the
+[`P4 protocol`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_PROTOCOL.md).
+
 ## What remains
 
 | Phase | Status | Required result before advancing |
 | --- | --- | --- |
 | A — reconcile source and records | Complete through the P3 and N32 result record | Preserve every disposable artifact and version each later protocol before opening it. |
-| B — harden scientific interfaces | Complete through the archive-transport repair and exact-HEAD green CI at `2f906a2` | Preserve this boundary; later changes need a new version. |
-| C — disposable compute pilot | P1 failed; P2 invalid; valid P3 and N32 continuation failed the combined gate | Version the one permitted bounded eligibility redesign and a fresh disposable namespace. If that fresh gate fails, close with a feasibility result. |
+| B — harden scientific interfaces | Complete through the archive-transport repair at `2f906a2`; P4 versions the bounded eligibility rule | Pass focused tests and exact-HEAD CI before opening P4. |
+| C — disposable compute pilot | P4 protocol and fresh parent/conditional-N32 namespaces are implemented but unopened | Run P4 once after exact-HEAD CI. If N=16 triggers N32, run all 12 cases. Freeze draw count and compute budget in a later commit only if the complete gate passes; otherwise close with a feasibility result. |
 | D — selector development and maps | Unopened | Use only the development partitions to fit offsets and thresholds and produce cost and physical sensor-quality maps. |
 | E — analysis freeze and calibration | Unopened | Freeze endpoints and the complete selector, then use the independent calibration partition only for the declared correction. |
 | F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
@@ -172,24 +189,26 @@ Phase B records the following boundaries for the pilot and later development:
   whole-draw failures, compares authenticated N=4/8/16 prefixes, and freezes
   eligibility as a pair of draw count and maximum unusable draws before
   development;
-- if N=16 is the smallest passing prefix and valid P3 has zero pipeline
-  failures and zero N=16 selection failures, the predeclared P3 all-12-case
-  N=32 follow-up must also pass
-  the same 90% agreement and 5% regret limits with zero N=32 failures before a
-  draw count can be frozen;
+- P4 freezes maximum whole-draw failures at 0 for N=4, 0 for N=8, 1 for N=16,
+  and 1 for conditional N=32; every failed draw remains in the denominator and
+  is scored at the no-gain baseline;
+- every measurement action must remain eligible at the reference draw count;
+  a selection failure, ineligible action, or pipeline failure fails the gate;
+- if N=16 is the smallest passing P4 prefix, the predeclared all-12-case N=32
+  continuation must also pass the same 90% agreement and 5% regret limits
+  before a draw count can be frozen;
 - probe nuisance draws must be described as coming from the declared truth
   support with the prior spread; and
 - the acceptance record must cover heat-flow signs, energy accounting, probe
   loading and removal, solver/time-grid convergence, information boundaries,
   saved-before-reveal decisions, and random-stream audits.
 
-No data-generating partition may open next. The next permitted work is the
-one bounded eligibility redesign described in the
-[P3 result](OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md), followed by a
-reviewed and committed allocation for a fresh disposable pilot. Development,
-calibration, and reserved generation remains prohibited until that fresh pilot
-passes and a draw count and measured compute budget are frozen in a subsequent
-commit.
+The bounded redesign is now reviewable in the
+[P4 protocol](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_PROTOCOL.md). No P4 data
+have been generated. The next permitted data-generating step is the single P4
+parent run after its exact source commit passes CI. Development, calibration,
+and reserved generation remains prohibited until the complete P4 gate passes
+and a draw count and measured compute budget are frozen in a subsequent commit.
 
 ## Evidence and runtime boundaries
 
