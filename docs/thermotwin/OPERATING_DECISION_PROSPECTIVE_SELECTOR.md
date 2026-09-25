@@ -8,14 +8,17 @@ prospective uncertainty v2. The bounded uncertainty-v3 repair then ran in P2,
 but P2's saved JSON failed required load-and-validate replay because physical
 configuration tuples loaded as lists. P2 is preserved as an invalid incident;
 its gate was not evaluated and its N32 continuation never opened. The P3
-representation repair and versioned identities are committed at `8c232af`,
-passed local validation under CPython 3.10.12, and passed independent
-clean-clone review. This audit closeout is recorded in this commit, which still
-requires push and green CI on exact HEAD. P3, development, independent
-calibration, reserved evaluation, and the final report remain unopened.
+representation repair and versioned identities passed exact-HEAD CI at
+`2f906a2`. P3 and its required all-case N32 continuation then executed; both
+archives validate, but the combined engineering gate failed because one
+eligibility-driven choice change had unevaluable regret. Development,
+independent calibration, reserved evaluation, and the final report remain
+unopened.
 See the [current project status](OPERATING_DECISION_PROJECT_STATUS.md),
 [Phase B acceptance record](OPERATING_DECISION_PHASE_B_ACCEPTANCE.md), and
-[partition ledger](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md).
+[partition ledger](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md). The
+complete P3 record is
+[`OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md).
 
 ## Purpose
 
@@ -325,22 +328,17 @@ round trip. P2's gate was not evaluated, its fields are quarantined, and its
 conditional N32 artifact is retired unopened. See the
 [`P2 incident record`](OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md).
 
-The next data-generating step is the fresh four-block, 12-case
-`p3_disposable_archive_roundtrip_replacement_pilot`, but only after pilot
-protocol v4 and N32-follow-up protocol v2, their JSON-native configuration
-payloads, and their final-byte save/load checks have passed local validation
-and independent clean-clone review at repair commit `8c232af`. This audit
-closeout is recorded in this commit; the commit must be pushed and exact HEAD
-must pass CI.
+P3 and its triggered N32 continuation are complete and closed. The N32 gate
+failed when one retained no-admissible-candidate draw made face temperature
+ineligible under the strict zero-failure cutoff, changing one of 12 choices.
+No draw count or compute budget is frozen.
 
-If valid P3 identifies N=16 as the smallest passing prefix with zero pipeline
-and N=16 selection failures, only
-`p3_disposable_archive_roundtrip_replacement_pilot_n32_all_cases_v1` may
-generate N=32 for all same 12 cases. Its authenticated N=16 prefix must agree
-with N=32 in at least 90% of cases, have at most 5% maximum normalized utility
-regret, and have zero N=32 pipeline or selection failures. A passing combined
-pilot still supplies planning evidence only; the chosen draw count and compute
-budget must be frozen in a separate committed record before development opens.
+The next permitted work is the protocol's one bounded scientific redesign:
+version an explicit nonzero whole-draw allowance while retaining no-gain
+failure scoring and the complete denominator, then allocate and review a fresh
+disposable namespace. P3 may motivate that design but cannot validate it. If
+the fresh pilot remains unstable, stop the large campaign and report the
+prospective estimator as not ready.
 
 Only after the pilot passes may development produce the measurement map. The
 map must reuse authenticated raw Step 2 evidence for cost-only changes, apply

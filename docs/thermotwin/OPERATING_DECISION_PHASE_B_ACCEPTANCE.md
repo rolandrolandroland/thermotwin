@@ -1,6 +1,6 @@
 # Operating-decision Phase B physics and data-flow acceptance
 
-Date: 2026-09-17. Last reconciled: 2026-09-19.
+Date: 2026-09-17. Last reconciled: 2026-09-25.
 
 Source basis: audited parent `9a21aa77284fb88608467a39a7ada8dc811107d5`; pilot-v1 source `e32d091a3e55387417ad5c04f76a3399d7a16727`; invalid P2 source `9db5f3f5b7a0fd92710ef5971091c16102877ac8`; P3 archive-transport repair `8c232afece23823a3c2bcb1a25e8e039366e67a9`
 
@@ -9,10 +9,11 @@ complete and exposed a candidate-exclusion eligibility defect. The unchanged
 physics and information-boundary findings remain accepted; the v2 eligibility
 row is superseded by the bounded uncertainty-v3 repair. P2 later executed, but
 its saved JSON failed the required load-and-validate round trip. P2's gate was
-not evaluated. The P3 representation repair is committed at `8c232af`, passed
-local validation under CPython 3.10.12, and passed independent clean-clone
-review. This audit closeout is recorded in this commit; the commit must be
-pushed and its exact HEAD must pass CI before P3 opens.
+not evaluated. The P3 representation repair passed local validation,
+independent clean-clone review, and exact-HEAD CI at `2f906a2`. P3 and its
+required N32 continuation later executed and validated, but their combined
+engineering gate failed. This does not alter the physics or information-flow
+acceptance below.
 
 ## Conclusion
 
@@ -121,22 +122,23 @@ prospective tests passed in 1330.082 seconds; all 4 Phase B tests passed in
 No scientific partition was generated. Independent clean-clone review on
 2026-09-19 of exact repair commit `8c232af` also passed six focused CPython
 3.10.12 tests in 462.860 seconds, reproduced the P2 failure and preserved
-hashes, and found no scientific drift or P3 artifact. This audit closeout is
-recorded in this commit; the commit must be pushed and its exact HEAD must pass
-CI.
+hashes, and found no scientific drift or P3 artifact. The audit closeout was
+then recorded at `2f906a2`, pushed, and passed exact-HEAD CI.
 
 ## Recorded limits for the next phase
+
+Postscript, 2026-09-25: exact-HEAD CI passed and P3 plus its required all-case
+N32 continuation executed at source `2f906a2`. Both saved archives validate.
+The combined engineering gate failed because one conservatively retained N=32
+whole-draw failure made an action ineligible under the strict zero-failure
+rule. Phase B's physics and information-boundary conclusions remain unchanged;
+Phase D is not authorized. See
+[`OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md).
 
 - Predictive draws are an approximate local-covariance calculation. Worst-case aggregation protects only across the surviving four- and five-state candidates.
 - The low-level `ThermoelectricParameters` type is an algebraic container and permits idealized zero values for limiting tests. The campaign fixes its thermoelectric constants to checked positive values; a future experiment that varies those constants must validate them at its own boundary.
 - Nonnegative campaign energy records are correct for the declared diagnostic schedules. A future regenerative diagnostic schedule would need an explicit gross-consumption/export policy rather than silently clipping or rejecting signed energy.
-- The prospective runner may next open only the fresh four-block
-  `p3_disposable_archive_roundtrip_replacement_pilot`. Its source-bound outputs and tests
-  must preserve acquisition-only construction, save-before-reveal ordering,
-  verification without refitting, complete failure records, and separate
-  candidate-transition counts. P3 may open only after the locally validated
-  JSON-native payload repair and final-byte round-trip checks are recorded in
-  the reviewed repair commit. This audit closeout is recorded in this commit;
-  the commit must be pushed and exact HEAD must pass CI. Those remaining gates
-  are not complete. Development,
-  calibration, and reserved runners remain outside this acceptance record.
+- No data-generating runner may open next. The protocol's one bounded
+  eligibility redesign and a fresh disposable identity must first be reviewed,
+  committed, pushed, and pass exact-HEAD CI. Development, calibration, and
+  reserved runners remain outside this acceptance record.

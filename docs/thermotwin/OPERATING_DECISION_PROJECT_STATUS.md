@@ -1,14 +1,13 @@
 # Operating-decision project status
 
-Date: 2026-09-17. Last reconciled: 2026-09-19. Status: P1 is complete and
-failed its engineering gate. P2 executed at source `9db5f3f`, but its saved
-JSON failed the required load-and-validate round trip. P2 is preserved as an
-invalid incident, its gate was not evaluated, and its N32 continuation never
-opened. The representation repair and fresh P3 namespace are committed at
-`8c232af`, passed local validation under CPython 3.10.12, and passed independent
-clean-clone review. This audit closeout is recorded in this commit; the commit
-must be pushed and its exact HEAD must pass CI. P3, development, calibration, and
-reserved evidence remain unopened.
+Date: 2026-09-17. Last reconciled: 2026-09-25. Status: P1 failed its
+engineering gate, and P2 is preserved as an invalid archive incident. P3 and
+its required all-case N32 continuation executed at source `2f906a2`; both
+saved archives independently validate. The N32 comparison failed the frozen
+engineering gate because one conservatively retained whole-draw failure made
+the face-temperature action ineligible in one case. No draw count or compute
+budget is frozen. Development, calibration, and reserved evidence remain
+unopened.
 
 ## Authoritative starting point
 
@@ -24,9 +23,9 @@ described below. The audits are retained as
 
 This status record does not freeze a scientific procedure. It records the
 boundary between completed historical work and the unfinished prospective
-experiment. The disposable P1 and P2 partitions have been generated; P2 is not
-valid engineering evidence. No P3, development, calibration, or reserved case
-in the new campaign has been opened.
+experiment. P1, invalid P2, valid P3, and the valid P3 N32 continuation are
+closed disposable evidence. No development, calibration, or reserved case in
+the new campaign has been opened.
 
 ## What is complete
 
@@ -136,13 +135,28 @@ saved outcome and runtime fields are quarantined incident material and cannot
 tune or trigger P3. The exact provenance, hashes, and response are in
 [`OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md).
 
+### Disposable pilot v3 and N32 continuation
+
+P3 executed at source `2f906a2` after exact-HEAD CI passed. Its saved parent
+and N32 JSON both pass independent CPython 3.10.12 archive replay. N=4 and N=8
+failed the parent stability criteria; N=16 passed and triggered the
+predeclared all-case N32 continuation.
+
+The N32 comparison agreed in 11/12 cases but failed the complete engineering
+gate. One N=32 face-temperature draw had no admissible candidate, was retained
+and scored at the no-gain baseline, and then made the whole action ineligible
+under the strict zero-failure rule. This changed one case from face temperature
+at N=16 to thermal at N=32 and made regret unevaluable. Full hashes, resources,
+and interpretation are in
+[`OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md).
+
 ## What remains
 
 | Phase | Status | Required result before advancing |
 | --- | --- | --- |
-| A — reconcile source and records | Complete through the P2 incident record | Preserve P1 and invalid P2; version every replacement before opening it. |
-| B — harden scientific interfaces | Repair committed at `8c232af`; local validation and independent clean-clone review passed | Push this audit closeout commit, then require green CI on exact HEAD before P3. |
-| C — disposable compute pilot | P1 failed; P2 invalid with gate not evaluated; P3 unopened | Run only `p3_disposable_archive_roundtrip_replacement_pilot` after the repair gate. If valid P3 triggers its all-case N32 continuation, complete that before evaluating the combined gate. Freeze an accepted draw count and budget only in a later commit. |
+| A — reconcile source and records | Complete through the P3 and N32 result record | Preserve every disposable artifact and version each later protocol before opening it. |
+| B — harden scientific interfaces | Complete through the archive-transport repair and exact-HEAD green CI at `2f906a2` | Preserve this boundary; later changes need a new version. |
+| C — disposable compute pilot | P1 failed; P2 invalid; valid P3 and N32 continuation failed the combined gate | Version the one permitted bounded eligibility redesign and a fresh disposable namespace. If that fresh gate fails, close with a feasibility result. |
 | D — selector development and maps | Unopened | Use only the development partitions to fit offsets and thresholds and produce cost and physical sensor-quality maps. |
 | E — analysis freeze and calibration | Unopened | Freeze endpoints and the complete selector, then use the independent calibration partition only for the declared correction. |
 | F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
@@ -169,16 +183,13 @@ Phase B records the following boundaries for the pilot and later development:
   loading and removal, solver/time-grid convergence, information boundaries,
   saved-before-reveal decisions, and random-stream audits.
 
-The next permitted data generation is
-`p3_disposable_archive_roundtrip_replacement_pilot` in the
-[prospective partition ledger](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md),
-and only after the reviewed JSON-native representation repair and final-byte
-round-trip checks are recorded in the committed chain, pushed, and passing CI.
-This audit closeout is recorded in this commit, which is not yet pushed, and CI
-on its exact HEAD is not yet green. Large
-development, calibration, and reserved generation remains
-prohibited until the pilot gate passes and the selected draw count and measured
-compute budget are frozen in a subsequent committed record.
+No data-generating partition may open next. The next permitted work is the
+one bounded eligibility redesign described in the
+[P3 result](OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md), followed by a
+reviewed and committed allocation for a fresh disposable pilot. Development,
+calibration, and reserved generation remains prohibited until that fresh pilot
+passes and a draw count and measured compute budget are frozen in a subsequent
+commit.
 
 ## Evidence and runtime boundaries
 

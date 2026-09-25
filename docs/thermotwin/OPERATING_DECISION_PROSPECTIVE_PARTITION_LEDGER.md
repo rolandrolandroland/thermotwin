@@ -1,16 +1,13 @@
 # Prospective operating-decision partition ledger
 
-Ledger version: 3. Date declared: 2026-09-17. Last reconciled: 2026-09-19.
-Status: P1 is complete and closed. P2 executed once, but its saved JSON failed
-the required load-and-validate round trip; it is preserved as invalid incident
-evidence and its gate was not evaluated. P2's N32 continuation was never opened
-and is retired. P3 and its conditional N32 identity are allocated but unopened.
-Their representation repair is committed at `8c232af`. Final local validation
-passed under CPython 3.10.12 as recorded in the
-[Phase B acceptance record](OPERATING_DECISION_PHASE_B_ACCEPTANCE.md).
-Independent clean-clone review also passed. This audit closeout is recorded in
-this commit; the commit must be pushed and its exact HEAD must pass CI.
-Development, calibration, and reserved partitions remain unopened.
+Ledger version: 3. Date declared: 2026-09-17. Last reconciled: 2026-09-25.
+Status: P1 is complete and failed. P2 is closed as invalid incident evidence.
+P3 and its conditional all-case N32 continuation executed at source `2f906a2`;
+both archives validate, and the combined engineering gate failed. No draw count
+or compute budget is frozen. Development, calibration, and reserved partitions
+remain unopened. A new ledger version must predeclare the one bounded
+eligibility redesign and its fresh disposable namespace before any additional
+data generation.
 
 ## Campaign identity
 
@@ -38,8 +35,8 @@ observations explicitly declared common by the protocol.
 | --- | ---: | --- | --- | --- |
 | `p1_disposable_draw_count_pilot` | 4 paired blocks / 12 cases, complete | Runtime, memory, failure, eligibility, and prefix-matched `N=4/8/16` action-stability measurement under prospective uncertainty v2. | Offset or threshold fitting; calibration; confirmatory performance claims; reuse as acceptance evidence for the revised rule. | Opened once at source `e32d091`; closed after the engineering gate failed. |
 | `p2_disposable_candidate_exclusion_pilot` | 4 paired blocks / 12 cases, execution complete, archive invalid | Diagnose the saved-JSON round-trip incident only. Preserve its exact bytes and hashes as identified in the [P2 incident record](OPERATING_DECISION_PROSPECTIVE_PILOT_V2_INCIDENT.md). | Draw-count or compute-budget selection; N32 triggering; action-stability, feasibility, calibration, development, or confirmatory claims; outcome-directed changes to P3; rerun or overwrite. | Opened once at source `9db5f3f`; closed after archive validation failed. Gate not evaluated. |
-| `p3_disposable_archive_roundtrip_replacement_pilot` | 4 paired blocks / 12 cases | Fresh repeat of the unchanged runtime and prefix-matched `N=4/8/16` pilot after repairing final-byte JSON round-trip validation. Generate 16 draws for every case. | Offset or threshold fitting; calibration; confirmatory performance claims; use of quarantined P2 outcome fields; rerunning under P1 or P2 identities. | Local validation of pilot protocol v4, the JSON-native payload repair, and final-byte save/load validation is recorded. This ledger and incident response must be independently reviewed, committed, and pushed with green CI before generation. |
-| `p3_disposable_archive_roundtrip_replacement_pilot_n32_all_cases_v1` | Conditional 4 paired blocks / 12 cases at N=32 | If and only if a valid P3 archive has zero pipeline and N=16 selection failures and N=16 is its smallest passing prefix, generate N=32 for the same four blocks and all three truth families and compare the authenticated N=16 prefix with N=32 under follow-up protocol v2. | Opening from P2; choosing a subset after seeing P3; offset or threshold fitting; calibration; confirmatory claims. | Valid complete P3 parent archive independently loaded and validated; frozen trigger satisfied exactly; P3 conditional identity and follow-up protocol v2 committed before P3 opens. |
+| `p3_disposable_archive_roundtrip_replacement_pilot` | 4 paired blocks / 12 cases, complete and valid | Fresh repeat of the unchanged runtime and prefix-matched `N=4/8/16` pilot after repairing final-byte JSON round-trip validation. | Offset or threshold fitting; calibration; confirmatory performance claims; rerunning or overwriting. | Opened once at source `2f906a2`; N=16 triggered the conditional continuation. Closed. |
+| `p3_disposable_archive_roundtrip_replacement_pilot_n32_all_cases_v1` | 4 paired blocks / 12 cases at N=32, complete and valid | Compare the authenticated N=16 prefix with N=32 after the frozen trigger passed. | Choosing a subset; offset or threshold fitting; calibration; confirmatory claims; rerunning or overwriting. | Opened once at source `2f906a2`; combined gate failed because one eligibility-driven choice change had unevaluable regret. Closed. |
 | `p1_development_tuning` | 20 paired blocks / 60 cases | Fit development action/stop offsets; choose stopping clearance, value thresholds, instability allowance, and exact sensor-quality scenarios from the declared grid. | Independent checking, final calibration, or confirmatory claims. | Pilot accepts a draw count; its measured runtime, CPU, memory, and archive projections are reviewed and a compute budget is frozen in a separate commit. |
 | `p1_development_internal_check` | 10 paired blocks / 30 cases | One internal check of the design selected on `p1_development_tuning`; draw-count sensitivity on a predetermined subset. | Final calibration or reserved claims. If its labels cause a redesign, it becomes tuning evidence and a new check namespace must be declared before generation. | Tuning design and check analysis committed before reveal. |
 | `p1_independent_calibration` | 100 paired blocks / 300 cases | Compute only the frozen procedure-level interval correction and the same declared correction for each fixed comparator; retain failed or missing intervals as infinite scores. | Selector, offset, stop, threshold, sensor-scenario, endpoint, or sample-size tuning. | Complete design and analysis specification committed; size and calibration rank verified before generation. |
@@ -81,26 +78,27 @@ changed in response to its outcomes.
    save, load, and archive validation, and versions pilot protocol v4,
    N32-follow-up protocol v2, the P3 namespace, and this ledger. Local validation
    passed under CPython 3.10.12, and independent clean-clone review passed.
-   Push this audit closeout commit, then require green CI on exact HEAD. Those
-   remaining gates are pending.
-5. Generate `p3_disposable_archive_roundtrip_replacement_pilot` once. If a
-   valid P3 archive triggers the conditional all-case N32 identity, complete
-   that follow-up before evaluating the combined pilot gate. Only after a valid
-   gate passes may a separate commit freeze the accepted draw count and measured
-   compute budget before any development partition opens.
-6. Commit the development grid, then generate tuning and internal-check
+   The audit closeout at `2f906a2` passed exact-HEAD CI.
+5. P3 and its triggered all-case N32 continuation executed once at `2f906a2`.
+   Both archives validate, and the combined gate failed. Preserve their hashes
+   and result record without rerunning or overwriting either namespace.
+6. Version the one permitted bounded eligibility redesign and allocate a fresh
+   disposable namespace. Only after that fresh gate passes may a separate
+   commit freeze a draw count and measured compute budget. If it fails, stop
+   the large campaign and complete the feasibility report.
+7. Commit the development grid, then generate tuning and internal-check
    partitions in that order.
-7. Freeze selector, scenarios, endpoints, comparison rules, sizes, and runtime.
-8. Generate independent calibration and commit a finite calibration artifact.
-9. Verify a disposable end-to-end replay, then open reserved evaluation once.
+8. Freeze selector, scenarios, endpoints, comparison rules, sizes, and runtime.
+9. Generate independent calibration and commit a finite calibration artifact.
+10. Verify a disposable end-to-end replay, then open reserved evaluation once.
 
 The pre-P2 archive tests checked deterministic record structure, cross-record
 identities, exact stream inventory and RNG offsets, fit invariants, and interval
-formulas in memory. P2 exposed the missing serialized-byte round trip. P3 must
-add that boundary before any new evidence opens. Archive validation still will
-not rerun acquisition or predictive simulations, candidate refits, or
-post-reveal scoring; a complete numerical reproduction requires the bound
-source and retained raw record.
+formulas in memory. P2 exposed the missing serialized-byte round trip. P3
+closed that boundary and both of its saved archives replay successfully.
+Archive validation still will not rerun acquisition or predictive simulations,
+candidate refits, or post-reveal scoring; a complete numerical reproduction
+requires the bound source and retained raw record.
 
 Ordinary fit failures, excluded candidates, failed verification, and
 abstentions remain in their declared denominators. A material generator,
