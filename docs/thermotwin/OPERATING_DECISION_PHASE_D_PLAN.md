@@ -1,10 +1,11 @@
 # Prospective operating-decision Phase D plan
 
-Date: 2026-09-26. Status: execution plan; no development partition has been
-opened. This document fixes the work sequence and the proposed numerical
-choices that the machine-readable Phase D protocol must encode before
-`p1_development_tuning` is generated. It is not a scientific result or a
-calibration record.
+Date: 2026-09-26. Status: Phase D0 complete; no development partition has been
+opened. This document fixes the work sequence and numerical choices encoded by
+the machine-readable Phase D protocol before `p1_development_tuning` is
+generated. It is not a scientific result or a calibration record. The exact
+implementation and disposable-rehearsal evidence are recorded in the
+[Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md).
 
 ## Purpose and entry state
 
@@ -58,6 +59,13 @@ Run a one-block disposable rehearsal through save, `json.load`, validation,
 report generation, and deterministic replay. The rehearsal must use a
 disposable namespace and cannot contribute to any Phase D numerical choice.
 Exact-head CI must pass before the tuning partition opens.
+
+Phase D0 passed at source `a280d7f` on 2026-09-26. The full local suite and
+exact-head CI passed, and a one-block, three-case disposable rehearsal passed
+canonical save/load validation with zero pipeline failures, zero ineligible
+N=16 measurement actions, and zero whole-draw failures. Its ignored archive is
+addressed by hashes in the [Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md).
+No development, calibration, or reserved case was opened.
 
 ## Phase D1: generate the nominal tuning evidence
 

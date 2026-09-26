@@ -10,11 +10,14 @@ budget was frozen before P4. The one permitted bounded redesign then executed
 as P4 at source `c0518f5`. Its parent and required all-case N32 continuation
 validate and pass the engineering gate with 12/12 N=16-to-N=32 agreement. N=16
 and one allowed whole-draw failure per source/action are now frozen for Phase D.
-The [Phase D execution plan](OPERATING_DECISION_PHASE_D_PLAN.md) now specifies
-the proposed development grid, offset estimator, measurement maps, sensitivity
-subset, internal-check rule, outputs, and budget. Its machine-readable protocol
-has not yet been implemented, so development, calibration, and reserved
-evidence remain unopened.
+The [Phase D execution plan](OPERATING_DECISION_PHASE_D_PLAN.md) specifies the
+development grid, offset estimator, measurement maps, sensitivity subset,
+internal-check rule, outputs, and budget. Phase D0 is complete at source
+`a280d7f`: the machine-readable protocol, validator, command-line interface,
+tests, exact-head CI, and one-block disposable rehearsal passed. The
+[Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md) records the exact
+digests and gate evidence. Development, calibration, and reserved evidence
+remain unopened.
 
 ## Authoritative starting point
 
@@ -181,7 +184,7 @@ the [`P4 result`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md) and
 | A — reconcile source and records | Complete through the P3 and N32 result record | Preserve every disposable artifact and version each later protocol before opening it. |
 | B — harden scientific interfaces | Complete through the archive-transport repair and P4 bounded eligibility version | Preserve the P4 source boundary and frozen evidence hashes. |
 | C — disposable compute pilot | Complete; valid P4 parent and N32 continuation passed | N=16, one-failure eligibility, and the primary compute plan are frozen. |
-| D — selector development and maps | Execution plan complete; machine-readable protocol next; all development data remain unopened | Implement and commit the plan's protocol, validator, commands, tests, disposable rehearsal, and exact-head CI before opening `p1_development_tuning`. |
+| D — selector development and maps | Phase D0 complete; all development data remain unopened | Add and review the source-bound tuning command, then open `p1_development_tuning` once and execute D1 through D5 before locking the internal check. |
 | E — analysis freeze and calibration | Unopened | Freeze endpoints and the complete selector, then use the independent calibration partition only for the declared correction. |
 | F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
 | G/H — interpretation and closeout | Unstarted | Classify the result honestly, audit it, archive evidence, and produce the report and three figures. |
@@ -212,10 +215,12 @@ Phase B records the following boundaries for the pilot and later development:
 
 The bounded redesign passed and its Phase C freeze is recorded in the
 [P4 result](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md). The complete
-[Phase D execution plan](OPERATING_DECISION_PHASE_D_PLAN.md) is now written.
-The next work is to implement and commit its machine-readable tuning protocol.
-Only then may `p1_development_tuning` open. Internal check, calibration, and
-reserved generation remain prohibited.
+[Phase D execution plan](OPERATING_DECISION_PHASE_D_PLAN.md) is implemented
+through D0, and the
+[Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md) records the passing
+rehearsal. The next work is to add and review the narrowly scoped tuning
+execution command, then open `p1_development_tuning` once. Internal check,
+calibration, and reserved generation remain prohibited.
 
 ## Evidence and runtime boundaries
 
