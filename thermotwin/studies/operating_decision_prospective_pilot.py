@@ -725,7 +725,13 @@ def _parent_selector_and_cost(
     return selector_rule, scenario
 
 
-def _expected_corrected_stream_manifest(block: int, label: str) -> list:
+def _expected_corrected_stream_manifest(
+    block: int,
+    label: str,
+    *,
+    campaign: str = PROSPECTIVE_CAMPAIGN,
+    partition: str = PROSPECTIVE_PILOT_PARTITION,
+) -> list:
     registry = RandomStreamRegistry()
     shared_truth_purposes = (
         "physical_parameter_0",
@@ -740,15 +746,15 @@ def _expected_corrected_stream_manifest(block: int, label: str) -> list:
         stream = RandomStream(
             RandomStreamKey(
                 protocol_version=RANDOM_STREAM_PROTOCOL_VERSION,
-                campaign=PROSPECTIVE_CAMPAIGN,
-                partition=PROSPECTIVE_PILOT_PARTITION,
+                campaign=campaign,
+                partition=partition,
                 block=block,
                 stream_kind="device_truth",
                 purpose=purpose,
             )
         )
         pairing_id = (
-            f"{PROSPECTIVE_CAMPAIGN}/{PROSPECTIVE_PILOT_PARTITION}/{block}/"
+            f"{campaign}/{partition}/{block}/"
             f"shared-truth/{purpose}"
         )
         for family in STAGE3_TRUTH_CONDITIONS:
@@ -763,8 +769,8 @@ def _expected_corrected_stream_manifest(block: int, label: str) -> list:
         RandomStream(
             RandomStreamKey(
                 protocol_version=RANDOM_STREAM_PROTOCOL_VERSION,
-                campaign=PROSPECTIVE_CAMPAIGN,
-                partition=PROSPECTIVE_PILOT_PARTITION,
+                campaign=campaign,
+                partition=partition,
                 block=block,
                 stream_kind="device_truth",
                 purpose="contact_beta",
@@ -802,8 +808,8 @@ def _expected_corrected_stream_manifest(block: int, label: str) -> list:
                         stream = RandomStream(
                             RandomStreamKey(
                                 protocol_version=RANDOM_STREAM_PROTOCOL_VERSION,
-                                campaign=PROSPECTIVE_CAMPAIGN,
-                                partition=PROSPECTIVE_PILOT_PARTITION,
+                                campaign=campaign,
+                                partition=partition,
                                 block=block,
                                 stream_kind="observation",
                                 purpose=purpose,
@@ -813,7 +819,7 @@ def _expected_corrected_stream_manifest(block: int, label: str) -> list:
                             )
                         )
                         pairing_id = (
-                            f"{PROSPECTIVE_CAMPAIGN}/{PROSPECTIVE_PILOT_PARTITION}/"
+                            f"{campaign}/{partition}/"
                             f"{family}/{block}/{run_name}/{channel}/{purpose}"
                         )
                         registry.register(
@@ -835,6 +841,8 @@ def _validate_corrected_stream_records(
     block: int,
     label: str,
     cases: Optional[Sequence[Mapping[str, object]]] = None,
+    campaign: str = PROSPECTIVE_CAMPAIGN,
+    partition: str = PROSPECTIVE_PILOT_PARTITION,
 ) -> None:
     if not isinstance(manifest, list) or not manifest:
         raise ValueError(f"{label} corrected random-stream manifest is missing")
@@ -866,8 +874,8 @@ def _validate_corrected_stream_records(
         stream = RandomStream(key)
         if (
             stream.seed != item["seed"]
-            or key.campaign != PROSPECTIVE_CAMPAIGN
-            or key.partition != PROSPECTIVE_PILOT_PARTITION
+            or key.campaign != campaign
+            or key.partition != partition
             or key.block != block
         ):
             raise ValueError(f"{label} corrected random-stream namespace is invalid")
@@ -881,7 +889,12 @@ def _validate_corrected_stream_records(
     recomputed.assert_clean()
     if audit != _strict_json_value(recomputed):
         raise ValueError(f"{label} corrected random-stream audit is invalid")
-    expected = _expected_corrected_stream_manifest(block, label)
+    expected = _expected_corrected_stream_manifest(
+        block,
+        label,
+        campaign=campaign,
+        partition=partition,
+    )
     actual_multiset = sorted(
         json.dumps(item, sort_keys=True, separators=(",", ":"))
         for item in manifest
@@ -1097,6 +1110,8 @@ def _validate_exact_prospective_draws(
     block: int,
     config: ProspectiveUncertaintyConfig,
     physical_config: OperatingDecisionRealismConfig,
+    campaign: str = PROSPECTIVE_CAMPAIGN,
+    partition: str = PROSPECTIVE_PILOT_PARTITION,
 ) -> None:
     """Replay the production parameter/probe RNG without rerunning simulations.
 
@@ -1107,8 +1122,8 @@ def _validate_exact_prospective_draws(
     """
 
     namespace = ProspectiveRandomStreamNamespace(
-        campaign=PROSPECTIVE_CAMPAIGN,
-        partition=PROSPECTIVE_PILOT_PARTITION,
+        campaign=campaign,
+        partition=partition,
         block=block,
         acquisition_evidence_digest=acquisition_evidence_digest,
     )
@@ -1633,6 +1648,8 @@ def _stream_audit_from_payload(
     draw_count: int,
     acquisition_evidence_digest: str,
     block: int,
+    campaign: str = PROSPECTIVE_CAMPAIGN,
+    partition: str = PROSPECTIVE_PILOT_PARTITION,
 ) -> dict:
     registry = ProspectiveRandomStreamRegistry()
     parameter_sharing = set()
@@ -1675,8 +1692,8 @@ def _stream_audit_from_payload(
         if (
             str(stream.seed) != use["seed"]
             or key.block != block
-            or key.campaign != PROSPECTIVE_CAMPAIGN
-            or key.partition != PROSPECTIVE_PILOT_PARTITION
+            or key.campaign != campaign
+            or key.partition != partition
             or key.acquisition_evidence_digest != acquisition_evidence_digest
             or key.generator_model not in source_models
             or key.draw_index >= draw_count
@@ -1820,6 +1837,8 @@ def _validate_complete_uncertainty_payload(
     block: int,
     draw_count: int,
     max_unstable_draws: int,
+    campaign: str = PROSPECTIVE_CAMPAIGN,
+    partition: str = PROSPECTIVE_PILOT_PARTITION,
 ) -> dict:
     item = _exact_mapping(
         payload,
@@ -2222,6 +2241,8 @@ def _validate_complete_uncertainty_payload(
         block=block,
         config=config,
         physical_config=physical_config,
+        campaign=campaign,
+        partition=partition,
     )
     if item["action_uncertainties"] != actions:
         raise ValueError("uncertainty summaries do not recompute from raw draws")
@@ -2232,6 +2253,8 @@ def _validate_complete_uncertainty_payload(
         draw_count=draw_count,
         acquisition_evidence_digest=str(item["acquisition_evidence_digest"]),
         block=block,
+        campaign=campaign,
+        partition=partition,
     )
     if item["stream_audit"] != audit:
         raise ValueError("uncertainty stream audit does not recompute")
@@ -2259,6 +2282,8 @@ def _derive_uncertainty_prefix_payload(
     block: int,
     draw_count: int,
     max_unstable_draws: int,
+    campaign: str = PROSPECTIVE_CAMPAIGN,
+    partition: str = PROSPECTIVE_PILOT_PARTITION,
 ) -> dict:
     derived = dict(complete)
     derived["draw_outcomes"] = [
@@ -2303,6 +2328,8 @@ def _derive_uncertainty_prefix_payload(
         draw_count=draw_count,
         acquisition_evidence_digest=str(derived["acquisition_evidence_digest"]),
         block=block,
+        campaign=campaign,
+        partition=partition,
     )
     result_material = {
         "domain": "thermotwin.prospective_uncertainty_result",
@@ -2322,6 +2349,8 @@ def _derive_uncertainty_prefix_payload(
         block=block,
         draw_count=draw_count,
         max_unstable_draws=max_unstable_draws,
+        campaign=campaign,
+        partition=partition,
     )
 
 
@@ -2647,11 +2676,14 @@ def _validate_fixed_policy_record(
     block: int,
     device_token: str,
     physical_config: OperatingDecisionRealismConfig,
+    campaign: str = PROSPECTIVE_CAMPAIGN,
+    partition_name: str = PROSPECTIVE_PILOT_PARTITION,
+    partition_block_count: int = PILOT_BLOCK_COUNT,
 ) -> None:
     partition = CorrectedPartition(
-        name=PROSPECTIVE_PILOT_PARTITION,
-        block_count=PILOT_BLOCK_COUNT,
-        campaign=PROSPECTIVE_CAMPAIGN,
+        name=partition_name,
+        block_count=partition_block_count,
+        campaign=campaign,
     )
     expected_id = _strict_json_value(
         corrected_case_id(
