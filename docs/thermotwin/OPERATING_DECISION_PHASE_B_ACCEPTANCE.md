@@ -1,8 +1,12 @@
 # Operating-decision Phase B physics and data-flow acceptance
 
-Date: 2026-09-17. Last reconciled: 2026-09-25.
+Date: 2026-09-17. Last reconciled: 2026-09-26.
 
-Source basis: audited parent `9a21aa77284fb88608467a39a7ada8dc811107d5`; pilot-v1 source `e32d091a3e55387417ad5c04f76a3399d7a16727`; invalid P2 source `9db5f3f5b7a0fd92710ef5971091c16102877ac8`; P3 archive-transport repair `8c232afece23823a3c2bcb1a25e8e039366e67a9`
+Source basis: audited parent `9a21aa77284fb88608467a39a7ada8dc811107d5`;
+pilot-v1 source `e32d091a3e55387417ad5c04f76a3399d7a16727`; invalid P2
+source `9db5f3f5b7a0fd92710ef5971091c16102877ac8`; P3 archive-
+transport repair `8c232afece23823a3c2bcb1a25e8e039366e67a9`; P4 source
+`c0518f5885f8421a1f6f95d4f60c5dc5744cfb4a`.
 
 Status: the original acceptance authorized disposable pilot v1. That pilot is
 complete and exposed a candidate-exclusion eligibility defect. The unchanged
@@ -13,8 +17,8 @@ not evaluated. The P3 representation repair passed local validation,
 independent clean-clone review, and exact-HEAD CI at `2f906a2`. P3 and its
 required N32 continuation later executed and validated, but their combined
 engineering gate failed. This does not alter the physics or information-flow
-acceptance below. P4 now versions the permitted bounded eligibility redesign;
-its partition remains unopened.
+acceptance below. P4 later executed at source `c0518f5`; its parent and required
+N32 continuation validate and pass. Phase C is therefore complete.
 
 ## Conclusion
 
@@ -133,19 +137,19 @@ N32 continuation executed at source `2f906a2`. Both saved archives validate.
 The combined engineering gate failed because one conservatively retained N=32
 whole-draw failure made an action ineligible under the strict zero-failure
 rule. Phase B's physics and information-boundary conclusions remain unchanged;
-Phase D is not authorized. See
+P3 did not authorize Phase D. See
 [`OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md).
 
-P4 is the one permitted bounded scientific redesign. Its reviewed rule allows
+P4 was the one permitted bounded scientific redesign. Its reviewed rule allows
 0/0/1 whole-draw failures per source/action at N=4/8/16 and one at conditional
 N=32, retains each failed draw at the no-gain baseline, and requires every
-reference-count measurement action to remain eligible. The fresh P4 parent and
-conditional N32 namespaces are allocated but unopened. See the
-[`P4 protocol`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_PROTOCOL.md).
+reference-count measurement action to remain eligible. The parent and
+conditional N32 archives validate, agreed in 12/12 cases, and passed the gate.
+See the [`P4 result`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md).
 
 - Predictive draws are an approximate local-covariance calculation. Worst-case aggregation protects only across the surviving four- and five-state candidates.
 - The low-level `ThermoelectricParameters` type is an algebraic container and permits idealized zero values for limiting tests. The campaign fixes its thermoelectric constants to checked positive values; a future experiment that varies those constants must validate them at its own boundary.
 - Nonnegative campaign energy records are correct for the declared diagnostic schedules. A future regenerative diagnostic schedule would need an explicit gross-consumption/export policy rather than silently clipping or rejecting signed energy.
-- The P4 parent is the only data-generating runner that may open next, and only
-  after the P4 source and protocol commit passes exact-HEAD CI. Development,
-  calibration, and reserved runners remain outside this acceptance record.
+- No data-generating runner may open until the Phase D tuning protocol is
+  committed. After that record, only `p1_development_tuning` is authorized;
+  internal check, calibration, and reserved runners remain closed.

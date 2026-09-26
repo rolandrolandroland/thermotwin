@@ -14,7 +14,9 @@ archives validate, but the combined engineering gate failed because one
 eligibility-driven choice change had unevaluable regret. Development,
 independent calibration, reserved evaluation, and the final report remain
 unopened. P4 now versions the one permitted bounded redesign, with explicit
-whole-draw allowances and fresh namespaces, but no P4 data have been generated.
+whole-draw allowances and fresh namespaces. P4 and its required all-case N32
+continuation have now executed and passed, freezing N=16 and one allowed
+whole-draw failure per source/action for Phase D.
 See the [current project status](OPERATING_DECISION_PROJECT_STATUS.md),
 [Phase B acceptance record](OPERATING_DECISION_PHASE_B_ACCEPTANCE.md), and
 [partition ledger](OPERATING_DECISION_PROSPECTIVE_PARTITION_LEDGER.md). The
@@ -334,19 +336,18 @@ conditional N32 artifact is retired unopened. See the
 P3 and its triggered N32 continuation are complete and closed. The N32 gate
 failed when one retained no-admissible-candidate draw made face temperature
 ineligible under the strict zero-failure cutoff, changing one of 12 choices.
-No draw count or compute budget is frozen.
+P3 therefore froze no draw count or compute budget.
 
-That bounded redesign is now versioned for review as P4. The complete rule,
-trigger, and chronology are in the
-[`P4 protocol`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_PROTOCOL.md), and the
-fresh namespaces are in ledger v4. P3 motivated the design but does not
-validate it. No P4 data exist yet. After the source commit passes exact-HEAD
-CI, run the P4 parent once and run the all-case N32 continuation only if its
-authenticated trigger passes. If the complete fresh gate fails, stop the large
-campaign and report the prospective estimator as not ready.
+That bounded redesign executed as P4. Its parent and triggered all-case N32
+continuation validate and agree in all 12 cases. The complete gate passed, so
+N=16, one allowed whole-draw failure per source/action, and the primary compute
+plan are frozen. See the
+[`P4 result`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md) and
+[`P4 protocol`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_PROTOCOL.md).
 
-Only after the pilot passes may development produce the measurement map. The
-map must reuse authenticated raw Step 2 evidence for cost-only changes, apply
+The next step is to commit the Phase D tuning protocol before opening the
+development partition. The map must reuse authenticated raw Step 2 evidence
+for cost-only changes, apply
 the versioned Phase B development offsets without predictive refitting, retain
 cells where no acquisition action is usable, and distinguish price changes
 from sensor noise/loading changes that require new simulations. Its protocol

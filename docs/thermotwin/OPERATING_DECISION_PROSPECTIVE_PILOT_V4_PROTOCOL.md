@@ -1,7 +1,8 @@
 # Prospective disposable pilot v4 protocol
 
-Date frozen for review: 2026-09-25. Status: implementation and preflight only;
-the P4 partition has not been generated.
+Date frozen for review: 2026-09-25. Result reconciled: 2026-09-26. Status: P4
+and its required all-case N32 continuation completed and passed. See the
+[`P4 result`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md).
 
 ## Purpose
 
@@ -93,7 +94,6 @@ Historical P3 artifacts remain bound to source `2f906a2`. Replaying those
 archives requires that source revision; the P4 validator is intentionally a
 new schema and protocol identity.
 
-No P4 result exists at this review point. The next sequence is exact-HEAD CI,
-one P4 parent execution, saved-byte validation, and then either the conditional
-all-case N32 continuation or a draw-count and compute-budget freeze. If P4
-fails, development does not open.
+The protocol was committed before P4 opened. The later result record preserves
+the chronology, hashes, acceptance replay, and separate Phase C freeze without
+altering this predeclared rule.

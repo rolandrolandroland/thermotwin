@@ -1,15 +1,16 @@
 # Operating-decision project status
 
-Date: 2026-09-17. Last reconciled: 2026-09-25. Status: P1 failed its
+Date: 2026-09-17. Last reconciled: 2026-09-26. Status: P1 failed its
 engineering gate, and P2 is preserved as an invalid archive incident. P3 and
 its required all-case N32 continuation executed at source `2f906a2`; both
 saved archives independently validate. The N32 comparison failed the frozen
 engineering gate because one conservatively retained whole-draw failure made
 the face-temperature action ineligible in one case. No draw count or compute
-budget is frozen. Development, calibration, and reserved evidence remain
-unopened. The one permitted bounded redesign is now specified as P4 with
-whole-draw allowances of 0/0/1 at N=4/8/16 and 1 at conditional N=32. P4 is
-allocated but unopened pending exact-HEAD validation.
+budget was frozen before P4. The one permitted bounded redesign then executed
+as P4 at source `c0518f5`. Its parent and required all-case N32 continuation
+validate and pass the engineering gate with 12/12 N=16-to-N=32 agreement. N=16
+and one allowed whole-draw failure per source/action are now frozen for Phase D.
+Development, calibration, and reserved evidence remain unopened.
 
 ## Authoritative starting point
 
@@ -152,7 +153,7 @@ at N=16 to thermal at N=32 and made regret unevaluable. Full hashes, resources,
 and interpretation are in
 [`OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md`](OPERATING_DECISION_PROSPECTIVE_PILOT_V3_RESULT.md).
 
-### Disposable pilot v4 protocol
+### Disposable pilot v4 result and Phase C freeze
 
 P4 is the completion plan's one bounded scientific redesign. It preserves the
 complete denominator and no-gain failure score, but allows one whole-draw
@@ -161,10 +162,12 @@ zero tolerance. Every measurement action must remain eligible at the reference
 draw count, so the allowance cannot hide an unusable action. The same N=16
 evidence is rescored at zero tolerance as a named sensitivity.
 
-The parent schema is v4 under draw-count protocol v5; the conditional N32
-schema is v2 under follow-up protocol v3. The fresh parent and continuation
-namespaces are allocated in ledger v4. The implementation has not opened P4,
-and P3 cannot validate this revised rule. See the
+The parent and continuation ran once at exact-HEAD source `c0518f5`. Both
+archives pass serialized replay. The N=16 and N=32 choices agreed in all 12
+cases, with no whole-draw, pipeline, selection, diagnostic, or action-
+eligibility failures. Phase C therefore freezes N=16, the one-failure
+allowance, four-worker execution, and the measured primary compute plan. See
+the [`P4 result`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md) and
 [`P4 protocol`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_PROTOCOL.md).
 
 ## What remains
@@ -172,9 +175,9 @@ and P3 cannot validate this revised rule. See the
 | Phase | Status | Required result before advancing |
 | --- | --- | --- |
 | A — reconcile source and records | Complete through the P3 and N32 result record | Preserve every disposable artifact and version each later protocol before opening it. |
-| B — harden scientific interfaces | Complete through the archive-transport repair at `2f906a2`; P4 versions the bounded eligibility rule | Pass focused tests and exact-HEAD CI before opening P4. |
-| C — disposable compute pilot | P4 protocol and fresh parent/conditional-N32 namespaces are implemented but unopened | Run P4 once after exact-HEAD CI. If N=16 triggers N32, run all 12 cases. Freeze draw count and compute budget in a later commit only if the complete gate passes; otherwise close with a feasibility result. |
-| D — selector development and maps | Unopened | Use only the development partitions to fit offsets and thresholds and produce cost and physical sensor-quality maps. |
+| B — harden scientific interfaces | Complete through the archive-transport repair and P4 bounded eligibility version | Preserve the P4 source boundary and frozen evidence hashes. |
+| C — disposable compute pilot | Complete; valid P4 parent and N32 continuation passed | N=16, one-failure eligibility, and the primary compute plan are frozen. |
+| D — selector development and maps | Protocol definition next; all development data remain unopened | Commit the tuning grid, fallback, sensor-quality catalog, sensitivity subset, outputs, and incremental budget before opening `p1_development_tuning`. |
 | E — analysis freeze and calibration | Unopened | Freeze endpoints and the complete selector, then use the independent calibration partition only for the declared correction. |
 | F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
 | G/H — interpretation and closeout | Unstarted | Classify the result honestly, audit it, archive evidence, and produce the report and three figures. |
@@ -203,12 +206,11 @@ Phase B records the following boundaries for the pilot and later development:
   loading and removal, solver/time-grid convergence, information boundaries,
   saved-before-reveal decisions, and random-stream audits.
 
-The bounded redesign is now reviewable in the
-[P4 protocol](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_PROTOCOL.md). No P4 data
-have been generated. The next permitted data-generating step is the single P4
-parent run after its exact source commit passes CI. Development, calibration,
-and reserved generation remains prohibited until the complete P4 gate passes
-and a draw count and measured compute budget are frozen in a subsequent commit.
+The bounded redesign passed and its Phase C freeze is recorded in the
+[P4 result](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md). The next work is
+to commit the complete Phase D tuning protocol. Only then may
+`p1_development_tuning` open. Internal check, calibration, and reserved
+generation remain prohibited.
 
 ## Evidence and runtime boundaries
 
