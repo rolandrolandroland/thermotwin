@@ -83,3 +83,10 @@ To be completed after the repair revision is committed:
 `p1_development_tuning`, the internal check, independent calibration, and the
 reserved evaluation remain closed until every row above passes and this record
 is updated with exact identities and measurements.
+
+A first exact-head replacement-rehearsal invocation at `a1ef912` stopped in
+CLI preflight with an `UnboundLocalError` before simulation, fitting, stream
+creation, or output writing. The resource-output distinctness check referenced
+resolved output paths before they were assigned. The variable-order defect was
+fixed and covered by the focused CLI tests; it created no scientific or
+disposable numerical evidence.

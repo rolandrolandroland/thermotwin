@@ -203,13 +203,13 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     resource_path = arguments.resource_result.expanduser().resolve()
     if resource_path.exists():
         raise FileExistsError(f"resource result already exists: {resource_path}")
-    if resource_path in {json_path, report_path, hash_path}:
-        raise ValueError("resource result must be distinct from rehearsal outputs")
     json_path, report_path, hash_path = _output_paths(
         arguments.json,
         arguments.report,
         arguments.hashes,
     )
+    if resource_path in {json_path, report_path, hash_path}:
+        raise ValueError("resource result must be distinct from rehearsal outputs")
     _require_clean_head(root, revision)
     wall_started, cpu_started = perf_counter(), process_time()
     with ProcessTreeMonitor() as monitor:

@@ -234,6 +234,22 @@ class ProspectivePhaseDCliTests(unittest.TestCase):
         ):
             phase_d_cli.main(("--execute-disposable-rehearsal", "--json", "/tmp/x.json"))
 
+    def test_replacement_rehearsal_resource_output_must_be_distinct(self):
+        with (
+            patch.object(phase_d_cli, "_committed_source_revision", return_value="a" * 40),
+            patch.object(phase_d_cli, "_require_project_root", return_value=Path(".")),
+            self.assertRaisesRegex(ValueError, "resource result must be distinct"),
+        ):
+            phase_d_cli.main(
+                (
+                    "--execute-disposable-rehearsal",
+                    "--json",
+                    "/tmp/x.json",
+                    "--resource-result",
+                    "/tmp/x.json",
+                )
+            )
+
 
 class ProspectivePhaseDOffsetAndDecisionTests(unittest.TestCase):
     @staticmethod
