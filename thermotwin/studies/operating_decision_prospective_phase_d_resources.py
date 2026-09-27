@@ -71,8 +71,8 @@ def _process_tree_rss_bytes(root_pid: int) -> int:
 
 
 @dataclass
-class _ProcessTreeMonitor:
-    interval_seconds: float = 0.05
+class ProcessTreeMonitor:
+    interval_seconds: float = 1.0
 
     def __post_init__(self) -> None:
         self._stop = Event()
@@ -93,7 +93,7 @@ class _ProcessTreeMonitor:
                 return
             sleep(self.interval_seconds)
 
-    def __enter__(self) -> "_ProcessTreeMonitor":
+    def __enter__(self) -> "ProcessTreeMonitor":
         self._thread = Thread(target=self._sample, daemon=True)
         self._thread.start()
         return self
@@ -187,7 +187,7 @@ def run_constructed_resource_probe(
     result_path.parent.mkdir(parents=True, exist_ok=True)
     stage_records: dict[str, dict] = {}
 
-    with _ProcessTreeMonitor() as monitor:
+    with ProcessTreeMonitor() as monitor:
         started_wall, started_cpu = perf_counter(), process_time()
         seed_bytes = seed_path.read_bytes()
         seed = json.loads(seed_bytes)
@@ -253,6 +253,7 @@ def run_constructed_resource_probe(
 __all__ = [
     "RESOURCE_PROBE_BLOCK_COUNT",
     "RESOURCE_PROBE_PARTITION",
+    "ProcessTreeMonitor",
     "constructed_resource_archive_payload",
     "run_constructed_resource_probe",
     "validate_constructed_resource_archive",

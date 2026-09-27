@@ -6,6 +6,7 @@ import argparse
 import json
 from pathlib import Path
 import subprocess
+from time import perf_counter, process_time
 from typing import Optional, Sequence, Tuple
 
 from ..studies.operating_decision_prospective_phase_d import (
@@ -18,6 +19,7 @@ from ..studies.operating_decision_prospective_phase_d import (
 )
 from ..studies.operating_decision_provenance import create_source_manifest
 from ..studies.operating_decision_prospective_phase_d_resources import (
+    ProcessTreeMonitor,
     run_constructed_resource_probe,
 )
 
@@ -194,31 +196,66 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
 
     if arguments.json is None:
         parser.error("--json is required for --execute-disposable-rehearsal")
-    if arguments.resource_result is not None:
-        parser.error("--resource-result applies only to the resource probe")
+    if arguments.resource_result is None:
+        parser.error(
+            "--resource-result is required for the replacement disposable rehearsal"
+        )
+    resource_path = arguments.resource_result.expanduser().resolve()
+    if resource_path.exists():
+        raise FileExistsError(f"resource result already exists: {resource_path}")
+    if resource_path in {json_path, report_path, hash_path}:
+        raise ValueError("resource result must be distinct from rehearsal outputs")
     json_path, report_path, hash_path = _output_paths(
         arguments.json,
         arguments.report,
         arguments.hashes,
     )
     _require_clean_head(root, revision)
-    result = run_phase_d_disposable_rehearsal(
-        repository_root=root,
-        source_revision=revision,
-    )
-    _require_clean_head(root, revision)
-    saved = save_phase_d_rehearsal_artifacts(
-        result,
-        json_path=json_path,
-        report_path=report_path,
-        hash_path=hash_path,
-        repository_root=root,
+    wall_started, cpu_started = perf_counter(), process_time()
+    with ProcessTreeMonitor() as monitor:
+        result = run_phase_d_disposable_rehearsal(
+            repository_root=root,
+            source_revision=revision,
+        )
+        _require_clean_head(root, revision)
+        saved = save_phase_d_rehearsal_artifacts(
+            result,
+            json_path=json_path,
+            report_path=report_path,
+            hash_path=hash_path,
+            repository_root=root,
+        )
+    resource_record = {
+        "schema_version": 1,
+        "protocol_version": "phase_d_replacement_rehearsal_resource_record_v1",
+        "partition": PHASE_D_REHEARSAL_PARTITION,
+        "source_revision": revision,
+        "json_sha256": saved.json_sha256,
+        "archive_size_bytes": saved.archive_size_bytes,
+        "wall_seconds": perf_counter() - wall_started,
+        "cpu_seconds": process_time() - cpu_started,
+        "process_tree_peak_rss_bytes": monitor.peak_bytes,
+        "process_tree_sample_count": monitor.sample_count,
+        "process_tree_sampling_error": monitor.error,
+        "worker_count": 4,
+    }
+    if monitor.error is not None or monitor.sample_count == 0:
+        raise RuntimeError(
+            "replacement rehearsal requires successful process-tree sampling: "
+            f"{monitor.error}"
+        )
+    resource_path.parent.mkdir(parents=True, exist_ok=True)
+    resource_path.write_text(
+        json.dumps(resource_record, sort_keys=True, indent=2) + "\n",
+        encoding="utf-8",
     )
     print(f"complete JSON: {saved.json_path}")
     print(f"compact report: {saved.report_path}")
     print(f"SHA-256 manifest: {saved.hash_path}")
     print(f"archive bytes: {saved.archive_size_bytes}")
     print(f"JSON SHA-256: {saved.json_sha256}")
+    print(f"resource record: {resource_path}")
+    print(f"process-tree peak RSS: {monitor.peak_bytes}")
 
 
 if __name__ == "__main__":

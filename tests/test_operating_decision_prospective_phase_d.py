@@ -225,6 +225,15 @@ class ProspectivePhaseDCliTests(unittest.TestCase):
         with redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
             phase_d_cli.main(("--execute-development-tuning",))
 
+    def test_replacement_rehearsal_requires_resource_output(self):
+        with (
+            patch.object(phase_d_cli, "_committed_source_revision", return_value="a" * 40),
+            patch.object(phase_d_cli, "_require_project_root", return_value=Path(".")),
+            redirect_stderr(io.StringIO()),
+            self.assertRaises(SystemExit),
+        ):
+            phase_d_cli.main(("--execute-disposable-rehearsal", "--json", "/tmp/x.json"))
+
 
 class ProspectivePhaseDOffsetAndDecisionTests(unittest.TestCase):
     @staticmethod
