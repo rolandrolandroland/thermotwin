@@ -9,8 +9,9 @@ that must be repaired before development: infinite-offset behavior, development
 loss semantics, and the distinction between scientific and performance
 identity, plus a whole-workflow resource measurement requirement. Protocol v2
 implements those corrections and selects CPython 3.10.12. Its replacement
-disposable rehearsal, repeated-computation comparison, 20-block constructed
-archive probe, full exact-head test suite, and CI gate are the next boundary.
+disposable rehearsals, repeated-computation comparison, 20-block constructed
+archive probe, and full local exact-head test suite passed. Hosted exact-head
+CI is the remaining boundary.
 Development, calibration, and reserved evidence remain unopened. See the
 [Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md), historical
 [Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md), and current
@@ -181,7 +182,7 @@ the [`P4 result`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md) and
 | A — reconcile source and records | Complete through the P3 and N32 result record | Preserve every disposable artifact and version each later protocol before opening it. |
 | B — harden scientific interfaces | Complete through the archive-transport repair and P4 bounded eligibility version | Preserve the P4 source boundary and frozen evidence hashes. |
 | C — disposable compute pilot | Complete; valid P4 parent and N32 continuation passed | N=16, one-failure eligibility, and the primary compute plan are frozen. |
-| D — selector development and maps | Historical D0 v1 complete; protocol-v2 repair gate in progress; all development data remain unopened | Pass the replacement rehearsal repeatability, resource, full-suite, and exact-head CI gates; then open `p1_development_tuning` once and execute D1 through D5 before locking the internal check. |
+| D — selector development and maps | Historical D0 v1 preserved; protocol-v2 local repair gate passed; hosted exact-head CI pending; all development data remain unopened | After CI passes, open `p1_development_tuning` once and execute D1 through D5 before locking the internal check. |
 | E — analysis freeze and calibration | Unopened | Freeze endpoints and the complete selector, then use the independent calibration partition only for the declared correction. |
 | F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
 | G/H — interpretation and closeout | Unstarted | Classify the result honestly, audit it, archive evidence, and produce the report and three figures. |
@@ -214,10 +215,11 @@ The bounded redesign passed and its Phase C freeze is recorded in the
 [P4 result](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md). Historical D0
 v1 remains a valid disposable execution record under its recorded CPython
 3.13.3 environment. The [Phase D execution plan](OPERATING_DECISION_PHASE_D_PLAN.md)
-now specifies protocol v2. The replacement rehearsal must be computed twice
-under CPython 3.10.12, validate after save/load, retain identical scientific
-digests despite timing differences, and pass the representative archive and
-exact-head CI gates before a tuning command may open `p1_development_tuning`.
+now specifies protocol v2. The replacement rehearsal was computed twice under
+CPython 3.10.12, validated after save/load, and retained identical scientific
+digests despite timing differences. The representative archive probe and full
+local exact-head suite also pass. Hosted CI remains pending and must pass before
+a tuning command may open `p1_development_tuning`.
 Internal check, calibration, and reserved generation remain prohibited.
 
 ## Evidence and runtime boundaries

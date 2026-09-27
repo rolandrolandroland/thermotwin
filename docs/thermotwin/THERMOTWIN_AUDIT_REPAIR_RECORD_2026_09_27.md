@@ -1,7 +1,8 @@
 # ThermoTwin audit repair record
 
-Date: 2026-09-27. Status: implementation complete; exact-head execution gates
-pending. This record follows the
+Date: 2026-09-27. Status: implementation, representative archive probe,
+repeated replacement rehearsal, and full local exact-head gates passed; hosted
+exact-head CI pending. This record follows the
 [September 26 repair plan](THERMOTWIN_AUDIT_REPAIR_PLAN_2026_09_26.md). It is
 not a scientific outcome and does not authorize development data generation.
 
@@ -68,21 +69,35 @@ or broken figure reference was observed.
 
 ## Exact-head repair gate
 
-To be completed after the repair revision is committed:
+The numerical repair revision is
+`f02ba7d8e6f24b9b160459d615dea63c4dec1cf5`. All new computations below used
+the pinned CPython 3.10.12 environment and left the Git working tree clean.
 
 | Gate | Result |
 | --- | --- |
-| Focused tests | 25 protocol, identity, resource-probe, and bundle tests passed before commit; exact-head rerun pending. |
-| Full CPython 3.10.12 suite | 842 tests passed in 1,176.97 s before commit; exact-head rerun pending. |
-| Constructed 20-block archive resource probe | Pending. |
-| Replacement disposable computation 1 | Pending. |
-| Replacement disposable computation 2 | Pending. |
-| Scientific-digest repeatability and full-archive validation | Pending. |
+| Focused tests | 27 protocol, identity, resource-probe, bundle, and CLI-preflight tests passed after the final numerical fix. |
+| Full CPython 3.10.12 suite | **844 passed in 1,152.76 s** at exact numerical HEAD. An earlier pre-commit run also passed 842 tests in 1,176.97 s. |
+| Constructed 20-block archive resource probe | **PASS.** 71,106,723 bytes; SHA-256 `15582cf9b439f8a419bf5b317962b8d65df73fd263e78485bf52d6a47167a33c`; 581,386,240-byte process-tree peak; 86.46% headroom under the 4 GiB limit; write/load/validation passed. |
+| Replacement disposable computation 1 | **PASS.** JSON SHA-256 `7647b856320fccad1c455985e159dc118b69e261543f16ad1e25e9d87f12cb8a`; 3,593,507 bytes; 4,997.57 s wall; 4,941.67 s CPU; 82,247,680-byte process-tree peak across 4,747 samples. |
+| Replacement disposable computation 2 | **PASS.** JSON SHA-256 `585405ed179621737ee2fb9ccd98020198ecd5df0f88ad21c87d435828b4b662`; 3,593,512 bytes; 4,965.80 s wall; 4,925.99 s CPU; 84,475,904-byte process-tree peak across 4,729 samples. |
+| Scientific-digest repeatability and full-archive validation | **PASS.** Both archives independently validate. Both have scientific digest `b72dfb5695b76ae475f4537a08d2b2da4d0d26d03a2ed508c0c433c1e03e19b6` and block digest `80160f58012508d2e82a8e3fe34332e8dfcdeeb3acb8afc7b0615a12b3a6eb43`. Full archive-content digests differ: `8c24d2abfd1e49f9f2ccef7d6d8fc3e4f6ca91682b97c4675ba100d37c3ed2b7` and `a8f92b5598f6170db77fa5aa74a63f440c9ef608136fccab9fed2c0bad59a902`. |
 | Exact-head CI | Pending. |
 
+Both replacement runs contained all three truth families, zero pipeline
+failures, zero ineligible N=16 measurement actions, and zero whole-draw
+failures. Their disposable N=16 choices were `stop_now` for matched four-state
+truth and `fixed_thermal` for both extra-interface-mass and
+temperature-dependent-contact truth. These are transport, repeatability, and
+execution observations only; they cannot tune or support a selector claim.
+
+The measured 84,475,904-byte maximum real-rehearsal process-tree peak uses
+1.97% of the 4 GiB limit, leaving 98.03% headroom. The larger constructed
+archive load/validation peak uses 13.54% of the limit, leaving 86.46% headroom.
+The declared four-worker workflow therefore fits the chosen 16 GiB machine and
+the stricter process-tree limit without reducing sample counts or draw counts.
+
 `p1_development_tuning`, the internal check, independent calibration, and the
-reserved evaluation remain closed until every row above passes and this record
-is updated with exact identities and measurements.
+reserved evaluation remain closed until hosted exact-head CI passes.
 
 A first exact-head replacement-rehearsal invocation at `a1ef912` stopped in
 CLI preflight with an `UnboundLocalError` before simulation, fitting, stream

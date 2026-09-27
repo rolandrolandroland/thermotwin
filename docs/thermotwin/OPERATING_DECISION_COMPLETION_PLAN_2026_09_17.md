@@ -258,13 +258,12 @@ The project is complete when another person can reconstruct the reported decisio
 
 ## Immediate implementation assignment
 
-Phases A–C and historical Phase D0 v1 are complete. The current entry point is
-the September 27 protocol-v2 repair gate in the
-[Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md): preserve v1, close the
-audit findings, run the representative 20-block archive probe, repeat the
-replacement disposable computation under the pinned CPython 3.10.12 runtime,
-and pass the full exact-head suite and CI. Only then may Phase D open the
-20-block tuning partition once. Proceed through the remaining phases under the
+Phases A–C and historical Phase D0 v1 are complete. The September 27
+protocol-v2 repair implementation, representative 20-block archive probe,
+repeated replacement computation, and full local exact-head suite pass. Hosted
+exact-head CI is the remaining gate in the
+[Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md). Only after it passes may
+Phase D open the 20-block tuning partition once. Proceed through the remaining phases under the
 decision rules above; settle and record all numerical defaults before opening
 the data they govern.
 

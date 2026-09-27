@@ -1,8 +1,9 @@
 # Prospective operating-decision Phase D plan
 
 Date: 2026-09-27. Status: historical Phase D0 v1 is complete; audit repair
-protocol v2 is implemented and awaiting its exact-head replacement rehearsal,
-resource probe, and CI gate. No development partition has been opened. This
+protocol v2 passed its local exact-head replacement rehearsal, repeatability,
+resource, and full-suite gates and awaits hosted exact-head CI. No development
+partition has been opened. This
 document fixes the work sequence and numerical choices before
 `p1_development_tuning` is generated. It is not a scientific result or a
 calibration record. The historical implementation and rehearsal remain in the
@@ -319,11 +320,9 @@ Phase D is complete only when the repository contains:
 
 ## Execution order and stopping points
 
-The next concrete work is the protocol-v2 repair gate: commit the repaired
-protocol and presentation record, run the constructed 20-block resource probe,
-compute the replacement one-block disposable rehearsal twice under the pinned
-CPython 3.10.12 environment, compare timing-independent scientific digests,
-validate both full archives, and pass full exact-head CI. Only then may the
+The protocol-v2 local repair gate has passed as recorded in the
+[audit repair record](THERMOTWIN_AUDIT_REPAIR_RECORD_2026_09_27.md). Hosted
+exact-head CI is the remaining repair gate. Only after it passes may the
 source-bound tuning command open `p1_development_tuning` once. Stop again after
 its archive validates and before revealing or analysing truth fields. Then
 perform D2-D5, commit the locked provisional design, and only then open the

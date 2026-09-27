@@ -566,8 +566,9 @@ heat-transfer parameter.
 - The prospective continuation can choose stop, thermal, voltage, or temporary
   face-temperature sensing and score value against energy, time, and
   instrumentation cost. N=16 and its failure allowance are frozen from the
-  passing P4 pilot. The next gate is the versioned Phase D repair rehearsal and
-  whole-workflow resource check; the 20-block tuning, 10-block internal check,
+  passing P4 pilot. The versioned Phase D repair rehearsal, repeatability
+  comparison, whole-workflow resource check, and full local exact-head suite
+  pass; hosted CI is pending. The 20-block tuning, 10-block internal check,
   independent calibration, and reserved comparison remain unopened. See
   `docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md`.
 
