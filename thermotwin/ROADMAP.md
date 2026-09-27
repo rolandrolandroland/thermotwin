@@ -493,9 +493,9 @@ period.
 feasibility constraints, sequential campaign comparison, independent
 model-mismatch stress test, and sensor-versus-schedule discrimination study.
 The four-action prospective operating-decision experiment is active: Phase C
-and historical D0 v1 are complete, while the protocol-v2 audit repair gate
-precedes the unopened development partition. Distributed-property experiment
-selection remains part of Milestone 9.**
+and historical D0 v1 are complete, the protocol-v2 audit repair gate has
+passed, and the development partition remains unopened. Distributed-property
+experiment selection remains part of Milestone 9.**
 
 ### Goal
 

@@ -182,7 +182,7 @@ the [`P4 result`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md) and
 | A — reconcile source and records | Complete through the P3 and N32 result record | Preserve every disposable artifact and version each later protocol before opening it. |
 | B — harden scientific interfaces | Complete through the archive-transport repair and P4 bounded eligibility version | Preserve the P4 source boundary and frozen evidence hashes. |
 | C — disposable compute pilot | Complete; valid P4 parent and N32 continuation passed | N=16, one-failure eligibility, and the primary compute plan are frozen. |
-| D — selector development and maps | Historical D0 v1 preserved; protocol-v2 local repair gate passed; hosted exact-head CI pending; all development data remain unopened | After CI passes, open `p1_development_tuning` once and execute D1 through D5 before locking the internal check. |
+| D — selector development and maps | Historical D0 v1 preserved; protocol-v2 repair gate passed locally and in hosted exact-head CI; all development data remain unopened | Review the source-bound tuning executor, open `p1_development_tuning` once, and execute D1 through D5 before locking the internal check. |
 | E — analysis freeze and calibration | Unopened | Freeze endpoints and the complete selector, then use the independent calibration partition only for the declared correction. |
 | F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
 | G/H — interpretation and closeout | Unstarted | Classify the result honestly, audit it, archive evidence, and produce the report and three figures. |

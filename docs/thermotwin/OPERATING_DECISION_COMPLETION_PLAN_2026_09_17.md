@@ -260,10 +260,10 @@ The project is complete when another person can reconstruct the reported decisio
 
 Phases A–C and historical Phase D0 v1 are complete. The September 27
 protocol-v2 repair implementation, representative 20-block archive probe,
-repeated replacement computation, and full local exact-head suite pass. Hosted
-exact-head CI is the remaining gate in the
-[Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md). Only after it passes may
-Phase D open the 20-block tuning partition once. Proceed through the remaining phases under the
+repeated replacement computation, full local exact-head suite, and hosted
+exact-head CI pass. The repair gate is complete as recorded in the
+[Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md). Phase D may next review its
+source-bound executor and open the 20-block tuning partition once. Proceed through the remaining phases under the
 decision rules above; settle and record all numerical defaults before opening
 the data they govern.
 
