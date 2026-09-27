@@ -2,7 +2,7 @@
 
 Date: 2026-09-27. Status: implementation, representative archive probe,
 repeated replacement rehearsal, and full local exact-head gates passed; hosted
-exact-head CI pending. This record follows the
+exact-head CI retry pending after a packaging-only failure. This record follows the
 [September 26 repair plan](THERMOTWIN_AUDIT_REPAIR_PLAN_2026_09_26.md). It is
 not a scientific outcome and does not authorize development data generation.
 
@@ -81,7 +81,7 @@ the pinned CPython 3.10.12 environment and left the Git working tree clean.
 | Replacement disposable computation 1 | **PASS.** JSON SHA-256 `7647b856320fccad1c455985e159dc118b69e261543f16ad1e25e9d87f12cb8a`; 3,593,507 bytes; 4,997.57 s wall; 4,941.67 s CPU; 82,247,680-byte process-tree peak across 4,747 samples. |
 | Replacement disposable computation 2 | **PASS.** JSON SHA-256 `585405ed179621737ee2fb9ccd98020198ecd5df0f88ad21c87d435828b4b662`; 3,593,512 bytes; 4,965.80 s wall; 4,925.99 s CPU; 84,475,904-byte process-tree peak across 4,729 samples. |
 | Scientific-digest repeatability and full-archive validation | **PASS.** Both archives independently validate. Both have scientific digest `b72dfb5695b76ae475f4537a08d2b2da4d0d26d03a2ed508c0c433c1e03e19b6` and block digest `80160f58012508d2e82a8e3fe34332e8dfcdeeb3acb8afc7b0615a12b3a6eb43`. Full archive-content digests differ: `8c24d2abfd1e49f9f2ccef7d6d8fc3e4f6ca91682b97c4675ba100d37c3ed2b7` and `a8f92b5598f6170db77fa5aa74a63f440c9ef608136fccab9fed2c0bad59a902`. |
-| Exact-head CI | Pending. |
+| Exact-head CI | Run `36350681245` at `9fa34f7` reached the complete suite but failed because the intentionally superseded legacy PNG was ignored and therefore absent from the fresh checkout. The PNG is now explicitly versioned; the exact-head retry is pending. No numerical test failed in the reproduced Python 3.11 check. |
 
 Both replacement runs contained all three truth families, zero pipeline
 failures, zero ineligible N=16 measurement actions, and zero whole-draw
