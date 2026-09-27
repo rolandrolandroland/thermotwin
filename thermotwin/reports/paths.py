@@ -209,9 +209,13 @@ FIGURE_EXPLANATIONS = {
         "NONLINEAR_EXPERIMENT_SELECTION.md",
         "This figure validates the locally selected current pulse with complete "
         "bounded multistart nonlinear refits. It compares the selected, naive, "
-        "and closest-energy grid experiments using parameter error, local "
-        "uncertainty volume, repeated interval coverage, and representative "
-        "re-optimized profiles.",
+        "and closest-energy grid experiments using percentage RMSE for each "
+        "physical parameter, mean 95% interval widths relative to the estimate, "
+        "per-parameter coverage counts, and joint uncertainty volume relative "
+        "to the naive experiment. Interval widths are arithmetic means; one "
+        "weak naive sensor-lag trial inflates that average. The original "
+        "combined log-error scores and nonlinear profiles remain in the JSON "
+        "sidecar and are distinct from the plotted per-parameter percentage errors.",
     ),
     "piecewise_contact_forward_pinn_comparison.png": (
         "CONTACT_RESISTANCE_EXPERIMENT.md",

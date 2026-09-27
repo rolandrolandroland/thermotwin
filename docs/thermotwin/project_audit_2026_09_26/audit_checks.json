@@ -1,0 +1,73 @@
+{
+  "source_revision": "56953c7784a9d685a53ed87ca01b7f2d3ae58f06",
+  "comparison_revision": "9a21aa77284fb88608467a39a7ada8dc811107d5",
+  "audit_date": "2026-09-26",
+  "full_suite": {
+    "status": "PASS",
+    "runtime": "CPython 3.10.12",
+    "test_count": 829,
+    "seconds": 1155.461,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0
+  },
+  "python_syntax": {
+    "tracked_files": 354,
+    "status": "pass"
+  },
+  "console_entrypoints": {
+    "count": 35,
+    "status": "pass"
+  },
+  "markdown_links": {
+    "files": 55,
+    "missing_relative_links": 0
+  },
+  "p4_parent_archive_validation": "pass under CPython 3.10.12",
+  "p4_n32_archive_validation": "pass under CPython 3.10.12",
+  "d0_archive_validation": "pass under recorded CPython 3.13.3",
+  "historical_replication": {
+    "source": "9a21aa7",
+    "runtime": "CPython 3.10.12",
+    "generator_manifest": "pass",
+    "parent_and_guard_load_validation": "pass",
+    "current_head_manifest_check": "correctly rejects changed pyproject.toml"
+  },
+  "infinite_offsets": {
+    "all_four_actions_reject_infinity": true,
+    "error": "development offset must be finite",
+    "errors": {
+      "stop_now": "stop development offset must be a finite number",
+      "fixed_thermal": "thermal development offset must be a finite number",
+      "fixed_voltage": "voltage development offset must be a finite number",
+      "fixed_face_temperature": "face-temperature development offset must be a finite number"
+    }
+  },
+  "timing_digest_probe": {
+    "mutation": "increase only block_wall_seconds by 1",
+    "physics_data_unchanged": true,
+    "scientific_result_digest_changes": true
+  },
+  "memory_probe": {
+    "runtime": "CPython 3.10.12 on Darwin",
+    "operation": "json.load of retained P4 n32.json",
+    "archive_bytes": 34992556,
+    "rss_before_bytes": 13139968,
+    "peak_rss_bytes": 192626688,
+    "declared_concurrent_peak_rss_bytes": 185204736
+  },
+  "scientific_partitions_generated": false,
+  "production_source_modified": false,
+  "limits": [
+    "No new training or development/calibration/evaluation cohort generated",
+    "Saved archive validation does not rerun every optimization",
+    "Older distributed/PINN results not independently regenerated",
+    "Untracked presentation artifacts not numerically rederived"
+  ],
+  "working_copy_presentation_syntax": {
+    "files": 7,
+    "status": "pass"
+  },
+  "scope": "Project-wide tests and integrity checks; detailed review of changes since September 17 and independent operating-decision physics probes."
+}

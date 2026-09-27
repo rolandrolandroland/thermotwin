@@ -147,6 +147,46 @@ The naive intervals are much wider and consequently over-cover all three
 parameters in this small campaign. High coverage alone does not imply useful
 precision.
 
+## Reading the four-panel figure
+
+The figure breaks out the three inferred physical parameters. Color and marker
+shape consistently identify selected, naive, and closest-energy control pulses.
+The underlying 20 paired trials and the original aggregate results above are
+unchanged.
+
+1. **Top left: error for each parameter.** Each point is
+   `100 * sqrt(mean((estimate / truth - 1)**2))` across trials. Percentage errors
+   allow contact resistance, heat storage, and sensor response time to share an
+   axis despite their different units. This is not the combined log-error score
+   used for the original 81.46% and 11.77% improvement claims.
+2. **Top right: mean uncertainty width.** Each point is the arithmetic mean of
+   `100 * (upper_95 - lower_95) / estimate`. A logarithmic axis keeps both narrow
+   and very wide intervals visible. These are local quadratic 95% intervals.
+   The naive sensor-response mean is strongly influenced by one bound-hitting
+   trial: its interval width is about 14,745% of its estimate. The mean width is
+   928.0%, while the median is 188.1%; the mean must not be read as typical of
+   every naive trial.
+3. **Bottom left: interval coverage.** Each point counts how many of the 20
+   intervals contain that parameter's truth. The dashed 95% reference applies
+   to each individual parameter. The separate all-three count records trials
+   in which every individual interval contains truth; it is not a calibrated
+   simultaneous 95% confidence region.
+4. **Bottom right: joint uncertainty.** Each point is the mean three-parameter
+   covariance volume, divided by the naive mean volume and expressed as a
+   percentage. This is a ratio of means. The volume uses the covariance in log
+   coordinates and retains correlations between parameters; three separate
+   interval widths do not contain the same information.
+
+| Parameter | Selected percentage RMSE | Naive percentage RMSE | Control percentage RMSE |
+| --- | ---: | ---: | ---: |
+| Thermal contact resistance | 4.96% | 32.47% | 6.21% |
+| Heat storage | 2.15% | 14.21% | 2.57% |
+| Sensor response time | 8.71% | 34.16% | 9.23% |
+
+The nonlinear profiles previously plotted at bottom right remain in the JSON
+sidecar as supporting numerical evidence. The new layout does not re-run the
+experiments or change any saved fit, covariance, interval, or profile.
+
 ## Decision
 
 For the frozen candidate grid and synthetic lumped model, the local

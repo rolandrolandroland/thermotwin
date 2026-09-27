@@ -17,6 +17,9 @@ from ..studies.operating_decision_prospective_phase_d import (
     validate_phase_d_rehearsal_archive,
 )
 from ..studies.operating_decision_provenance import create_source_manifest
+from ..studies.operating_decision_prospective_phase_d_resources import (
+    run_constructed_resource_probe,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -110,18 +113,48 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         type=Path,
         help="load and strictly replay an existing disposable rehearsal JSON",
     )
+    mode.add_argument(
+        "--probe-constructed-archive",
+        type=Path,
+        metavar="REHEARSAL_JSON",
+        help=(
+            "use one disposable rehearsal to exercise a constructed twenty-block "
+            "archive; never creates scientific evidence"
+        ),
+    )
     parser.add_argument("--json", type=Path)
     parser.add_argument("--report", type=Path)
     parser.add_argument("--hashes", type=Path)
+    parser.add_argument("--resource-result", type=Path)
     parser.add_argument("--repository-root", type=Path, default=PROJECT_ROOT)
     arguments = parser.parse_args(argv)
 
     root = _require_project_root(arguments.repository_root)
     revision = _committed_source_revision(root)
+    if arguments.probe_constructed_archive is not None:
+        if arguments.json is None or arguments.resource_result is None:
+            parser.error(
+                "--json and --resource-result are required for "
+                "--probe-constructed-archive"
+            )
+        if any(value is not None for value in (arguments.report, arguments.hashes)):
+            parser.error("--report and --hashes do not apply to the resource probe")
+        result = run_constructed_resource_probe(
+            arguments.probe_constructed_archive,
+            arguments.json,
+            arguments.resource_result,
+        )
+        print(json.dumps(result, sort_keys=True, indent=2))
+        return
     if arguments.print_protocol:
         if any(
             value is not None
-            for value in (arguments.json, arguments.report, arguments.hashes)
+            for value in (
+                arguments.json,
+                arguments.report,
+                arguments.hashes,
+                arguments.resource_result,
+            )
         ):
             parser.error("output paths are valid only for the disposable rehearsal")
         manifest = create_source_manifest(root, PHASE_D_NUMERICAL_SOURCE_PATHS)
@@ -135,7 +168,12 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     if arguments.validate_rehearsal is not None:
         if any(
             value is not None
-            for value in (arguments.json, arguments.report, arguments.hashes)
+            for value in (
+                arguments.json,
+                arguments.report,
+                arguments.hashes,
+                arguments.resource_result,
+            )
         ):
             parser.error("output paths cannot be used while validating an archive")
         payload = json.loads(
@@ -156,6 +194,8 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
 
     if arguments.json is None:
         parser.error("--json is required for --execute-disposable-rehearsal")
+    if arguments.resource_result is not None:
+        parser.error("--resource-result applies only to the resource probe")
     json_path, report_path, hash_path = _output_paths(
         arguments.json,
         arguments.report,

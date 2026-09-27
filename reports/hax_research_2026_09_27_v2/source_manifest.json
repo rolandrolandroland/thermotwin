@@ -1,0 +1,187 @@
+{
+  "bundle_version": "hax_research_2026_09_27_v2",
+  "historical_bundle_preserved": "reports/hax_research_2026_09_17_v1",
+  "report_date": "2026-09-27",
+  "revised_outputs": [
+    {
+      "bytes": 1040,
+      "path": "reports/hax_research_2026_09_27_v2/README.md",
+      "sha256": "1f2d78dc4d1e5c00d08d37d6a77d26ee935535ee6ee73cd4d0a0c9369991deb3"
+    },
+    {
+      "bytes": 15201,
+      "path": "reports/hax_research_2026_09_27_v2/assets/pinn_equation_1.png",
+      "sha256": "5877eb7f734677a541f21b8ca1af78dac687e0c930c798468f0b39cddbafbd22"
+    },
+    {
+      "bytes": 8011,
+      "path": "reports/hax_research_2026_09_27_v2/assets/pinn_equation_2.png",
+      "sha256": "bab78dc3c02cb25c363ff5394100562b3577fad95a2ac96f5df2420f48ad74ae"
+    },
+    {
+      "bytes": 19599,
+      "path": "reports/hax_research_2026_09_27_v2/assets/pinn_equation_3.png",
+      "sha256": "d1c393009087cac59ae1eba6082fcc55a4f8a4e870b12fd539535b4a421390c3"
+    },
+    {
+      "bytes": 23362,
+      "path": "reports/hax_research_2026_09_27_v2/assets/pinn_equation_4.png",
+      "sha256": "b209c0f769ea1123f5d3eaed0546b205b94feca7f9f8c99e4671e31ae2bc3548"
+    },
+    {
+      "bytes": 614877,
+      "path": "reports/hax_research_2026_09_27_v2/assets/pinn_research_summary_2026_09_27.png",
+      "sha256": "81ae33eb208f38ee4a06269dca3af2f5bca55dc53ac951e8e6a1724290f49471"
+    },
+    {
+      "bytes": 10089,
+      "path": "reports/hax_research_2026_09_27_v2/assets/selection_equation_1.png",
+      "sha256": "86269c0198483e37a597964133d16f607274bfadff1859bbd9147374620f1ac2"
+    },
+    {
+      "bytes": 10171,
+      "path": "reports/hax_research_2026_09_27_v2/assets/selection_equation_2.png",
+      "sha256": "b44ed5d5c04fd6636f53644e4f629eca0dcbb3aba524b05b61ed26a2e23cdd2b"
+    },
+    {
+      "bytes": 15202,
+      "path": "reports/hax_research_2026_09_27_v2/assets/selection_equation_3.png",
+      "sha256": "23506820bf89fd4c3b781b1ffd1248755ea43ab30dd7ba2abe692caa5b1e2eb8"
+    },
+    {
+      "bytes": 7575,
+      "path": "reports/hax_research_2026_09_27_v2/assets/selection_equation_4.png",
+      "sha256": "44dc14069c62fd7d522435d5094a3192a92b263dea0436de9ac90fe95732f8b6"
+    },
+    {
+      "bytes": 12464,
+      "path": "reports/hax_research_2026_09_27_v2/assets/selection_equation_5.png",
+      "sha256": "8db59230cbf3a2e16e2904b4fe9d2353e65208c8b62cae6c45603d68cb3c57ca"
+    },
+    {
+      "bytes": 14029,
+      "path": "reports/hax_research_2026_09_27_v2/assets/selection_equation_6.png",
+      "sha256": "20f5bac489394f5f3a1c87f994f69d07c26565b50c934a6768c747c44a18651a"
+    },
+    {
+      "bytes": 14536,
+      "path": "reports/hax_research_2026_09_27_v2/assets/selection_equation_7.png",
+      "sha256": "37dedf7411e541544d59e27fa9de04f08f8a847e52b1709a3bac337871bc1cf1"
+    },
+    {
+      "bytes": 13863,
+      "path": "reports/hax_research_2026_09_27_v2/assets/selection_equation_8.png",
+      "sha256": "e3f0092737bd62f13dff65abf06638b57d96403c60a0dff72b21b41f72457bd2"
+    },
+    {
+      "bytes": 485427,
+      "path": "reports/hax_research_2026_09_27_v2/assets/selection_research_summary_2026_09_27.png",
+      "sha256": "14d2384ad3483f95a26de3574e97ac0543d2215b08991f4a812a31e85291bdd7"
+    },
+    {
+      "bytes": 854808,
+      "path": "reports/hax_research_2026_09_27_v2/thermotwin_pinn_research_report_2026_09_27_v2.docx",
+      "sha256": "949b6d9a4db23182e291958a6bfe690d9a8ce6d0baf0f36baf09190a6220c57a"
+    },
+    {
+      "bytes": 24196,
+      "path": "reports/hax_research_2026_09_27_v2/thermotwin_pinn_research_report_2026_09_27_v2.md",
+      "sha256": "e6e8b34f7f6d4d14b38b0f61787f384777f17daabca9549401b3f5f24277e107"
+    },
+    {
+      "bytes": 611718,
+      "path": "reports/hax_research_2026_09_27_v2/thermotwin_pinn_research_report_2026_09_27_v2.pdf",
+      "sha256": "6a96539f64e1daa5cf238130043c59f3c9ff54f03576e04f070f2fd4b96a93b7"
+    },
+    {
+      "bytes": 768462,
+      "path": "reports/hax_research_2026_09_27_v2/thermotwin_selection_research_report_2026_09_27_v2.docx",
+      "sha256": "fbdbdb9b7e285bc838ea18411344688052ac968da4436260cb85f52ec5380815"
+    },
+    {
+      "bytes": 19200,
+      "path": "reports/hax_research_2026_09_27_v2/thermotwin_selection_research_report_2026_09_27_v2.md",
+      "sha256": "24db002f8b0994ce34e2d30e42ffb56f07b37f7537241c7747735e4c1bb6fa1f"
+    },
+    {
+      "bytes": 636263,
+      "path": "reports/hax_research_2026_09_27_v2/thermotwin_selection_research_report_2026_09_27_v2.pdf",
+      "sha256": "003f44ff84bc94dcf7af5824ff33202dc5ff60e6429bbf8e01093f2ebe82b052"
+    }
+  ],
+  "schema_version": 2,
+  "scientific_input_note": "The v1 scientific source records are retained verbatim below. Report wording, summary figures, DOCX, and PDF files were regenerated; no fit, training run, or scientific partition was rerun.",
+  "scientific_inputs_changed": false,
+  "unchanged_scientific_sources_from_v1": [
+    {
+      "bytes": 18457,
+      "path": "thermotwin/figures/NEXT_EXPERIMENT_WALKTHROUGH/experiment_selection.json",
+      "sha256": "98087b3568abfd2868f87ffb248eb02cdfa09415df859ca2562a6c54cac4a23c"
+    },
+    {
+      "bytes": 4260282,
+      "path": "thermotwin/figures/NONLINEAR_EXPERIMENT_SELECTION/nonlinear_experiment_selection.json",
+      "sha256": "43e6ff0ff7348a14b4b085b753e091b2c25f83caf9a5bb46e5db40116a598009"
+    },
+    {
+      "bytes": 4786,
+      "path": "thermotwin/figures/NONLINEAR_EXPERIMENT_SELECTION/next_experiment_story_corrected.json",
+      "sha256": "7dbde144ff4a8835f40155ee180874a449d35fee62feec3938e0df47271c8e75"
+    },
+    {
+      "bytes": 251843,
+      "path": "thermotwin/figures/FORWARD_RECONSTRUCTION_COMPARISON/forward_reconstruction_comparison.json",
+      "sha256": "f9e7eba26792f154e414369e6acbee0dbbf4cc839af757324679ac330f737e53"
+    },
+    {
+      "bytes": 168929,
+      "path": "thermotwin/figures/DISTRIBUTED_PROFILE_COVERAGE/distributed_profile_coverage.json",
+      "sha256": "e6c063ddd07771365604e8c7b969987ce3f1be31f447672c29785170b98b0082"
+    },
+    {
+      "bytes": 15791,
+      "path": "thermotwin/figures/DISTRIBUTED_PINN_TRAINING_AUDIT/distributed_pinn_training_audit.json",
+      "sha256": "c057dca91ae1003104297344b58e268a62438b49dde16da23508dde49810274f"
+    },
+    {
+      "bytes": 265836,
+      "path": "thermotwin/figures/PINN_EVIDENCE_SUMMARY/pinn_evidence_summary.json",
+      "sha256": "69083e957bd06ba9a72eff724fc4c93dc38a08ccc64eabcba042170befbb17ca"
+    },
+    {
+      "bytes": 23673,
+      "path": "thermotwin/reports/next_experiment_story_corrected.py",
+      "sha256": "01b346e5ba527ffeac4467513251423fdd0ca7f53435cfbbd1875771c0fa7db7"
+    },
+    {
+      "bytes": 15316,
+      "path": "thermotwin/reports/pinn_evidence_summary.py",
+      "sha256": "3ad5a39943494f6a81c94e4b9a7a5b209e3997d143ba642230ec88d0067e4fc8"
+    },
+    {
+      "bytes": 16289,
+      "path": "thermotwin/inference/experiment_selection.py",
+      "sha256": "49e7912a564a914534ef054ceaec438a59b5c4e6da315979098b8237258077bd"
+    },
+    {
+      "bytes": 18333,
+      "path": "thermotwin/studies/nonlinear_experiment_selection.py",
+      "sha256": "10394cc9838fe73c5582d3988b5ec2924954fcd71e47f797b2d0ce1bbb698f80"
+    },
+    {
+      "bytes": 29156,
+      "path": "thermotwin/studies/forward_reconstruction_comparison.py",
+      "sha256": "90698d4dafea94ed96b0053ecd815dcd53a49b318cc14629215f9786417eb723"
+    },
+    {
+      "bytes": 27081,
+      "path": "thermotwin/studies/distributed_profile_coverage.py",
+      "sha256": "e0224c11157f6a1d9d4ce1ef56da0081d2dd47c7e2e460c663697075c095fa5b"
+    },
+    {
+      "bytes": 27003,
+      "path": "thermotwin/pinn/distributed_inverse.py",
+      "sha256": "738fcb4b26bfdfc97d4613ebcd879fa8b71d55e91fc254684c7666c1fc88b1c0"
+    }
+  ]
+}

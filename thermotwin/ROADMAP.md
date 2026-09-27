@@ -492,7 +492,10 @@ period.
 **Status: Complete for the current synthetic lumped candidate grid, declared
 feasibility constraints, sequential campaign comparison, independent
 model-mismatch stress test, and sensor-versus-schedule discrimination study.
-Distributed-property experiment selection remains part of Milestone 9.**
+The four-action prospective operating-decision experiment is active: Phase C
+and historical D0 v1 are complete, while the protocol-v2 audit repair gate
+precedes the unopened development partition. Distributed-property experiment
+selection remains part of Milestone 9.**
 
 ### Goal
 
@@ -560,6 +563,13 @@ heat-transfer parameter.
   cold-face temperature selects correctly and passes in 40/40, with zero false
   confidence. Heat-rate and voltage packages also pass, subject to different
   unmodeled hardware costs. Walkthrough: `SENSOR_MODEL_DISCRIMINATION.md`.
+- The prospective continuation can choose stop, thermal, voltage, or temporary
+  face-temperature sensing and score value against energy, time, and
+  instrumentation cost. N=16 and its failure allowance are frozen from the
+  passing P4 pilot. The next gate is the versioned Phase D repair rehearsal and
+  whole-workflow resource check; the 20-block tuning, 10-block internal check,
+  independent calibration, and reserved comparison remain unopened. See
+  `docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md`.
 
 ---
 

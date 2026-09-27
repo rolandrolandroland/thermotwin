@@ -258,7 +258,15 @@ The project is complete when another person can reconstruct the reported decisio
 
 ## Immediate implementation assignment
 
-Execute Phases A and B first, then the small disposable pilot in Phase C. Return the source revision, checks, complete pilot results, recommended draw count, measured campaign budget, and the proposed development/calibration/reserved sizes. Proceed through the remaining phases under the decision rules above; settle and record all numerical defaults before opening the data they govern. Do not launch the large scientific campaign using unresolved calibration, eligibility, or comparison rules.
+Phases A–C and historical Phase D0 v1 are complete. The current entry point is
+the September 27 protocol-v2 repair gate in the
+[Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md): preserve v1, close the
+audit findings, run the representative 20-block archive probe, repeat the
+replacement disposable computation under the pinned CPython 3.10.12 runtime,
+and pass the full exact-head suite and CI. Only then may Phase D open the
+20-block tuning partition once. Proceed through the remaining phases under the
+decision rules above; settle and record all numerical defaults before opening
+the data they govern.
 
 ## Source record
 

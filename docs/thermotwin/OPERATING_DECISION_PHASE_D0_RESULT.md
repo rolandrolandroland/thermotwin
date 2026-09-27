@@ -1,8 +1,11 @@
 # Prospective operating-decision Phase D0 result
 
-Date: 2026-09-26. Status: **PASS**. The Phase D development protocol is
-implemented, source-bound, tested, and rehearsed through canonical save/load
-validation. No development, calibration, or reserved partition was opened.
+Date: 2026-09-26. Historical status: **PASS under protocol v1 and its recorded
+CPython 3.13.3 runtime**. The Phase D development protocol was source-bound,
+tested, and rehearsed through canonical save/load validation. A September 26
+audit later required a versioned protocol-v2 repair before development. This
+record and its artifacts remain unchanged historical evidence. No development,
+calibration, or reserved partition was opened.
 
 ## Frozen implementation
 
@@ -42,7 +45,9 @@ The one-block namespace was
 `p0_disposable_phase_d_archive_roundtrip_v1`. It contained three cases, one
 from each truth family. The command executed the full N=16 prospective path,
 fixed-policy outcomes, saved-before-reveal chronology, content sealing,
-canonical save/load, source-manifest verification, and deterministic replay.
+canonical save/load, source-manifest verification, and recorded-consistency
+validation. The validator did not independently rerun the simulations and
+fits.
 
 The saved JSON was loaded in a separate process from the detached clean clone
 and passed the strict archive validator. The result was:
@@ -90,7 +95,10 @@ Their committed addresses are:
 
 ## Gate decision
 
-Phase D0 passes. The next permitted work is to add and review the narrowly
-scoped tuning-execution command, bind it to this protocol and exact source,
-and then open `p1_development_tuning` once. The 10-block internal check,
-independent calibration, and reserved evaluation remain prohibited.
+Historical Phase D0 v1 passed. It was superseded before development by the
+audit-repair protocol v2 described in
+[`OPERATING_DECISION_PHASE_D_PLAN.md`](OPERATING_DECISION_PHASE_D_PLAN.md).
+The replacement disposable rehearsal, repeated-computation check,
+representative archive resource probe, full exact-head suite, and CI must pass
+before a tuning command may open `p1_development_tuning`. The 10-block internal
+check, independent calibration, and reserved evaluation remain prohibited.

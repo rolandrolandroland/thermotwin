@@ -1,0 +1,26 @@
+{
+  "runtime": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "sha256": "ace47b991c37a7e43a940a909dc63ae809d7839333969684190214ba634e50ae",
+  "bytes": 3583461,
+  "validation": "PASS",
+  "source_revision": "a280d7f92d647847934ffcd75565e57189297558",
+  "replay": {
+    "block_evidence_digest": "4d3428a22b794c5a8407a10d10be689358692e2824ec52bf91a055479e59cfdc",
+    "case_count": 3,
+    "n16_choices": {
+      "extra_interface_mass": "action:fixed_thermal",
+      "matched_four_state": "action:stop_now",
+      "temperature_dependent_contact": "action:fixed_face_temperature"
+    },
+    "n16_ineligible_measurement_action_count": 0,
+    "n16_whole_draw_failure_count": 0,
+    "pipeline_failure_count": 0,
+    "truth_families": [
+      "matched_four_state",
+      "extra_interface_mass",
+      "temperature_dependent_contact"
+    ]
+  },
+  "validation_seconds": 2.9150829159771092,
+  "peak_rss_bytes": 78905344
+}

@@ -1,0 +1,77 @@
+{
+  "report_date": "2026-09-17",
+  "checkout_commit": "ecb50309677cd288ecabb3d40ef365db44745fc6",
+  "note": "Saved numerical evidence audited for these reports. Local reporting files include uncommitted work; this is not a clean frozen checkout. No nonlinear fitting or neural training was rerun for report production.",
+  "sources": [
+    {
+      "path": "thermotwin/figures/NEXT_EXPERIMENT_WALKTHROUGH/experiment_selection.json",
+      "bytes": 18457,
+      "sha256": "98087b3568abfd2868f87ffb248eb02cdfa09415df859ca2562a6c54cac4a23c"
+    },
+    {
+      "path": "thermotwin/figures/NONLINEAR_EXPERIMENT_SELECTION/nonlinear_experiment_selection.json",
+      "bytes": 4260282,
+      "sha256": "43e6ff0ff7348a14b4b085b753e091b2c25f83caf9a5bb46e5db40116a598009"
+    },
+    {
+      "path": "thermotwin/figures/NONLINEAR_EXPERIMENT_SELECTION/next_experiment_story_corrected.json",
+      "bytes": 4786,
+      "sha256": "7dbde144ff4a8835f40155ee180874a449d35fee62feec3938e0df47271c8e75"
+    },
+    {
+      "path": "thermotwin/figures/FORWARD_RECONSTRUCTION_COMPARISON/forward_reconstruction_comparison.json",
+      "bytes": 251843,
+      "sha256": "f9e7eba26792f154e414369e6acbee0dbbf4cc839af757324679ac330f737e53"
+    },
+    {
+      "path": "thermotwin/figures/DISTRIBUTED_PROFILE_COVERAGE/distributed_profile_coverage.json",
+      "bytes": 168929,
+      "sha256": "e6c063ddd07771365604e8c7b969987ce3f1be31f447672c29785170b98b0082"
+    },
+    {
+      "path": "thermotwin/figures/DISTRIBUTED_PINN_TRAINING_AUDIT/distributed_pinn_training_audit.json",
+      "bytes": 15791,
+      "sha256": "c057dca91ae1003104297344b58e268a62438b49dde16da23508dde49810274f"
+    },
+    {
+      "path": "thermotwin/figures/PINN_EVIDENCE_SUMMARY/pinn_evidence_summary.json",
+      "bytes": 265836,
+      "sha256": "69083e957bd06ba9a72eff724fc4c93dc38a08ccc64eabcba042170befbb17ca"
+    },
+    {
+      "path": "thermotwin/reports/next_experiment_story_corrected.py",
+      "bytes": 23673,
+      "sha256": "01b346e5ba527ffeac4467513251423fdd0ca7f53435cfbbd1875771c0fa7db7"
+    },
+    {
+      "path": "thermotwin/reports/pinn_evidence_summary.py",
+      "bytes": 15316,
+      "sha256": "3ad5a39943494f6a81c94e4b9a7a5b209e3997d143ba642230ec88d0067e4fc8"
+    },
+    {
+      "path": "thermotwin/inference/experiment_selection.py",
+      "bytes": 16289,
+      "sha256": "49e7912a564a914534ef054ceaec438a59b5c4e6da315979098b8237258077bd"
+    },
+    {
+      "path": "thermotwin/studies/nonlinear_experiment_selection.py",
+      "bytes": 18333,
+      "sha256": "10394cc9838fe73c5582d3988b5ec2924954fcd71e47f797b2d0ce1bbb698f80"
+    },
+    {
+      "path": "thermotwin/studies/forward_reconstruction_comparison.py",
+      "bytes": 29156,
+      "sha256": "90698d4dafea94ed96b0053ecd815dcd53a49b318cc14629215f9786417eb723"
+    },
+    {
+      "path": "thermotwin/studies/distributed_profile_coverage.py",
+      "bytes": 27081,
+      "sha256": "e0224c11157f6a1d9d4ce1ef56da0081d2dd47c7e2e460c663697075c095fa5b"
+    },
+    {
+      "path": "thermotwin/pinn/distributed_inverse.py",
+      "bytes": 27003,
+      "sha256": "738fcb4b26bfdfc97d4613ebcd879fa8b71d55e91fc254684c7666c1fc88b1c0"
+    }
+  ]
+}

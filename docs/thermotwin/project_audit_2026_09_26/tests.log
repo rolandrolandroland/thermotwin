@@ -1,0 +1,27 @@
+/Users/rolandbennett/.matplotlib is not a writable directory
+Matplotlib created a temporary cache directory at /var/folders/9k/2nrmc0kd5gqb3vj2r1r095p80000gn/T/matplotlib-5mrf5bph because there was an issue with the default path (/Users/rolandbennett/.matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Matplotlib is building the font cache; this may take a moment.
+................................................................................................................................................................................................................................................................................................................[1/1] thermotwin.distributed_property_report
+.[1/2] thermotwin.assembly_fingerprint_report
+[2/2] thermotwin.experiment_selection_report
+............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+----------------------------------------------------------------------
+Ran 829 tests in 1155.461s
+
+OK
+complete JSON: n32.json
+compact report: n32.txt
+SHA-256 manifest: n32.sha256
+archive bytes: 1
+JSON SHA-256: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+complete JSON: pilot.json
+compact report: pilot.txt
+SHA-256 manifest: pilot.sha256
+archive bytes: 1
+JSON SHA-256: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+Corrected generator frozen: 16d16b84bc736f48cb5ad09b9ca81efefe2043b52bb91176c7d2c794266a13ef
+Corrected generator frozen: c46e783b52516742788a0fdab02995d9181f3c2858564a616ba2fd3dff6482b1

@@ -1,11 +1,13 @@
 # Prospective operating-decision Phase D plan
 
-Date: 2026-09-26. Status: Phase D0 complete; no development partition has been
-opened. This document fixes the work sequence and numerical choices encoded by
-the machine-readable Phase D protocol before `p1_development_tuning` is
-generated. It is not a scientific result or a calibration record. The exact
-implementation and disposable-rehearsal evidence are recorded in the
-[Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md).
+Date: 2026-09-27. Status: historical Phase D0 v1 is complete; audit repair
+protocol v2 is implemented and awaiting its exact-head replacement rehearsal,
+resource probe, and CI gate. No development partition has been opened. This
+document fixes the work sequence and numerical choices before
+`p1_development_tuning` is generated. It is not a scientific result or a
+calibration record. The historical implementation and rehearsal remain in the
+[Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md); the superseding repair
+gate is tracked in [the audit repair record](THERMOTWIN_AUDIT_REPAIR_RECORD_2026_09_27.md).
 
 ## Purpose and entry state
 
@@ -28,6 +30,13 @@ source/action, four workers, complete draw denominators, the no-gain failure
 score, and the requirement that all three measurement actions remain
 eligible. The Phase C freeze payload digest is
 `f9fd7d6760549f2b69ca4eac8fecabc3fc5783f3d2309e0d20fd527cd13830a8`.
+
+All new Phase D evidence uses CPython 3.10.12 on Darwin arm64 with the exact
+scientific packages pinned in
+`thermotwin/requirements-prospective-phase-d.txt`. The executor rejects a
+different Python, platform, architecture, NumPy, SciPy, Matplotlib, or PyTorch
+identity. Historical D0 v1 remains a CPython 3.13.3 artifact and is not silently
+reclassified as evidence from the new runtime.
 
 Phase D uses 30 new paired blocks, with one case from each of the three truth
 families in every block:
@@ -56,16 +65,22 @@ must bind:
   and artifact digest.
 
 Run a one-block disposable rehearsal through save, `json.load`, validation,
-report generation, and deterministic replay. The rehearsal must use a
-disposable namespace and cannot contribute to any Phase D numerical choice.
-Exact-head CI must pass before the tuning partition opens.
+and report generation. The archive validator checks provenance, structure,
+formulas, streams, and recorded consistency; it does not independently rerun
+the simulations and fits. Repeat the actual rehearsal computation under the
+same frozen runtime and stream identities, and require identical scientific
+digests. Full archive identities may differ because they include timings. The
+rehearsal must use a disposable namespace and cannot contribute to any Phase D
+numerical choice. Exact-head CI must pass before the tuning partition opens.
 
-Phase D0 passed at source `a280d7f` on 2026-09-26. The full local suite and
-exact-head CI passed, and a one-block, three-case disposable rehearsal passed
-canonical save/load validation with zero pipeline failures, zero ineligible
-N=16 measurement actions, and zero whole-draw failures. Its ignored archive is
-addressed by hashes in the [Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md).
-No development, calibration, or reserved case was opened.
+Historical Phase D0 v1 passed at source `a280d7f` on 2026-09-26 under
+CPython 3.13.3. Its archive and hashes remain unchanged in the
+[Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md). A September 26 audit
+then found three pre-development protocol issues: undefined infinite-offset
+behavior, timing in the scientific digest, and a worker-only memory estimate
+presented as a concurrent cap. Protocol v2 supersedes those interfaces without
+reinterpreting the v1 result. No development, calibration, or reserved case was
+opened.
 
 ## Phase D1: generate the nominal tuning evidence
 
@@ -102,18 +117,13 @@ each paired block, giving 20 block scores. The action offset is the 18th
 smallest score, the nearest-rank 90th percentile, rounded upward to the next
 0.001 K. This produces `d_stop`, `d_thermal`, `d_voltage`, and `d_face`.
 
-Each separate estimate therefore requires all 20 paired blocks. If its 18th
-score is infinite, the fallback is deterministic:
-
-- an infinite stop offset disables early resolved stopping; `stop_now` remains
-  available only through the no-useful-measurement path and still requires
-  verification;
-- an infinite measurement-action offset makes that action unselectable in the
-  primary rule while retaining it as a fixed comparator and as an explicitly
-  failed region in the maps; and
-- no family-specific or one-candidate-specific offset is estimated. Those
-  strata are reported separately, avoiding an offset fitted from fewer than
-  20 paired blocks.
+Each separate estimate therefore requires all 20 paired blocks. If the 18th
+score is infinite for **any** of the four policies, stop the primary Phase D
+campaign as infeasible before selecting a tuning winner or opening the internal
+check. Retain all scores, failures, and diagnostic results. Do not disable an
+action, substitute a large finite value, drop the failed case, or form an
+infinite utility baseline. No family-specific or one-candidate-specific offset
+is estimated; those strata are reported separately.
 
 These offsets are development heuristics for action selection. They are not
 the independent Phase E calibration correction and cannot be described as a
@@ -135,10 +145,19 @@ The action order, strict `>` threshold semantics, 12-decimal merit rounding,
 cost formula, verification rule, candidate menu, and failure policy remain
 unchanged.
 
-Choose the rule with the smallest mean paired-block loss under the already
-declared balanced decision/resource loss: false approval 100, false rejection
-20, abstention 1, added run 0.10, added sensor 0.10, and normalized incremental
-energy 0.10. Average the three family losses within each block, then average
+For each fixed policy and the selector, retain the emitted raw interval
+`[L,U]`, expand it with that policy's development offset to
+`[L-d_a,U+d_a]`, and recompute approve/reject/abstain from the expanded
+interval. Missing or nonfinite intervals, verification failures, and pipeline
+failures remain abstentions. Preserve raw and adjusted intervals, decisions,
+verification, failures, action, and block loss. Truth enters only the offline
+loss after all policy records are saved; the independent Phase E correction is
+not used here.
+
+Choose the rule with the smallest mean paired-block loss from these
+development-adjusted decisions under the already declared balanced
+decision/resource loss: false approval 100, false rejection 20, abstention 1,
+added run 0.10, added sensor 0.10, and normalized incremental energy 0.10. Average the three family losses within each block, then average
 the 20 blocks. Break exact ties, in order, by:
 
 1. fewer false approvals;
@@ -263,8 +282,13 @@ Three complete 20-block sensor-stress replays add at most 29.90 wall hours,
 109.84 CPU hours, and 230,896,830 archive bytes. The planned Phase D nominal
 plus sensor-map total is therefore capped at approximately **44.85 wall
 hours**, **164.76 CPU hours**, and **346,345,245 bytes** before draw-count
-continuations. Sequential scenario execution keeps the Phase C concurrent
-memory cap at 185,204,736 bytes.
+continuations. The 185,204,736-byte Phase C value is a worker-only estimate, not a
+whole-workflow cap. Before tuning, a constructed 20-block-sized disposable
+archive must exercise retained results, canonical serialization, write, load,
+and validation while aggregate coordinator-and-worker RSS is sampled. The
+chosen machine has 16 GiB physical memory; the prospective process-tree limit
+is 4 GiB with at least 50% measured headroom required. Record elapsed time, CPU
+time, disk size, intermediate copies, worker count, and every measured stage.
 
 The planned four-block N=32 sensitivity adds the measured P4 continuation
 budget of approximately 4.06 wall hours, 14.27 CPU hours, and 34,992,556
@@ -295,9 +319,12 @@ Phase D is complete only when the repository contains:
 
 ## Execution order and stopping points
 
-The next concrete work is D0: implement the protocol, validator, commands, and
-tests, then dry-run them in a disposable namespace. After exact-head CI passes,
-generate only `p1_development_tuning`. Stop again after its archive validates
-and before revealing/analysing its truth fields. Then perform D2-D5, commit the
-locked provisional design, and only then open the internal check. Phase E may
-start only after a separate Phase D freeze commit.
+The next concrete work is the protocol-v2 repair gate: commit the repaired
+protocol and presentation record, run the constructed 20-block resource probe,
+compute the replacement one-block disposable rehearsal twice under the pinned
+CPython 3.10.12 environment, compare timing-independent scientific digests,
+validate both full archives, and pass full exact-head CI. Only then may the
+source-bound tuning command open `p1_development_tuning` once. Stop again after
+its archive validates and before revealing or analysing truth fields. Then
+perform D2-D5, commit the locked provisional design, and only then open the
+internal check. Phase E may start only after a separate Phase D freeze commit.
