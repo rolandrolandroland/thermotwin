@@ -568,8 +568,10 @@ heat-transfer parameter.
   instrumentation cost. N=16 and its failure allowance are frozen from the
   passing P4 pilot. The versioned Phase D repair rehearsal, repeatability
   comparison, whole-workflow resource check, and full local exact-head suite
-  pass; hosted CI is pending. The 20-block tuning, 10-block internal check,
-  independent calibration, and reserved comparison remain unopened. See
+  pass, as does hosted exact-head CI. The one authorized 20-block Phase D1
+  tuning archive is complete and validated, with truth analysis explicitly
+  unperformed. The 10-block internal check, independent calibration, and
+  reserved comparison remain unopened. See
   `docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md`.
 
 ---

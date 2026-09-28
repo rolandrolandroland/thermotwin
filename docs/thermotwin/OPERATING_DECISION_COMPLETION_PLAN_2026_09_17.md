@@ -262,8 +262,10 @@ Phases A–C and historical Phase D0 v1 are complete. The September 27
 protocol-v2 repair implementation, representative 20-block archive probe,
 repeated replacement computation, full local exact-head suite, and hosted
 exact-head CI pass. The repair gate is complete as recorded in the
-[Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md). Phase D may next review its
-source-bound executor and open the 20-block tuning partition once. Proceed through the remaining phases under the
+[Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md). The one authorized
+20-block Phase D1 archive is now complete and validated as recorded in the
+[Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md). Phase D may next run
+the predeclared D2 offset analysis on that immutable archive. Proceed through the remaining phases under the
 decision rules above; settle and record all numerical defaults before opening
 the data they govern.
 

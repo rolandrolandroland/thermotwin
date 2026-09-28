@@ -96,10 +96,10 @@ archive load/validation peak uses 13.54% of the limit, leaving 86.46% headroom.
 The declared four-worker workflow therefore fits the chosen 16 GiB machine and
 the stricter process-tree limit without reducing sample counts or draw counts.
 
-The repair gate is complete. `p1_development_tuning` remains unopened and is
-the next permitted scientific partition after its source-bound executor and
-preflight are reviewed. The internal check, independent calibration, and
-reserved evaluation remain closed.
+The repair gate was complete at this record's stopping point. Subsequently,
+the [Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md) captured and
+validated the one authorized `p1_development_tuning` archive. The internal
+check, independent calibration, and reserved evaluation remain closed.
 
 A first exact-head replacement-rehearsal invocation at `a1ef912` stopped in
 CLI preflight with an `UnboundLocalError` before simulation, fitting, stream

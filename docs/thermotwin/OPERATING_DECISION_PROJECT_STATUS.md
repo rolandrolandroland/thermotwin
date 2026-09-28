@@ -182,7 +182,7 @@ the [`P4 result`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md) and
 | A — reconcile source and records | Complete through the P3 and N32 result record | Preserve every disposable artifact and version each later protocol before opening it. |
 | B — harden scientific interfaces | Complete through the archive-transport repair and P4 bounded eligibility version | Preserve the P4 source boundary and frozen evidence hashes. |
 | C — disposable compute pilot | Complete; valid P4 parent and N32 continuation passed | N=16, one-failure eligibility, and the primary compute plan are frozen. |
-| D — selector development and maps | Historical D0 v1 preserved; protocol-v2 repair gate passed locally and in hosted exact-head CI; all development data remain unopened | Review the source-bound tuning executor, open `p1_development_tuning` once, and execute D1 through D5 before locking the internal check. |
+| D — selector development and maps | Historical D0 v1 preserved; repair gate passed; the one Phase D1 tuning archive is complete and validated; truth analysis has not started | Run D2 offset estimation on the immutable D1 archive, then execute D3-D5 before locking the internal check. |
 | E — analysis freeze and calibration | Unopened | Freeze endpoints and the complete selector, then use the independent calibration partition only for the declared correction. |
 | F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
 | G/H — interpretation and closeout | Unstarted | Classify the result honestly, audit it, archive evidence, and produce the report and three figures. |
@@ -218,9 +218,11 @@ v1 remains a valid disposable execution record under its recorded CPython
 now specifies protocol v2. The replacement rehearsal was computed twice under
 CPython 3.10.12, validated after save/load, and retained identical scientific
 digests despite timing differences. The representative archive probe and full
-local exact-head suite also pass. Hosted CI remains pending and must pass before
-a tuning command may open `p1_development_tuning`.
-Internal check, calibration, and reserved generation remain prohibited.
+local and hosted exact-head suites also pass. The
+[Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md) records the complete
+20-block archive and the required stop before truth analysis. Regeneration of
+the tuning partition, internal check, calibration, and reserved generation
+remain prohibited.
 
 ## Evidence and runtime boundaries
 
