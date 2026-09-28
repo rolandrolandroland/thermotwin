@@ -1,6 +1,6 @@
 # Prospective operating-decision partition ledger
 
-Ledger version: 6. Date declared: 2026-09-17. Last reconciled: 2026-09-28.
+Ledger version: 7. Date declared: 2026-09-17. Last reconciled: 2026-09-28.
 Status: P1 is complete and failed. P2 is closed as invalid incident evidence.
 P3 and its conditional all-case N32 continuation executed at source `2f906a2`;
 both archives validate, and the combined engineering gate failed. No draw count
@@ -10,7 +10,8 @@ one allowed whole-draw failure per source/action, and the primary compute plan
 are frozen. The 20-block development-tuning partition opened once at source
 `f848a95`, completed, validated, and is closed against regeneration. Phase D2
 produced four finite offsets. Phase D3 selected the provisional rule and
-authorized D4. The internal-check,
+authorized D4. The D4 implementation and monitor preflight are complete;
+exact-head CI must pass before execution. The internal-check,
 calibration, and reserved partitions remain unopened.
 
 ## Campaign identity
@@ -18,7 +19,7 @@ calibration, and reserved partitions remain unopened.
 ```text
 campaign: operating_decision_prospective_v1_2026_09
 procedure under development: prospective_four_action_selector_v2 with prospective uncertainty v3
-next scientific action: Phase D4 N=32 continuation for tuning blocks 0, 5, 10, and 15
+next scientific action: after exact-head CI, execute Phase D4 N=32 continuation for blocks 0, 5, 10, and 15
 reviewed source baseline: 9a21aa7
 ```
 
@@ -106,7 +107,10 @@ changed in response to its outcomes.
    finite stop/thermal/voltage/face offsets of 0.000/0.000/0.074/0.098 K.
 10. Complete D3 grid rescoring from the preserved D1/D2 evidence. D3 selected
     provisional values `(0.00, 0.00, 0.00, 0.025)` and authorized D4.
-11. Complete D4 draw-count sensitivity and D5 maps. Freeze the provisional
+11. Commit the D4 implementation and monitor preflight. The initial sandboxed
+    monitor probe was denied process-table access before scientific work; the
+    approved local retry passed. After exact-head CI, execute D4 once for
+    blocks 0, 5, 10, and 15. Then complete D5 maps and freeze the provisional
     selector before opening the internal check.
 12. Run the internal check once, then freeze selector, scenarios, endpoints,
     comparison rules, sizes, and runtime.

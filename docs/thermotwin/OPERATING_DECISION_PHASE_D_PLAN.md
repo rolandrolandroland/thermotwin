@@ -3,7 +3,8 @@
 Date: 2026-09-28. Status: historical Phase D0 v1 and the audit repair gate are
 complete. Phase D1 generated and validated the one authorized nominal
 development-tuning archive, Phase D2 produced four finite development offsets,
-and Phase D3 selected the provisional rule. Phase D4 is next. This document fixed
+and Phase D3 selected the provisional rule. The D4 implementation and memory-
+monitor preflight are complete; exact-head CI precedes execution. This document fixed
 the work sequence and numerical choices before
 `p1_development_tuning` was generated. It is not itself a scientific result or
 a calibration record. The Phase D1 evidence is recorded in the
@@ -217,6 +218,12 @@ the N=32-to-N=64 comparison passes the same gate. Refit no physics and change
 no thresholds while testing draw count. If N=32 also fails, stop Phase D and
 report that the estimator is not stable within the declared compute bound.
 There is no outcome-directed subset replacement and no N above 64.
+
+The D4 implementation is frozen in the
+[Phase D4 protocol](OPERATING_DECISION_PHASE_D4_PROTOCOL.md). Its monitor
+preflight preserved the initial sandbox permission failure and the successful
+approved retry. The scientific continuation remains unopened until exact-head
+CI passes.
 
 ## Phase D5: build the measurement maps
 

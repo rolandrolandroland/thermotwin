@@ -495,8 +495,9 @@ model-mismatch stress test, and sensor-versus-schedule discrimination study.
 The four-action prospective operating-decision experiment is active: Phase C
 and historical D0 v1 are complete, the protocol-v2 audit repair gate has
 passed, the D1 development archive is complete, D2 produced four finite
-development offsets, and D3 selected the provisional rule. Phase D4 draw-count
-sensitivity is next. Distributed-property
+development offsets, and D3 selected the provisional rule. The D4 draw-count
+sensitivity implementation and monitor preflight are complete; exact-head CI
+precedes execution. Distributed-property
 experiment selection remains part of Milestone 9.**
 
 ### Goal
@@ -575,7 +576,8 @@ heat-transfer parameter.
   archive without refitting and produced finite stop/thermal/voltage/face
   offsets of 0.000/0.000/0.074/0.098 K. Phase D3 selected provisional grid
   values `(0.00, 0.00, 0.00, 0.025)` from the fixed 81-rule grid without
-  refitting. Phase D4 draw-count sensitivity is next. The
+  refitting. The D4 draw-count sensitivity implementation and process-tree
+  monitor preflight are complete; exact-head CI precedes execution. The
   10-block internal check, independent calibration, and
   reserved comparison remain unopened. See
   `docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md`.

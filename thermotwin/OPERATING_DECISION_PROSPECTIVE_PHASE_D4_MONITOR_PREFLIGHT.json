@@ -1,0 +1,31 @@
+{
+  "attempts": [
+    {
+      "error_message": "[Errno 1] Operation not permitted: 'ps'",
+      "error_type": "PermissionError",
+      "execution_environment": "workspace_sandbox",
+      "result": "failed_before_scientific_work"
+    },
+    {
+      "child_exit_code": 0,
+      "direct_peak_rss_bytes": 63963136,
+      "direct_sample_count": 10,
+      "execution_environment": "approved_local_process_table_access",
+      "process_tree_peak_rss_bytes": 64012288,
+      "process_tree_sample_count": 14,
+      "result": "passed",
+      "sampling_error": null
+    }
+  ],
+  "authorization": {
+    "phase_d4_may_run_with_process_table_access": true,
+    "synchronous_recheck_required_immediately_before_computation": true
+  },
+  "date": "2026-09-28",
+  "preflight_source_revision": "6848a74b9030792d5b01df35c4be38ca24a60629",
+  "protocol_version": "phase_d4_process_tree_monitor_preflight_v1",
+  "schema_version": 1,
+  "scientific_evidence_generated": false,
+  "scientific_use": "permission_and_observability_preflight_only",
+  "status": "passed_after_required_process_table_permission"
+}
