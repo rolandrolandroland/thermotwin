@@ -264,8 +264,11 @@ repeated replacement computation, full local exact-head suite, and hosted
 exact-head CI pass. The repair gate is complete as recorded in the
 [Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md). The one authorized
 20-block Phase D1 archive is now complete and validated as recorded in the
-[Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md). Phase D may next run
-the predeclared D2 offset analysis on that immutable archive. Proceed through the remaining phases under the
+[Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md). The predeclared D2
+analysis then produced four finite offsets and authorized Phase D3, as recorded
+in the [Phase D2 result](OPERATING_DECISION_PHASE_D2_RESULT.md). Phase D may
+next rescore the fixed 81-rule grid from the same archive without refitting.
+Proceed through the remaining phases under the
 decision rules above; settle and record all numerical defaults before opening
 the data they govern.
 

@@ -569,8 +569,10 @@ heat-transfer parameter.
   passing P4 pilot. The versioned Phase D repair rehearsal, repeatability
   comparison, whole-workflow resource check, and full local exact-head suite
   pass, as does hosted exact-head CI. The one authorized 20-block Phase D1
-  tuning archive is complete and validated, with truth analysis explicitly
-  unperformed. The 10-block internal check, independent calibration, and
+  tuning archive is complete and validated. Phase D2 replayed that immutable
+  archive without refitting and produced finite stop/thermal/voltage/face
+  offsets of 0.000/0.000/0.074/0.098 K. Phase D3 grid rescoring is next. The
+  10-block internal check, independent calibration, and
   reserved comparison remain unopened. See
   `docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md`.
 

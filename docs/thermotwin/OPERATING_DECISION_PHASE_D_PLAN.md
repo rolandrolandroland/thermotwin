@@ -2,11 +2,14 @@
 
 Date: 2026-09-28. Status: historical Phase D0 v1 and the audit repair gate are
 complete. Phase D1 generated and validated the one authorized nominal
-development-tuning archive; Phase D2 truth analysis has not started. This
-document fixed the work sequence and numerical choices before
+development-tuning archive, and Phase D2 produced four finite development
+offsets from that immutable evidence. Phase D3 is next. This document fixed
+the work sequence and numerical choices before
 `p1_development_tuning` was generated. It is not itself a scientific result or
 a calibration record. The Phase D1 evidence is recorded in the
-[Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md). The historical implementation and rehearsal remain in the
+[Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md), and its offset
+analysis is recorded in the
+[Phase D2 result](OPERATING_DECISION_PHASE_D2_RESULT.md). The historical implementation and rehearsal remain in the
 [Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md); the superseding repair
 gate is tracked in [the audit repair record](THERMOTWIN_AUDIT_REPAIR_RECORD_2026_09_27.md).
 
@@ -129,6 +132,12 @@ is estimated; those strata are reported separately.
 These offsets are development heuristics for action selection. They are not
 the independent Phase E calibration correction and cannot be described as a
 coverage guarantee.
+
+Phase D2 completed at source `ed45041`. The four 18th-order statistics were
+0.000000 K for stop, 0.000000 K for thermal, 0.073056 K for voltage, and
+0.097166 K for face temperature. Upward rounding produced offsets of 0.000,
+0.000, 0.074, and 0.098 K, respectively. All were finite, so Phase D3 is
+authorized. See the [Phase D2 result](OPERATING_DECISION_PHASE_D2_RESULT.md).
 
 ## Phase D3: select one rule from a fixed grid
 
@@ -320,10 +329,13 @@ Phase D is complete only when the repository contains:
 
 ## Execution order and stopping points
 
-The complete protocol-v2 repair gate and Phase D1 archive capture have passed,
+The complete protocol-v2 repair gate, Phase D1 archive capture, and Phase D2
+finite-offset gate have passed,
 as recorded in the [audit repair record](THERMOTWIN_AUDIT_REPAIR_RECORD_2026_09_27.md)
-and [Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md). The tuning
-partition is closed against regeneration. The next permitted scientific action
-is Phase D2 offset estimation from the preserved archive. Then perform D3-D5,
+and [Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md). The
+[Phase D2 result](OPERATING_DECISION_PHASE_D2_RESULT.md) records the four
+offsets. The tuning partition is closed against regeneration. The next
+permitted scientific action is Phase D3 grid rescoring of the preserved
+archive. Then perform D4-D5,
 commit the locked provisional design, and only then open the internal check.
 Phase E may start only after a separate Phase D freeze commit.

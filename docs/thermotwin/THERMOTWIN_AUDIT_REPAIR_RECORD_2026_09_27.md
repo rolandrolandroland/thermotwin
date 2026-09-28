@@ -98,7 +98,9 @@ the stricter process-tree limit without reducing sample counts or draw counts.
 
 The repair gate was complete at this record's stopping point. Subsequently,
 the [Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md) captured and
-validated the one authorized `p1_development_tuning` archive. The internal
+validated the one authorized `p1_development_tuning` archive. The subsequent
+[Phase D2 result](OPERATING_DECISION_PHASE_D2_RESULT.md) replayed that archive,
+produced four finite development offsets, and authorized Phase D3. The internal
 check, independent calibration, and reserved evaluation remain closed.
 
 A first exact-head replacement-rehearsal invocation at `a1ef912` stopped in

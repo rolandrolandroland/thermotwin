@@ -1,5 +1,9 @@
 # Prospective operating-decision Phase D1 result
 
+> Subsequent status: Phase D2 completed on this preserved archive and passed
+> its finite-offset gate. See the
+> [Phase D2 result](OPERATING_DECISION_PHASE_D2_RESULT.md).
+
 Date: 2026-09-28. Status: the one authorized nominal development-tuning
 partition was generated and independently validated. Phase D2 truth analysis,
 offset estimation, rule selection, draw-count continuation, sensor-stress

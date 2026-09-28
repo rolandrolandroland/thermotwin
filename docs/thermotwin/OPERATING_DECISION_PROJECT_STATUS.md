@@ -1,6 +1,6 @@
 # Operating-decision project status
 
-Date: 2026-09-17. Last reconciled: 2026-09-27. Status: P1 failed its
+Date: 2026-09-17. Last reconciled: 2026-09-28. Status: P1 failed its
 engineering gate, P2 is preserved as an invalid archive incident, and the valid
 P4 parent/N32 continuation passed and froze N=16 plus one allowed whole-draw
 failure per source/action. Historical Phase D0 v1 passed at `a280d7f` under
@@ -11,8 +11,11 @@ identity, plus a whole-workflow resource measurement requirement. Protocol v2
 implements those corrections and selects CPython 3.10.12. Its replacement
 disposable rehearsals, repeated-computation comparison, 20-block constructed
 archive probe, and full local exact-head test suite passed. Hosted exact-head
-CI is the remaining boundary.
-Development, calibration, and reserved evidence remain unopened. See the
+CI passed. Phase D1 then generated and validated the one authorized 20-block
+development archive. Phase D2 estimated four finite offsets without refitting:
+0.000 K for stop, 0.000 K for thermal, 0.074 K for voltage, and 0.098 K for
+face temperature. Phase D3 grid rescoring is next. The internal check,
+calibration, and reserved evidence remain unopened. See the
 [Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md), historical
 [Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md), and current
 [audit repair record](THERMOTWIN_AUDIT_REPAIR_RECORD_2026_09_27.md).
@@ -182,7 +185,7 @@ the [`P4 result`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md) and
 | A — reconcile source and records | Complete through the P3 and N32 result record | Preserve every disposable artifact and version each later protocol before opening it. |
 | B — harden scientific interfaces | Complete through the archive-transport repair and P4 bounded eligibility version | Preserve the P4 source boundary and frozen evidence hashes. |
 | C — disposable compute pilot | Complete; valid P4 parent and N32 continuation passed | N=16, one-failure eligibility, and the primary compute plan are frozen. |
-| D — selector development and maps | Historical D0 v1 preserved; repair gate passed; the one Phase D1 tuning archive is complete and validated; truth analysis has not started | Run D2 offset estimation on the immutable D1 archive, then execute D3-D5 before locking the internal check. |
+| D — selector development and maps | Historical D0 v1 preserved; repair gate and Phase D1 passed; Phase D2 produced four finite offsets and authorized D3 | Rescore the fixed 81-rule grid in D3, then execute D4-D5 before locking the internal check. |
 | E — analysis freeze and calibration | Unopened | Freeze endpoints and the complete selector, then use the independent calibration partition only for the declared correction. |
 | F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
 | G/H — interpretation and closeout | Unstarted | Classify the result honestly, audit it, archive evidence, and produce the report and three figures. |
