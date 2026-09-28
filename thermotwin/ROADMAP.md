@@ -494,7 +494,8 @@ feasibility constraints, sequential campaign comparison, independent
 model-mismatch stress test, and sensor-versus-schedule discrimination study.
 The four-action prospective operating-decision experiment is active: Phase C
 and historical D0 v1 are complete, the protocol-v2 audit repair gate has
-passed, and the development partition remains unopened. Distributed-property
+passed, the D1 development archive is complete, and D2 produced four finite
+development offsets. Phase D3 grid rescoring is next. Distributed-property
 experiment selection remains part of Milestone 9.**
 
 ### Goal
