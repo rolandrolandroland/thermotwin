@@ -71,3 +71,11 @@ trigger. Phase D3 may now rescore the same authenticated D1 evidence across
 the fixed 81-rule grid without refitting. Phase D4 continuation, Phase D5
 sensor-stress generation, the internal check, independent calibration, and
 reserved evaluation remain closed.
+
+## Subsequent status
+
+Phase D3 completed at source `b0fd063` and selected the provisional grid values
+`(0.00, 0.00, 0.00, 0.025)`. The full result and its development-only
+interpretation are recorded in the
+[Phase D3 result](OPERATING_DECISION_PHASE_D3_RESULT.md). Phase D4 is the next
+authorized scientific action.

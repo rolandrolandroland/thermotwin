@@ -317,7 +317,7 @@ The prospective continuation uses the following superseding execution status:
 | Harden padded scoring, stopping, eligibility, and numerical checks | Complete through the P4 bounded eligibility rule and validated evidence. |
 | Run the 12-case disposable draw-count pilot | Complete; P4 parent and required N32 continuation passed. N=16, one allowed failure, and the primary compute plan are frozen. |
 | Repair and re-freeze the Phase D protocol | Complete. Historical D0 v1 is preserved. Protocol v2 implements the infinite-offset feasibility stop, development-adjusted decisions, timing-independent scientific identity, and CPython 3.10.12 runtime. Its repeated disposable rehearsal, representative archive probe, and local and hosted exact-head suites passed. |
-| Develop offsets, thresholds, and measurement maps | Phase D1 captured and validated the one authorized 20-block tuning archive. Phase D2 produced finite offsets of 0.000/0.000/0.074/0.098 K for stop/thermal/voltage/face and authorized D3. D3-D5 remain; the 10-block internal check is unopened. |
+| Develop offsets, thresholds, and measurement maps | Phase D1 captured and validated the one authorized 20-block tuning archive. Phase D2 produced finite offsets of 0.000/0.000/0.074/0.098 K for stop/thermal/voltage/face. Phase D3 selected provisional grid values `(0.00, 0.00, 0.00, 0.025)`. D4-D5 remain; the 10-block internal check is unopened. |
 | Freeze analysis and independently calibrate | Unopened; 100 paired blocks planned, subject to a committed pre-generation precision review. |
 | Execute the reserved comparison once | Unopened; 100 paired blocks planned, subject to the same pre-generation review. |
 | Audit, archive, report, and present | Unstarted. |

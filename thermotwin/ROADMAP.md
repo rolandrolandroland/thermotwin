@@ -494,8 +494,9 @@ feasibility constraints, sequential campaign comparison, independent
 model-mismatch stress test, and sensor-versus-schedule discrimination study.
 The four-action prospective operating-decision experiment is active: Phase C
 and historical D0 v1 are complete, the protocol-v2 audit repair gate has
-passed, the D1 development archive is complete, and D2 produced four finite
-development offsets. Phase D3 grid rescoring is next. Distributed-property
+passed, the D1 development archive is complete, D2 produced four finite
+development offsets, and D3 selected the provisional rule. Phase D4 draw-count
+sensitivity is next. Distributed-property
 experiment selection remains part of Milestone 9.**
 
 ### Goal
@@ -572,7 +573,9 @@ heat-transfer parameter.
   pass, as does hosted exact-head CI. The one authorized 20-block Phase D1
   tuning archive is complete and validated. Phase D2 replayed that immutable
   archive without refitting and produced finite stop/thermal/voltage/face
-  offsets of 0.000/0.000/0.074/0.098 K. Phase D3 grid rescoring is next. The
+  offsets of 0.000/0.000/0.074/0.098 K. Phase D3 selected provisional grid
+  values `(0.00, 0.00, 0.00, 0.025)` from the fixed 81-rule grid without
+  refitting. Phase D4 draw-count sensitivity is next. The
   10-block internal check, independent calibration, and
   reserved comparison remain unopened. See
   `docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md`.

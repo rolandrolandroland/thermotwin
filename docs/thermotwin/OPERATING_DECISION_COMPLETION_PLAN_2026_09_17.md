@@ -266,8 +266,11 @@ exact-head CI pass. The repair gate is complete as recorded in the
 20-block Phase D1 archive is now complete and validated as recorded in the
 [Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md). The predeclared D2
 analysis then produced four finite offsets and authorized Phase D3, as recorded
-in the [Phase D2 result](OPERATING_DECISION_PHASE_D2_RESULT.md). Phase D may
-next rescore the fixed 81-rule grid from the same archive without refitting.
+in the [Phase D2 result](OPERATING_DECISION_PHASE_D2_RESULT.md). Phase D3 then
+selected provisional grid values `(0.00, 0.00, 0.00, 0.025)` without refitting,
+as recorded in the [Phase D3 result](OPERATING_DECISION_PHASE_D3_RESULT.md).
+Phase D may next run the predeclared N=32 sensitivity continuation on tuning
+blocks 0, 5, 10, and 15 after the memory-monitor preflight passes.
 Proceed through the remaining phases under the
 decision rules above; settle and record all numerical defaults before opening
 the data they govern.

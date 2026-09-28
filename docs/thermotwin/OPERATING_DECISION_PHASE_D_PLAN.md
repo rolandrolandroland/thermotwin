@@ -2,14 +2,15 @@
 
 Date: 2026-09-28. Status: historical Phase D0 v1 and the audit repair gate are
 complete. Phase D1 generated and validated the one authorized nominal
-development-tuning archive, and Phase D2 produced four finite development
-offsets from that immutable evidence. Phase D3 is next. This document fixed
+development-tuning archive, Phase D2 produced four finite development offsets,
+and Phase D3 selected the provisional rule. Phase D4 is next. This document fixed
 the work sequence and numerical choices before
 `p1_development_tuning` was generated. It is not itself a scientific result or
 a calibration record. The Phase D1 evidence is recorded in the
 [Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md), and its offset
 analysis is recorded in the
-[Phase D2 result](OPERATING_DECISION_PHASE_D2_RESULT.md). The historical implementation and rehearsal remain in the
+[Phase D2 result](OPERATING_DECISION_PHASE_D2_RESULT.md). The grid result is
+recorded in the [Phase D3 result](OPERATING_DECISION_PHASE_D3_RESULT.md). The historical implementation and rehearsal remain in the
 [Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md); the superseding repair
 gate is tracked in [the audit repair record](THERMOTWIN_AUDIT_REPAIR_RECORD_2026_09_27.md).
 
@@ -184,6 +185,15 @@ overall, by truth family, by selected action, and for the one- and two-
 candidate acquisition strata. A rule that selects only one action is a valid
 development outcome.
 
+Phase D3 completed at source `b0fd063`. The selected grid values were
+`(0.00, 0.00, 0.00, 0.025)` in the declared order. Nine rows were tied before
+the lexicographic tie breaker. The selected rule made 32/60 definitive
+development decisions with no false approvals or false rejections and mean
+paired-block loss 0.6323. Stop-now made 25/60 definitive decisions with mean
+loss 0.5833, so the selector's additional coverage did not offset its resource
+cost under the development objective. See the
+[Phase D3 result](OPERATING_DECISION_PHASE_D3_RESULT.md).
+
 ## Phase D4: recheck draw-count sensitivity
 
 The sensitivity subset is fixed before tuning outcomes are seen: tuning block
@@ -308,6 +318,12 @@ machine-readable budget record before it runs. Reduce or omit secondary
 sensor-map work before weakening the primary nominal development and internal
 check.
 
+Before Phase D4 or any later long computation, synchronously test that the
+process-tree memory monitor can observe the intended worker processes and
+record its permission status. Abort before scientific computation if that
+preflight fails. Do not rerun Phase D1 to replace its missing monitor sample;
+its validated evidence remains closed against regeneration.
+
 ## Required Phase D outputs
 
 Phase D is complete only when the repository contains:
@@ -329,13 +345,15 @@ Phase D is complete only when the repository contains:
 
 ## Execution order and stopping points
 
-The complete protocol-v2 repair gate, Phase D1 archive capture, and Phase D2
-finite-offset gate have passed,
+The complete protocol-v2 repair gate, Phase D1 archive capture, Phase D2
+finite-offset gate, and Phase D3 grid selection have passed,
 as recorded in the [audit repair record](THERMOTWIN_AUDIT_REPAIR_RECORD_2026_09_27.md)
 and [Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md). The
 [Phase D2 result](OPERATING_DECISION_PHASE_D2_RESULT.md) records the four
-offsets. The tuning partition is closed against regeneration. The next
-permitted scientific action is Phase D3 grid rescoring of the preserved
-archive. Then perform D4-D5,
+offsets, and the [Phase D3 result](OPERATING_DECISION_PHASE_D3_RESULT.md)
+records the selected provisional rule. The tuning partition is closed against
+regeneration. The next permitted scientific action is the predeclared D4 N=32
+sensitivity continuation for blocks 0, 5, 10, and 15 after the memory-monitor
+preflight passes. Then perform D5,
 commit the locked provisional design, and only then open the internal check.
 Phase E may start only after a separate Phase D freeze commit.

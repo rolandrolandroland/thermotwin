@@ -1,0 +1,224 @@
+{
+  "artifact_digest": "a5eaf1fa7f9f800e1b8938cac04bcb5bcd635f242d846d36c117c94f0ef38f66",
+  "authorization": {
+    "development_internal_check_authorized": false,
+    "independent_calibration_authorized": false,
+    "phase_d4_authorized": true,
+    "phase_d4_draw_count": 32,
+    "phase_d4_monitor_preflight_required": true,
+    "phase_d4_tuning_block_indices": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "phase_d5_sensor_generation_authorized": false,
+    "reserved_evaluation_authorized": false
+  },
+  "development_objective": {
+    "block_count": 20,
+    "block_losses": [
+      {
+        "block": 0,
+        "mean_family_loss": 1.144621065228429
+      },
+      {
+        "block": 1,
+        "mean_family_loss": 0.0
+      },
+      {
+        "block": 2,
+        "mean_family_loss": 0.4333333333333334
+      },
+      {
+        "block": 3,
+        "mean_family_loss": 1.2892421304568582
+      },
+      {
+        "block": 4,
+        "mean_family_loss": 0.9111450205707157
+      },
+      {
+        "block": 5,
+        "mean_family_loss": 0.7665239553422866
+      },
+      {
+        "block": 6,
+        "mean_family_loss": 0.10000000000000002
+      },
+      {
+        "block": 7,
+        "mean_family_loss": 0.43333333333333335
+      },
+      {
+        "block": 8,
+        "mean_family_loss": 0.9559087971235248
+      },
+      {
+        "block": 9,
+        "mean_family_loss": 0.8112877318950957
+      },
+      {
+        "block": 10,
+        "mean_family_loss": 0.0
+      },
+      {
+        "block": 11,
+        "mean_family_loss": 0.6225754637901915
+      },
+      {
+        "block": 12,
+        "mean_family_loss": 0.6225754637901915
+      },
+      {
+        "block": 13,
+        "mean_family_loss": 0.43319062200895325
+      },
+      {
+        "block": 14,
+        "mean_family_loss": 0.43333333333333335
+      },
+      {
+        "block": 15,
+        "mean_family_loss": 0.9111450205707157
+      },
+      {
+        "block": 16,
+        "mean_family_loss": 0.9111450205707157
+      },
+      {
+        "block": 17,
+        "mean_family_loss": 0.4779543985617624
+      },
+      {
+        "block": 18,
+        "mean_family_loss": 0.0
+      },
+      {
+        "block": 19,
+        "mean_family_loss": 1.3892421304568583
+      }
+    ],
+    "case_count": 60,
+    "definitive_decisions": 32,
+    "false_approvals": 0,
+    "false_rejections": 0,
+    "mean_block_loss": 0.6323278410183149
+  },
+  "interpretation": "development_only_provisional_rule_not_calibration_or_reserved_evidence",
+  "phase_d1_result": {
+    "json_sha256": "d83ae0e8ed52f328bf0a2accf5419dbd3a9ae10939552a14ccc0a445a1f30a2e",
+    "path_name": "p1_development_tuning.json",
+    "protocol_digest": "8b3bfcc4b274f0cbdf556a526c299d758aa11b8a4e4154f9fc80b4e14ef2f0c5",
+    "scientific_result_digest": "efe860298104352fd0b6b35fc685e2320e6cfebd6db31fe8efc9876c509b1b5a",
+    "source_revision": "f848a9583e0b3a345971401e08047b4769edbb9c"
+  },
+  "phase_d2_result": {
+    "analysis_source_revision": "ed450411c6652a1e35a601ec8ecb9c426b761c51",
+    "json_sha256": "3b69f063de593a48af8430e94f802f43bf81dc02e0bec999b3b510ed143b0c2f",
+    "path_name": "p1_development_offsets.json",
+    "scientific_result_digest": "242aa34e72cff260c7a16efc0ce8041928bebb63eeedc5dab88be86817d61b43"
+  },
+  "phase_d3_result": {
+    "analysis_source_manifest_digest": "8377b96b7c2468206821c4abf0e7040d2cda3fc18c3afbdd8a5b603093d47a1d",
+    "analysis_source_revision": "b0fd0632a8c94ac262029aa122ca2bd9fecd9103",
+    "json_sha256": "8664fb237efba6854ed46ea600d9ad88d82117d795d108839c7a8deaeff69397",
+    "scientific_result_digest": "dd349111b64722877a27536cbe5711fcffc8e91f0a2cb6c38f7c9337f1945c1b"
+  },
+  "protocol_version": "operating_decision_phase_d3_provisional_rule_freeze_v1",
+  "schema_version": 1,
+  "selector_rule": {
+    "action_catalog_digest": "f33d938849edec6504393a4503556bc04261aaf8da811d3982f70b1a4b097993",
+    "action_order": [
+      "stop_now",
+      "fixed_thermal",
+      "fixed_voltage",
+      "fixed_face_temperature"
+    ],
+    "algorithm_version": "development-padded-stop-and-four-key-ranking-v2",
+    "development_offsets": {
+      "protocol_version": "operating_decision_development_action_offsets_v1",
+      "schema_version": 1,
+      "values": {
+        "fixed_face_temperature": 0.098,
+        "fixed_thermal": 0.0,
+        "fixed_voltage": 0.074,
+        "stop_now": 0.0
+      },
+      "version": "phase_d_finite_development_offsets_v2"
+    },
+    "minimum_expected_reduction": 0.0,
+    "minimum_utility_per_cost": 0.025,
+    "procedure_name": "prospective_four_action_selector_v2",
+    "protocol_digest": "41882d42778b69997ed07fb7d9e6d8fd423728bcef3b079cb9e61be2ce7fd2aa",
+    "protocol_version": "operating_decision_prospective_selector_v2",
+    "schema_version": 2,
+    "single_candidate_stopping_clearance": 0.0,
+    "stopping_clearance": 0.0,
+    "utility_decimal_places": 12
+  },
+  "status": "provisional_rule_selected_d4_authorized",
+  "winning_grid_values": [
+    0.0,
+    0.0,
+    0.0,
+    0.025
+  ],
+  "winning_pre_lexicographic_tie_count": 9,
+  "winning_pre_lexicographic_tied_grid_values": [
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.025
+    ],
+    [
+      0.0,
+      0.0,
+      0.01,
+      0.025
+    ],
+    [
+      0.0,
+      0.0,
+      0.025,
+      0.025
+    ],
+    [
+      0.0,
+      0.05,
+      0.0,
+      0.025
+    ],
+    [
+      0.0,
+      0.05,
+      0.01,
+      0.025
+    ],
+    [
+      0.0,
+      0.05,
+      0.025,
+      0.025
+    ],
+    [
+      0.0,
+      0.1,
+      0.0,
+      0.025
+    ],
+    [
+      0.0,
+      0.1,
+      0.01,
+      0.025
+    ],
+    [
+      0.0,
+      0.1,
+      0.025,
+      0.025
+    ]
+  ]
+}
