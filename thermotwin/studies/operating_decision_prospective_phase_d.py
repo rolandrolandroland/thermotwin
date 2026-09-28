@@ -146,6 +146,7 @@ PHASE_D_NUMERICAL_SOURCE_PATHS = tuple(
                 "thermotwin/studies/operating_decision_prospective_phase_c_freeze.py",
                 "thermotwin/studies/operating_decision_prospective_phase_d.py",
                 "thermotwin/studies/operating_decision_prospective_phase_d_resources.py",
+                "thermotwin/studies/operating_decision_prospective_phase_d_tuning.py",
                 "thermotwin/studies/operating_decision_prospective_pilot.py",
                 "thermotwin/studies/operating_decision_prospective_random_streams.py",
                 "thermotwin/studies/operating_decision_prospective_uncertainty.py",

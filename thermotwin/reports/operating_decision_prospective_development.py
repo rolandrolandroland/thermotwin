@@ -22,6 +22,13 @@ from ..studies.operating_decision_prospective_phase_d_resources import (
     ProcessTreeMonitor,
     run_constructed_resource_probe,
 )
+from ..studies.operating_decision_prospective_phase_d_tuning import (
+    phase_d_tuning_output_paths,
+    phase_d_tuning_preflight_payload,
+    run_phase_d_development_tuning,
+    save_phase_d_tuning_artifacts,
+    validate_phase_d_tuning_archive,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -124,15 +131,149 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             "archive; never creates scientific evidence"
         ),
     )
+    mode.add_argument(
+        "--preflight-development-tuning",
+        action="store_true",
+        help="validate the exact Phase D1 binding without opening the partition",
+    )
+    mode.add_argument(
+        "--execute-development-tuning",
+        action="store_true",
+        help="open or resume only the frozen twenty-block Phase D1 partition",
+    )
+    mode.add_argument(
+        "--validate-development-tuning",
+        type=Path,
+        metavar="TUNING_JSON",
+        help="validate a complete Phase D1 archive and its atomic block files",
+    )
     parser.add_argument("--json", type=Path)
     parser.add_argument("--report", type=Path)
     parser.add_argument("--hashes", type=Path)
     parser.add_argument("--resource-result", type=Path)
+    parser.add_argument("--output-directory", type=Path)
     parser.add_argument("--repository-root", type=Path, default=PROJECT_ROOT)
     arguments = parser.parse_args(argv)
 
     root = _require_project_root(arguments.repository_root)
     revision = _committed_source_revision(root)
+    if arguments.preflight_development_tuning:
+        if arguments.output_directory is None:
+            parser.error("--output-directory is required for Phase D1 preflight")
+        if any(
+            value is not None
+            for value in (
+                arguments.json,
+                arguments.report,
+                arguments.hashes,
+                arguments.resource_result,
+            )
+        ):
+            parser.error("rehearsal output paths do not apply to Phase D1 preflight")
+        payload = phase_d_tuning_preflight_payload(
+            repository_root=root,
+            source_revision=revision,
+            output_directory=arguments.output_directory,
+        )
+        print(json.dumps(payload, sort_keys=True, indent=2))
+        return
+    if arguments.validate_development_tuning is not None:
+        if arguments.output_directory is not None or any(
+            value is not None
+            for value in (
+                arguments.json,
+                arguments.report,
+                arguments.hashes,
+                arguments.resource_result,
+            )
+        ):
+            parser.error("output paths cannot be used while validating Phase D1")
+        archive_path = arguments.validate_development_tuning.expanduser().resolve()
+        payload = json.loads(archive_path.read_text(encoding="utf-8"))
+        validated = validate_phase_d_tuning_archive(
+            payload,
+            repository_root=root,
+            block_directory=archive_path.parent / "blocks",
+        )
+        if validated["source_revision"] != revision:
+            raise ValueError("Phase D1 archive was not generated at clean HEAD")
+        print("Phase D1 development-tuning archive: VALID")
+        print(f"source revision: {revision}")
+        print(f"protocol digest: {validated['protocol_digest']}")
+        print(f"scientific result digest: {validated['scientific_result_digest']}")
+        print("truth analysis status: not performed")
+        return
+    if arguments.execute_development_tuning:
+        if arguments.output_directory is None:
+            parser.error("--output-directory is required for Phase D1 execution")
+        if any(
+            value is not None
+            for value in (
+                arguments.json,
+                arguments.report,
+                arguments.hashes,
+                arguments.resource_result,
+            )
+        ):
+            parser.error("rehearsal output paths do not apply to Phase D1 execution")
+        paths = phase_d_tuning_output_paths(arguments.output_directory)
+        wall_started, cpu_started = perf_counter(), process_time()
+        with ProcessTreeMonitor() as monitor:
+            payload = run_phase_d_development_tuning(
+                repository_root=root,
+                source_revision=revision,
+                output_directory=arguments.output_directory,
+                progress=print,
+            )
+            _require_clean_head(root, revision)
+            saved = save_phase_d_tuning_artifacts(
+                payload,
+                output_directory=arguments.output_directory,
+                repository_root=root,
+            )
+        if monitor.error is not None or monitor.sample_count == 0:
+            raise RuntimeError(
+                "Phase D1 requires successful process-tree sampling: "
+                f"{monitor.error}"
+            )
+        if paths["resources"].exists():
+            raise FileExistsError(
+                f"Phase D1 resource result already exists: {paths['resources']}"
+            )
+        resource_record = {
+            "schema_version": 1,
+            "protocol_version": "operating_decision_phase_d1_resource_record_v1",
+            "partition": payload["partition"],
+            "source_revision": revision,
+            "protocol_digest": payload["protocol_digest"],
+            "scientific_result_digest": payload["scientific_result_digest"],
+            "json_sha256": saved.json_sha256,
+            "archive_size_bytes": saved.archive_size_bytes,
+            "wall_seconds": perf_counter() - wall_started,
+            "coordinator_cpu_seconds": process_time() - cpu_started,
+            "process_tree_peak_rss_bytes": monitor.peak_bytes,
+            "process_tree_sample_count": monitor.sample_count,
+            "process_tree_sampling_error": monitor.error,
+            "worker_count": 4,
+            "truth_analysis_status": "not_performed_stop_before_phase_d2",
+        }
+        paths["resources"].write_text(
+            json.dumps(resource_record, sort_keys=True, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        print(f"complete JSON: {saved.json_path}")
+        print(f"compact report: {saved.report_path}")
+        print(f"SHA-256 manifest: {saved.hash_path}")
+        print(f"resource record: {paths['resources']}")
+        print(f"archive bytes: {saved.archive_size_bytes}")
+        print(f"JSON SHA-256: {saved.json_sha256}")
+        print(f"process-tree peak RSS: {monitor.peak_bytes}")
+        print("STOP: Phase D2 truth analysis was not performed")
+        return
+    if arguments.output_directory is not None:
+        parser.error(
+            "--output-directory applies only to Phase D1 preflight or execution"
+        )
     if arguments.probe_constructed_archive is not None:
         if arguments.json is None or arguments.resource_result is None:
             parser.error(

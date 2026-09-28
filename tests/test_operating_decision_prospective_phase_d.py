@@ -5,15 +5,22 @@ import io
 import json
 import math
 from pathlib import Path
+import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
 import thermotwin.reports.operating_decision_prospective_development as phase_d_cli
 import thermotwin.studies.operating_decision_prospective_phase_d as phase_d
 import thermotwin.studies.operating_decision_prospective_phase_d_resources as phase_d_resources
+import thermotwin.studies.operating_decision_prospective_phase_d_tuning as phase_d_tuning
 from thermotwin.studies.operating_decision_prospective_pilot import (
     PROSPECTIVE_PILOT_PARTITION,
+    _failed_block_result,
     _expected_corrected_stream_manifest,
+)
+from thermotwin.studies.operating_decision_replication import (
+    CORRECTED_REPLICATION_CONFIG,
+    corrected_partition_config,
 )
 
 
@@ -181,6 +188,10 @@ class ProspectivePhaseDProtocolTests(unittest.TestCase):
             "thermotwin/studies/operating_decision_prospective_phase_d_resources.py",
             paths,
         )
+        self.assertIn(
+            "thermotwin/studies/operating_decision_prospective_phase_d_tuning.py",
+            paths,
+        )
         root = Path(__file__).resolve().parents[1]
         self.assertEqual([value for value in paths if not (root / value).is_file()], [])
 
@@ -221,8 +232,17 @@ class ProspectivePhaseDCliTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "imported source tree"):
             phase_d_cli._require_project_root(Path("/tmp"))
 
-    def test_cli_does_not_expose_a_scientific_partition_execution_mode(self):
-        with redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
+    def test_cli_exposes_only_the_authorized_tuning_partition(self):
+        with (
+            patch.object(
+                phase_d_cli,
+                "_committed_source_revision",
+                return_value="a" * 40,
+            ),
+            patch.object(phase_d_cli, "_require_project_root", return_value=Path(".")),
+            redirect_stderr(io.StringIO()),
+            self.assertRaises(SystemExit),
+        ):
             phase_d_cli.main(("--execute-development-tuning",))
 
     def test_replacement_rehearsal_requires_resource_output(self):
@@ -483,6 +503,125 @@ class ProspectivePhaseDResourceProbeTests(unittest.TestCase):
         tampered["constructed_blocks"][4]["cases"][0]["observation"] = 2.0
         with self.assertRaisesRegex(ValueError, "differs from its seed"):
             phase_d_resources.validate_constructed_resource_archive(tampered)
+
+
+class ProspectivePhaseDTuningArchiveTests(unittest.TestCase):
+    def setUp(self):
+        self.physical = corrected_partition_config(
+            phase_d_tuning.phase_d_tuning_partition(),
+            CORRECTED_REPLICATION_CONFIG,
+        )
+
+    def test_preflight_binds_only_the_unopened_tuning_partition(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(
+            phase_d_tuning,
+            "validate_executing_phase_d_runtime",
+            return_value=phase_d.phase_d_runtime_identity(),
+        ):
+            payload = phase_d_tuning.phase_d_tuning_preflight_payload(
+                repository_root=Path(__file__).resolve().parents[1],
+                source_revision="a" * 40,
+                output_directory=directory,
+            )
+        self.assertEqual(payload["partition"], "p1_development_tuning")
+        self.assertEqual(payload["block_count"], 20)
+        self.assertEqual(payload["case_count"], 60)
+        self.assertEqual(payload["worker_count"], 4)
+        self.assertFalse(payload["truth_analysis_authorized"])
+        self.assertEqual(payload["validated_existing_block_count"], 0)
+
+    def test_failed_block_envelope_round_trips_and_rejects_tampering(self):
+        block = _failed_block_result(0, RuntimeError("constructed failure"))
+        sealed, archive = phase_d_tuning.phase_d_tuning_block_archive(
+            block,
+            source_revision="a" * 40,
+            source_manifest_digest="b" * 64,
+            protocol_digest="c" * 64,
+            physical_config=self.physical,
+        )
+        self.assertEqual(json.loads(archive), sealed)
+        validated = phase_d_tuning.validate_phase_d_tuning_block_archive(
+            sealed,
+            source_revision="a" * 40,
+            source_manifest_digest="b" * 64,
+            protocol_digest="c" * 64,
+            physical_config=self.physical,
+        )
+        self.assertEqual(validated, sealed)
+        tampered = deepcopy(sealed)
+        tampered["block_result"]["cases"][0]["pipeline_failures"][0][
+            "message"
+        ] = "changed"
+        with self.assertRaises(ValueError):
+            phase_d_tuning.validate_phase_d_tuning_block_archive(
+                tampered,
+                source_revision="a" * 40,
+                source_manifest_digest="b" * 64,
+                protocol_digest="c" * 64,
+                physical_config=self.physical,
+            )
+
+    def test_tuning_block_paths_are_exact_and_bounded(self):
+        with tempfile.TemporaryDirectory() as directory:
+            self.assertEqual(
+                phase_d_tuning.phase_d_tuning_block_path(directory, 19).name,
+                "block-019.json",
+            )
+            with self.assertRaises(ValueError):
+                phase_d_tuning.phase_d_tuning_block_path(directory, 20)
+
+    def test_twenty_checkpoint_resume_builds_and_validates_final_archive(self):
+        repository_root = Path(__file__).resolve().parents[1]
+        source_revision = "a" * 40
+        manifest = phase_d_tuning.create_source_manifest(
+            repository_root,
+            phase_d.PHASE_D_NUMERICAL_SOURCE_PATHS,
+        )
+        protocol_digest = phase_d.prospective_phase_d_protocol_digest(
+            source_revision=source_revision,
+            source_manifest_digest=manifest.digest,
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            for block in range(20):
+                phase_d_tuning._atomic_save_block(
+                    phase_d_tuning.phase_d_tuning_block_path(directory, block),
+                    _failed_block_result(block, RuntimeError("fixture failure")),
+                    source_revision=source_revision,
+                    source_manifest_digest=manifest.digest,
+                    protocol_digest=protocol_digest,
+                    physical_config=self.physical,
+                )
+            with patch.object(
+                phase_d_tuning,
+                "validate_executing_phase_d_runtime",
+                return_value=phase_d.phase_d_runtime_identity(),
+            ):
+                payload = phase_d_tuning.run_phase_d_development_tuning(
+                    repository_root=repository_root,
+                    source_revision=source_revision,
+                    output_directory=directory,
+                )
+            self.assertEqual(payload["performance"]["resumed_block_count"], 20)
+            self.assertEqual(
+                payload["performance"]["computed_block_count_this_invocation"],
+                0,
+            )
+            saved = phase_d_tuning.save_phase_d_tuning_artifacts(
+                payload,
+                output_directory=directory,
+                repository_root=repository_root,
+            )
+            decoded = json.loads(saved.json_path.read_text())
+            validated = phase_d_tuning.validate_phase_d_tuning_archive(
+                decoded,
+                repository_root=repository_root,
+                block_directory=Path(directory) / "blocks",
+            )
+            self.assertEqual(validated["block_count"], 20)
+            self.assertEqual(
+                validated["truth_analysis_status"],
+                "not_performed_stop_before_phase_d2",
+            )
 
 
 if __name__ == "__main__":
