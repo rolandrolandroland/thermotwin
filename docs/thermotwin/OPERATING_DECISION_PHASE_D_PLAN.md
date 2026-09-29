@@ -3,14 +3,9 @@
 Date: 2026-09-29. Status: historical Phase D0 v1 and the audit repair gate are
 complete. Phase D1 generated and validated the one authorized nominal
 development-tuning archive, Phase D2 produced four finite development offsets,
-and Phase D3 selected the provisional rule. The first D4 execution attempt
-ended after computation at a validator boundary that incorrectly required the
-frozen D2 offsets to be zero; it saved no block or gate result. The scoped
-repair preserves the scientific design, and exact-head CI precedes the
-deterministic retry. The shared-validator repair at `528119f` failed the
-clean-clone input replay before science because it changed the sealed D1
-source manifest; the final repair restores that source and keeps the new
-validation inside D4. This document fixed
+Phase D3 selected the provisional rule, and the repaired Phase D4 execution
+passed its frozen N=16/N=32 sensitivity gate at `028fbca`. N=16 remains frozen
+and Phase D5 is authorized. This document fixed
 the work sequence and numerical choices before
 `p1_development_tuning` was generated. It is not itself a scientific result or
 a calibration record. The Phase D1 evidence is recorded in the
@@ -228,8 +223,9 @@ There is no outcome-directed subset replacement and no N above 64.
 The D4 implementation is frozen in the
 [Phase D4 protocol](OPERATING_DECISION_PHASE_D4_PROTOCOL.md). Its monitor
 preflight preserved the initial sandbox permission failure and the successful
-approved retry. The scientific continuation remains unopened until exact-head
-CI passes.
+approved retry. The exact-head execution is recorded in the
+[Phase D4 result](OPERATING_DECISION_PHASE_D4_RESULT.md): all 12 actions agreed,
+no failure occurred, and the gate passed.
 
 ## Phase D5: build the measurement maps
 
@@ -359,14 +355,14 @@ Phase D is complete only when the repository contains:
 ## Execution order and stopping points
 
 The complete protocol-v2 repair gate, Phase D1 archive capture, Phase D2
-finite-offset gate, and Phase D3 grid selection have passed,
+finite-offset gate, Phase D3 grid selection, and Phase D4 draw-count gate have passed,
 as recorded in the [audit repair record](THERMOTWIN_AUDIT_REPAIR_RECORD_2026_09_27.md)
 and [Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md). The
 [Phase D2 result](OPERATING_DECISION_PHASE_D2_RESULT.md) records the four
 offsets, and the [Phase D3 result](OPERATING_DECISION_PHASE_D3_RESULT.md)
-records the selected provisional rule. The tuning partition is closed against
-regeneration. The next permitted scientific action is the unchanged D4 N=32
-sensitivity retry for blocks 0, 5, 10, and 15 after the scoped validator repair
-passes exact-head CI. Then perform D5,
-commit the locked provisional design, and only then open the internal check.
+records the selected provisional rule. The
+[Phase D4 result](OPERATING_DECISION_PHASE_D4_RESULT.md) freezes N=16 after
+12/12 agreement with N=32. The tuning partition is closed against
+regeneration. The next permitted scientific action is D5 map construction.
+Then commit the locked provisional design and only then open the internal check.
 Phase E may start only after a separate Phase D freeze commit.

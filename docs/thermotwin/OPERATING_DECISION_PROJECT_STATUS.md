@@ -15,16 +15,11 @@ CI passed. Phase D1 then generated and validated the one authorized 20-block
 development archive. Phase D2 estimated four finite offsets without refitting:
 0.000 K for stop, 0.000 K for thermal, 0.074 K for voltage, and 0.098 K for
 face temperature. Phase D3 then selected provisional grid values
-`(0.00, 0.00, 0.00, 0.025)` from all 81 declared rows. Phase D4 draw-count
-sensitivity implementation and monitor preflight are complete. Its first
-execution attempt at `04d9194` reached post-computation validation but exposed
-a validator-scope defect: a disposable-pilot zero-offset requirement rejected
-the required D2 offsets. No block or result artifact was persisted and no gate
-outcome was observed. The repair preserves the scientific design and requires
-new exact-head CI before a deterministic retry. The first repair at `528119f`
-was rejected by clean-clone input replay before science because it changed the
-sealed D1 pilot-source path; the final repair restores that path byte-for-byte
-and confines nonzero-offset reconstruction to D4. The internal check,
+`(0.00, 0.00, 0.00, 0.025)` from all 81 declared rows. After the documented
+validator incident and scoped repair, Phase D4 executed once at `028fbca` and
+passed: all 12 N=16 actions agreed with N=32, no choice changed, and there were
+no eligibility, pipeline, selection, diagnostic, or whole-draw failures. N=16
+remains frozen and Phase D5 map construction is authorized. The internal check,
 calibration, and reserved evidence remain unopened. See the
 [Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md), historical
 [Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md), and current
@@ -195,7 +190,7 @@ the [`P4 result`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md) and
 | A — reconcile source and records | Complete through the P3 and N32 result record | Preserve every disposable artifact and version each later protocol before opening it. |
 | B — harden scientific interfaces | Complete through the archive-transport repair and P4 bounded eligibility version | Preserve the P4 source boundary and frozen evidence hashes. |
 | C — disposable compute pilot | Complete; valid P4 parent and N32 continuation passed | N=16, one-failure eligibility, and the primary compute plan are frozen. |
-| D — selector development and maps | Historical D0 v1 preserved; repair gate and D1-D2 passed; D3 selected the provisional rule; first D4 attempt ended at the invalid disposable-offset validation boundary with no saved result | Freeze and test the validator-scope repair, pass exact-head CI, retry the unchanged D4 check, then build D5 maps before locking the internal check. |
+| D — selector development and maps | Historical D0 v1 preserved; repair gate and D1-D3 passed; repaired D4 passed with 12/12 N=16/N=32 agreement | Build D5 maps and commit the locked provisional design before opening the internal check. |
 | E — analysis freeze and calibration | Unopened | Freeze endpoints and the complete selector, then use the independent calibration partition only for the declared correction. |
 | F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
 | G/H — interpretation and closeout | Unstarted | Classify the result honestly, audit it, archive evidence, and produce the report and three figures. |

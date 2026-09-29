@@ -1,9 +1,9 @@
 # Prospective operating-decision Phase D4 protocol
 
-Date: 2026-09-29. Status: the first execution attempt ended in a validator
-interface failure after computation and before any block was persisted. The
-repair is frozen here before the deterministic retry. This protocol binds the
-one authorized draw-count sensitivity continuation.
+Date: 2026-09-29. Status: complete. The repaired exact-head execution passed
+the frozen gate and is recorded in the
+[Phase D4 result](OPERATING_DECISION_PHASE_D4_RESULT.md). This protocol binds
+the one authorized draw-count sensitivity continuation.
 
 ## First execution attempt and source repair
 
@@ -30,8 +30,8 @@ and choice token. The disposable-pilot validator and its zero-offset
 requirement remain unchanged. No threshold, offset, cost, physical setting,
 stream key, block, draw count, or acceptance criterion changed. Commit
 `04d9194` and the invalid repair at `528119f` are superseded for D4 execution by
-the final repair revision. The deterministic retry requires a new clean
-exact-head source, successful input replay, and passing exact-head CI.
+the final repair revision. Clean-source input replay and exact-head CI passed
+at `028fbca`, after which the deterministic retry ran once and passed.
 
 Hosted CI at `437fd21` exposed a Python 3.11-only rounding error in the expanded
 test fixture: it recomputed historical zero-offset means instead of preserving

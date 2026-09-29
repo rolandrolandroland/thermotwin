@@ -9,15 +9,13 @@ or compute budget was frozen from P3. P4 then executed once at source
 one allowed whole-draw failure per source/action, and the primary compute plan
 are frozen. The 20-block development-tuning partition opened once at source
 `f848a95`, completed, validated, and is closed against regeneration. Phase D2
-produced four finite offsets. Phase D3 selected the provisional rule and
-authorized D4. D4 opened at `04d9194`, but a disposable-pilot-only zero-offset
-check rejected the required D2 offsets during final validation. No block or
-final artifact was saved and no D4 gate outcome was observed. The scoped
-validator repair at `528119f` was then rejected by clean-clone input replay
-before science because it changed a sealed D1 source path. The final repair
-restores the pilot source byte-for-byte, confines padded-score validation to
-D4, and must pass input replay plus exact-head CI before the unchanged
-deterministic retry. The internal-check,
+produced four finite offsets. Phase D3 selected the provisional rule. The
+first D4 attempt at `04d9194` failed at an incorrectly scoped zero-offset
+validator before persistence, and the shared repair at `528119f` was rejected
+by input replay before science. The scoped repair restored the sealed source,
+passed exact-head CI, and the one authorized D4 execution at `028fbca` then
+passed with 12/12 action agreement and no failures. N=16 remains frozen and D5
+is authorized. The internal-check,
 calibration, and reserved partitions remain unopened.
 
 ## Campaign identity
@@ -25,7 +23,7 @@ calibration, and reserved partitions remain unopened.
 ```text
 campaign: operating_decision_prospective_v1_2026_09
 procedure under development: prospective_four_action_selector_v2 with prospective uncertainty v3
-next scientific action: after repair exact-head CI, retry the unchanged Phase D4 N=32 continuation for blocks 0, 5, 10, and 15
+next scientific action: execute Phase D5 cost and sensor-quality/loading maps on the closed tuning partition
 reviewed source baseline: 9a21aa7
 ```
 
@@ -122,9 +120,11 @@ changed in response to its outcomes.
     repair at `528119f` failed clean-clone input replay before science because
     it changed a sealed D1 source path. Restore that source byte-for-byte,
     confine nonzero-offset reconstruction to D4, pass input replay and
-    exact-head CI, and retry the same deterministic D4 blocks. Then complete
-    D5 maps and freeze the provisional selector before opening the internal
-    check.
+    exact-head CI, and retry the same deterministic D4 blocks. The exact-head
+    execution at `028fbca` passed with 12/12 agreement, zero failures, and zero
+    changed-choice regret. Preserve its identities in the Phase D4 result,
+    complete D5 maps, and freeze the provisional selector before opening the
+    internal check.
 12. Run the internal check once, then freeze selector, scenarios, endpoints,
     comparison rules, sizes, and runtime.
 13. Generate independent calibration and commit a finite calibration artifact.
