@@ -17,7 +17,10 @@ from thermotwin.studies.operating_decision import (
     STOP_NOW,
     default_fixed_policies,
 )
-from thermotwin.studies.operating_decision_prospective import ProspectiveSelectorRule
+from thermotwin.studies.operating_decision_prospective import (
+    ProspectiveDevelopmentOffsets,
+    ProspectiveSelectorRule,
+)
 from thermotwin.studies.operating_decision_prospective_costs import (
     PRIMARY_PROSPECTIVE_COST_SCENARIO,
 )
@@ -533,14 +536,19 @@ def _complete_uncertainty(block, draw_count):
     return payload
 
 
-def _scorecard(complete):
+def _scorecard(complete, selector_rule=None):
     physical_config = _pilot_physical_config()
-    selector_rule = ProspectiveSelectorRule()
+    if selector_rule is None:
+        selector_rule = ProspectiveSelectorRule()
     scenario = PRIMARY_PROSPECTIVE_COST_SCENARIO
     resources = pilot._build_action_resources(physical_config, scenario)
     costs, energy_reference, time_reference = pilot._build_action_costs(
         resources,
         scenario,
+    )
+    raw_baseline = complete["action_uncertainties"][0]["uncertainty_before"]
+    padded_baseline = (
+        raw_baseline + 2.0 * selector_rule.development_offsets.stop_now
     )
     evaluations = []
     for action, cost in zip(complete["action_uncertainties"], costs):
@@ -555,22 +563,43 @@ def _scorecard(complete):
                 )
             )
         else:
+            offset = selector_rule.development_offsets.for_policy(
+                action["policy_name"]
+            )
+            source_means = []
+            for summary in action["source_summaries"]:
+                selected = [
+                    draw
+                    for draw in complete["draw_outcomes"]
+                    if draw["policy_name"] == action["policy_name"]
+                    and draw["generator_model"] == summary["generator_model"]
+                ]
+                scored = [
+                    padded_baseline
+                    if draw["failed"]
+                    else max(
+                        padded_baseline,
+                        draw["raw_after_width"] + 2.0 * offset,
+                    )
+                    if draw["initially_admissible_became_inadmissible"]
+                    else draw["raw_after_width"] + 2.0 * offset
+                    for draw in selected
+                ]
+                source_means.append(sum(scored) / len(scored))
             evaluations.append(
                 pilot.ProspectiveActionEvaluation(
                     action["policy_name"],
                     action["eligible"],
                     failure_reason=action["failure_reason"],
-                    uncertainty_before=action["uncertainty_before"],
-                    expected_uncertainty_after=action[
-                        "expected_uncertainty_after"
-                    ],
+                    uncertainty_before=padded_baseline,
+                    expected_uncertainty_after=max(source_means),
                     declared_cost=cost.declared_cost,
                     prospective_draw_count=action["prospective_draw_count"],
                     raw_uncertainty_before=action["uncertainty_before"],
                     raw_expected_uncertainty_after=action[
                         "expected_uncertainty_after"
                     ],
-                    development_offset=0.0,
+                    development_offset=offset,
                 )
             )
     protocol_digest = pilot.prospective_cost_protocol_digest(
@@ -631,12 +660,14 @@ def _scorecard(complete):
     return payload, tuple(evaluations)
 
 
-def _authenticated_prefix(complete):
-    scorecard, evaluations = _scorecard(complete)
+def _authenticated_prefix(complete, selector_rule=None):
+    if selector_rule is None:
+        selector_rule = ProspectiveSelectorRule()
+    scorecard, evaluations = _scorecard(complete, selector_rule)
     selection = pilot.select_prospective_action(
         pilot._snapshot_from_complete(complete),
         evaluations,
-        ProspectiveSelectorRule(),
+        selector_rule,
     )
     return {
         "draw_count": complete["config"]["draw_count"],
@@ -1084,6 +1115,36 @@ def _n32_blocks(parent_payload, *, failed_draws=0):
 
 
 class ProspectivePilotProtocolTests(unittest.TestCase):
+    def test_prefix_validation_scopes_nonzero_development_offsets_explicitly(self):
+        complete = _complete_uncertainty(0, 4)
+        rule = ProspectiveSelectorRule(
+            development_offsets=ProspectiveDevelopmentOffsets(
+                version="phase_d2_test_offsets_v1",
+                fixed_voltage=0.074,
+                fixed_face_temperature=0.098,
+            )
+        )
+        prefix = _authenticated_prefix(complete, rule)
+        arguments = {
+            "complete": complete,
+            "physical_config": _pilot_physical_config(),
+            "selector_rule": rule,
+            "cost_scenario": PRIMARY_PROSPECTIVE_COST_SCENARIO,
+        }
+
+        with self.assertRaisesRegex(
+            ValueError, "disposable pilot requires zero development offsets"
+        ):
+            pilot._validate_authenticated_prefix(prefix, **arguments)
+        self.assertEqual(
+            pilot._validate_authenticated_prefix(
+                prefix,
+                **arguments,
+                require_zero_development_offsets=False,
+            ),
+            prefix,
+        )
+
     def test_partition_names_and_sizes_are_exact_and_disjoint(self):
         self.assertEqual(
             pilot.PROSPECTIVE_CAMPAIGN,

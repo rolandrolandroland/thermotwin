@@ -457,6 +457,7 @@ def _validate_generated_block(
             physical_config=physical_config,
             selector_rule=selector_rule,
             cost_scenario=PRIMARY_PROSPECTIVE_COST_SCENARIO,
+            require_zero_development_offsets=False,
         )
         _validate_authenticated_prefix(
             _prefix_by_count(case, PILOT_N32_FOLLOWUP_DRAW_COUNT),
@@ -464,6 +465,7 @@ def _validate_generated_block(
             physical_config=physical_config,
             selector_rule=selector_rule,
             cost_scenario=PRIMARY_PROSPECTIVE_COST_SCENARIO,
+            require_zero_development_offsets=False,
         )
     return dict(item)
 

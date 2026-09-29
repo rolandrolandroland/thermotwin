@@ -1,6 +1,6 @@
 # Prospective operating-decision partition ledger
 
-Ledger version: 7. Date declared: 2026-09-17. Last reconciled: 2026-09-28.
+Ledger version: 8. Date declared: 2026-09-17. Last reconciled: 2026-09-29.
 Status: P1 is complete and failed. P2 is closed as invalid incident evidence.
 P3 and its conditional all-case N32 continuation executed at source `2f906a2`;
 both archives validate, and the combined engineering gate failed. No draw count
@@ -10,8 +10,11 @@ one allowed whole-draw failure per source/action, and the primary compute plan
 are frozen. The 20-block development-tuning partition opened once at source
 `f848a95`, completed, validated, and is closed against regeneration. Phase D2
 produced four finite offsets. Phase D3 selected the provisional rule and
-authorized D4. The D4 implementation and monitor preflight are complete;
-exact-head CI must pass before execution. The internal-check,
+authorized D4. D4 opened at `04d9194`, but a disposable-pilot-only zero-offset
+check rejected the required D2 offsets during final validation. No block or
+final artifact was saved and no D4 gate outcome was observed. The scoped
+validator repair must pass exact-head CI before the unchanged deterministic
+retry. The internal-check,
 calibration, and reserved partitions remain unopened.
 
 ## Campaign identity
@@ -19,7 +22,7 @@ calibration, and reserved partitions remain unopened.
 ```text
 campaign: operating_decision_prospective_v1_2026_09
 procedure under development: prospective_four_action_selector_v2 with prospective uncertainty v3
-next scientific action: after exact-head CI, execute Phase D4 N=32 continuation for blocks 0, 5, 10, and 15
+next scientific action: after repair exact-head CI, retry the unchanged Phase D4 N=32 continuation for blocks 0, 5, 10, and 15
 reviewed source baseline: 9a21aa7
 ```
 
@@ -109,9 +112,13 @@ changed in response to its outcomes.
     provisional values `(0.00, 0.00, 0.00, 0.025)` and authorized D4.
 11. Commit the D4 implementation and monitor preflight. The initial sandboxed
     monitor probe was denied process-table access before scientific work; the
-    approved local retry passed. After exact-head CI, execute D4 once for
-    blocks 0, 5, 10, and 15. Then complete D5 maps and freeze the provisional
-    selector before opening the internal check.
+    approved local retry passed. The first exact-head D4 execution at `04d9194`
+    computed its workers but failed before block persistence because the shared
+    validator applied the disposable pilot's zero-offset restriction to the
+    required D2 offsets. No gate result was exposed. Commit and test the scoped
+    validation repair, pass exact-head CI, and retry the same deterministic D4
+    blocks. Then complete D5 maps and freeze the provisional selector before
+    opening the internal check.
 12. Run the internal check once, then freeze selector, scenarios, endpoints,
     comparison rules, sizes, and runtime.
 13. Generate independent calibration and commit a finite calibration artifact.

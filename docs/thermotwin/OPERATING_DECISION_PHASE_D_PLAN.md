@@ -1,10 +1,13 @@
 # Prospective operating-decision Phase D plan
 
-Date: 2026-09-28. Status: historical Phase D0 v1 and the audit repair gate are
+Date: 2026-09-29. Status: historical Phase D0 v1 and the audit repair gate are
 complete. Phase D1 generated and validated the one authorized nominal
 development-tuning archive, Phase D2 produced four finite development offsets,
-and Phase D3 selected the provisional rule. The D4 implementation and memory-
-monitor preflight are complete; exact-head CI precedes execution. This document fixed
+and Phase D3 selected the provisional rule. The first D4 execution attempt
+ended after computation at a validator boundary that incorrectly required the
+frozen D2 offsets to be zero; it saved no block or gate result. The scoped
+repair preserves the scientific design, and exact-head CI precedes the
+deterministic retry. This document fixed
 the work sequence and numerical choices before
 `p1_development_tuning` was generated. It is not itself a scientific result or
 a calibration record. The Phase D1 evidence is recorded in the
@@ -359,8 +362,8 @@ and [Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md). The
 [Phase D2 result](OPERATING_DECISION_PHASE_D2_RESULT.md) records the four
 offsets, and the [Phase D3 result](OPERATING_DECISION_PHASE_D3_RESULT.md)
 records the selected provisional rule. The tuning partition is closed against
-regeneration. The next permitted scientific action is the predeclared D4 N=32
-sensitivity continuation for blocks 0, 5, 10, and 15 after the memory-monitor
-preflight passes. Then perform D5,
+regeneration. The next permitted scientific action is the unchanged D4 N=32
+sensitivity retry for blocks 0, 5, 10, and 15 after the scoped validator repair
+passes exact-head CI. Then perform D5,
 commit the locked provisional design, and only then open the internal check.
 Phase E may start only after a separate Phase D freeze commit.

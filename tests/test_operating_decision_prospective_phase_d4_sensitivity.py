@@ -4,7 +4,10 @@ from tempfile import TemporaryDirectory
 from unittest import TestCase, mock
 
 from thermotwin.studies.operating_decision import POLICY_NAMES, STOP_NOW
-from thermotwin.studies.operating_decision_prospective import ProspectiveSelectorRule
+from thermotwin.studies.operating_decision_prospective import (
+    ProspectiveDevelopmentOffsets,
+    ProspectiveSelectorRule,
+)
 from thermotwin.studies import operating_decision_prospective_phase_d4_sensitivity as d4
 from thermotwin.reports import operating_decision_prospective_phase_d4 as d4_cli
 
@@ -162,10 +165,25 @@ class PhaseD4SensitivityTests(TestCase):
             ),
             mock.patch.object(d4, "_validate_authenticated_prefix"),
         )
-        with patches[0], patches[1], patches[2], patches[3]:
+        with patches[0], patches[1], patches[2], patches[3] as validate_prefix:
             d4._validate_generated_block(
-                block, d1=d1, selector_rule=ProspectiveSelectorRule()
+                block,
+                d1=d1,
+                selector_rule=ProspectiveSelectorRule(
+                    development_offsets=ProspectiveDevelopmentOffsets(
+                        version="phase_d2_test_offsets_v1",
+                        fixed_voltage=0.074,
+                        fixed_face_temperature=0.098,
+                    )
+                ),
             )
+        self.assertEqual(validate_prefix.call_count, 6)
+        self.assertTrue(
+            all(
+                call.kwargs["require_zero_development_offsets"] is False
+                for call in validate_prefix.call_args_list
+            )
+        )
 
         with mock.patch.object(d4, "_validate_corrected_stream_records"), mock.patch.object(
             d4,

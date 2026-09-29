@@ -1,8 +1,29 @@
 # Prospective operating-decision Phase D4 protocol
 
-Date: 2026-09-28. Status: implementation complete; scientific execution not
-yet opened. This protocol binds the one authorized draw-count sensitivity
-continuation before its N=32 evidence is generated.
+Date: 2026-09-29. Status: the first execution attempt ended in a validator
+interface failure after computation and before any block was persisted. The
+repair is frozen here before the deterministic retry. This protocol binds the
+one authorized draw-count sensitivity continuation.
+
+## First execution attempt and source repair
+
+The exact-head implementation at `04d9194` completed its worker computation,
+then rejected the first returned block while validating its authenticated
+prefix. The shared disposable-pilot validator required every development
+offset to equal zero. That requirement is correct for the disposable pilot but
+incompatible with D4's predeclared D2 offsets of
+`0.000/0.000/0.074/0.098 K`. Validation occurred before atomic block
+persistence, so the failed attempt produced no block archive, final archive,
+gate result, or inspectable scientific outcome.
+
+The repair makes the zero-offset requirement an explicit validator scope. It
+remains enabled by default and in every disposable-pilot call. D4 alone
+disables that requirement and still reconstructs the complete scorecard,
+selector rule, offsets, protocol digest, result digest, and selection from raw
+evidence. No threshold, offset, cost, physical setting, stream key, block,
+draw count, or acceptance criterion changed. Commit `04d9194` is therefore
+superseded for D4 execution by the repair revision. The deterministic retry
+requires a new clean exact-head source and passing exact-head CI.
 
 ## Inputs and scope
 
