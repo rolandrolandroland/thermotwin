@@ -21,7 +21,10 @@ execution attempt at `04d9194` reached post-computation validation but exposed
 a validator-scope defect: a disposable-pilot zero-offset requirement rejected
 the required D2 offsets. No block or result artifact was persisted and no gate
 outcome was observed. The repair preserves the scientific design and requires
-new exact-head CI before a deterministic retry. The internal check,
+new exact-head CI before a deterministic retry. The first repair at `528119f`
+was rejected by clean-clone input replay before science because it changed the
+sealed D1 pilot-source path; the final repair restores that path byte-for-byte
+and confines nonzero-offset reconstruction to D4. The internal check,
 calibration, and reserved evidence remain unopened. See the
 [Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md), historical
 [Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md), and current

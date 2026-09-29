@@ -30,6 +30,7 @@ from thermotwin.studies.operating_decision_realism import (
 )
 from thermotwin.studies.operating_decision_replication import CorrectedPartition
 import thermotwin.studies.operating_decision_prospective_pilot as pilot
+import thermotwin.studies.operating_decision_prospective_phase_d4_sensitivity as d4
 import thermotwin.reports.operating_decision_prospective_pilot as pilot_cli
 from thermotwin.reports.operating_decision_prospective_pilot import (
     _committed_source_revision,
@@ -1137,10 +1138,11 @@ class ProspectivePilotProtocolTests(unittest.TestCase):
         ):
             pilot._validate_authenticated_prefix(prefix, **arguments)
         self.assertEqual(
-            pilot._validate_authenticated_prefix(
+            d4._validate_phase_d4_authenticated_prefix(
                 prefix,
-                **arguments,
-                require_zero_development_offsets=False,
+                complete=complete,
+                physical_config=arguments["physical_config"],
+                selector_rule=rule,
             ),
             prefix,
         )

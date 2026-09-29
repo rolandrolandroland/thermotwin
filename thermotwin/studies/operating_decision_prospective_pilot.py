@@ -2449,7 +2449,6 @@ def _validate_costed_scorecard_payload(
     physical_config: OperatingDecisionRealismConfig,
     selector_rule: ProspectiveSelectorRule,
     cost_scenario: ProspectiveCostScenario,
-    require_zero_development_offsets: bool = True,
 ) -> Tuple[object, ...]:
     keys = {
         "schema_version",
@@ -2517,11 +2516,10 @@ def _validate_costed_scorecard_payload(
     )
     if loaded_rule != selector_rule:
         raise ValueError("costed scorecard selector rule is inconsistent")
-    has_nonzero_development_offsets = any(
+    if any(
         selector_rule.development_offsets.for_policy(policy_name) != 0.0
         for policy_name in POLICY_NAMES
-    )
-    if require_zero_development_offsets and has_nonzero_development_offsets:
+    ):
         raise ValueError("the disposable pilot requires zero development offsets")
     config_payload = complete["config"]
     config = ProspectiveUncertaintyConfig(
@@ -2563,11 +2561,6 @@ def _validate_costed_scorecard_payload(
     if tuple(value["policy_name"] for value in action_uncertainties) != POLICY_NAMES:
         raise ValueError("uncertainty actions are not in canonical order")
     expected_evaluations = []
-    raw_baseline = float(action_uncertainties[0]["uncertainty_before"])
-    padded_baseline = (
-        raw_baseline + 2.0 * selector_rule.development_offsets.stop_now
-    )
-    draws = tuple(complete["draw_outcomes"])
     for uncertainty, cost in zip(action_uncertainties, expected_costs):
         policy_name = uncertainty["policy_name"]
         if policy_name == STOP_NOW:
@@ -2586,56 +2579,12 @@ def _validate_costed_scorecard_payload(
             offset = selector_rule.development_offsets.for_policy(policy_name)
             raw_before = float(uncertainty["uncertainty_before"])
             raw_after = float(uncertainty["expected_uncertainty_after"])
-            padded_after = raw_after
-            if has_nonzero_development_offsets:
-                source_means = []
-                for summary in uncertainty["source_summaries"]:
-                    selected = tuple(
-                        draw
-                        for draw in draws
-                        if draw["policy_name"] == policy_name
-                        and draw["generator_model"]
-                        == summary["generator_model"]
-                    )
-                    if len(selected) != summary["draw_count"]:
-                        raise ValueError(
-                            "costed scorecard raw draws do not match source summaries"
-                        )
-                    scored = []
-                    for draw in selected:
-                        if draw["failed"]:
-                            width = padded_baseline
-                        else:
-                            raw_width = draw["raw_after_width"]
-                            if (
-                                isinstance(raw_width, bool)
-                                or not isinstance(raw_width, (int, float))
-                                or not math.isfinite(float(raw_width))
-                                or float(raw_width) < 0.0
-                            ):
-                                raise ValueError(
-                                    "costed scorecard retained raw draw width is invalid"
-                                )
-                            width = float(raw_width) + 2.0 * offset
-                            if draw["initially_admissible_became_inadmissible"]:
-                                width = max(padded_baseline, width)
-                        scored.append(width)
-                    if not scored:
-                        raise ValueError(
-                            "nonzero development offsets need retained predictive draws"
-                        )
-                    source_means.append(statistics.fmean(scored))
-                if not source_means:
-                    raise ValueError(
-                        "eligible action has no source summaries for padded scoring"
-                    )
-                padded_after = max(source_means)
             expected_evaluations.append(
                 ProspectiveActionEvaluation(
                     policy_name=policy_name,
                     eligible=True,
-                    uncertainty_before=padded_baseline,
-                    expected_uncertainty_after=padded_after,
+                    uncertainty_before=raw_before + offset,
+                    expected_uncertainty_after=raw_after + offset,
                     declared_cost=cost.declared_cost,
                     prospective_draw_count=int(
                         uncertainty["prospective_draw_count"]
@@ -2659,7 +2608,6 @@ def _validate_authenticated_prefix(
     physical_config: OperatingDecisionRealismConfig,
     selector_rule: ProspectiveSelectorRule,
     cost_scenario: ProspectiveCostScenario,
-    require_zero_development_offsets: bool = True,
 ) -> Mapping[str, object]:
     item = _exact_mapping(
         prefix,
@@ -2706,7 +2654,6 @@ def _validate_authenticated_prefix(
         physical_config=physical_config,
         selector_rule=selector_rule,
         cost_scenario=cost_scenario,
-        require_zero_development_offsets=require_zero_development_offsets,
     )
     selection = select_prospective_action(
         _snapshot_from_complete(complete),

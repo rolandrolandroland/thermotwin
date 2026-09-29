@@ -163,7 +163,7 @@ class PhaseD4SensitivityTests(TestCase):
             mock.patch.object(
                 d4, "_derive_uncertainty_prefix_payload", side_effect=derived
             ),
-            mock.patch.object(d4, "_validate_authenticated_prefix"),
+            mock.patch.object(d4, "_validate_phase_d4_authenticated_prefix"),
         )
         with patches[0], patches[1], patches[2], patches[3] as validate_prefix:
             d4._validate_generated_block(
@@ -178,12 +178,6 @@ class PhaseD4SensitivityTests(TestCase):
                 ),
             )
         self.assertEqual(validate_prefix.call_count, 6)
-        self.assertTrue(
-            all(
-                call.kwargs["require_zero_development_offsets"] is False
-                for call in validate_prefix.call_args_list
-            )
-        )
 
         with mock.patch.object(d4, "_validate_corrected_stream_records"), mock.patch.object(
             d4,

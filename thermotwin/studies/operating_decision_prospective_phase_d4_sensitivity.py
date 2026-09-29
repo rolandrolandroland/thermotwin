@@ -17,13 +17,28 @@ from typing import Callable, Dict, Mapping, Optional, Sequence
 
 from .operating_decision import POLICY_NAMES, STOP_NOW
 from .operating_decision_prospective import (
+    prospective_action_catalog_digest,
     ProspectiveSelectorRule,
     prospective_selector_rule_from_payload,
+    prospective_selector_protocol_digest,
     prospective_selector_rule_payload,
+    select_prospective_action,
 )
 from .operating_decision_prospective_costs import (
     PRIMARY_PROSPECTIVE_COST_SCENARIO,
+    PROSPECTIVE_COST_ENERGY_CONVENTION,
+    PROSPECTIVE_COST_FORMULA,
+    PROSPECTIVE_COST_INSTRUMENTATION_CONVENTION,
+    PROSPECTIVE_COST_PROTOCOL_VERSION,
+    PROSPECTIVE_COST_SCHEMA_VERSION,
+    PROSPECTIVE_COST_TIME_CONVENTION,
+    _action_evaluation_from_payload,
+    _action_cost_payload,
+    _action_resources_payload,
+    _build_action_costs,
+    _build_action_resources,
     _scenario_payload,
+    prospective_cost_protocol_digest,
 )
 from .operating_decision_prospective_phase_d import (
     PHASE_D_HASH_DOMAIN,
@@ -32,6 +47,7 @@ from .operating_decision_prospective_phase_d import (
 )
 from .operating_decision_prospective_phase_d3_grid import (
     PHASE_D3_ANALYSIS_SOURCE_PATHS,
+    _padded_action_evaluations,
     validate_phase_d3_grid_analysis,
 )
 from .operating_decision_prospective_phase_d_tuning import (
@@ -55,7 +71,12 @@ from .operating_decision_prospective_pilot import (
     _stream_manifest_payload,
     _strict_json_value,
     _summarize_comparisons,
-    _validate_authenticated_prefix,
+    _choice_token,
+    _draw_diagnostics_from_payload,
+    _selection_payload,
+    _snapshot_from_complete,
+    _uncertainty_canonical_digest,
+    _uncertainty_summary_from_complete,
     _validate_complete_uncertainty_payload,
     _validate_corrected_stream_records,
     _validate_revision,
@@ -70,7 +91,12 @@ from .operating_decision_provenance import (
     verify_source_manifest,
 )
 from .operating_decision_random_streams import RandomStreamRegistry
+from .operating_decision_resources import NOMINAL_SELECTION_COST_PROTOCOL
 from .operating_decision_realism import STAGE3_TRUTH_CONDITIONS
+from .operating_decision_prospective_uncertainty import (
+    PROSPECTIVE_PADDED_SCORING_PROTOCOL,
+    ProspectiveUncertaintyConfig,
+)
 from .operating_decision_replication import (
     CORRECTED_REPLICATION_CONFIG,
     corrected_partition_config,
@@ -352,6 +378,183 @@ def _prefix_by_count(case: Mapping[str, object], draw_count: int) -> Mapping[str
     return matches[0]
 
 
+def _validate_phase_d4_costed_scorecard(
+    payload: object,
+    *,
+    complete: Mapping[str, object],
+    physical_config,
+    selector_rule: ProspectiveSelectorRule,
+) -> tuple:
+    """Validate one D4 scorecard under its frozen nonzero D2 offsets."""
+
+    item = _exact_mapping(
+        payload,
+        {
+            "schema_version",
+            "protocol_version",
+            "formula",
+            "padded_scoring_protocol",
+            "energy_convention",
+            "time_convention",
+            "instrumentation_convention",
+            "nominal_energy_protocol",
+            "physical_protocol_digest",
+            "uncertainty_protocol_digest",
+            "uncertainty_result_digest",
+            "action_catalog_digest",
+            "selector_protocol_digest",
+            "selector_rule",
+            "acquisition_evidence_digest",
+            "protocol_digest",
+            "result_digest",
+            "scenario",
+            "energy_reference_joules",
+            "bench_time_reference_seconds",
+            "action_resources",
+            "action_costs",
+            "action_evaluations",
+        },
+        "Phase D4 costed scorecard",
+    )
+    scenario = PRIMARY_PROSPECTIVE_COST_SCENARIO
+    expected_resources = _build_action_resources(physical_config, scenario)
+    expected_costs, expected_energy_reference, expected_time_reference = (
+        _build_action_costs(expected_resources, scenario)
+    )
+    if (
+        item["schema_version"] != PROSPECTIVE_COST_SCHEMA_VERSION
+        or item["protocol_version"] != PROSPECTIVE_COST_PROTOCOL_VERSION
+        or item["formula"] != PROSPECTIVE_COST_FORMULA
+        or item["padded_scoring_protocol"] != PROSPECTIVE_PADDED_SCORING_PROTOCOL
+        or item["energy_convention"] != PROSPECTIVE_COST_ENERGY_CONVENTION
+        or item["time_convention"] != PROSPECTIVE_COST_TIME_CONVENTION
+        or item["instrumentation_convention"]
+        != PROSPECTIVE_COST_INSTRUMENTATION_CONVENTION
+        or item["nominal_energy_protocol"] != NOMINAL_SELECTION_COST_PROTOCOL
+        or item["physical_protocol_digest"]
+        != complete["physical_protocol_digest"]
+        or item["uncertainty_protocol_digest"] != complete["protocol_digest"]
+        or item["uncertainty_result_digest"] != complete["result_digest"]
+        or item["acquisition_evidence_digest"]
+        != complete["acquisition_evidence_digest"]
+        or item["scenario"] != _scenario_payload(scenario)
+        or item["energy_reference_joules"] != expected_energy_reference
+        or item["bench_time_reference_seconds"] != expected_time_reference
+        or item["action_resources"]
+        != [_action_resources_payload(value) for value in expected_resources]
+        or item["action_costs"]
+        != [_action_cost_payload(value) for value in expected_costs]
+        or item["action_catalog_digest"] != prospective_action_catalog_digest()
+        or item["selector_protocol_digest"]
+        != prospective_selector_protocol_digest(selector_rule)
+        or prospective_selector_rule_from_payload(item["selector_rule"])
+        != selector_rule
+    ):
+        raise ValueError("Phase D4 scorecard does not match uncertainty evidence")
+    config_payload = complete["config"]
+    config = ProspectiveUncertaintyConfig(
+        draw_count=int(config_payload["draw_count"]),
+        max_unstable_draws_per_source_action=int(
+            config_payload["max_unstable_draws_per_source_action"]
+        ),
+    )
+    expected_protocol = prospective_cost_protocol_digest(
+        physical_config,
+        config,
+        scenario,
+        selector_rule,
+    )
+    if item["protocol_digest"] != expected_protocol:
+        raise ValueError("Phase D4 scorecard protocol digest is invalid")
+    material = {
+        "domain": "thermotwin.prospective_costed_scorecard",
+        "uncertainty_result_digest": complete["result_digest"],
+        "acquisition_evidence_digest": complete["acquisition_evidence_digest"],
+        "scenario": item["scenario"],
+        "selector_rule": item["selector_rule"],
+        "protocol_digest": item["protocol_digest"],
+        "energy_reference_joules": item["energy_reference_joules"],
+        "bench_time_reference_seconds": item["bench_time_reference_seconds"],
+        "action_resources": item["action_resources"],
+        "action_costs": item["action_costs"],
+        "action_evaluations": item["action_evaluations"],
+    }
+    if item["result_digest"] != _uncertainty_canonical_digest(material):
+        raise ValueError("Phase D4 scorecard result digest is invalid")
+    evaluations = item["action_evaluations"]
+    if not isinstance(evaluations, list):
+        raise ValueError("Phase D4 scorecard evaluations must be a list")
+    loaded = tuple(_action_evaluation_from_payload(value) for value in evaluations)
+    expected = _padded_action_evaluations(
+        complete,
+        item,
+        selector_rule.development_offsets,
+    )
+    if loaded != expected:
+        raise ValueError("Phase D4 scorecard evaluations do not recompute")
+    return loaded
+
+
+def _validate_phase_d4_authenticated_prefix(
+    prefix: object,
+    *,
+    complete: Mapping[str, object],
+    physical_config,
+    selector_rule: ProspectiveSelectorRule,
+) -> Mapping[str, object]:
+    item = _exact_mapping(
+        prefix,
+        {
+            "draw_count",
+            "max_unstable_draws_per_source_action",
+            "choice_token",
+            "eligibility",
+            "draw_diagnostics",
+            "selection",
+            "uncertainty_summary",
+            "costed_scorecard",
+        },
+        "Phase D4 authenticated prefix",
+    )
+    config = complete["config"]
+    if (
+        item["draw_count"] != config["draw_count"]
+        or item["max_unstable_draws_per_source_action"]
+        != config["max_unstable_draws_per_source_action"]
+    ):
+        raise ValueError("Phase D4 prefix config does not match complete evidence")
+    if item["uncertainty_summary"] != _uncertainty_summary_from_complete(complete):
+        raise ValueError("Phase D4 uncertainty summary is not authenticated")
+    expected_diagnostics = _draw_diagnostics_from_payload(complete["draw_outcomes"])
+    if item["draw_diagnostics"] != expected_diagnostics:
+        raise ValueError("Phase D4 draw diagnostics do not match raw draws")
+    expected_eligibility = {
+        action["policy_name"]: {
+            "eligible": action["eligible"],
+            "failure_reason": action["failure_reason"],
+        }
+        for action in complete["action_uncertainties"]
+    }
+    if item["eligibility"] != expected_eligibility:
+        raise ValueError("Phase D4 eligibility does not match raw uncertainty")
+    evaluations = _validate_phase_d4_costed_scorecard(
+        item["costed_scorecard"],
+        complete=complete,
+        physical_config=physical_config,
+        selector_rule=selector_rule,
+    )
+    selection = select_prospective_action(
+        _snapshot_from_complete(complete),
+        evaluations,
+        selector_rule,
+    )
+    if item["selection"] != _selection_payload(selection):
+        raise ValueError("Phase D4 selection does not recompute from its scorecard")
+    if item["choice_token"] != _choice_token(selection, None):
+        raise ValueError("Phase D4 choice token does not match its selection")
+    return item
+
+
 def _validate_generated_block(
     block_result: Mapping[str, object],
     *,
@@ -451,21 +654,17 @@ def _validate_generated_block(
         )
         if derived_n16 != parent["n16_complete_uncertainty_result"]:
             raise ValueError("Phase D4 N=16 prefix differs from preserved Phase D1")
-        _validate_authenticated_prefix(
+        _validate_phase_d4_authenticated_prefix(
             _prefix_by_count(case, PILOT_GENERATED_DRAW_COUNT),
             complete=derived_n16,
             physical_config=physical_config,
             selector_rule=selector_rule,
-            cost_scenario=PRIMARY_PROSPECTIVE_COST_SCENARIO,
-            require_zero_development_offsets=False,
         )
-        _validate_authenticated_prefix(
+        _validate_phase_d4_authenticated_prefix(
             _prefix_by_count(case, PILOT_N32_FOLLOWUP_DRAW_COUNT),
             complete=complete,
             physical_config=physical_config,
             selector_rule=selector_rule,
-            cost_scenario=PRIMARY_PROSPECTIVE_COST_SCENARIO,
-            require_zero_development_offsets=False,
         )
     return dict(item)
 

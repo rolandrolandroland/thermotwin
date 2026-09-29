@@ -16,14 +16,22 @@ incompatible with D4's predeclared D2 offsets of
 persistence, so the failed attempt produced no block archive, final archive,
 gate result, or inspectable scientific outcome.
 
-The repair makes the zero-offset requirement an explicit validator scope. It
-remains enabled by default and in every disposable-pilot call. D4 alone
-disables that requirement and still reconstructs the complete scorecard,
-selector rule, offsets, protocol digest, result digest, and selection from raw
-evidence. No threshold, offset, cost, physical setting, stream key, block,
-draw count, or acceptance criterion changed. Commit `04d9194` is therefore
-superseded for D4 execution by the repair revision. The deterministic retry
-requires a new clean exact-head source and passing exact-head CI.
+The first repair at `528119f` made the zero-offset requirement an explicit
+shared-validator scope. A clean-clone input replay rejected that revision
+before science because editing the historical pilot module changed a path in
+the sealed D1 source manifest. That repair commit is superseded and must not
+execute D4.
+
+The final repair restores the historical pilot module byte-for-byte and adds a
+D4-local validator. It reconstructs the nonzero padded evaluations from raw
+draws using the already frozen D3 scoring rule, then authenticates the complete
+scorecard, selector rule, offsets, protocol digest, result digest, selection,
+and choice token. The disposable-pilot validator and its zero-offset
+requirement remain unchanged. No threshold, offset, cost, physical setting,
+stream key, block, draw count, or acceptance criterion changed. Commit
+`04d9194` and the invalid repair at `528119f` are superseded for D4 execution by
+the final repair revision. The deterministic retry requires a new clean
+exact-head source, successful input replay, and passing exact-head CI.
 
 ## Inputs and scope
 

@@ -13,8 +13,11 @@ produced four finite offsets. Phase D3 selected the provisional rule and
 authorized D4. D4 opened at `04d9194`, but a disposable-pilot-only zero-offset
 check rejected the required D2 offsets during final validation. No block or
 final artifact was saved and no D4 gate outcome was observed. The scoped
-validator repair must pass exact-head CI before the unchanged deterministic
-retry. The internal-check,
+validator repair at `528119f` was then rejected by clean-clone input replay
+before science because it changed a sealed D1 source path. The final repair
+restores the pilot source byte-for-byte, confines padded-score validation to
+D4, and must pass input replay plus exact-head CI before the unchanged
+deterministic retry. The internal-check,
 calibration, and reserved partitions remain unopened.
 
 ## Campaign identity
@@ -115,10 +118,13 @@ changed in response to its outcomes.
     approved local retry passed. The first exact-head D4 execution at `04d9194`
     computed its workers but failed before block persistence because the shared
     validator applied the disposable pilot's zero-offset restriction to the
-    required D2 offsets. No gate result was exposed. Commit and test the scoped
-    validation repair, pass exact-head CI, and retry the same deterministic D4
-    blocks. Then complete D5 maps and freeze the provisional selector before
-    opening the internal check.
+    required D2 offsets. No gate result was exposed. The shared-validator
+    repair at `528119f` failed clean-clone input replay before science because
+    it changed a sealed D1 source path. Restore that source byte-for-byte,
+    confine nonzero-offset reconstruction to D4, pass input replay and
+    exact-head CI, and retry the same deterministic D4 blocks. Then complete
+    D5 maps and freeze the provisional selector before opening the internal
+    check.
 12. Run the internal check once, then freeze selector, scenarios, endpoints,
     comparison rules, sizes, and runtime.
 13. Generate independent calibration and commit a finite calibration artifact.

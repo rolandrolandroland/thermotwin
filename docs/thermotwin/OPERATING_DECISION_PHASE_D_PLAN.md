@@ -7,7 +7,10 @@ and Phase D3 selected the provisional rule. The first D4 execution attempt
 ended after computation at a validator boundary that incorrectly required the
 frozen D2 offsets to be zero; it saved no block or gate result. The scoped
 repair preserves the scientific design, and exact-head CI precedes the
-deterministic retry. This document fixed
+deterministic retry. The shared-validator repair at `528119f` failed the
+clean-clone input replay before science because it changed the sealed D1
+source manifest; the final repair restores that source and keeps the new
+validation inside D4. This document fixed
 the work sequence and numerical choices before
 `p1_development_tuning` was generated. It is not itself a scientific result or
 a calibration record. The Phase D1 evidence is recorded in the
