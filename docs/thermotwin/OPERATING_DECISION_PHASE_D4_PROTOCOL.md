@@ -33,6 +33,13 @@ stream key, block, draw count, or acceptance criterion changed. Commit
 the final repair revision. The deterministic retry requires a new clean
 exact-head source, successful input replay, and passing exact-head CI.
 
+Hosted CI at `437fd21` exposed a Python 3.11-only rounding error in the expanded
+test fixture: it recomputed historical zero-offset means instead of preserving
+their exact authenticated raw values. Production validation was not implicated
+and no science ran. The fixture repair retains its original exact zero-offset
+path and exercises raw-draw recomputation only for the new nonzero-offset D4
+regression.
+
 ## Inputs and scope
 
 Phase D4 uses the preserved Phase D1 tuning evidence, the validated Phase D3

@@ -551,6 +551,10 @@ def _scorecard(complete, selector_rule=None):
     padded_baseline = (
         raw_baseline + 2.0 * selector_rule.development_offsets.stop_now
     )
+    has_nonzero_offsets = any(
+        selector_rule.development_offsets.for_policy(policy_name) != 0.0
+        for policy_name in POLICY_NAMES
+    )
     evaluations = []
     for action, cost in zip(complete["action_uncertainties"], costs):
         if action["policy_name"] == STOP_NOW:
@@ -567,33 +571,40 @@ def _scorecard(complete, selector_rule=None):
             offset = selector_rule.development_offsets.for_policy(
                 action["policy_name"]
             )
-            source_means = []
-            for summary in action["source_summaries"]:
-                selected = [
-                    draw
-                    for draw in complete["draw_outcomes"]
-                    if draw["policy_name"] == action["policy_name"]
-                    and draw["generator_model"] == summary["generator_model"]
-                ]
-                scored = [
-                    padded_baseline
-                    if draw["failed"]
-                    else max(
-                        padded_baseline,
-                        draw["raw_after_width"] + 2.0 * offset,
-                    )
-                    if draw["initially_admissible_became_inadmissible"]
-                    else draw["raw_after_width"] + 2.0 * offset
-                    for draw in selected
-                ]
-                source_means.append(sum(scored) / len(scored))
+            expected_after = action["expected_uncertainty_after"]
+            if has_nonzero_offsets:
+                source_means = []
+                for summary in action["source_summaries"]:
+                    selected = [
+                        draw
+                        for draw in complete["draw_outcomes"]
+                        if draw["policy_name"] == action["policy_name"]
+                        and draw["generator_model"] == summary["generator_model"]
+                    ]
+                    scored = [
+                        padded_baseline
+                        if draw["failed"]
+                        else max(
+                            padded_baseline,
+                            draw["raw_after_width"] + 2.0 * offset,
+                        )
+                        if draw["initially_admissible_became_inadmissible"]
+                        else draw["raw_after_width"] + 2.0 * offset
+                        for draw in selected
+                    ]
+                    source_means.append(sum(scored) / len(scored))
+                expected_after = max(source_means)
             evaluations.append(
                 pilot.ProspectiveActionEvaluation(
                     action["policy_name"],
                     action["eligible"],
                     failure_reason=action["failure_reason"],
-                    uncertainty_before=padded_baseline,
-                    expected_uncertainty_after=max(source_means),
+                    uncertainty_before=(
+                        padded_baseline
+                        if has_nonzero_offsets
+                        else action["uncertainty_before"]
+                    ),
+                    expected_uncertainty_after=expected_after,
                     declared_cost=cost.declared_cost,
                     prospective_draw_count=action["prospective_draw_count"],
                     raw_uncertainty_before=action["uncertainty_before"],
@@ -1116,6 +1127,25 @@ def _n32_blocks(parent_payload, *, failed_draws=0):
 
 
 class ProspectivePilotProtocolTests(unittest.TestCase):
+    def test_zero_offset_scorecard_fixture_preserves_raw_widths_exactly(self):
+        complete = _complete_uncertainty(0, 4)
+        _, evaluations = _scorecard(complete)
+        raw = {
+            action["policy_name"]: action
+            for action in complete["action_uncertainties"]
+        }
+        for evaluation in evaluations:
+            if evaluation.policy_name == STOP_NOW or not evaluation.eligible:
+                continue
+            self.assertEqual(
+                evaluation.uncertainty_before,
+                raw[evaluation.policy_name]["uncertainty_before"],
+            )
+            self.assertEqual(
+                evaluation.expected_uncertainty_after,
+                raw[evaluation.policy_name]["expected_uncertainty_after"],
+            )
+
     def test_prefix_validation_scopes_nonzero_development_offsets_explicitly(self):
         complete = _complete_uncertainty(0, 4)
         rule = ProspectiveSelectorRule(
