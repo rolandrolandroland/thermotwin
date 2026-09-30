@@ -23,7 +23,7 @@ calibration, and reserved partitions remain unopened.
 ```text
 campaign: operating_decision_prospective_v1_2026_09
 procedure under development: prospective_four_action_selector_v2 with prospective uncertainty v3
-next scientific action: execute Phase D5 cost and sensor-quality/loading maps on the closed tuning partition
+next scientific action: after exact-head CI, execute the frozen Phase D5 cost and sensor-quality/loading maps on the closed tuning partition
 reviewed source baseline: 9a21aa7
 ```
 

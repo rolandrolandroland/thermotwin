@@ -229,6 +229,11 @@ no failure occurred, and the gate passed.
 
 ## Phase D5: build the measurement maps
 
+The executable design, exact map classifications, persistence rules, and
+validation boundary are frozen in the
+[Phase D5 protocol](OPERATING_DECISION_PHASE_D5_PROTOCOL.md). Exact-head CI
+must pass before the three stress scenarios execute.
+
 ### Cost map
 
 Use the existing authenticated nominal predictions to evaluate all 12 frozen

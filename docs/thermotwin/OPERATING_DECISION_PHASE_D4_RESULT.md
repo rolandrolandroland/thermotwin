@@ -54,7 +54,9 @@ predeclared development subset within the declared N=16 versus N=32 test. It
 does not estimate decision accuracy, calibration, or performance on new
 devices.
 
-The next permitted scientific action is Phase D5. Cost-only maps may rescore
+The next permitted scientific action is Phase D5, whose executable design is
+frozen in the [Phase D5 protocol](OPERATING_DECISION_PHASE_D5_PROTOCOL.md).
+Cost-only maps may rescore
 the preserved nominal evidence without simulation. The three sensor-stress
 maps must use their frozen physical scenarios on the same closed tuning
 partition. The internal-check, calibration, and reserved partitions remain
