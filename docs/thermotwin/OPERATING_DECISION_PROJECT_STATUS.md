@@ -1,6 +1,6 @@
 # Operating-decision project status
 
-Date: 2026-09-17. Last reconciled: 2026-09-29. Status: P1 failed its
+Date: 2026-09-17. Last reconciled: 2026-10-02. Status: P1 failed its
 engineering gate, P2 is preserved as an invalid archive incident, and the valid
 P4 parent/N32 continuation passed and froze N=16 plus one allowed whole-draw
 failure per source/action. Historical Phase D0 v1 passed at `a280d7f` under
@@ -19,11 +19,12 @@ face temperature. Phase D3 then selected provisional grid values
 validator incident and scoped repair, Phase D4 executed once at `028fbca` and
 passed: all 12 N=16 actions agreed with N=32, no choice changed, and there were
 no eligibility, pipeline, selection, diagnostic, or whole-draw failures. N=16
-remains frozen and Phase D5 map construction is authorized. The Phase D5
-implementation and protocol now bind the 48 map cells, three sequential
-stress replays, resumable block archives, and exact failure categories;
-exact-head CI must pass before execution. The internal check,
-calibration, and reserved evidence remain unopened. See the
+remains frozen. Phase D5 then completed all 48 declared map cells at clean
+source `72e711b`, with no selection, verification, or pipeline failures. The
+primary nominal cell retained 32/60 definitive decisions and selected stop,
+thermal, voltage, and face temperature in 34/16/5/5 cases. The complete
+provisional design is now frozen. The 10-block internal check is authorized
+but unopened; calibration and reserved evidence remain unopened. See the
 [Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md), historical
 [Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md), and current
 [audit repair record](THERMOTWIN_AUDIT_REPAIR_RECORD_2026_09_27.md).
@@ -186,6 +187,28 @@ allowance, four-worker execution, and the measured primary compute plan. See
 the [`P4 result`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md) and
 [`P4 protocol`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_PROTOCOL.md).
 
+### Phase D development through D5
+
+The repaired Phase D protocol generated the one authorized 20-block tuning
+archive, fitted finite development offsets, evaluated the fixed 81-rule grid,
+and selected provisional values `(0.00, 0.00, 0.00, 0.025)`. The D4 subset
+then retained 12/12 selected-action agreement from N=16 to N=32.
+
+D5 completed the 12 cost cells under nominal sensing and the same 12 cells
+under high voltage noise, high face noise, and high probe loading. Across all
+48 cells, stop selections ranged from 29 to 42, thermal from 8 to 31, voltage
+from 0 to 10, and face temperature from 0 to 6. Definitive decisions ranged
+from 28 to 32 of 60. There were no selection, verification, or pipeline
+failures. High probe loading made the face action ineligible in one case; that
+case remains in every affected denominator. The
+[D5 result](OPERATING_DECISION_PHASE_D5_RESULT.md) records the complete
+identities, map summary, resource record, and interpretation.
+
+The machine-readable provisional freeze binds the D1-D5 evidence chain and
+authorizes only `p1_development_internal_check`. This remains development
+evidence. It does not establish calibrated risk, transfer, superiority over a
+fixed policy, or hardware validity.
+
 ## What remains
 
 | Phase | Status | Required result before advancing |
@@ -193,7 +216,7 @@ the [`P4 result`](OPERATING_DECISION_PROSPECTIVE_PILOT_V4_RESULT.md) and
 | A — reconcile source and records | Complete through the P3 and N32 result record | Preserve every disposable artifact and version each later protocol before opening it. |
 | B — harden scientific interfaces | Complete through the archive-transport repair and P4 bounded eligibility version | Preserve the P4 source boundary and frozen evidence hashes. |
 | C — disposable compute pilot | Complete; valid P4 parent and N32 continuation passed | N=16, one-failure eligibility, and the primary compute plan are frozen. |
-| D — selector development and maps | Historical D0 v1 preserved; repair gate and D1-D3 passed; repaired D4 passed with 12/12 N=16/N=32 agreement; D5 implementation and protocol prepared | Pass exact-head CI, execute and validate all 48 D5 map cells, then commit the locked provisional design before opening the internal check. |
+| D — selector development and maps | D1-D5 complete; D4 passed with 12/12 N=16/N=32 agreement; all 48 D5 cells validated; provisional design frozen | Commit the Phase D6 execution and analysis protocol, then run the authorized 10-block internal check once. |
 | E — analysis freeze and calibration | Unopened | Freeze endpoints and the complete selector, then use the independent calibration partition only for the declared correction. |
 | F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
 | G/H — interpretation and closeout | Unstarted | Classify the result honestly, audit it, archive evidence, and produce the report and three figures. |
@@ -231,9 +254,12 @@ CPython 3.10.12, validated after save/load, and retained identical scientific
 digests despite timing differences. The representative archive probe and full
 local and hosted exact-head suites also pass. The
 [Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md) records the complete
-20-block archive and the required stop before truth analysis. Regeneration of
-the tuning partition, internal check, calibration, and reserved generation
-remain prohibited.
+20-block archive and the required stop before truth analysis. The
+[Phase D5 result](OPERATING_DECISION_PHASE_D5_RESULT.md) records the complete
+map and provisional freeze. Regeneration of the tuning partition remains
+prohibited. The internal check may open only after its D6 execution and
+analysis protocol is committed; calibration and reserved generation remain
+prohibited.
 
 ## Evidence and runtime boundaries
 

@@ -17,3 +17,7 @@ thermotwin/notes/
 /thermotwin/OPERATING_DECISION_CORRECTED_GUARD_CALIBRATION_DIAGNOSTICS.json
 /thermotwin/OPERATING_DECISION_CORRECTED_FINAL_DIAGNOSTICS.json
 /.artifacts/operating-decision/
+
+# Generated research and presentation bundles are local working products.
+# Files already tracked under this directory remain tracked by Git.
+/reports/

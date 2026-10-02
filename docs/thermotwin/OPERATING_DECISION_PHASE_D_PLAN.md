@@ -1,11 +1,12 @@
 # Prospective operating-decision Phase D plan
 
-Date: 2026-09-29. Status: historical Phase D0 v1 and the audit repair gate are
+Date: 2026-09-29. Last reconciled: 2026-10-02. Status: historical Phase D0 v1 and the audit repair gate are
 complete. Phase D1 generated and validated the one authorized nominal
 development-tuning archive, Phase D2 produced four finite development offsets,
 Phase D3 selected the provisional rule, and the repaired Phase D4 execution
 passed its frozen N=16/N=32 sensitivity gate at `028fbca`. N=16 remains frozen
-and Phase D5 is authorized. This document fixed
+and Phase D5 completed all 48 declared map cells at `72e711b`. The provisional
+design is frozen and the Phase D6 internal check is authorized. This document fixed
 the work sequence and numerical choices before
 `p1_development_tuning` was generated. It is not itself a scientific result or
 a calibration record. The Phase D1 evidence is recorded in the
@@ -367,7 +368,10 @@ and [Phase D1 result](OPERATING_DECISION_PHASE_D1_RESULT.md). The
 offsets, and the [Phase D3 result](OPERATING_DECISION_PHASE_D3_RESULT.md)
 records the selected provisional rule. The
 [Phase D4 result](OPERATING_DECISION_PHASE_D4_RESULT.md) freezes N=16 after
-12/12 agreement with N=32. The tuning partition is closed against
-regeneration. The next permitted scientific action is D5 map construction.
-Then commit the locked provisional design and only then open the internal check.
-Phase E may start only after a separate Phase D freeze commit.
+12/12 agreement with N=32. The
+[Phase D5 result](OPERATING_DECISION_PHASE_D5_RESULT.md) records all 48 map
+cells and the committed provisional-design freeze. The tuning partition is
+closed against regeneration. The next permitted scientific action is to
+commit the Phase D6 execution and analysis protocol and then open the 10-block
+internal check once. Phase E may start only after D6 and the final Phase D
+freeze.

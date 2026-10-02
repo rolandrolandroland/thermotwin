@@ -1,6 +1,6 @@
 # Prospective operating-decision partition ledger
 
-Ledger version: 8. Date declared: 2026-09-17. Last reconciled: 2026-09-29.
+Ledger version: 9. Date declared: 2026-09-17. Last reconciled: 2026-10-02.
 Status: P1 is complete and failed. P2 is closed as invalid incident evidence.
 P3 and its conditional all-case N32 continuation executed at source `2f906a2`;
 both archives validate, and the combined engineering gate failed. No draw count
@@ -14,16 +14,18 @@ first D4 attempt at `04d9194` failed at an incorrectly scoped zero-offset
 validator before persistence, and the shared repair at `528119f` was rejected
 by input replay before science. The scoped repair restored the sealed source,
 passed exact-head CI, and the one authorized D4 execution at `028fbca` then
-passed with 12/12 action agreement and no failures. N=16 remains frozen and D5
-is authorized. The internal-check,
-calibration, and reserved partitions remain unopened.
+passed with 12/12 action agreement and no failures. Phase D5 then completed
+all 48 declared map cells from clean source `72e711b`; its archive validated
+and the provisional design is frozen. The 10-block internal check is now
+authorized but remains unopened. Calibration and reserved partitions remain
+unopened.
 
 ## Campaign identity
 
 ```text
 campaign: operating_decision_prospective_v1_2026_09
 procedure under development: prospective_four_action_selector_v2 with prospective uncertainty v3
-next scientific action: after exact-head CI, execute the frozen Phase D5 cost and sensor-quality/loading maps on the closed tuning partition
+next scientific action: commit the Phase D6 execution and analysis protocol, then open p1_development_internal_check once under the frozen provisional design
 reviewed source baseline: 9a21aa7
 ```
 
@@ -48,8 +50,8 @@ observations explicitly declared common by the protocol.
 | `p3_disposable_archive_roundtrip_replacement_pilot_n32_all_cases_v1` | 4 paired blocks / 12 cases at N=32, complete and valid | Compare the authenticated N=16 prefix with N=32 after the frozen trigger passed. | Choosing a subset; offset or threshold fitting; calibration; confirmatory claims; rerunning or overwriting. | Opened once at source `2f906a2`; combined gate failed because one eligibility-driven choice change had unevaluable regret. Closed. |
 | `p4_disposable_bounded_instability_pilot` | 4 paired blocks / 12 cases, complete and valid | Test authenticated `N=4/8/16` prefixes under the frozen whole-draw allowances `0/0/1`, while retaining every failed draw at the no-gain baseline. | Offset or threshold fitting; calibration; confirmatory performance claims; using P3 outcomes as validation; rerunning or overwriting. | Opened once at source `c0518f5`; N=16 triggered the continuation. Closed. |
 | `p4_disposable_bounded_instability_pilot_n32_all_cases_v1` | 4 paired blocks / 12 cases at N=32, complete and valid | Compare the authenticated N=16 prefix with N=32 under one allowed whole-draw failure per source/action. | Choosing a subset; calibration or confirmatory claims; rerunning or overwriting. | Opened once at source `c0518f5`; 12/12 agreement and the complete gate passed. Closed. |
-| `p1_development_tuning` | 20 paired blocks / 60 cases, complete and valid | Fit development action/stop offsets; choose stopping clearance, value thresholds, and exact sensor-quality scenarios from the declared grid under the P4-frozen starting rule; recheck draw-count sensitivity on the predeclared subset. | Regeneration; outcome-directed changes outside the committed grid and sensitivity rule; independent checking, final calibration, or confirmatory claims. | Opened once at source `f848a95`; D1 archive validated and closed against regeneration. D2 offsets are finite. D3-D5 may use only the preserved archive and predeclared continuations/scenarios. |
-| `p1_development_internal_check` | 10 paired blocks / 30 cases | One internal check of the design selected on `p1_development_tuning`; draw-count sensitivity on a predetermined subset. | Final calibration or reserved claims. If its labels cause a redesign, it becomes tuning evidence and a new check namespace must be declared before generation. | Tuning design and check analysis committed before reveal. |
+| `p1_development_tuning` | 20 paired blocks / 60 cases, complete and valid | Fit development action/stop offsets; choose stopping clearance, value thresholds, and exact sensor-quality scenarios from the declared grid under the P4-frozen starting rule; recheck draw-count sensitivity on the predeclared subset. | Regeneration; outcome-directed changes outside the committed grid and sensitivity rule; independent checking, final calibration, or confirmatory claims. | Opened once at source `f848a95`; D1-D5 are complete, validated, and closed against regeneration. |
+| `p1_development_internal_check` | 10 paired blocks / 30 cases, authorized and unopened | One internal check of the design selected on `p1_development_tuning`; draw-count sensitivity on a predetermined subset. | Final calibration or reserved claims. If its labels cause a redesign, it becomes tuning evidence and a new check namespace must be declared before generation. | Provisional design frozen after D5; commit the D6 execution and analysis protocol before reveal. |
 | `p1_independent_calibration` | 100 paired blocks / 300 cases | Compute only the frozen procedure-level interval correction and the same declared correction for each fixed comparator; retain failed or missing intervals as infinite scores. | Selector, offset, stop, threshold, sensor-scenario, endpoint, or sample-size tuning. | Complete design and analysis specification committed; size and calibration rank verified before generation. |
 | `p1_reserved_evaluation` | 100 paired blocks / 300 cases | One final paired comparison of the frozen selector with stop, fixed thermal, fixed voltage, and fixed face temperature in the primary scenario. | Any tuning, recalibration, favorable-case selection, or reactive sample-size extension. | Finite calibration artifact, source/environment manifests, partition identities, comparison rules, and disposable end-to-end replay committed and verified. |
 
@@ -122,13 +124,16 @@ changed in response to its outcomes.
     confine nonzero-offset reconstruction to D4, pass input replay and
     exact-head CI, and retry the same deterministic D4 blocks. The exact-head
     execution at `028fbca` passed with 12/12 agreement, zero failures, and zero
-    changed-choice regret. Preserve its identities in the Phase D4 result,
-    complete D5 maps, and freeze the provisional selector before opening the
-    internal check.
-12. Run the internal check once, then freeze selector, scenarios, endpoints,
+    changed-choice regret. Preserve its identities in the Phase D4 result
+    before D5.
+12. D5 executed from clean source `72e711b`, completed all 48 declared map
+    cells with no selection, verification, or pipeline failures, and retained
+    one face-action ineligibility under high probe loading. Preserve its
+    identities in the Phase D5 result and freeze the provisional design.
+13. Run the internal check once, then freeze selector, scenarios, endpoints,
     comparison rules, sizes, and runtime.
-13. Generate independent calibration and commit a finite calibration artifact.
-14. Verify a disposable end-to-end replay, then open reserved evaluation once.
+14. Generate independent calibration and commit a finite calibration artifact.
+15. Verify a disposable end-to-end replay, then open reserved evaluation once.
 
 The pre-P2 archive tests checked deterministic record structure, cross-record
 identities, exact stream inventory and RNG offsets, fit invariants, and interval
