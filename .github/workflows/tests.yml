@@ -15,6 +15,7 @@ jobs:
           python-version: "3.11"
           cache: pip
       - name: Install package and optional test dependencies
-        run: python -m pip install -e '.[all]'
+        # Keep the frozen package metadata unchanged; Phase E needs SciPy statistics.
+        run: python -m pip install -e '.[all]' 'scipy==1.15.3'
       - name: Run complete test suite
         run: python -m unittest discover -s tests

@@ -1,6 +1,6 @@
 # Operating-decision project status
 
-Date: 2026-09-17. Last reconciled: 2026-10-06. Status: P1 failed its
+Date: 2026-09-17. Last reconciled: 2026-10-07. Status: P1 failed its
 engineering gate, P2 is preserved as an invalid archive incident, and the valid
 P4 parent/N32 continuation passed and froze N=16 plus one allowed whole-draw
 failure per source/action. Historical Phase D0 v1 passed at `a280d7f` under
@@ -34,8 +34,10 @@ and implementation are now prepared, with a development-only precision artifact.
 The planned size remains 100 blocks per partition; the strict risk comparison
 is explicitly underpowered under the adopted simultaneous bounds. The
 committed-source CI, disposable numerical replay, resource probe, and separate
-generation gate must pass before calibration opens. Calibration and reserved
-evidence remain unopened. See the
+generation gate must pass before calibration opens. CI at `8e64cb9` failed
+because the installed `all` extra omitted SciPy; the workflow now explicitly
+installs SciPy 1.15.3 before a new committed-source CI run. The Phase E disposable
+namespace, calibration, and reserved evidence remain unopened. See the
 [Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md), historical
 [Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md), and current
 [audit repair record](THERMOTWIN_AUDIT_REPAIR_RECORD_2026_09_27.md).

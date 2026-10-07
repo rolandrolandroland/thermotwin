@@ -260,6 +260,21 @@ campaign replacement; exposed labels must not silently become tuning data.
 
 ## Remaining work
 
+### CI dependency repair — 2026-10-07
+
+The [CI run at `8e64cb9`](https://github.com/rolandrolandroland/thermotwin/actions/runs/37563413683)
+failed with two Phase E test-module import errors because SciPy was absent.
+The workflow installed `.[all]`, whose dependency declaration omitted SciPy,
+although the pinned scientific runtime already requires SciPy 1.15.3. The
+repair explicitly installs `scipy==1.15.3` in the workflow alongside `.[all]`.
+The package metadata is part of the sealed source manifest, so it remains
+byte-identical. The repair changes no numerical source, endpoint, partition,
+or pinned runtime requirement.
+
+Require a passing full CI run at the repaired source commit before executing
+the disposable replay. The declared Phase E disposable namespace was never
+opened at `8e64cb9`; calibration and reserved evidence also remain unopened.
+
 E3's disposable acceptance and generation gate precede E4's full calibration.
 After E4 validates, commit the finite correction artifact or the infeasibility
 result. Phase F then freezes the complete calibrated procedure and reserved
