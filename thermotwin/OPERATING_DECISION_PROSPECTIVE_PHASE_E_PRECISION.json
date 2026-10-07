@@ -1,0 +1,397 @@
+{
+  "artifact_digest": "c36a0daa723cc247370a60a249cf03d36b2dbd899a1d83db4cd1e132e6162ec8",
+  "limitations": [
+    "Only ten development blocks estimate the variances and rates.",
+    "Energy power assumes approximately normal independent paired block means and unchanged action selection.",
+    "Coverage/risk projections use pre-q development decisions; independent calibration may substantially reduce decision coverage.",
+    "Family-wise extrema risk bounds are deliberately conservative; zero-error risk noninferiority is not expected to be conclusive."
+  ],
+  "paired_comparisons": {
+    "fixed_face_temperature": {
+      "approximate_normal_energy_test_power_at_100_blocks": 1.0,
+      "coverage_discordances_by_family": {
+        "extra_interface_mass": {
+          "development_fixed_only": 0,
+          "development_selector_only": 2,
+          "projected_coverage_loss_upper_before_q": -0.0214007655118498
+        },
+        "matched_four_state": {
+          "development_fixed_only": 0,
+          "development_selector_only": 0,
+          "projected_coverage_loss_upper_before_q": 0.07027079917676896
+        },
+        "temperature_dependent_contact": {
+          "development_fixed_only": 0,
+          "development_selector_only": 0,
+          "projected_coverage_loss_upper_before_q": 0.07027079917676896
+        }
+      },
+      "development_block_count": 10,
+      "mean_energy_saving_joules": 20.397077600578978,
+      "paired_block_energy_savings_joules": [
+        6.813122891910548,
+        29.03015654181849,
+        28.811108267893047,
+        19.04585382725943,
+        18.85941999453632,
+        18.758844159610735,
+        28.947761032984513,
+        28.33088458142393,
+        19.04505473213564,
+        6.32856997621712
+      ],
+      "paired_block_standard_deviation_joules": 8.644421116750395,
+      "projected_coverage_loss_upper_before_q": 0.03971361094722937,
+      "projected_lower_energy_saving_at_100_blocks_joules": 17.549406545491003,
+      "projected_standard_error_at_100_blocks_joules": 0.8644421116750396
+    },
+    "fixed_thermal": {
+      "approximate_normal_energy_test_power_at_100_blocks": 1.0,
+      "coverage_discordances_by_family": {
+        "extra_interface_mass": {
+          "development_fixed_only": 0,
+          "development_selector_only": 0,
+          "projected_coverage_loss_upper_before_q": 0.07027079917676896
+        },
+        "matched_four_state": {
+          "development_fixed_only": 0,
+          "development_selector_only": 0,
+          "projected_coverage_loss_upper_before_q": 0.07027079917676896
+        },
+        "temperature_dependent_contact": {
+          "development_fixed_only": 0,
+          "development_selector_only": 3,
+          "projected_coverage_loss_upper_before_q": -0.09651675757558026
+        }
+      },
+      "development_block_count": 10,
+      "mean_energy_saving_joules": 30.31251382723503,
+      "paired_block_energy_savings_joules": [
+        17.3688774281644,
+        39.05647030756458,
+        38.698439326398386,
+        28.958830742030205,
+        28.550274383285267,
+        28.359991323716546,
+        38.81059837477776,
+        38.26279196126742,
+        28.827378325349716,
+        16.23148609979603
+      ],
+      "paired_block_standard_deviation_joules": 8.556828768910009,
+      "projected_coverage_loss_upper_before_q": 0.014674946925985885,
+      "projected_lower_energy_saving_at_100_blocks_joules": 27.493697705314172,
+      "projected_standard_error_at_100_blocks_joules": 0.8556828768910009
+    },
+    "fixed_voltage": {
+      "approximate_normal_energy_test_power_at_100_blocks": 1.0,
+      "coverage_discordances_by_family": {
+        "extra_interface_mass": {
+          "development_fixed_only": 0,
+          "development_selector_only": 2,
+          "projected_coverage_loss_upper_before_q": -0.0214007655118498
+        },
+        "matched_four_state": {
+          "development_fixed_only": 0,
+          "development_selector_only": 0,
+          "projected_coverage_loss_upper_before_q": 0.07027079917676896
+        },
+        "temperature_dependent_contact": {
+          "development_fixed_only": 0,
+          "development_selector_only": 1,
+          "projected_coverage_loss_upper_before_q": 0.041220459911114685
+        }
+      },
+      "development_block_count": 10,
+      "mean_energy_saving_joules": 20.518057096095202,
+      "paired_block_energy_savings_joules": [
+        6.912486076313148,
+        29.174338394410945,
+        28.914242503674632,
+        19.23876368010887,
+        18.947372836923545,
+        18.818669633874958,
+        29.016721537314815,
+        28.58295533565708,
+        19.14320043297504,
+        6.431820529698986
+      ],
+      "paired_block_standard_deviation_joules": 8.66097523934448,
+      "projected_coverage_loss_upper_before_q": 0.030030164525344613,
+      "projected_lower_energy_saving_at_100_blocks_joules": 17.66493273243782,
+      "projected_standard_error_at_100_blocks_joules": 0.866097523934448
+    },
+    "stop_now": {
+      "approximate_normal_energy_test_power_at_100_blocks": 5.705998884353373e-27,
+      "coverage_discordances_by_family": {
+        "extra_interface_mass": {
+          "development_fixed_only": 0,
+          "development_selector_only": 1,
+          "projected_coverage_loss_upper_before_q": 0.041220459911114685
+        },
+        "matched_four_state": {
+          "development_fixed_only": 0,
+          "development_selector_only": 0,
+          "projected_coverage_loss_upper_before_q": 0.07027079917676896
+        },
+        "temperature_dependent_contact": {
+          "development_fixed_only": 0,
+          "development_selector_only": 3,
+          "projected_coverage_loss_upper_before_q": -0.09651675757558026
+        }
+      },
+      "development_block_count": 10,
+      "mean_energy_saving_joules": -8.446296207964398,
+      "paired_block_energy_savings_joules": [
+        -24.043877423769512,
+        0.0,
+        0.0,
+        -9.505954292043825,
+        -9.452093458147461,
+        -9.390587372966039,
+        0.0,
+        0.0,
+        -9.52674386021811,
+        -22.543705672499026
+      ],
+      "paired_block_standard_deviation_joules": 9.015879375501092,
+      "projected_coverage_loss_upper_before_q": 0.0049915005041011274,
+      "projected_lower_energy_saving_at_100_blocks_joules": -11.416334153481628,
+      "projected_standard_error_at_100_blocks_joules": 0.9015879375501091
+    }
+  },
+  "phase_d_final_freeze_artifact_digest": "ecb490919a271357749101f7db7c30b98b445b522c2e39203508c3f716c137f6",
+  "precision": {
+    "compute_projection": {
+      "approximate_cpu_hours_per_100_block_partition": 169.8865962972222,
+      "calibration_block_count": 100,
+      "final_calibration_summary_indexes_raw_blocks_without_duplicating_them": true,
+      "ideal_four_worker_wall_hours": 42.47164907430555,
+      "planning_disk_budget_including_disposable_probe_bytes": 2147483648,
+      "planning_raw_block_archive_bytes": 366630220,
+      "planning_wall_hours_per_partition": [
+        43,
+        60
+      ],
+      "source": "closed Phase D6 resource record bound in final Phase D freeze",
+      "wall_projection_includes_no_claim_about_unrecorded_prior_invocations": true
+    },
+    "independent_padding_can_only_reduce_decisions_at_the_fixed_boundary": true,
+    "planned_reserved_blocks": 100,
+    "procedures": {
+      "fixed_face_temperature": {
+        "extra_interface_mass": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 175,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 903,
+          "decision_target_power_at_development_rate": 0.00040499954194373724,
+          "development_approvals": 4,
+          "development_case_count": 10,
+          "development_decisions": 7,
+          "optimistic_zero_error_risk_upper": 0.16652768513977287,
+          "projected_approvals_before_independent_padding": 40.0,
+          "projected_decision_coverage_lower_before_padding": 0.5378464627498385,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        },
+        "matched_four_state": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+          "decision_target_power_at_development_rate": 0.1285055148387972,
+          "development_approvals": 1,
+          "development_case_count": 10,
+          "development_decisions": 8,
+          "optimistic_zero_error_risk_upper": 0.5174251165910886,
+          "projected_approvals_before_independent_padding": 10.0,
+          "projected_decision_coverage_lower_before_padding": 0.6480617860301744,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        },
+        "temperature_dependent_contact": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 175,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 903,
+          "decision_target_power_at_development_rate": 0.00040499954194373724,
+          "development_approvals": 4,
+          "development_case_count": 10,
+          "development_decisions": 7,
+          "optimistic_zero_error_risk_upper": 0.16652768513977287,
+          "projected_approvals_before_independent_padding": 40.0,
+          "projected_decision_coverage_lower_before_padding": 0.5378464627498385,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        }
+      },
+      "fixed_thermal": {
+        "extra_interface_mass": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 140,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 722,
+          "decision_target_power_at_development_rate": 0.9601094728889166,
+          "development_approvals": 5,
+          "development_case_count": 10,
+          "development_decisions": 9,
+          "optimistic_zero_error_risk_upper": 0.13560361313659614,
+          "projected_approvals_before_independent_padding": 50.0,
+          "projected_decision_coverage_lower_before_padding": 0.7703052263125432,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        },
+        "matched_four_state": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+          "decision_target_power_at_development_rate": 0.1285055148387972,
+          "development_approvals": 1,
+          "development_case_count": 10,
+          "development_decisions": 8,
+          "optimistic_zero_error_risk_upper": 0.5174251165910886,
+          "projected_approvals_before_independent_padding": 10.0,
+          "projected_decision_coverage_lower_before_padding": 0.6480617860301744,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        },
+        "temperature_dependent_contact": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+          "decision_target_power_at_development_rate": 2.0145908417358367e-20,
+          "development_approvals": 1,
+          "development_case_count": 10,
+          "development_decisions": 4,
+          "optimistic_zero_error_risk_upper": 0.5174251165910886,
+          "projected_approvals_before_independent_padding": 10.0,
+          "projected_decision_coverage_lower_before_padding": 0.24997134605349108,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        }
+      },
+      "fixed_voltage": {
+        "extra_interface_mass": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 175,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 903,
+          "decision_target_power_at_development_rate": 0.00040499954194373724,
+          "development_approvals": 4,
+          "development_case_count": 10,
+          "development_decisions": 7,
+          "optimistic_zero_error_risk_upper": 0.16652768513977287,
+          "projected_approvals_before_independent_padding": 40.0,
+          "projected_decision_coverage_lower_before_padding": 0.5378464627498385,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        },
+        "matched_four_state": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+          "decision_target_power_at_development_rate": 0.1285055148387972,
+          "development_approvals": 1,
+          "development_case_count": 10,
+          "development_decisions": 8,
+          "optimistic_zero_error_risk_upper": 0.5174251165910886,
+          "projected_approvals_before_independent_padding": 10.0,
+          "projected_decision_coverage_lower_before_padding": 0.6480617860301744,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        },
+        "temperature_dependent_contact": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 175,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 903,
+          "decision_target_power_at_development_rate": 5.0731971031743904e-08,
+          "development_approvals": 4,
+          "development_case_count": 10,
+          "development_decisions": 6,
+          "optimistic_zero_error_risk_upper": 0.16652768513977287,
+          "projected_approvals_before_independent_padding": 40.0,
+          "projected_decision_coverage_lower_before_padding": 0.4355316210289065,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        }
+      },
+      "prospective_selector": {
+        "extra_interface_mass": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 140,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 722,
+          "decision_target_power_at_development_rate": 0.9601094728889166,
+          "development_approvals": 5,
+          "development_case_count": 10,
+          "development_decisions": 9,
+          "optimistic_zero_error_risk_upper": 0.13560361313659614,
+          "projected_approvals_before_independent_padding": 50.0,
+          "projected_decision_coverage_lower_before_padding": 0.7703052263125432,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        },
+        "matched_four_state": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+          "decision_target_power_at_development_rate": 0.1285055148387972,
+          "development_approvals": 1,
+          "development_case_count": 10,
+          "development_decisions": 8,
+          "optimistic_zero_error_risk_upper": 0.5174251165910886,
+          "projected_approvals_before_independent_padding": 10.0,
+          "projected_decision_coverage_lower_before_padding": 0.6480617860301744,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        },
+        "temperature_dependent_contact": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 175,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 903,
+          "decision_target_power_at_development_rate": 0.00040499954194373724,
+          "development_approvals": 4,
+          "development_case_count": 10,
+          "development_decisions": 7,
+          "optimistic_zero_error_risk_upper": 0.16652768513977287,
+          "projected_approvals_before_independent_padding": 40.0,
+          "projected_decision_coverage_lower_before_padding": 0.5378464627498385,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        }
+      },
+      "stop_now": {
+        "extra_interface_mass": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 140,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 722,
+          "decision_target_power_at_development_rate": 0.1285055148387972,
+          "development_approvals": 5,
+          "development_case_count": 10,
+          "development_decisions": 8,
+          "optimistic_zero_error_risk_upper": 0.13560361313659614,
+          "projected_approvals_before_independent_padding": 50.0,
+          "projected_decision_coverage_lower_before_padding": 0.6480617860301744,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        },
+        "matched_four_state": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+          "decision_target_power_at_development_rate": 0.1285055148387972,
+          "development_approvals": 1,
+          "development_case_count": 10,
+          "development_decisions": 8,
+          "optimistic_zero_error_risk_upper": 0.5174251165910886,
+          "projected_approvals_before_independent_padding": 10.0,
+          "projected_decision_coverage_lower_before_padding": 0.6480617860301744,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        },
+        "temperature_dependent_contact": {
+          "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+          "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+          "decision_target_power_at_development_rate": 2.0145908417358367e-20,
+          "development_approvals": 1,
+          "development_case_count": 10,
+          "development_decisions": 4,
+          "optimistic_zero_error_risk_upper": 0.5174251165910886,
+          "projected_approvals_before_independent_padding": 10.0,
+          "projected_decision_coverage_lower_before_padding": 0.24997134605349108,
+          "zero_error_approvals_needed_for_10pct_bound": 70,
+          "zero_error_approvals_needed_for_2pct_bound": 361
+        }
+      }
+    },
+    "projection_uses_only_closed_development_evidence": true,
+    "risk_comparison_not_promised_to_be_powered": true,
+    "sample_size_will_not_be_extended_after_outcomes": true,
+    "size_decision": "Retain 100 calibration and 100 reserved blocks within the reviewed compute plan. The conservative simultaneous risk bounds are expected to be inconclusive; no 2-percentage-point risk noninferiority claim is promised. Do not extend after outcomes."
+  },
+  "protocol_version": "phase_e_development_precision_v1",
+  "schema_version": 1,
+  "scientific_use": "closed_development_only_no_new_partition",
+  "source_d6_json_sha256": "79e47dce4cd0666db1e7457917769992668186cc158aa1ba44869e1aa53b7beb"
+}

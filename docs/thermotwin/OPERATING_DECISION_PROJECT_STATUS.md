@@ -29,8 +29,13 @@ approvals or rejections, zero execution failures, and no redesign trigger.
 Development-adjusted intervals covered 27/30 cases and 7/10 complete blocks;
 the one-candidate stopping group covered 4/6 intervals. The final Phase D
 freeze is committed with the [D6 result](OPERATING_DECISION_PHASE_D6_RESULT.md).
-Phase E protocol work is next; calibration and reserved evidence remain
-unopened. See the
+Phase E's [analysis and calibration protocol](OPERATING_DECISION_PHASE_E_PROTOCOL.md)
+and implementation are now prepared, with a development-only precision artifact.
+The planned size remains 100 blocks per partition; the strict risk comparison
+is explicitly underpowered under the adopted simultaneous bounds. The
+committed-source CI, disposable numerical replay, resource probe, and separate
+generation gate must pass before calibration opens. Calibration and reserved
+evidence remain unopened. See the
 [Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md), historical
 [Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md), and current
 [audit repair record](THERMOTWIN_AUDIT_REPAIR_RECORD_2026_09_27.md).
@@ -228,7 +233,7 @@ comparator metrics are recorded in the [D6 result](OPERATING_DECISION_PHASE_D6_R
 | B — harden scientific interfaces | Complete through the archive-transport repair and P4 bounded eligibility version | Preserve the P4 source boundary and frozen evidence hashes. |
 | C — disposable compute pilot | Complete; valid P4 parent and N32 continuation passed | N=16, one-failure eligibility, and the primary compute plan are frozen. |
 | D — selector development and maps | Complete through D6; 24/30 definitive decisions, zero observed errors, no redesign trigger; final design frozen | Preserve the closed development evidence and final Phase D artifact. |
-| E — analysis freeze and calibration | Protocol work authorized; evidence unopened | Freeze endpoints, comparisons, precision, sizes, and calibration design; pass tests, disposable rehearsal, and exact-head CI before generating calibration evidence. |
+| E — analysis freeze and calibration | Protocol and implementation prepared; evidence unopened | Commit the E1/E2 analysis and precision design; pass exact-source CI, disposable replay, and resource acceptance; commit the generation gate before the 100-block calibration run. |
 | F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
 | G/H — interpretation and closeout | Unstarted | Classify the result honestly, audit it, archive evidence, and produce the report and three figures. |
 

@@ -1,6 +1,6 @@
 # Prospective operating-decision partition ledger
 
-Ledger version: 10. Date declared: 2026-09-17. Last reconciled: 2026-10-06.
+Ledger version: 11. Date declared: 2026-09-17. Last reconciled: 2026-10-06.
 Status: P1 is complete and failed. P2 is closed as invalid incident evidence.
 P3 and its conditional all-case N32 continuation executed at source `2f906a2`;
 both archives validate, and the combined engineering gate failed. No draw count
@@ -19,15 +19,19 @@ all 48 declared map cells from clean source `72e711b`; its archive validated
 and the provisional design was frozen before D6. The internal check opened
 at source `75f598a`, completed all 10 blocks, and validated with no redesign
 trigger. Both development partitions are now closed against regeneration.
-The final Phase D freeze authorizes Phase E protocol work. Calibration and
-reserved partitions remain unopened.
+The final Phase D freeze authorizes Phase E protocol work. The
+[Phase E protocol](OPERATING_DECISION_PHASE_E_PROTOCOL.md) now adopts 100
+calibration and 100 reserved blocks, procedure-specific rank-96 block tolerance
+calibration, and the fixed analysis/precision design. Controlled implementation
+tests precede committed-source CI, disposable replay, resource acceptance, and
+the separate generation gate. Calibration and reserved partitions remain unopened.
 
 ## Campaign identity
 
 ```text
 campaign: operating_decision_prospective_v1_2026_09
 procedure under development: prospective_four_action_selector_v2 with prospective uncertainty v3
-next scientific action: commit the Phase E analysis, precision, calibration, and execution protocol; pass its separate gate before opening p1_independent_calibration
+next scientific action: pass Phase E's committed-source CI, disposable replay and resource gate; commit acceptance before opening p1_independent_calibration
 reviewed source baseline: 9a21aa7
 ```
 
@@ -54,12 +58,13 @@ observations explicitly declared common by the protocol.
 | `p4_disposable_bounded_instability_pilot_n32_all_cases_v1` | 4 paired blocks / 12 cases at N=32, complete and valid | Compare the authenticated N=16 prefix with N=32 under one allowed whole-draw failure per source/action. | Choosing a subset; calibration or confirmatory claims; rerunning or overwriting. | Opened once at source `c0518f5`; 12/12 agreement and the complete gate passed. Closed. |
 | `p1_development_tuning` | 20 paired blocks / 60 cases, complete and valid | Fit development action/stop offsets; choose stopping clearance, value thresholds, and exact sensor-quality scenarios from the declared grid under the P4-frozen starting rule; recheck draw-count sensitivity on the predeclared subset. | Regeneration; outcome-directed changes outside the committed grid and sensitivity rule; independent checking, final calibration, or confirmatory claims. | Opened once at source `f848a95`; D1-D5 are complete, validated, and closed against regeneration. |
 | `p1_development_internal_check` | 10 paired blocks / 30 cases, complete and valid | One internal check of the frozen provisional design; descriptive transfer and comparator metrics. | Regeneration; final calibration or reserved claims; outcome-directed retuning after the passing gate. | Opened at `75f598a` after exact-head CI; all blocks validated and no redesign trigger fired. Closed; final Phase D freeze committed. |
-| `p1_independent_calibration` | 100 paired blocks / 300 cases | Compute only the frozen procedure-level interval correction and the same declared correction for each fixed comparator; retain failed or missing intervals as infinite scores. | Selector, offset, stop, threshold, sensor-scenario, endpoint, or sample-size tuning. | Complete design and analysis specification committed; size and calibration rank verified before generation. |
+| `p0_disposable_phase_e_roundtrip_v1` | 1 paired block computed twice / 3 distinct disposable cases | Check Phase E identities, archived-byte validation, exact scientific replay, and resource use; construct a separate 100-block-sized storage fixture. | Development tuning, independent calibration, reserved inference, or treating repeated/constructed cases as additional observations. | Phase E protocol and source committed; clean pinned-runtime clone; resource sampling checked before computation. |
+| `p1_independent_calibration` | 100 paired blocks / 300 cases | Compute five procedure-specific rank-96 block tolerance corrections under the same standard; retain failed verification and missing intervals as infinite scores. | Selector, offset, stop, threshold, sensor-scenario, endpoint, or sample-size tuning. | Phase E protocol, precision review, exact-source CI, disposable replay, resource acceptance, and committed generation gate all pass. |
 | `p1_reserved_evaluation` | 100 paired blocks / 300 cases | One final paired comparison of the frozen selector with stop, fixed thermal, fixed voltage, and fixed face temperature in the primary scenario. | Any tuning, recalibration, favorable-case selection, or reactive sample-size extension. | Finite calibration artifact, source/environment manifests, partition identities, comparison rules, and disposable end-to-end replay committed and verified. |
 
-The 100-block calibration and reserved sizes are the initial compute/precision
-plan, not evidence that the intended risk comparison is adequately powered.
-Phase C and development approval/violation rates must check that question. A
+The 100-block sizes are now adopted by the development-only Phase E precision
+review. They do not adequately power the adopted strict risk comparison; this
+limitation is explicit in the protocol and precision artifact. A
 size may change only through a reviewed, committed new ledger version before
 that partition is generated. Once a partition is opened, its size cannot be
 changed in response to its outcomes.
