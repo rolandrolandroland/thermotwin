@@ -576,10 +576,13 @@ heat-transfer parameter.
   archive without refitting and produced finite stop/thermal/voltage/face
   offsets of 0.000/0.000/0.074/0.098 K. Phase D3 selected provisional grid
   values `(0.00, 0.00, 0.00, 0.025)` from the fixed 81-rule grid without
-  refitting. The D4 draw-count sensitivity implementation and process-tree
-  monitor preflight are complete; exact-head CI precedes execution. The
-  10-block internal check, independent calibration, and
-  reserved comparison remain unopened. See
+  refitting. D4 passed with 12/12 N=16/N=32 agreement. D5 completed all 48
+  declared map cells. D6 then completed and validated all 10 internal-check
+  blocks at `75f598a`, with 24/30 definitive decisions, zero observed decision
+  errors, and no redesign trigger. Development-adjusted intervals covered
+  27/30 cases and 7/10 blocks. The final Phase D design is frozen. Phase E
+  protocol work is next; independent calibration and reserved comparison
+  remain unopened. See
   `docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md`.
 
 ---

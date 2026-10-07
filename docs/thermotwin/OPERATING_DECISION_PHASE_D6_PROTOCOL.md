@@ -1,6 +1,9 @@
 # Operating-decision Phase D6 internal-check protocol
 
-Date: 2026-10-05. Status: implementation complete; exact-head CI and execution pending.
+Date: 2026-10-05. Execution reconciled: 2026-10-06. Status: exact-head CI passed
+and all 10 blocks and the final archive validated. See the
+[Phase D6 result](OPERATING_DECISION_PHASE_D6_RESULT.md). The protocol below
+was committed before the internal-check partition opened.
 
 Phase D6 opens `p1_development_internal_check` exactly once for 10 paired blocks
 and 30 cases. It applies the provisional design frozen after D5. It does not
