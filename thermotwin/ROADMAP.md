@@ -581,9 +581,11 @@ heat-transfer parameter.
   blocks at `75f598a`, with 24/30 definitive decisions, zero observed decision
   errors, and no redesign trigger. Development-adjusted intervals covered
   27/30 cases and 7/10 blocks. The final Phase D design is frozen. Phase E
-  analysis/calibration protocol and implementation are prepared, with an
-  explicit development-only precision review. Independent calibration and reserved comparison
-  remain unopened. See
+  analysis/calibration protocol has an explicit development-only precision
+  review. Its replacement E3 replay passed at `23a076f`, including all 926 CI
+  tests, exact scientific replay, storage, memory, and independent reload.
+  The separate acceptance gate authorizes the 100-block calibration once
+  committed; reserved comparison remains closed. See
   `docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md`.
 
 ---

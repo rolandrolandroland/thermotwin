@@ -2,10 +2,10 @@
 
 Declared: 2026-10-06. Revised: 2026-10-07.
 Version: `operating_decision_prospective_phase_e_v2`.
-Status: implementation and controlled tests complete; the committed-source CI,
-disposable numerical replay, resource probe, and generation gate must pass
-before calibration opens. No calibration or reserved case was generated to
-design this protocol.
+Status: E3's committed-source CI, disposable numerical replay, resource probe,
+and independent evidence reload passed at `23a076f`. The separate generation
+gate must be committed before E4 calibration opens. No calibration or reserved
+case was generated to design this protocol.
 
 This adopts the Phase E recommendations in the
 [completion plan](OPERATING_DECISION_COMPLETION_PLAN_2026_09_17.md) and the
@@ -285,7 +285,11 @@ namespace opened there but failed at block archive validation; see the
 repairs the inventory-mode interface, adds preflight and failure retention,
 and allocates a fresh disposable namespace. Require a new full CI pass at its
 committed source before the replacement replay. Calibration and reserved
-evidence remain unopened.
+evidence remain unopened at protocol design. The replacement at `23a076f`
+subsequently passed all 926 CI tests, both sealed block reloads, exact scientific
+replay, constructed storage, and the resource check. See the
+[E3 acceptance](OPERATING_DECISION_PHASE_E3_ACCEPTANCE.md) and its generation
+gate. Acceptance does not alter any numerical source or scientific endpoint.
 
 E3's disposable acceptance and generation gate precede E4's full calibration.
 After E4 validates, commit the finite correction artifact or the infeasibility

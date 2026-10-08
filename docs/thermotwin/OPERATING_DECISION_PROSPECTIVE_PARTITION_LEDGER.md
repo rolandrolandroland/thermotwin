@@ -1,6 +1,6 @@
 # Prospective operating-decision partition ledger
 
-Ledger version: 12. Date declared: 2026-09-17. Last reconciled: 2026-10-07.
+Ledger version: 13. Date declared: 2026-09-17. Last reconciled: 2026-10-08.
 Status: P1 is complete and failed. P2 is closed as invalid incident evidence.
 P3 and its conditional all-case N32 continuation executed at source `2f906a2`;
 both archives validate, and the combined engineering gate failed. No draw count
@@ -27,15 +27,19 @@ tests precede committed-source CI, disposable replay, resource acceptance, and
 the separate generation gate. CI passed at `fde947d`, but the disposable v1
 replay failed at an unsupported stream-inventory label before persistence.
 The [v1 incident](OPERATING_DECISION_PHASE_E_V1_INCIDENT.md) is closed; scoped
-protocol v2 repairs that interface and allocates a fresh disposable replay.
-Calibration and reserved partitions remain unopened.
+protocol v2 repairs that interface. At `23a076f`, full CI passed all 926 tests
+and the v2 replay completed with matching scientific digests, passing storage
+and resource checks, and independent evidence reload. The
+[E3 acceptance](OPERATING_DECISION_PHASE_E3_ACCEPTANCE.md) and generation gate
+authorize independent calibration only after their commit. At acceptance,
+calibration and reserved partitions remain unopened; reserved is not authorized.
 
 ## Campaign identity
 
 ```text
 campaign: operating_decision_prospective_v1_2026_09
 procedure under development: prospective_four_action_selector_v2 with prospective uncertainty v3
-next scientific action: pass Phase E's committed-source CI, disposable replay and resource gate; commit acceptance before opening p1_independent_calibration
+next scientific action: commit E3 acceptance, then execute the fixed 100-block p1_independent_calibration from tested source 23a076f
 reviewed source baseline: 9a21aa7
 ```
 
@@ -63,8 +67,8 @@ observations explicitly declared common by the protocol.
 | `p1_development_tuning` | 20 paired blocks / 60 cases, complete and valid | Fit development action/stop offsets; choose stopping clearance, value thresholds, and exact sensor-quality scenarios from the declared grid under the P4-frozen starting rule; recheck draw-count sensitivity on the predeclared subset. | Regeneration; outcome-directed changes outside the committed grid and sensitivity rule; independent checking, final calibration, or confirmatory claims. | Opened once at source `f848a95`; D1-D5 are complete, validated, and closed against regeneration. |
 | `p1_development_internal_check` | 10 paired blocks / 30 cases, complete and valid | One internal check of the frozen provisional design; descriptive transfer and comparator metrics. | Regeneration; final calibration or reserved claims; outcome-directed retuning after the passing gate. | Opened at `75f598a` after exact-head CI; all blocks validated and no redesign trigger fired. Closed; final Phase D freeze committed. |
 | `p0_disposable_phase_e_roundtrip_v1` | 1 paired block submitted twice; no completed archive | Diagnose the [stream-validator incident](OPERATING_DECISION_PHASE_E_V1_INCIDENT.md) only. | Rerun, scientific inference, replay/resource acceptance, or treating failed computations as calibration observations. | Opened at `fde947d` after CI; failed before archive persistence. Closed. |
-| `p0_disposable_phase_e_roundtrip_v2` | 1 paired block computed twice / 3 distinct disposable cases | Fresh complete replay of the unchanged numerical design with the repaired validator; exact archive/replay/resource acceptance and a separate constructed storage fixture. | Development tuning, calibration or reserved inference, or treating repeated/constructed cases as additional observations. | Protocol v2 source committed; new exact-source CI passes; pinned clean clone and synchronous stream/resource preflight. |
-| `p1_independent_calibration` | 100 paired blocks / 300 cases | Compute five procedure-specific rank-96 block tolerance corrections under the same standard; retain failed verification and missing intervals as infinite scores. | Selector, offset, stop, threshold, sensor-scenario, endpoint, or sample-size tuning. | Phase E protocol, precision review, exact-source CI, disposable replay, resource acceptance, and committed generation gate all pass. |
+| `p0_disposable_phase_e_roundtrip_v2` | 1 paired block computed twice / 3 distinct disposable cases, complete and valid | Exact archive/replay/resource acceptance, separate constructed storage fixture, and independent reload. | Regeneration; development tuning; calibration or reserved inference; treating repeated/constructed cases as additional observations. | Opened once at `23a076f` after CI; both archives, scientific replay, storage and memory checks passed. Closed as accepted engineering evidence. |
+| `p1_independent_calibration` | 100 paired blocks / 300 cases | Compute five procedure-specific rank-96 block tolerance corrections under the same standard; retain failed verification and missing intervals as infinite scores. | Selector, offset, stop, threshold, sensor-scenario, endpoint, or sample-size tuning. | E3 evidence passed at `23a076f`; open only after the separate acceptance/generation gate is committed, using that original tested source. |
 | `p1_reserved_evaluation` | 100 paired blocks / 300 cases | One final paired comparison of the frozen selector with stop, fixed thermal, fixed voltage, and fixed face temperature in the primary scenario. | Any tuning, recalibration, favorable-case selection, or reactive sample-size extension. | Finite calibration artifact, source/environment manifests, partition identities, comparison rules, and disposable end-to-end replay committed and verified. |
 
 The 100-block sizes are now adopted by the development-only Phase E precision
