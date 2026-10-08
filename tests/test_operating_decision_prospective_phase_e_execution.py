@@ -1,4 +1,6 @@
 from copy import deepcopy
+from concurrent.futures import Future
+import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -12,6 +14,7 @@ from thermotwin.studies.operating_decision_prospective_pilot import (
     PROSPECTIVE_CALIBRATION_PARTITION, PROSPECTIVE_RESERVED_PARTITION,
 )
 import thermotwin.studies.operating_decision_prospective_phase_e_execution as execution
+import thermotwin.reports.operating_decision_prospective_phase_e as phase_e_cli
 
 
 def case_fixture():
@@ -29,13 +32,138 @@ def case_fixture():
             "selected_policy_at_n16_primary": "stop_now", "fixed_policy_results": fixed}
 
 
+def stream_block_fixture(partition_name, inventory_mode="parent pilot"):
+    """Construct metadata only; no scientific observations or fitted results."""
+    partition = execution.phase_e_partition(partition_name)
+    manifest = execution._expected_corrected_stream_manifest(
+        0, inventory_mode, campaign=partition.campaign, partition=partition.name,
+    )
+    registry = execution.d6.RandomStreamRegistry()
+    for use in manifest:
+        registry.register(
+            execution.RandomStream(execution.RandomStreamKey(**use["key"])),
+            consumer=use["consumer"], pairing_member=use["pairing_member"],
+            pairing_id=use["pairing_id"],
+        )
+    cases = []
+    for family in execution.STAGE3_TRUTH_CONDITIONS:
+        case = case_fixture()
+        case["truth_condition"] = family
+        case["pipeline_failures"] = []
+        cases.append(case)
+    return {"block": 0, "cases": cases,
+            "corrected_random_stream_manifest": manifest,
+            "corrected_random_stream_audit": execution.d6._strict_json_value(registry.audit()),
+            "timing": {"block_wall_seconds": 1.}}
+
+
 class PhaseEExecutionTests(unittest.TestCase):
     def test_partition_entry_point_refuses_reserved_and_development(self):
         self.assertEqual(execution.phase_e_partition(PROSPECTIVE_CALIBRATION_PARTITION).block_count, 100)
         self.assertEqual(execution.phase_e_partition(PHASE_E_REHEARSAL_PARTITION).block_count, 1)
-        for name in (PROSPECTIVE_RESERVED_PARTITION, "p1_development_tuning", "custom"):
+        for name in (PROSPECTIVE_RESERVED_PARTITION, "p1_development_tuning", "custom",
+                     "p0_disposable_phase_e_roundtrip_v1"):
             with self.assertRaises(ValueError):
                 execution.phase_e_partition(name)
+
+    def test_real_stream_validator_roundtrips_both_phase_e_namespaces(self):
+        context = {"source_revision": "a"*40, "source_manifest_digest": "b"*64,
+                   "protocol_digest": "c"*64, "runtime_identity": {"runtime": "fixture"}}
+        for partition in (PHASE_E_REHEARSAL_PARTITION, PROSPECTIVE_CALIBRATION_PARTITION):
+            with self.subTest(partition=partition), tempfile.TemporaryDirectory() as directory:
+                block = stream_block_fixture(partition)
+                # Isolate the stream contract, retaining the real block validator
+                # and real stream inventory/audit, unlike the generic seal tests.
+                with patch.object(execution, "_validate_phase_e_case"):
+                    path = Path(directory) / "block-000.json"
+                    saved = execution._save_block(path, block, partition_name=partition, context=context)
+                    loaded = execution.load_phase_e_block(path, partition_name=partition, context=context)
+                self.assertEqual(saved, loaded)
+                uses = loaded["block_result"]["corrected_random_stream_manifest"]
+                self.assertEqual({u["key"]["partition"] for u in uses}, {partition})
+                self.assertEqual({u["pairing_member"] for u in uses
+                                  if u["key"]["stream_kind"] == "observation"}, set(POLICY_NAMES))
+
+    def test_clean_but_incomplete_policy_stream_inventory_is_rejected(self):
+        block = stream_block_fixture(PHASE_E_REHEARSAL_PARTITION, "N=32")
+        with self.assertRaisesRegex(ValueError, "inventory is invalid"):
+            execution.validate_phase_e_block(block, partition_name=PHASE_E_REHEARSAL_PARTITION)
+
+    def test_other_phase_e_namespace_is_rejected_by_real_stream_validator(self):
+        block = stream_block_fixture(PHASE_E_REHEARSAL_PARTITION)
+        with self.assertRaisesRegex(ValueError, "namespace is invalid"):
+            execution.validate_phase_e_block(block, partition_name=PROSPECTIVE_CALIBRATION_PARTITION)
+
+    def test_preflight_checks_stream_contract_before_numerical_workers(self):
+        for partition in (PHASE_E_REHEARSAL_PARTITION, PROSPECTIVE_CALIBRATION_PARTITION):
+            with self.subTest(partition=partition), tempfile.TemporaryDirectory() as directory, patch.object(
+                execution.d6, "validate_executing_phase_d_runtime", return_value={}
+            ), patch.object(execution, "_context", return_value={}), patch.object(execution, "_run_block") as worker:
+                result = execution.phase_e_preflight(
+                    repository_root=directory, source_revision="a"*40,
+                    output_directory=directory, partition_name=partition,
+                )
+                self.assertTrue(result["corrected_stream_inventory_preflight_passed"])
+                worker.assert_not_called()
+
+    def test_rehearsal_validation_failure_preserves_rejected_result_and_stops(self):
+        context = {"source_revision": "a"*40}
+        futures = [Future(), Future()]
+        block = stream_block_fixture(PHASE_E_REHEARSAL_PARTITION)
+        for future in futures:
+            future.set_result(block)
+        with tempfile.TemporaryDirectory() as directory, patch.object(
+            execution, "phase_e_preflight", return_value={"context": context}
+        ), patch.object(execution, "ProcessPoolExecutor") as executor, patch.object(
+            execution, "_save_block", side_effect=ValueError("fixture archive rejection")
+        ):
+            executor.return_value.__enter__.return_value.submit.side_effect = futures
+            with self.assertRaisesRegex(ValueError, "fixture archive rejection"):
+                execution._run_phase_e_rehearsal_unlocked(
+                    repository_root=directory, source_revision="a"*40,
+                    output_directory=directory,
+                )
+            root = Path(directory)
+            incident = json.loads((root / "incident.json").read_bytes())
+            rejected = root / incident["failed_result"]["path"]
+            raw = rejected.read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(), incident["failed_result"]["sha256"])
+            restored = json.loads(raw)
+            self.assertEqual(restored["block_result"], block)
+            self.assertEqual(restored["scientific_use"], "prohibited_unvalidated_incident_evidence_only")
+            self.assertTrue(incident["scientific_interpretation_stopped"])
+            self.assertFalse(incident["calibration_partition_opened"])
+            self.assertFalse((root / "rehearsal.json").exists())
+        # Keep incident detection in the real preflight path before any worker.
+        with tempfile.TemporaryDirectory() as directory, patch.object(
+            execution.d6, "validate_executing_phase_d_runtime", return_value={}
+        ), patch.object(execution, "_context", return_value=context):
+            (Path(directory) / "incident.json").write_text("{}")
+            with self.assertRaises(FileExistsError):
+                execution.phase_e_preflight(
+                    repository_root=directory, source_revision="a"*40,
+                    output_directory=directory, partition_name=PHASE_E_REHEARSAL_PARTITION,
+                )
+
+    def test_cli_preserves_failed_run_resource_record_and_original_error(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(
+            phase_e_cli, "_clean_revision", return_value="a"*40
+        ), patch.object(phase_e_cli, "_process_tree_rss_bytes", return_value=512), patch.object(
+            phase_e_cli, "ProcessTreeMonitor"
+        ) as monitor_factory, patch.object(
+            phase_e_cli, "run_phase_e_rehearsal", side_effect=ValueError("fixture archive rejection")
+        ):
+            instance = monitor_factory.return_value
+            instance.peak_bytes = 1024
+            instance.sample_count = 5
+            instance.error = None
+            with self.assertRaisesRegex(ValueError, "fixture archive rejection"):
+                phase_e_cli.main(["--rehearsal", "--output-directory", directory])
+            resources = json.loads((Path(directory) / "rehearsal.resources.json").read_bytes())
+            self.assertFalse(resources["execution_completed"])
+            self.assertFalse(resources["resource_gate_passed"])
+            self.assertEqual(resources["process_tree_sample_count"], 5)
+            self.assertEqual(resources["process_tree_peak_rss_bytes"], 1024)
 
     def test_case_records_preserve_all_procedures_and_offsets(self):
         rows = execution.calibration_case_records(case_fixture())

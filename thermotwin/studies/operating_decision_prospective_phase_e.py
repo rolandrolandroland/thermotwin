@@ -42,9 +42,9 @@ from .operating_decision_prospective_pilot import (
 )
 
 
-PHASE_E_VERSION = "operating_decision_prospective_phase_e_v1"
+PHASE_E_VERSION = "operating_decision_prospective_phase_e_v2"
 PHASE_E_DOMAIN = "thermotwin.prospective_phase_e"
-PHASE_E_REHEARSAL_PARTITION = "p0_disposable_phase_e_roundtrip_v1"
+PHASE_E_REHEARSAL_PARTITION = "p0_disposable_phase_e_roundtrip_v2"
 PHASE_E_PRECISION_ARTIFACT_DIGEST = "c36a0daa723cc247370a60a249cf03d36b2dbd899a1d83db4cd1e132e6162ec8"
 PHASE_E_PRECISION_PATH = Path(__file__).resolve().parents[1] / "OPERATING_DECISION_PROSPECTIVE_PHASE_E_PRECISION.json"
 PHASE_E_SOURCE_PATHS = tuple(sorted(set(PHASE_D6_SOURCE_PATHS).union({

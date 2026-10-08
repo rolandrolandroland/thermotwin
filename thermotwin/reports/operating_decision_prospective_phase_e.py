@@ -77,32 +77,41 @@ def main(argv: Sequence[str] | None = None) -> None:
     # Sampling permission is checked synchronously before scientific computation.
     synchronous_rss = _process_tree_rss_bytes(os.getpid())
     started = perf_counter()
-    with ProcessTreeMonitor() as monitor:
-        if args.rehearsal:
-            result = run_phase_e_rehearsal(
-                repository_root=args.repository_root, source_revision=revision,
-                output_directory=directory, progress=print,
-            )
-        else:
-            result = run_phase_e_calibration(
-                repository_root=args.repository_root, source_revision=revision,
-                output_directory=directory, generation_gate_path=args.generation_gate,
-                gate_repository_root=args.gate_repository_root, progress=print,
-            )
-    resources = {"schema_version": 1, "protocol_version": "phase_e_resource_record_v1",
-                 "source_revision": revision, "partition": partition,
-                 "wall_seconds_this_invocation": perf_counter()-started,
-                 "process_tree_peak_rss_bytes": monitor.peak_bytes,
-                 "process_tree_sample_count": monitor.sample_count,
-                 "process_tree_sampling_error": monitor.error,
-                 "synchronous_monitor_preflight_rss_bytes": synchronous_rss,
-                 "worker_count": 4, "process_tree_limit_bytes": 4 * 1024**3,
-                 "resource_gate_passed": monitor.error is None and monitor.sample_count > 0
-                                        and 0 < monitor.peak_bytes <= 4 * 1024**3}
-    target = directory / ("rehearsal.resources.json" if args.rehearsal else "calibration.resources.json")
-    with target.open("x", encoding="utf-8") as stream:
-        json.dump(resources, stream, sort_keys=True, indent=2, allow_nan=False)
-        stream.write("\n")
+    monitor = ProcessTreeMonitor()
+    execution_completed = False
+    try:
+        with monitor:
+            if args.rehearsal:
+                result = run_phase_e_rehearsal(
+                    repository_root=args.repository_root, source_revision=revision,
+                    output_directory=directory, progress=print,
+                )
+            else:
+                result = run_phase_e_calibration(
+                    repository_root=args.repository_root, source_revision=revision,
+                    output_directory=directory, generation_gate_path=args.generation_gate,
+                    gate_repository_root=args.gate_repository_root, progress=print,
+                )
+            execution_completed = True
+    finally:
+        # A failed run still retains its measured resource cost. It cannot pass
+        # the execution gate, and its original exception continues to propagate.
+        resources = {"schema_version": 1, "protocol_version": "phase_e_resource_record_v2",
+                     "source_revision": revision, "partition": partition,
+                     "execution_completed": execution_completed,
+                     "wall_seconds_this_invocation": perf_counter()-started,
+                     "process_tree_peak_rss_bytes": monitor.peak_bytes,
+                     "process_tree_sample_count": monitor.sample_count,
+                     "process_tree_sampling_error": monitor.error,
+                     "synchronous_monitor_preflight_rss_bytes": synchronous_rss,
+                     "worker_count": 4, "process_tree_limit_bytes": 4 * 1024**3,
+                     "resource_gate_passed": execution_completed and monitor.error is None
+                                            and monitor.sample_count > 0
+                                            and 0 < monitor.peak_bytes <= 4 * 1024**3}
+        target = directory / ("rehearsal.resources.json" if args.rehearsal else "calibration.resources.json")
+        with target.open("x", encoding="utf-8") as stream:
+            json.dump(resources, stream, sort_keys=True, indent=2, allow_nan=False)
+            stream.write("\n")
     if not resources["resource_gate_passed"]:
         raise RuntimeError("Phase E resource gate failed; preserve evidence and stop interpretation")
     if args.rehearsal:

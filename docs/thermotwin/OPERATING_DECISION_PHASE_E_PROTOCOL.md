@@ -1,6 +1,7 @@
 # Phase E: analysis freeze and independent calibration
 
-Declared: 2026-10-06. Version: `operating_decision_prospective_phase_e_v1`.
+Declared: 2026-10-06. Revised: 2026-10-07.
+Version: `operating_decision_prospective_phase_e_v2`.
 Status: implementation and controlled tests complete; the committed-source CI,
 disposable numerical replay, resource probe, and generation gate must pass
 before calibration opens. No calibration or reserved case was generated to
@@ -224,7 +225,7 @@ Before `p1_independent_calibration` opens:
 1. Commit this protocol, precision artifact, implementation, and tests on dev.
 2. Require passing full CI at that exact numerical-source commit.
 3. In a clean clone at that commit, execute the one-block disposable namespace
-   `p0_disposable_phase_e_roundtrip_v1` twice independently. Save/load/validate
+   `p0_disposable_phase_e_roundtrip_v2` twice independently. Save/load/validate
    both exact raw archives. Require matching scientific digests, allowing
    timing and performance differences. The four-worker pool exists, with two
    workers computing the declared repeats; the prior D6 record covers four
@@ -258,6 +259,13 @@ pick replacement seeds. Ordinary fit or verification attrition remains in the
 denominator. Material bugs require a documented version and a full affected
 campaign replacement; exposed labels must not silently become tuning data.
 
+Preflight verifies the corrected-stream inventory/validator interface using
+metadata only, before expensive numerical workers start. The all-four-policy
+mode is `parent pilot`; the explicit campaign and partition arguments remain
+Phase E's identities. A rejected replay result is retained as unvalidated
+incident evidence, and resource measurements are saved even if execution
+raises. Neither constitutes a successful gate.
+
 ## Remaining work
 
 ### CI dependency repair — 2026-10-07
@@ -271,9 +279,13 @@ The package metadata is part of the sealed source manifest, so it remains
 byte-identical. The repair changes no numerical source, endpoint, partition,
 or pinned runtime requirement.
 
-Require a passing full CI run at the repaired source commit before executing
-the disposable replay. The declared Phase E disposable namespace was never
-opened at `8e64cb9`; calibration and reserved evidence also remain unopened.
+Full CI subsequently passed all 920 tests at `fde947d`. The v1 disposable
+namespace opened there but failed at block archive validation; see the
+[v1 incident record](OPERATING_DECISION_PHASE_E_V1_INCIDENT.md). Protocol v2
+repairs the inventory-mode interface, adds preflight and failure retention,
+and allocates a fresh disposable namespace. Require a new full CI pass at its
+committed source before the replacement replay. Calibration and reserved
+evidence remain unopened.
 
 E3's disposable acceptance and generation gate precede E4's full calibration.
 After E4 validates, commit the finite correction artifact or the infeasibility

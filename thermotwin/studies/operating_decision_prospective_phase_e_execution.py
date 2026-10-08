@@ -32,7 +32,9 @@ from .operating_decision_prospective_phase_e_calibration import (
 )
 from .operating_decision_prospective_pilot import (
     PROSPECTIVE_CAMPAIGN, PROSPECTIVE_CALIBRATION_PARTITION,
+    _expected_corrected_stream_manifest,
 )
+from .operating_decision_random_streams import RandomStream, RandomStreamKey
 from .operating_decision_provenance import (
     create_source_manifest, source_manifest_from_payload, source_manifest_payload,
     verify_source_manifest, verify_committed_paths,
@@ -369,6 +371,35 @@ def _validate_phase_e_case(
         raise ValueError("Phase E selected outcome is inconsistent")
 
 
+def _validate_phase_e_corrected_stream_records(
+    manifest: object, audit: object, *, block: int, partition: CorrectedPartition,
+) -> None:
+    # This label selects all four fixed-policy stream inventories. It is a
+    # validator mode, not the campaign/partition identity, which stays Phase E.
+    d6._validate_corrected_stream_records(
+        manifest, audit, block=block, label="parent pilot",
+        campaign=partition.campaign, partition=partition.name,
+    )
+
+
+def _check_phase_e_corrected_stream_contract(partition: CorrectedPartition) -> None:
+    """Check the inventory/validator interface without generating observations."""
+    expected = _expected_corrected_stream_manifest(
+        0, "parent pilot", campaign=partition.campaign, partition=partition.name,
+    )
+    registry = d6.RandomStreamRegistry()
+    for use in expected:
+        registry.register(
+            RandomStream(RandomStreamKey(**use["key"])),
+            consumer=use["consumer"], pairing_member=use["pairing_member"],
+            pairing_id=use["pairing_id"],
+        )
+    _validate_phase_e_corrected_stream_records(
+        d6._stream_manifest_payload(registry.uses),
+        d6._strict_json_value(registry.audit()), block=0, partition=partition,
+    )
+
+
 def validate_phase_e_block(block_result: Mapping[str, object], *, partition_name: str) -> dict:
     partition = phase_e_partition(partition_name)
     item = d6._exact_mapping(block_result, {
@@ -381,9 +412,9 @@ def validate_phase_e_block(block_result: Mapping[str, object], *, partition_name
     cases = item["cases"]
     if not isinstance(cases, list) or [c.get("truth_condition") for c in cases] != list(STAGE3_TRUTH_CONDITIONS):
         raise ValueError("Phase E requires the complete three-family block")
-    d6._validate_corrected_stream_records(
+    _validate_phase_e_corrected_stream_records(
         item["corrected_random_stream_manifest"], item["corrected_random_stream_audit"],
-        block=block, label="Phase E", campaign=partition.campaign, partition=partition.name,
+        block=block, partition=partition,
     )
     config = _physical_config(partition)
     for case in cases:
@@ -470,6 +501,7 @@ def phase_e_preflight(*, repository_root: Path | str, source_revision: str,
     partition = phase_e_partition(partition_name)
     runtime = d6.validate_executing_phase_d_runtime()
     context = _context(repository_root, source_revision)
+    _check_phase_e_corrected_stream_contract(partition)
     root = Path(output_directory).resolve()
     if any((root / name).exists() for name in ("calibration.json", "calibration.txt", "rehearsal.json", "incident.json")):
         raise FileExistsError("Phase E final output or unresolved incident already exists")
@@ -485,10 +517,11 @@ def phase_e_preflight(*, repository_root: Path | str, source_revision: str,
             if loaded["block"] != block:
                 raise ValueError("Phase E block file name disagrees with block identity")
             existing.append(block)
-    return {"schema_version": 1, "protocol_version": "phase_e_preflight_v1",
+    return {"schema_version": 1, "protocol_version": "phase_e_preflight_v2",
             "partition": partition.name, "block_count": partition.block_count,
             "output_directory": str(root), "validated_existing_blocks": existing,
             "runtime_identity": runtime, "context": context,
+            "corrected_stream_inventory_preflight_passed": True,
             "reserved_generation_authorized": False}
 
 
@@ -784,6 +817,36 @@ def constructed_phase_e_archive_probe(seed: Mapping[str, object], *, output_dire
             "coordinator_peak_rss_bytes": d6._peak_rss_bytes()}
 
 
+def _record_phase_e_rehearsal_incident(
+    directory: Path, *, context: Mapping[str, object], repeat: int,
+    error: Exception, block_result: Mapping[str, object] | None,
+) -> None:
+    """Retain rejected computations for diagnosis, never as accepted evidence."""
+    failed_result = None
+    if block_result is not None:
+        name = f"incident-repeat-{repeat+1}.unvalidated.json"
+        raw = d6._canonical_bytes({
+            "scientific_use": "prohibited_unvalidated_incident_evidence_only",
+            "context": context, "partition": PHASE_E_REHEARSAL_PARTITION,
+            "block_result": block_result,
+        })
+        with (directory / name).open("xb") as stream:
+            stream.write(raw)
+            stream.flush()
+            os.fsync(stream.fileno())
+        failed_result = {"path": name, "sha256": hashlib.sha256(raw).hexdigest()}
+    incident = {
+        "schema_version": 1, "source_revision": context["source_revision"],
+        "partition": PHASE_E_REHEARSAL_PARTITION, "repeat": repeat+1,
+        "error_type": type(error).__name__, "message": str(error),
+        "failed_result": failed_result, "scientific_interpretation_stopped": True,
+        "calibration_partition_opened": False, "reserved_partition_opened": False,
+    }
+    with (directory / "incident.json").open("x", encoding="utf-8") as stream:
+        json.dump(incident, stream, sort_keys=True, indent=2, allow_nan=False)
+        stream.write("\n")
+
+
 def _run_phase_e_rehearsal_unlocked(
     *, repository_root: Path | str, source_revision: str, output_directory: Path | str,
     progress: Callable[[str], None] | None = None,
@@ -807,8 +870,19 @@ def _run_phase_e_rehearsal_unlocked(
                    for i in range(2) if i not in completed}
         for future in as_completed(pending):
             index = pending[future]
-            completed[index] = _save_block(originals[index], future.result(),
-                                           partition_name=PHASE_E_REHEARSAL_PARTITION, context=context)
+            result = None
+            try:
+                result = future.result()
+                completed[index] = _save_block(originals[index], result,
+                                               partition_name=PHASE_E_REHEARSAL_PARTITION, context=context)
+            except Exception as error:
+                _record_phase_e_rehearsal_incident(
+                    directory, context=context, repeat=index,
+                    error=error, block_result=result,
+                )
+                for other in pending:
+                    other.cancel()
+                raise
             if progress:
                 progress(f"Phase E disposable computation {index+1}/2 saved and validated")
     scientific_equal = completed[0]["scientific_block_digest"] == completed[1]["scientific_block_digest"]
