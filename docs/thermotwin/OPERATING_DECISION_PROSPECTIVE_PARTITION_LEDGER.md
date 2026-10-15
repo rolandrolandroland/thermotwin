@@ -1,6 +1,6 @@
 # Prospective operating-decision partition ledger
 
-Ledger version: 13. Date declared: 2026-09-17. Last reconciled: 2026-10-08.
+Ledger version: 14. Date declared: 2026-09-17. Last reconciled: 2026-10-15.
 Status: P1 is complete and failed. P2 is closed as invalid incident evidence.
 P3 and its conditional all-case N32 continuation executed at source `2f906a2`;
 both archives validate, and the combined engineering gate failed. No draw count
@@ -31,15 +31,18 @@ protocol v2 repairs that interface. At `23a076f`, full CI passed all 926 tests
 and the v2 replay completed with matching scientific digests, passing storage
 and resource checks, and independent evidence reload. The
 [E3 acceptance](OPERATING_DECISION_PHASE_E3_ACCEPTANCE.md) and generation gate
-authorize independent calibration only after their commit. At acceptance,
-calibration and reserved partitions remain unopened; reserved is not authorized.
+were committed as `76a0fc7` before independent calibration opened on October 8
+at numerical source `23a076f`. At the October 15 check, 81/100 blocks were saved
+and validated by the frozen runner; the same cohort remains in progress.
+Reserved evaluation remains unopened and unauthorized. This ledger update
+records execution chronology; it changes no partition size, stream, or rule.
 
 ## Campaign identity
 
 ```text
 campaign: operating_decision_prospective_v1_2026_09
 procedure under development: prospective_four_action_selector_v2 with prospective uncertainty v3
-next scientific action: commit E3 acceptance, then execute the fixed 100-block p1_independent_calibration from tested source 23a076f
+next scientific action: finish and independently validate the existing 100-block p1_independent_calibration from tested source 23a076f
 reviewed source baseline: 9a21aa7
 ```
 
@@ -68,7 +71,7 @@ observations explicitly declared common by the protocol.
 | `p1_development_internal_check` | 10 paired blocks / 30 cases, complete and valid | One internal check of the frozen provisional design; descriptive transfer and comparator metrics. | Regeneration; final calibration or reserved claims; outcome-directed retuning after the passing gate. | Opened at `75f598a` after exact-head CI; all blocks validated and no redesign trigger fired. Closed; final Phase D freeze committed. |
 | `p0_disposable_phase_e_roundtrip_v1` | 1 paired block submitted twice; no completed archive | Diagnose the [stream-validator incident](OPERATING_DECISION_PHASE_E_V1_INCIDENT.md) only. | Rerun, scientific inference, replay/resource acceptance, or treating failed computations as calibration observations. | Opened at `fde947d` after CI; failed before archive persistence. Closed. |
 | `p0_disposable_phase_e_roundtrip_v2` | 1 paired block computed twice / 3 distinct disposable cases, complete and valid | Exact archive/replay/resource acceptance, separate constructed storage fixture, and independent reload. | Regeneration; development tuning; calibration or reserved inference; treating repeated/constructed cases as additional observations. | Opened once at `23a076f` after CI; both archives, scientific replay, storage and memory checks passed. Closed as accepted engineering evidence. |
-| `p1_independent_calibration` | 100 paired blocks / 300 cases | Compute five procedure-specific rank-96 block tolerance corrections under the same standard; retain failed verification and missing intervals as infinite scores. | Selector, offset, stop, threshold, sensor-scenario, endpoint, or sample-size tuning. | E3 evidence passed at `23a076f`; open only after the separate acceptance/generation gate is committed, using that original tested source. |
+| `p1_independent_calibration` | 100 paired blocks / 300 cases; in progress, 81/100 blocks saved at the October 15 check | Compute five procedure-specific rank-96 block tolerance corrections under the same standard; retain failed verification and missing intervals as infinite scores. | Selector, offset, stop, threshold, sensor-scenario, endpoint, or sample-size tuning; replacing successful checkpoints or selecting new seeds after interruption. | Opened once on October 8 at `23a076f`, after acceptance/generation gate commit `76a0fc7`. Only authenticated missing-work resumption under the same source, runtime, and protocol is permitted. |
 | `p1_reserved_evaluation` | 100 paired blocks / 300 cases | One final paired comparison of the frozen selector with stop, fixed thermal, fixed voltage, and fixed face temperature in the primary scenario. | Any tuning, recalibration, favorable-case selection, or reactive sample-size extension. | Finite calibration artifact, source/environment manifests, partition identities, comparison rules, and disposable end-to-end replay committed and verified. |
 
 The 100-block sizes are now adopted by the development-only Phase E precision
@@ -152,8 +155,20 @@ changed in response to its outcomes.
     [D6 result](OPERATING_DECISION_PHASE_D6_RESULT.md). Close the check against
     regeneration. Freeze Phase E endpoints, comparisons, precision, sizes,
     calibration construction, and runtime before calibration generation.
-14. Generate independent calibration and commit a finite calibration artifact.
-15. Verify a disposable end-to-end replay, then open reserved evaluation once.
+14. Acceptance/generation gate `76a0fc7` preceded the October 8 opening of
+    independent calibration at numerical source `23a076f`. Preserve the first
+    two interrupted invocations and their cumulative authenticated 11- and 16-block
+    checkpoint sets. A clean persistent source copy and a one-time macOS job
+    resumed the same cohort on October 12. At the October 15 check, 81 blocks
+    were saved, all four workers were computing, and the Mac's sleep log
+    explained the long overnight pause. Finish and independently validate all
+    100 blocks; preserve ordinary failures, original seeds, and the missing
+    resource-summary limitation for interrupted invocations. No final
+    corrections or feasibility conclusion are available yet.
+15. If every required correction is finite, commit the calibration artifact
+    and complete-rule freeze, then verify a disposable end-to-end replay
+    before opening reserved evaluation once. Otherwise close calibration as
+    infeasible and keep reserved evaluation unopened.
 
 The pre-P2 archive tests checked deterministic record structure, cross-record
 identities, exact stream inventory and RNG offsets, fit invariants, and interval

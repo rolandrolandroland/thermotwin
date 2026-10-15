@@ -1,6 +1,6 @@
 # Operating-decision project status
 
-Date: 2026-09-17. Last reconciled: 2026-10-08. Status: P1 failed its
+Date: 2026-09-17. Last reconciled: 2026-10-15. Status: P1 failed its
 engineering gate, P2 is preserved as an invalid archive incident, and the valid
 P4 parent/N32 continuation passed and froze N=16 plus one allowed whole-draw
 failure per source/action. Historical Phase D0 v1 passed at `a280d7f` under
@@ -42,8 +42,12 @@ is closed. Protocol v2 at `23a076f` passed all 926 CI tests, both disposable
 computations, exact scientific replay, the constructed 100-block storage check,
 and the whole-run resource gate. Independent evidence reload passed. The
 [E3 acceptance](OPERATING_DECISION_PHASE_E3_ACCEPTANCE.md) binds the separate
-generation gate and authorizes the 100-block calibration once committed.
-Calibration is the next execution; reserved evaluation remains closed. See the
+generation gate. Acceptance was committed and pushed as `76a0fc7` before the
+100-block calibration opened on October 8 from numerical source `23a076f`.
+At the October 15 progress check, 81 blocks were saved and validated by the
+frozen runner; 19 remain unfinished. All four numerical workers are active.
+Final calibration corrections and feasibility are not yet available; reserved
+evaluation remains unopened. See the
 [Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md), historical
 [Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md), and current
 [audit repair record](THERMOTWIN_AUDIT_REPAIR_RECORD_2026_09_27.md).
@@ -64,8 +68,44 @@ This status record does not freeze a scientific procedure. It records the
 boundary between completed historical work and the unfinished prospective
 experiment. P1, invalid P2, valid P3, and the valid P3 N32 continuation are
 closed disposable evidence. Both Phase D development partitions are now
-complete and closed against regeneration. Calibration and reserved evidence
-remain unopened.
+complete and closed against regeneration. Independent calibration is open and
+in progress under its committed gate. Reserved evidence remains unopened.
+
+### Current Phase E execution
+
+The `p1_independent_calibration` partition opened once within the existing
+campaign, after the E3 acceptance commit. Two earlier coordinator invocations
+stopped without a final resource summary. Their cumulative 11- and then
+16-block checkpoint sets were retained
+and authenticated under the same numerical source, protocol, and pinned runtime
+before resumption. These were process resumptions within the existing cohort;
+no successful block was replaced and no replacement seeds were selected.
+
+The source now executes from a clean persistent copy at
+`.artifacts/operating-decision/source-23a076f`. On October 12, a one-time macOS
+job started the unchanged frozen CLI, with an external progress and memory
+journal in `.artifacts/operating-decision/phase-e-durable-run-20261012`.
+It has no automatic restart. The numerical source manifest remains
+`88e3f8187ab57683ec1c36a6bd24a96364e508d50bb2ae9aa709dfe354645a20`;
+the protocol digest remains
+`9ef8795fc2bf2b7db536a3c72fd9593e538faa54acfea1af8cf2f78d7f96cfb6`.
+
+The October 15 check found no completed block since October 14 at 17:26 Eastern.
+A ten-second CPU sample confirmed that all four workers were actively computing.
+Power logs record overnight sleep and wake at 11:34 Eastern on October 15.
+Calendar elapsed time for the current invocation was about 64.7 hours, while
+its monotonic elapsed counter was about 44.9 hours. These records explain the
+long sleep pause while the running processes were preserved.
+
+The interrupted invocations' missing peak-memory and total elapsed-time records
+cannot be reconstructed from checkpoint counts. Preserve that measurement
+limitation when reporting the complete campaign budget. Current operational
+evidence is retained in
+`.artifacts/operating-decision/phase-e-calibration-runtime-review-20261015.json`.
+The run must finish all 100 blocks and pass independent archive validation
+before feasibility or any final correction is reported. An infinite required
+correction closes calibration as infeasible; finite corrections still require
+a separate complete-rule freeze and disposable replay before reserved evaluation.
 
 ## What is complete
 
@@ -241,8 +281,8 @@ comparator metrics are recorded in the [D6 result](OPERATING_DECISION_PHASE_D6_R
 | B — harden scientific interfaces | Complete through the archive-transport repair and P4 bounded eligibility version | Preserve the P4 source boundary and frozen evidence hashes. |
 | C — disposable compute pilot | Complete; valid P4 parent and N32 continuation passed | N=16, one-failure eligibility, and the primary compute plan are frozen. |
 | D — selector development and maps | Complete through D6; 24/30 definitive decisions, zero observed errors, no redesign trigger; final design frozen | Preserve the closed development evidence and final Phase D artifact. |
-| E — analysis freeze and calibration | E3 replacement replay and independent evidence checks passed; generation gate prepared | Commit acceptance, then execute the 100-block independent calibration from the original tested `23a076f` clone. Reserved remains closed. |
-| F — reserved evaluation | Unopened | Verify the committed chain and open the reserved partition once. |
+| E — analysis freeze and calibration | E3 acceptance committed as `76a0fc7`; calibration opened once at numerical source `23a076f`; 81/100 blocks saved at the October 15 check | Finish the same 100-block cohort, independently validate all archives and five corrections, and record feasibility and resource limitations. Reserved remains closed. |
+| F — reserved evaluation | Unopened | Require finite calibration, a committed complete-rule freeze, and disposable end-to-end replay; verify the chain before opening the reserved partition once. |
 | G/H — interpretation and closeout | Unstarted | Classify the result honestly, audit it, archive evidence, and produce the report and three figures. |
 
 Phase B records the following boundaries for the pilot and later development:
@@ -284,8 +324,9 @@ map and provisional freeze. Regeneration of the tuning partition remains
 prohibited. The internal check opened only after the D6 protocol commit and
 exact-head CI passed; all 10 blocks and the final archive validated, as
 recorded in the [D6 result](OPERATING_DECISION_PHASE_D6_RESULT.md). It is now
-closed against regeneration. Calibration and reserved generation remain
-prohibited until their separate committed gates pass.
+closed against regeneration. The calibration gate was committed as `76a0fc7`
+before its October 8 opening. Reserved generation remains prohibited until its
+separate committed gate passes.
 
 ## Evidence and runtime boundaries
 
