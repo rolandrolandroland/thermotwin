@@ -44,8 +44,9 @@ and the whole-run resource gate. Independent evidence reload passed. The
 [E3 acceptance](OPERATING_DECISION_PHASE_E3_ACCEPTANCE.md) binds the separate
 generation gate. Acceptance was committed and pushed as `76a0fc7` before the
 100-block calibration opened on October 8 from numerical source `23a076f`.
-At the October 15 progress check, 81 blocks were saved and validated by the
-frozen runner; 19 remain unfinished. All four numerical workers are active.
+Before the October 15 Mac restart, 85 blocks were saved and validated by the
+frozen runner; 15 remain unfinished. A fresh one-time job is prepared to resume
+the same cohort after authenticating its existing checkpoints.
 Final calibration corrections and feasibility are not yet available; reserved
 evaluation remains unopened. See the
 [Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md), historical
@@ -85,23 +86,35 @@ The source now executes from a clean persistent copy at
 `.artifacts/operating-decision/source-23a076f`. On October 12, a one-time macOS
 job started the unchanged frozen CLI, with an external progress and memory
 journal in `.artifacts/operating-decision/phase-e-durable-run-20261012`.
-It has no automatic restart. The numerical source manifest remains
+It has no automatic restart. At 17:29 Eastern on October 15 the Mac restarted,
+terminating the job after 85 saved blocks. The external journal captured
+SIGTERM before the recorded boot time. The old coordinator and workers were
+confirmed absent, and no partial block files or scientific incident record
+were present. A fresh one-time job is prepared to resume the same 15 missing
+blocks, with its journal in
+`.artifacts/operating-decision/phase-e-durable-run-20261015`.
+The numerical source manifest remains
 `88e3f8187ab57683ec1c36a6bd24a96364e508d50bb2ae9aa709dfe354645a20`;
 the protocol digest remains
 `9ef8795fc2bf2b7db536a3c72fd9593e538faa54acfea1af8cf2f78d7f96cfb6`.
 
-The October 15 check found no completed block since October 14 at 17:26 Eastern.
+The morning October 15 check, at 81 saved blocks, found no completed block
+since October 14 at 17:26 Eastern.
 A ten-second CPU sample confirmed that all four workers were actively computing.
 Power logs record overnight sleep and wake at 11:34 Eastern on October 15.
 Calendar elapsed time for the current invocation was about 64.7 hours, while
 its monotonic elapsed counter was about 44.9 hours. These records explain the
 long sleep pause while the running processes were preserved.
 
-The interrupted invocations' missing peak-memory and total elapsed-time records
-cannot be reconstructed from checkpoint counts. Preserve that measurement
-limitation when reporting the complete campaign budget. Current operational
-evidence is retained in
+The first two interrupted invocations' missing peak-memory and total elapsed-
+time records cannot be reconstructed from checkpoint counts. The October 12–15
+job retained a partial external journal with 17,922 samples and a sampled peak
+of 523,665,408 bytes; its frozen CLI final resource summary was not written.
+Preserve those measurement distinctions when reporting the complete campaign
+budget. Operational evidence is retained in
 `.artifacts/operating-decision/phase-e-calibration-runtime-review-20261015.json`.
+The restart and preserved 85-block hashes are recorded separately in
+`.artifacts/operating-decision/phase-e-calibration-restart-recovery-preparation-20261015.json`.
 The run must finish all 100 blocks and pass independent archive validation
 before feasibility or any final correction is reported. An infinite required
 correction closes calibration as infeasible; finite corrections still require
@@ -281,7 +294,7 @@ comparator metrics are recorded in the [D6 result](OPERATING_DECISION_PHASE_D6_R
 | B — harden scientific interfaces | Complete through the archive-transport repair and P4 bounded eligibility version | Preserve the P4 source boundary and frozen evidence hashes. |
 | C — disposable compute pilot | Complete; valid P4 parent and N32 continuation passed | N=16, one-failure eligibility, and the primary compute plan are frozen. |
 | D — selector development and maps | Complete through D6; 24/30 definitive decisions, zero observed errors, no redesign trigger; final design frozen | Preserve the closed development evidence and final Phase D artifact. |
-| E — analysis freeze and calibration | E3 acceptance committed as `76a0fc7`; calibration opened once at numerical source `23a076f`; 81/100 blocks saved at the October 15 check | Finish the same 100-block cohort, independently validate all archives and five corrections, and record feasibility and resource limitations. Reserved remains closed. |
+| E — analysis freeze and calibration | E3 acceptance committed as `76a0fc7`; calibration opened once at numerical source `23a076f`; 85/100 blocks saved before the October 15 Mac restart; same-cohort resumption prepared | Finish the same 100-block cohort, independently validate all archives and five corrections, and record feasibility and resource limitations. Reserved remains closed. |
 | F — reserved evaluation | Unopened | Require finite calibration, a committed complete-rule freeze, and disposable end-to-end replay; verify the chain before opening the reserved partition once. |
 | G/H — interpretation and closeout | Unstarted | Classify the result honestly, audit it, archive evidence, and produce the report and three figures. |
 
