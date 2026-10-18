@@ -1,6 +1,6 @@
 # Operating-decision project status
 
-Date: 2026-09-17. Last reconciled: 2026-10-15. Status: P1 failed its
+Date: 2026-09-17. Last reconciled: 2026-10-17. Status: P1 failed its
 engineering gate, P2 is preserved as an invalid archive incident, and the valid
 P4 parent/N32 continuation passed and froze N=16 plus one allowed whole-draw
 failure per source/action. Historical Phase D0 v1 passed at `a280d7f` under
@@ -44,11 +44,12 @@ and the whole-run resource gate. Independent evidence reload passed. The
 [E3 acceptance](OPERATING_DECISION_PHASE_E3_ACCEPTANCE.md) binds the separate
 generation gate. Acceptance was committed and pushed as `76a0fc7` before the
 100-block calibration opened on October 8 from numerical source `23a076f`.
-Before the October 15 Mac restart, 85 blocks were saved and validated by the
-frozen runner; 15 remain unfinished. A fresh one-time job is prepared to resume
-the same cohort after authenticating its existing checkpoints.
-Final calibration corrections and feasibility are not yet available; reserved
-evaluation remains unopened. See the
+All 100 calibration blocks completed on October 16. The frozen-source archive
+validator and an independent exact-arithmetic check passed; all five final
+corrections are finite. The [accepted Phase E result](OPERATING_DECISION_PHASE_E_RESULT.md)
+closes calibration against regeneration. Phase F preparation now seals the
+complete calibrated procedure and its before-reveal decision boundary.
+Reserved evaluation remains unopened and unauthorized. See the
 [Phase D plan](OPERATING_DECISION_PHASE_D_PLAN.md), historical
 [Phase D0 result](OPERATING_DECISION_PHASE_D0_RESULT.md), and current
 [audit repair record](THERMOTWIN_AUDIT_REPAIR_RECORD_2026_09_27.md).
@@ -69,10 +70,11 @@ This status record does not freeze a scientific procedure. It records the
 boundary between completed historical work and the unfinished prospective
 experiment. P1, invalid P2, valid P3, and the valid P3 N32 continuation are
 closed disposable evidence. Both Phase D development partitions are now
-complete and closed against regeneration. Independent calibration is open and
-in progress under its committed gate. Reserved evidence remains unopened.
+complete and closed against regeneration. Independent calibration is complete,
+independently validated, and closed against regeneration under its accepted
+artifact. Reserved evidence remains unopened.
 
-### Current Phase E execution
+### Completed Phase E execution
 
 The `p1_independent_calibration` partition opened once within the existing
 campaign, after the E3 acceptance commit. Two earlier coordinator invocations
@@ -90,8 +92,8 @@ It has no automatic restart. At 17:29 Eastern on October 15 the Mac restarted,
 terminating the job after 85 saved blocks. The external journal captured
 SIGTERM before the recorded boot time. The old coordinator and workers were
 confirmed absent, and no partial block files or scientific incident record
-were present. A fresh one-time job is prepared to resume the same 15 missing
-blocks, with its journal in
+were present. The October 15 one-time job resumed those same 15 missing
+blocks and completed on October 16, with its journal in
 `.artifacts/operating-decision/phase-e-durable-run-20261015`.
 The numerical source manifest remains
 `88e3f8187ab57683ec1c36a6bd24a96364e508d50bb2ae9aa709dfe354645a20`;
@@ -115,10 +117,14 @@ budget. Operational evidence is retained in
 `.artifacts/operating-decision/phase-e-calibration-runtime-review-20261015.json`.
 The restart and preserved 85-block hashes are recorded separately in
 `.artifacts/operating-decision/phase-e-calibration-restart-recovery-preparation-20261015.json`.
-The run must finish all 100 blocks and pass independent archive validation
-before feasibility or any final correction is reported. An infinite required
-correction closes calibration as infeasible; finite corrections still require
-a separate complete-rule freeze and disposable replay before reserved evaluation.
+All 100 blocks subsequently finished. Independent archive and arithmetic
+validation passed, and all five required corrections are finite. Completed
+blocks consumed 255.26 CPU hours; the successful last invocation passed its
+4 GiB resource gate. Whole-campaign peak memory and elapsed time remain
+incompletely measured because earlier invocations were interrupted. See the
+[Phase E result](OPERATING_DECISION_PHASE_E_RESULT.md) for exact corrections,
+evidence hashes, and limits. A separate complete-rule freeze, passing exact-source
+CI, disposable replay, and committed gate remain necessary before reserved evaluation.
 
 ## What is complete
 
@@ -294,8 +300,8 @@ comparator metrics are recorded in the [D6 result](OPERATING_DECISION_PHASE_D6_R
 | B — harden scientific interfaces | Complete through the archive-transport repair and P4 bounded eligibility version | Preserve the P4 source boundary and frozen evidence hashes. |
 | C — disposable compute pilot | Complete; valid P4 parent and N32 continuation passed | N=16, one-failure eligibility, and the primary compute plan are frozen. |
 | D — selector development and maps | Complete through D6; 24/30 definitive decisions, zero observed errors, no redesign trigger; final design frozen | Preserve the closed development evidence and final Phase D artifact. |
-| E — analysis freeze and calibration | E3 acceptance committed as `76a0fc7`; calibration opened once at numerical source `23a076f`; 85/100 blocks saved before the October 15 Mac restart; same-cohort resumption prepared | Finish the same 100-block cohort, independently validate all archives and five corrections, and record feasibility and resource limitations. Reserved remains closed. |
-| F — reserved evaluation | Unopened | Require finite calibration, a committed complete-rule freeze, and disposable end-to-end replay; verify the chain before opening the reserved partition once. |
+| E — analysis freeze and calibration | Complete: 100/100 blocks; five finite corrections; frozen-source and independent arithmetic validation passed | Preserve the accepted calibration artifact and closed cohort. Record interrupted-run resource limitations. Reserved remains closed. |
+| F — reserved evaluation | Complete-rule/source preparation in progress; [F protocol](OPERATING_DECISION_PHASE_F_PROTOCOL.md) declared; CI and disposable replay pending; reserved unopened | Require finite calibration, a committed complete-rule freeze, and disposable end-to-end replay; verify the chain before opening the reserved partition once. |
 | G/H — interpretation and closeout | Unstarted | Classify the result honestly, audit it, archive evidence, and produce the report and three figures. |
 
 Phase B records the following boundaries for the pilot and later development:

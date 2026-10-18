@@ -4,8 +4,10 @@ Declared: 2026-10-06. Revised: 2026-10-07.
 Version: `operating_decision_prospective_phase_e_v2`.
 Status: E3's committed-source CI, disposable numerical replay, resource probe,
 and independent evidence reload passed at `23a076f`. The separate generation
-gate must be committed before E4 calibration opens. No calibration or reserved
-case was generated to design this protocol.
+gate was committed as `76a0fc7` before E4 calibration opened. All 100 blocks
+completed on October 16; the [accepted result](OPERATING_DECISION_PHASE_E_RESULT.md)
+records independent validation and five finite corrections. No calibration or
+reserved case was generated to design this protocol. Reserved remains unopened.
 
 This adopts the Phase E recommendations in the
 [completion plan](OPERATING_DECISION_COMPLETION_PLAN_2026_09_17.md) and the

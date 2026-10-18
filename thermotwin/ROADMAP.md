@@ -584,8 +584,10 @@ heat-transfer parameter.
   analysis/calibration protocol has an explicit development-only precision
   review. Its replacement E3 replay passed at `23a076f`, including all 926 CI
   tests, exact scientific replay, storage, memory, and independent reload.
-  The separate acceptance gate authorizes the 100-block calibration once
-  committed; reserved comparison remains closed. See
+  The separate acceptance gate was committed before calibration opened. All
+  100 blocks completed on October 16 and independent validation passed with
+  five finite corrections. Phase F preparation is next; reserved comparison
+  remains unopened pending its complete-rule freeze, CI, replay, and gate. See
   `docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md`.
 
 ---

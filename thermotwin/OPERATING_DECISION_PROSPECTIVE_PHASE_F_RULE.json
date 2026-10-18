@@ -1,0 +1,431 @@
+{
+  "artifact_digest": "d8ae3d9ea3748d4de776a672cf19798b145b589d681211ba88b8789186dd6341",
+  "calibrated_decision": {
+    "all_four_clearance_decisions_durably_saved_before_any_target_reveal": true,
+    "approve": "verified finite lower >= clearance",
+    "arithmetic": "exact binary fractions with outward endpoint rounding",
+    "corrections_change_selection_stop_fits_offsets_or_verification": false,
+    "existing_before_reveal_files_on_resume_must_match_exactly": true,
+    "input_fields": [
+      "raw_interval",
+      "development_offset_kelvin",
+      "verification_succeeded",
+      "pipeline_failure"
+    ],
+    "interval": "[L - development_offset(action) - q(procedure), U + development_offset(action) + q(procedure)]",
+    "otherwise": "insufficient_evidence",
+    "primary_clearance_kelvin": 0.0,
+    "reject": "verified finite upper < -clearance",
+    "selector_correction_is_procedure_specific_not_selected_action_specific": true
+  },
+  "calibration_artifact_digest": "124d97f19c1cecb8cfefa6ee5a2b78f4f78570af8337b649f04bbc61435f4f2d",
+  "calibration_scientific_result_digest": "5acc545652c186968fea327ced2f33727279c4b9e13419937f27bfe245586b38",
+  "design": {
+    "analysis": {
+      "comparison_set": "all four reported; primary must pass against every qualifying fixed policy, including dominated ones",
+      "confidence": {
+        "decision_coverage_method": "mean of three family-specific exact lower bounds",
+        "familywise_alpha": 0.05,
+        "one_sided_alpha_per_primary_bound": 0.0006849315068493151,
+        "overall_confidence_is_not_an_exact_energy_guarantee": true,
+        "paired_coverage_loss_method": "mean across families of upper fixed-only probability minus lower selector-only probability",
+        "paired_energy_method": "one-sided Student t on 100 paired block means; approximate normal sampling interpretation",
+        "primary_bound_count": 73,
+        "risk_method": "family-specific exact Clopper-Pearson; mixture upper=max and lower=min; empty approval group N/A"
+      },
+      "empty_qualifying_set": "no strongest-fixed superiority claim",
+      "failed_intervals_covered": false,
+      "frontier": "descriptive nondominated energy/decision-coverage/risk points among qualifying fixed policies; no comparator selection for an easier headline",
+      "incomplete_energy_contrast": "N/A; prohibit energy claim; no dropping cases",
+      "max_coverage_loss_against_fixed": 0.05,
+      "max_false_approval_risk_given_approval": 0.1,
+      "max_false_approval_risk_increase_against_fixed": 0.02,
+      "min_definitive_decision_coverage": 0.7,
+      "noninferiority_margins_are_project_choices": true,
+      "partial_comparisons": "report named comparisons only; no primary success",
+      "primary_question": "realized diagnostic energy saving while retaining decision quality against every qualifying fixed alternative",
+      "protocol_version": "prospective_phase_e_paired_analysis_v1",
+      "qualifying_fixed_policy": "risk upper <= .10 and decision coverage lower >= .70",
+      "secondary_final_decision_clearance_grid_kelvin": [
+        0.0,
+        0.05,
+        0.1,
+        0.2
+      ],
+      "secondary_grid_changes_action_selection": false,
+      "secondary_grid_has_confirmatory_inference": false,
+      "success_rule": "selector qualifies; at least one fixed policy qualifies; positive energy lower bound, coverage-loss upper <= .05, and risk-increase upper <= .02 against every qualifying fixed policy"
+    },
+    "calibration": {
+      "achieved_confidence_per_procedure": 0.9762889173365232,
+      "arithmetic": "exact stored binary inputs; upward score and outward endpoint rounding only when needed",
+      "block_score": "maximum across all three families, including failures",
+      "confidence_target_over_calibration_samples": 0.95,
+      "coverage_target": 0.9,
+      "guarantee_is_joint_across_procedures": false,
+      "infinite_correction_rule": "close as infeasible; do not open reserved",
+      "order_statistic_rank": 96,
+      "protocol_version": "prospective_phase_e_block_tolerance_v1",
+      "q_does_not_change_selection_stop_offsets_fits_or_verification": true,
+      "same_standard_and_own_correction_for_each_procedure": true,
+      "score": "max(0, L-d_action-m_true, m_true-(U+d_action)); failures +infinity"
+    },
+    "calibration_block_count": 100,
+    "calibration_partition": "p1_independent_calibration",
+    "campaign": "operating_decision_prospective_v1_2026_09",
+    "cost_scenario": {
+      "assumed_reset_seconds_per_added_run": 80.0,
+      "bench_time_weight": 0.3333333333333333,
+      "energy_weight": 0.3333333333333333,
+      "face_instrumentation_multiplier": 1.0,
+      "instrumentation_weight": 0.3333333333333333,
+      "name": "balanced_face_equal"
+    },
+    "draw_count": 16,
+    "failure_policy": {
+      "ordinary_fit_verification_missing_interval": "retain every case; +infinity score; abstain",
+      "resume": "only complete blocks with unchanged source/protocol/runtime/content seals; same namespace and seeds for interrupted missing blocks",
+      "retry_successful_blocks": false,
+      "truth_solver_or_wrong_source_or_material_bug": "record incident; stop interpretation; version full affected campaign before replacement"
+    },
+    "max_unstable_draws_per_source_action": 1,
+    "paired_precision_artifact_digest": "c36a0daa723cc247370a60a249cf03d36b2dbd899a1d83db4cd1e132e6162ec8",
+    "phase_d_final_freeze_artifact_digest": "ecb490919a271357749101f7db7c30b98b445b522c2e39203508c3f716c137f6",
+    "precision_and_compute": {
+      "compute_projection": {
+        "approximate_cpu_hours_per_100_block_partition": 169.8865962972222,
+        "calibration_block_count": 100,
+        "final_calibration_summary_indexes_raw_blocks_without_duplicating_them": true,
+        "ideal_four_worker_wall_hours": 42.47164907430555,
+        "planning_disk_budget_including_disposable_probe_bytes": 2147483648,
+        "planning_raw_block_archive_bytes": 366630220,
+        "planning_wall_hours_per_partition": [
+          43,
+          60
+        ],
+        "source": "closed Phase D6 resource record bound in final Phase D freeze",
+        "wall_projection_includes_no_claim_about_unrecorded_prior_invocations": true
+      },
+      "independent_padding_can_only_reduce_decisions_at_the_fixed_boundary": true,
+      "planned_reserved_blocks": 100,
+      "procedures": {
+        "fixed_face_temperature": {
+          "extra_interface_mass": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 175,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 903,
+            "decision_target_power_at_development_rate": 0.00040499954194373724,
+            "development_approvals": 4,
+            "development_case_count": 10,
+            "development_decisions": 7,
+            "optimistic_zero_error_risk_upper": 0.16652768513977287,
+            "projected_approvals_before_independent_padding": 40.0,
+            "projected_decision_coverage_lower_before_padding": 0.5378464627498385,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          },
+          "matched_four_state": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+            "decision_target_power_at_development_rate": 0.1285055148387972,
+            "development_approvals": 1,
+            "development_case_count": 10,
+            "development_decisions": 8,
+            "optimistic_zero_error_risk_upper": 0.5174251165910886,
+            "projected_approvals_before_independent_padding": 10.0,
+            "projected_decision_coverage_lower_before_padding": 0.6480617860301744,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          },
+          "temperature_dependent_contact": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 175,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 903,
+            "decision_target_power_at_development_rate": 0.00040499954194373724,
+            "development_approvals": 4,
+            "development_case_count": 10,
+            "development_decisions": 7,
+            "optimistic_zero_error_risk_upper": 0.16652768513977287,
+            "projected_approvals_before_independent_padding": 40.0,
+            "projected_decision_coverage_lower_before_padding": 0.5378464627498385,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          }
+        },
+        "fixed_thermal": {
+          "extra_interface_mass": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 140,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 722,
+            "decision_target_power_at_development_rate": 0.9601094728889166,
+            "development_approvals": 5,
+            "development_case_count": 10,
+            "development_decisions": 9,
+            "optimistic_zero_error_risk_upper": 0.13560361313659614,
+            "projected_approvals_before_independent_padding": 50.0,
+            "projected_decision_coverage_lower_before_padding": 0.7703052263125432,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          },
+          "matched_four_state": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+            "decision_target_power_at_development_rate": 0.1285055148387972,
+            "development_approvals": 1,
+            "development_case_count": 10,
+            "development_decisions": 8,
+            "optimistic_zero_error_risk_upper": 0.5174251165910886,
+            "projected_approvals_before_independent_padding": 10.0,
+            "projected_decision_coverage_lower_before_padding": 0.6480617860301744,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          },
+          "temperature_dependent_contact": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+            "decision_target_power_at_development_rate": 2.0145908417358367e-20,
+            "development_approvals": 1,
+            "development_case_count": 10,
+            "development_decisions": 4,
+            "optimistic_zero_error_risk_upper": 0.5174251165910886,
+            "projected_approvals_before_independent_padding": 10.0,
+            "projected_decision_coverage_lower_before_padding": 0.24997134605349108,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          }
+        },
+        "fixed_voltage": {
+          "extra_interface_mass": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 175,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 903,
+            "decision_target_power_at_development_rate": 0.00040499954194373724,
+            "development_approvals": 4,
+            "development_case_count": 10,
+            "development_decisions": 7,
+            "optimistic_zero_error_risk_upper": 0.16652768513977287,
+            "projected_approvals_before_independent_padding": 40.0,
+            "projected_decision_coverage_lower_before_padding": 0.5378464627498385,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          },
+          "matched_four_state": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+            "decision_target_power_at_development_rate": 0.1285055148387972,
+            "development_approvals": 1,
+            "development_case_count": 10,
+            "development_decisions": 8,
+            "optimistic_zero_error_risk_upper": 0.5174251165910886,
+            "projected_approvals_before_independent_padding": 10.0,
+            "projected_decision_coverage_lower_before_padding": 0.6480617860301744,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          },
+          "temperature_dependent_contact": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 175,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 903,
+            "decision_target_power_at_development_rate": 5.0731971031743904e-08,
+            "development_approvals": 4,
+            "development_case_count": 10,
+            "development_decisions": 6,
+            "optimistic_zero_error_risk_upper": 0.16652768513977287,
+            "projected_approvals_before_independent_padding": 40.0,
+            "projected_decision_coverage_lower_before_padding": 0.4355316210289065,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          }
+        },
+        "prospective_selector": {
+          "extra_interface_mass": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 140,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 722,
+            "decision_target_power_at_development_rate": 0.9601094728889166,
+            "development_approvals": 5,
+            "development_case_count": 10,
+            "development_decisions": 9,
+            "optimistic_zero_error_risk_upper": 0.13560361313659614,
+            "projected_approvals_before_independent_padding": 50.0,
+            "projected_decision_coverage_lower_before_padding": 0.7703052263125432,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          },
+          "matched_four_state": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+            "decision_target_power_at_development_rate": 0.1285055148387972,
+            "development_approvals": 1,
+            "development_case_count": 10,
+            "development_decisions": 8,
+            "optimistic_zero_error_risk_upper": 0.5174251165910886,
+            "projected_approvals_before_independent_padding": 10.0,
+            "projected_decision_coverage_lower_before_padding": 0.6480617860301744,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          },
+          "temperature_dependent_contact": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 175,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 903,
+            "decision_target_power_at_development_rate": 0.00040499954194373724,
+            "development_approvals": 4,
+            "development_case_count": 10,
+            "development_decisions": 7,
+            "optimistic_zero_error_risk_upper": 0.16652768513977287,
+            "projected_approvals_before_independent_padding": 40.0,
+            "projected_decision_coverage_lower_before_padding": 0.5378464627498385,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          }
+        },
+        "stop_now": {
+          "extra_interface_mass": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 140,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 722,
+            "decision_target_power_at_development_rate": 0.1285055148387972,
+            "development_approvals": 5,
+            "development_case_count": 10,
+            "development_decisions": 8,
+            "optimistic_zero_error_risk_upper": 0.13560361313659614,
+            "projected_approvals_before_independent_padding": 50.0,
+            "projected_decision_coverage_lower_before_padding": 0.6480617860301744,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          },
+          "matched_four_state": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+            "decision_target_power_at_development_rate": 0.1285055148387972,
+            "development_approvals": 1,
+            "development_case_count": 10,
+            "development_decisions": 8,
+            "optimistic_zero_error_risk_upper": 0.5174251165910886,
+            "projected_approvals_before_independent_padding": 10.0,
+            "projected_decision_coverage_lower_before_padding": 0.6480617860301744,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          },
+          "temperature_dependent_contact": {
+            "blocks_needed_for_10pct_zero_error_bound_at_development_rate": 700,
+            "blocks_needed_for_2pct_zero_error_bound_at_development_rate": 3610,
+            "decision_target_power_at_development_rate": 2.0145908417358367e-20,
+            "development_approvals": 1,
+            "development_case_count": 10,
+            "development_decisions": 4,
+            "optimistic_zero_error_risk_upper": 0.5174251165910886,
+            "projected_approvals_before_independent_padding": 10.0,
+            "projected_decision_coverage_lower_before_padding": 0.24997134605349108,
+            "zero_error_approvals_needed_for_10pct_bound": 70,
+            "zero_error_approvals_needed_for_2pct_bound": 361
+          }
+        }
+      },
+      "projection_uses_only_closed_development_evidence": true,
+      "risk_comparison_not_promised_to_be_powered": true,
+      "sample_size_will_not_be_extended_after_outcomes": true,
+      "size_decision": "Retain 100 calibration and 100 reserved blocks within the reviewed compute plan. The conservative simultaneous risk bounds are expected to be inconclusive; no 2-percentage-point risk noninferiority claim is promised. Do not extend after outcomes."
+    },
+    "procedures": [
+      "prospective_selector",
+      "stop_now",
+      "fixed_thermal",
+      "fixed_voltage",
+      "fixed_face_temperature"
+    ],
+    "reserved_block_count": 100,
+    "reserved_partition": "p1_reserved_evaluation",
+    "runtime_identity": {
+      "machine": "arm64",
+      "operating_system": "Darwin",
+      "python_implementation": "CPython",
+      "python_version": "3.10.12",
+      "requirements_path": "thermotwin/requirements-prospective-phase-d.txt",
+      "requirements_sha256": "be75b5b62c2dad9d48a412ecd857882a20cd10f8f03a60ea24c53debe05dea12",
+      "scientific_packages": {
+        "matplotlib": "3.10.8",
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "torch": "2.9.1"
+      }
+    },
+    "selector_rule": {
+      "action_catalog_digest": "f33d938849edec6504393a4503556bc04261aaf8da811d3982f70b1a4b097993",
+      "action_order": [
+        "stop_now",
+        "fixed_thermal",
+        "fixed_voltage",
+        "fixed_face_temperature"
+      ],
+      "algorithm_version": "development-padded-stop-and-four-key-ranking-v2",
+      "development_offsets": {
+        "protocol_version": "operating_decision_development_action_offsets_v1",
+        "schema_version": 1,
+        "values": {
+          "fixed_face_temperature": 0.098,
+          "fixed_thermal": 0.0,
+          "fixed_voltage": 0.074,
+          "stop_now": 0.0
+        },
+        "version": "phase_d_finite_development_offsets_v2"
+      },
+      "minimum_expected_reduction": 0.0,
+      "minimum_utility_per_cost": 0.025,
+      "procedure_name": "prospective_four_action_selector_v2",
+      "protocol_digest": "41882d42778b69997ed07fb7d9e6d8fd423728bcef3b079cb9e61be2ce7fd2aa",
+      "protocol_version": "operating_decision_prospective_selector_v2",
+      "schema_version": 2,
+      "single_candidate_stopping_clearance": 0.0,
+      "stopping_clearance": 0.0,
+      "utility_decimal_places": 12
+    },
+    "sensor_scenario": "nominal",
+    "worker_count": 4
+  },
+  "disposable_rehearsal": {
+    "block_count": 1,
+    "calibration_and_reserved_observations_generated": false,
+    "independent_computations": 2,
+    "partition": "p0_disposable_phase_f_roundtrip_v1",
+    "same_semantic_keys_only_for_explicit_exact_replay": true,
+    "scientific_use": "engineering_only"
+  },
+  "final_corrections_kelvin": {
+    "fixed_face_temperature": 0.025436425099518184,
+    "fixed_thermal": 0.010413810957399489,
+    "fixed_voltage": 0.04106348498740038,
+    "prospective_selector": 0.025436425099518184,
+    "stop_now": 0.04965713743107725
+  },
+  "math_environment": {
+    "BLIS_NUM_THREADS": null,
+    "MKL_CBWR": null,
+    "MKL_DYNAMIC": null,
+    "MKL_NUM_THREADS": null,
+    "NPY_DISABLE_CPU_FEATURES": null,
+    "NUMEXPR_MAX_THREADS": null,
+    "NUMEXPR_NUM_THREADS": null,
+    "OMP_DYNAMIC": null,
+    "OMP_NUM_THREADS": null,
+    "OMP_PLACES": null,
+    "OMP_PROC_BIND": null,
+    "OMP_SCHEDULE": null,
+    "OMP_THREAD_LIMIT": null,
+    "OPENBLAS_CORETYPE": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONHASHSEED": null,
+    "PYTHONOPTIMIZE": null,
+    "VECLIB_MAXIMUM_THREADS": null
+  },
+  "original_numerical_source_manifest_digest": "88e3f8187ab57683ec1c36a6bd24a96364e508d50bb2ae9aa709dfe354645a20",
+  "original_numerical_source_revision": "23a076f69ad4da294234b146e330b8615bed730e",
+  "phase_e_protocol_digest": "9ef8795fc2bf2b7db536a3c72fd9593e538faa54acfea1af8cf2f78d7f96cfb6",
+  "protocol_version": "operating_decision_prospective_phase_f_v1",
+  "reserved_generation_gate": {
+    "committed_complete_rule_and_source": true,
+    "constructed_100_block_archive_roundtrip_required": true,
+    "disposable_roundtrip_and_exact_scientific_replay_required": true,
+    "full_original_calibration_revalidation_required": true,
+    "independent_saved_evidence_reload_required": true,
+    "maximum_process_tree_bytes": 4294967296,
+    "passing_exact_source_ci_required": true,
+    "process_tree_monitor_preflight_required": true,
+    "reserved_generation_authorized_by_this_rule_artifact": false,
+    "separate_committed_generation_gate_required": true
+  },
+  "schema_version": 1
+}

@@ -1,0 +1,149 @@
+{
+  "acceptance_date": "2026-10-17",
+  "artifact_digest": "124d97f19c1cecb8cfefa6ee5a2b78f4f78570af8337b649f04bbc61435f4f2d",
+  "authorization": {
+    "calibration_partition_closed_against_regeneration": true,
+    "complete_rule_freeze_and_disposable_replay_required": true,
+    "phase_e_calibration_complete": true,
+    "reserved_generation_authorized": false
+  },
+  "calibration": {
+    "achieved_confidence_per_procedure": 0.9762889173365232,
+    "all_required_corrections_finite": true,
+    "block_count": 100,
+    "block_coverage_target": 0.9,
+    "calibration_confidence_target": 0.95,
+    "case_count_per_procedure": 300,
+    "confidence_is_joint_over_procedures": false,
+    "order_statistic_rank": 96,
+    "procedures": {
+      "fixed_face_temperature": {
+        "correction_kelvin": 0.025436425099518184,
+        "finite_correction": true,
+        "infinite_block_count": 0
+      },
+      "fixed_thermal": {
+        "correction_kelvin": 0.010413810957399489,
+        "finite_correction": true,
+        "infinite_block_count": 0
+      },
+      "fixed_voltage": {
+        "correction_kelvin": 0.04106348498740038,
+        "finite_correction": true,
+        "infinite_block_count": 0
+      },
+      "prospective_selector": {
+        "correction_kelvin": 0.025436425099518184,
+        "finite_correction": true,
+        "infinite_block_count": 0
+      },
+      "stop_now": {
+        "correction_kelvin": 0.04965713743107725,
+        "finite_correction": true,
+        "infinite_block_count": 0
+      }
+    },
+    "protocol_version": "prospective_phase_e_block_tolerance_v1",
+    "reserved_generation_authorized": false,
+    "schema_version": 1,
+    "scientific_status": "finite_calibration_requires_phase_f_freeze",
+    "score_denominators_include_all_failures": true
+  },
+  "campaign": "operating_decision_prospective_v1_2026_09",
+  "checks": {
+    "all_100_checkpoint_hashes": true,
+    "frozen_source_full_archive_validation": true,
+    "independent_1500_cell_score_recomputation": true,
+    "independent_exact_binomial_rank": true,
+    "independent_five_correction_recomputation": true,
+    "last_invocation_resource_gate": true,
+    "summary_and_report_checksums": true
+  },
+  "evidence": {
+    "archive_content_digest": "cdc5a383860040cbc7fe16fd4d65016737b5d8f0bb6a5fb4bdc2dc91b6c77cb0",
+    "block_count": 100,
+    "block_index_sha256": "fe3c20ed0b6789cc17f07a5f741d95f0ecce32a63e21f41a9e926637f02ae427",
+    "calibration_checksums": {
+      "bytes": 165,
+      "sha256": "ac58786f77cd834ab683a1c62a84a620f50aaeda8fcb5ef57e721b8ca14cf4e2"
+    },
+    "calibration_json": {
+      "bytes": 921581,
+      "sha256": "d72b8bf030414a8a477545d12f80b3bd12001988d0c87efb68bed83f953e7995"
+    },
+    "calibration_resources": {
+      "bytes": 544,
+      "sha256": "879a850ced65dc7ed23d57b3340adf27de7e5a7aa1898ea2bcb2b75ad7081e4f"
+    },
+    "calibration_text": {
+      "bytes": 443,
+      "sha256": "088526a612340e0a7e52498b520a9a5e8fb2c530f9db078884fe440d5f55dfcd"
+    },
+    "frozen_source_archive_validation_log": {
+      "bytes": 78,
+      "sha256": "ce7497136ff003339c3e37d98225b6501e67deced3af841e9c1122f088c3e11c"
+    },
+    "independent_statistical_check": {
+      "bytes": 1219,
+      "sha256": "a19870b410e209f7cbf9b404ba9e800d9e2e962b42175c853a19637cf167e7d3"
+    },
+    "independent_statistical_check_script": {
+      "bytes": 6337,
+      "sha256": "4bf07670c8dc0b35d308f9ac1495ebaaf7b6a02e445826980fd07dc9fdb7d003"
+    },
+    "scientific_result_digest": "5acc545652c186968fea327ced2f33727279c4b9e13419937f27bfe245586b38"
+  },
+  "numerical_source_revision": "23a076f69ad4da294234b146e330b8615bed730e",
+  "partition": "p1_independent_calibration",
+  "performance": {
+    "completed_block_cpu_seconds": 918921.5556699997,
+    "initial_two_invocations_have_no_final_resource_summary_or_recoverable_peak": true,
+    "last_invocation_external_monitor_peak_bytes": 610467840,
+    "last_invocation_resources": {
+      "execution_completed": true,
+      "partition": "p1_independent_calibration",
+      "process_tree_limit_bytes": 4294967296,
+      "process_tree_peak_rss_bytes": 575094784,
+      "process_tree_sample_count": 43069,
+      "process_tree_sampling_error": null,
+      "protocol_version": "phase_e_resource_record_v2",
+      "resource_gate_passed": true,
+      "schema_version": 1,
+      "source_revision": "23a076f69ad4da294234b146e330b8615bed730e",
+      "synchronous_monitor_preflight_rss_bytes": 95256576,
+      "wall_seconds_this_invocation": 48923.345771958004,
+      "worker_count": 4
+    },
+    "lost_partial_work_and_external_validation_cost_not_in_completed_block_cpu_total": true,
+    "prior_invocations_interrupted": 3,
+    "third_invocation_has_partial_external_journal": true,
+    "whole_campaign_elapsed_time_and_peak_memory_not_fully_measured": true
+  },
+  "phase_d_final_freeze_artifact_digest": "ecb490919a271357749101f7db7c30b98b445b522c2e39203508c3f716c137f6",
+  "phase_e_precision_artifact_digest": "c36a0daa723cc247370a60a249cf03d36b2dbd899a1d83db4cd1e132e6162ec8",
+  "protocol_digest": "9ef8795fc2bf2b7db536a3c72fd9593e538faa54acfea1af8cf2f78d7f96cfb6",
+  "protocol_version": "operating_decision_prospective_phase_e_calibration_freeze_v1",
+  "restrictions": {
+    "confidence_is_joint_across_procedures": false,
+    "q_changes_only_final_interval_and_decision": true,
+    "q_changes_selection_stop_fits_offsets_or_verification": false,
+    "reserved_sample_size_extension_after_outcomes": false,
+    "retune_from_calibration_labels": false
+  },
+  "runtime_identity": {
+    "machine": "arm64",
+    "operating_system": "Darwin",
+    "python_implementation": "CPython",
+    "python_version": "3.10.12",
+    "requirements_path": "thermotwin/requirements-prospective-phase-d.txt",
+    "requirements_sha256": "be75b5b62c2dad9d48a412ecd857882a20cd10f8f03a60ea24c53debe05dea12",
+    "scientific_packages": {
+      "matplotlib": "3.10.8",
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "torch": "2.9.1"
+    }
+  },
+  "schema_version": 1,
+  "source_manifest_digest": "88e3f8187ab57683ec1c36a6bd24a96364e508d50bb2ae9aa709dfe354645a20"
+}
