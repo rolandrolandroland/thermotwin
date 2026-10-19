@@ -586,8 +586,10 @@ heat-transfer parameter.
   tests, exact scientific replay, storage, memory, and independent reload.
   The separate acceptance gate was committed before calibration opened. All
   100 blocks completed on October 16 and independent validation passed with
-  five finite corrections. Phase F preparation is next; reserved comparison
-  remains unopened pending its complete-rule freeze, CI, replay, and gate. See
+  five finite corrections. Phase F's complete rule/source froze at `7e3b9a3`;
+  exact-source CI, both fresh disposable computations, independent archive
+  checks and resources passed. F3 acceptance now authorizes the single
+  100-block reserved run after its separate gate is committed. See
   `docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md`.
 
 ---

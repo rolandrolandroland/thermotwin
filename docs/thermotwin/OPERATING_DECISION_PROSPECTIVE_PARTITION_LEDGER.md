@@ -1,6 +1,6 @@
 # Prospective operating-decision partition ledger
 
-Ledger version: 16. Date declared: 2026-09-17. Last reconciled: 2026-10-17.
+Ledger version: 17. Date declared: 2026-09-17. Last reconciled: 2026-10-18.
 Status: P1 is complete and failed. P2 is closed as invalid incident evidence.
 P3 and its conditional all-case N32 continuation executed at source `2f906a2`;
 both archives validate, and the combined engineering gate failed. No draw count
@@ -37,17 +37,19 @@ Frozen-source archive validation and an independent exact-arithmetic check
 passed, with five finite corrections.
 The [Phase E result](OPERATING_DECISION_PHASE_E_RESULT.md) seals the accepted
 calibration and closes that partition against regeneration.
-Reserved evaluation remains unopened and unauthorized. This ledger update
-closes calibration and declares the fresh Phase F disposable namespace before
-generation. Existing partition sizes, numerical streams, and selector rules
-remain unchanged.
+The complete Phase F rule/source freeze at `7e3b9a3` passed exact-source CI,
+both disposable computations, independent reloads, and the resource gate.
+The [F3 acceptance](OPERATING_DECISION_PHASE_F3_ACCEPTANCE.md) binds the separate
+generation gate. Reserved remains unopened at acceptance; after that gate is
+committed, its single 100-block execution is authorized. Existing partition
+sizes, numerical streams, and selector rules remain unchanged.
 
 ## Campaign identity
 
 ```text
 campaign: operating_decision_prospective_v1_2026_09
 procedure under development: prospective_four_action_selector_v2 with prospective uncertainty v3
-next scientific action: freeze the complete calibrated Phase F procedure and pass exact-source CI and a fresh disposable end-to-end replay before reserved generation
+next scientific action: commit the accepted F3 generation gate, then execute p1_reserved_evaluation once from the original clean tested 7e3b9a3 clone and independently validate all 100 blocks
 reviewed source baseline: 9a21aa7
 ```
 
@@ -77,8 +79,8 @@ observations explicitly declared common by the protocol.
 | `p0_disposable_phase_e_roundtrip_v1` | 1 paired block submitted twice; no completed archive | Diagnose the [stream-validator incident](OPERATING_DECISION_PHASE_E_V1_INCIDENT.md) only. | Rerun, scientific inference, replay/resource acceptance, or treating failed computations as calibration observations. | Opened at `fde947d` after CI; failed before archive persistence. Closed. |
 | `p0_disposable_phase_e_roundtrip_v2` | 1 paired block computed twice / 3 distinct disposable cases, complete and valid | Exact archive/replay/resource acceptance, separate constructed storage fixture, and independent reload. | Regeneration; development tuning; calibration or reserved inference; treating repeated/constructed cases as additional observations. | Opened once at `23a076f` after CI; both archives, scientific replay, storage and memory checks passed. Closed as accepted engineering evidence. |
 | `p1_independent_calibration` | 100 paired blocks / 300 cases, complete and independently validated | Compute five procedure-specific rank-96 block tolerance corrections under the same standard; retain failed verification and missing intervals as infinite scores. | Selector, offset, stop, threshold, sensor-scenario, endpoint, or sample-size tuning; replacing successful checkpoints or selecting new seeds after interruption. | Opened once on October 8 at `23a076f`, after acceptance/generation gate commit `76a0fc7`. Completed October 16; five finite corrections accepted October 17. Closed against regeneration. |
-| `p0_disposable_phase_f_roundtrip_v1` | 1 paired block to be computed twice / 3 distinct disposable cases; unopened | Complete calibrated before-reveal persistence, archive/analysis round trips, exact scientific replay, and constructed resource fixture under the [Phase F protocol](OPERATING_DECISION_PHASE_F_PROTOCOL.md). | Calibration or reserved inference; selector tuning; treating repetitions or constructed records as independent observations. | Declared here before generation. Requires committed complete rule/source and passing exact-source CI; a separate acceptance gate must precede reserved generation. |
-| `p1_reserved_evaluation` | 100 paired blocks / 300 cases | One final paired comparison of the frozen selector with stop, fixed thermal, fixed voltage, and fixed face temperature in the primary scenario. | Any tuning, recalibration, favorable-case selection, or reactive sample-size extension. | Finite calibration artifact, source/environment manifests, partition identities, comparison rules, and disposable end-to-end replay committed and verified. |
+| `p0_disposable_phase_f_roundtrip_v1` | 1 paired block computed twice / 3 distinct disposable cases; complete and accepted | Complete calibrated before-reveal persistence, archive/analysis round trips, exact scientific replay, and constructed resource fixture under the [Phase F protocol](OPERATING_DECISION_PHASE_F_PROTOCOL.md). | Calibration or reserved inference; selector tuning; treating repetitions or constructed records as independent observations. | Declared before generation in `7e3b9a3`; opened after exact-source CI, both computations matched, independent reloads and resource checks passed. Closed as accepted engineering evidence. |
+| `p1_reserved_evaluation` | 100 paired blocks / 300 cases; unopened at F3 gate acceptance | One final paired comparison of the frozen selector with stop, fixed thermal, fixed voltage, and fixed face temperature in the primary scenario. | Any tuning, recalibration, favorable-case selection, or reactive sample-size extension. | F1–F3 passed; the separate accepted generation gate must be committed before opening once. Execute from tested source `7e3b9a3`; the persistent reserved journal records launch and checkpoint progress. |
 
 The 100-block sizes are now adopted by the development-only Phase E precision
 review. They do not adequately power the adopted strict risk comparison; this
@@ -177,11 +179,17 @@ changed in response to its outcomes.
     runtime. All 100 completed on October 16. Independent archive and exact-
     arithmetic validation passed; five finite corrections were accepted on
     October 17. The calibration partition is closed against regeneration.
-15. All five corrections are finite. Commit the accepted calibration artifact
-    and complete-rule freeze, pass exact-source CI, and verify the fresh
-    disposable Phase F end-to-end replay and independent reload. Commit its
-    separate acceptance/generation gate before opening reserved evaluation once.
-    Keep the reserved namespace unopened until that chain passes.
+15. The accepted finite calibration artifact and complete rule/source freeze
+    were committed as `7e3b9a3`. Exact-source CI passed before the fresh Phase F
+    disposable workflow started. Both computations matched and independent
+    reloads/resources passed by 01:08 Eastern on October 18. A further standard-
+    library check verified all 120 calibrated decisions. Commit the separate
+    F3 acceptance/generation gate before opening reserved evaluation once.
+16. After that gate commit, execute the existing 100-block reserved namespace
+    from the original clean tested `7e3b9a3` clone. Retain every ordinary failure
+    and comparator. The one-time launch journal records opening and checkpoint
+    progress; source, seeds, offsets, costs, sample size and analysis stay fixed.
+    Independently validate the completed archive before interpretation.
 
 The pre-P2 archive tests checked deterministic record structure, cross-record
 identities, exact stream inventory and RNG offsets, fit invariants, and interval

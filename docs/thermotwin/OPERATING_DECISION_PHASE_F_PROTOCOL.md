@@ -1,9 +1,12 @@
 # Phase F: complete calibrated procedure and final evaluation
 
 Declared: 2026-10-17. Version: `operating_decision_prospective_phase_f_v1`.
-Status: source and complete-rule freeze prepared; exact-source hosted CI and
-disposable numerical replay remain pending. No Phase F observation has been
-generated. Reserved evaluation remains unopened and unauthorized.
+Status updated 2026-10-18: the complete rule/source freeze at `7e3b9a3`,
+exact-source hosted CI, both disposable computations, independent reloads,
+and resource acceptance passed. The [F3 acceptance](OPERATING_DECISION_PHASE_F3_ACCEPTANCE.md)
+binds the separate reserved-generation gate. Reserved is unopened at gate
+acceptance and may open once only after that gate is committed. The execution
+journal records the subsequent launch and checkpoint progress.
 
 The [accepted Phase E result](OPERATING_DECISION_PHASE_E_RESULT.md) supplies
 five finite corrections. The [complete rule artifact](../../thermotwin/OPERATING_DECISION_PROSPECTIVE_PHASE_F_RULE.json)
