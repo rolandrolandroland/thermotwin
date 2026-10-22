@@ -12,6 +12,14 @@ whether the frozen named evaluation has started or finished.
 Disposable smoke, timing, and solver-verification computations are development
 checks, not named evaluation results. No PINN advantage has been established.
 
+The v1 campaign completed on October 19, 2026. Its post hoc
+[failure diagnosis](PINN_SPATIAL_FAILURE_DIAGNOSIS.md) separates weak 1D shape
+information from the 2D field-training failure and defines the recommended
+development sequence. The completed campaign and its scores are preserved.
+The subsequent [v2 development record](PINN_SPATIAL_REVISION_V2.md) tracks
+execution of that sequence. V1's completed evaluation and v2's development
+checks have separate claims and evidence.
+
 ## Evidence and execution rules
 
 Freeze the source, seed namespaces, optimizer caps, candidate schedules,

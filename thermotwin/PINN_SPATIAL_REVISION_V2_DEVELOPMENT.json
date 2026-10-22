@@ -1,0 +1,885 @@
+{
+  "3d": "deferred; benchmark plate remains uniform along depth",
+  "complete_protocol_frozen": false,
+  "development_artifact_index": {
+    "digest": "04924104ebe859839f8a5daff8c17e33030c5fd920c3b675c17f27617a7dcc9f",
+    "files": 106,
+    "path": "reports/pinn-spatial-validation/revision-v2-development/evidence-index.json"
+  },
+  "development_only": true,
+  "inverse_fits_run": 0,
+  "named_v2_observations_generated": false,
+  "next_development": [
+    "enforce shared interface temperature and Fourier-flux traces",
+    "improve interior derivative accuracy and verify full-contact as a separate gate",
+    "redeclare bounded development before any further fits; do not open fresh evaluation"
+  ],
+  "preserved_evidence": {
+    "phase_f_gate_sha256": "ddf4fbbea146fecfd0b83c8581559427e0f1bcecc58c6cade15cc8fbb5bffda2",
+    "phase_f_record_count": 117,
+    "phase_f_records_digest": "80829787f69b94f01554456f72a49bb15876c4112cbcf8d67ac507cfbe24f221",
+    "v1_indexed_evidence": {
+      "evidence_digest": "ee2208b0fa33544b9eb837e60a6fcbdba6fe040b3ae5243f5dd9618268c677c8",
+      "validated_files": 123
+    },
+    "v1_manifest_sha256": "0c0e59d572f8cddee88aaab1e90dfb6c2d0bacceb4fa047107977439445e20f2",
+    "v1_source_record_count": 458,
+    "v1_source_records_digest": "848898bf1e9e50ae731869ce0f18ee66cc60a8b80e8857f39ad42e9a723ece44"
+  },
+  "raw_directory": "reports/pinn-spatial-validation/revision-v2-development",
+  "recorded_utc": "2026-10-22T12:24:51.531460+00:00",
+  "requested_steps": {
+    "1_forward_repair": "implemented and tested; 1 of four final forward cases pass; prerequisite remains failed",
+    "2_delayed_or_alternating_inverse": "implemented with stage preservation; no inverse development or evaluation fits run",
+    "3_one_d_scalar_baseline_and_excitation_design": "scalar baseline retained; 16-candidate design completed; fresh recovery fits not run",
+    "4_freeze_and_fresh_evaluation": "coordinator implemented; complete protocol deliberately not frozen; no named v2 data generated"
+  },
+  "schema_version": 1,
+  "selected_1d_development": {
+    "candidate": {
+      "current_magnitude": 0.4,
+      "experiment_count": 6,
+      "id": "bands3_I0.4_dt0.08",
+      "observation_count": 108,
+      "observation_interval": 0.08,
+      "windows": [
+        [
+          286.0,
+          290.0
+        ],
+        [
+          298.0,
+          302.0
+        ],
+        [
+          310.0,
+          314.0
+        ]
+      ]
+    },
+    "candidate_count": 16,
+    "candidate_score": {
+      "candidate": {
+        "current_magnitude": 0.4,
+        "experiment_count": 6,
+        "id": "bands3_I0.4_dt0.08",
+        "observation_count": 108,
+        "observation_interval": 0.08,
+        "windows": [
+          [
+            286.0,
+            290.0
+          ],
+          [
+            298.0,
+            302.0
+          ],
+          [
+            310.0,
+            314.0
+          ]
+        ]
+      },
+      "curves": [
+        {
+          "development_multipliers": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "information": {
+            "condition_number": 1.5220500138601845,
+            "contrast_standard_error": 0.0017985379620195415,
+            "covariance": [
+              [
+                1.7772599773703619e-06,
+                -3.928686729705484e-07,
+                1.1746756648708241e-07
+              ],
+              [
+                -3.928686729705484e-07,
+                1.3874156750503238e-06,
+                -4.2494637269433416e-07
+              ],
+              [
+                1.1746756648708241e-07,
+                -4.249463726943343e-07,
+                2.105837210096272e-06
+              ]
+            ],
+            "full_rank": true,
+            "least_informative_contrast_direction": [
+              -0.41432478089337055,
+              0.5553224876841365,
+              -0.4750302437383565
+            ],
+            "marginal_log_standard_errors": [
+              0.0013331391440394966,
+              0.0011778861044474222,
+              0.0014511503058250968
+            ],
+            "max_marginal_log_standard_error": 0.0014511503058250968,
+            "minimum_singular_value_per_sqrt_observation": 61.715342431739906,
+            "singular_values": [
+              976.1890777547796,
+              747.412858918121,
+              641.3646521897094
+            ],
+            "weakest_direction": [
+              0.42346276398434035,
+              -0.4738136586199971,
+              0.7721268706785667
+            ]
+          },
+          "information_passed": true,
+          "nonlinear_contrast_check": {
+            "checks": [
+              {
+                "actual_nonlinear_contrast_change": -0.0349346516915533,
+                "log_multipliers": [
+                  0.01450136733126797,
+                  -0.01943628706894478,
+                  0.01662605853084248
+                ],
+                "passed": true,
+                "requested_linear_contrast_change": -0.035,
+                "sign": -1.0,
+                "whitened_observation_distance": 19.42567344548667,
+                "within_parameter_bounds": true
+              },
+              {
+                "actual_nonlinear_contrast_change": 0.03506907007440696,
+                "log_multipliers": [
+                  -0.01450136733126797,
+                  0.01943628706894478,
+                  -0.01662605853084248
+                ],
+                "passed": true,
+                "requested_linear_contrast_change": 0.035,
+                "sign": 1.0,
+                "whitened_observation_distance": 19.49991341113964,
+                "within_parameter_bounds": true
+              }
+            ],
+            "interpretation": "Nonlinear forward check along locally least-informative contrast direction, not a nonlinear confidence interval.",
+            "passed": true
+          },
+          "passed": true,
+          "physical_domain_passed": true,
+          "temperature_coverage_passed": true,
+          "temperature_ranges_K": [
+            [
+              285.900820498158,
+              290.1073414760677
+            ],
+            [
+              286.0,
+              290.0
+            ],
+            [
+              297.89201204264225,
+              302.1160352165053
+            ],
+            [
+              298.0,
+              302.0
+            ],
+            [
+              309.88328177463694,
+              314.12469301412347
+            ],
+            [
+              310.0,
+              314.0
+            ]
+          ]
+        },
+        {
+          "development_multipliers": [
+            0.97,
+            1.02,
+            1.04
+          ],
+          "information": {
+            "condition_number": 1.5176761148469906,
+            "contrast_standard_error": 0.0017983623898958766,
+            "covariance": [
+              [
+                1.888381019952426e-06,
+                -3.969450015713424e-07,
+                1.1637830145981981e-07
+              ],
+              [
+                -3.9694500157134245e-07,
+                1.3334335969135948e-06,
+                -4.004744716795577e-07
+              ],
+              [
+                1.163783014598198e-07,
+                -4.0047447167955765e-07,
+                1.946548174467831e-06
+              ]
+            ],
+            "full_rank": true,
+            "least_informative_contrast_direction": [
+              -0.42709325670109227,
+              0.5444678127534355,
+              -0.4567357720989732
+            ],
+            "marginal_log_standard_errors": [
+              0.0013741837649864832,
+              0.001154743952966888,
+              0.0013951875051289096
+            ],
+            "max_marginal_log_standard_error": 0.0013951875051289096,
+            "minimum_singular_value_per_sqrt_observation": 62.787704159475005,
+            "singular_values": [
+              990.297266607318,
+              745.3613851239968,
+              652.5089621688867
+            ],
+            "weakest_direction": [
+              0.583048586116183,
+              -0.48504595072924356,
+              0.6517551472056696
+            ]
+          },
+          "information_passed": true,
+          "nonlinear_contrast_check": {
+            "checks": [
+              {
+                "actual_nonlinear_contrast_change": -0.03493722146740019,
+                "log_multipliers": [
+                  -0.015510943500170344,
+                  0.0007462538498094855,
+                  0.05520646517674539
+                ],
+                "passed": true,
+                "requested_linear_contrast_change": -0.035,
+                "sign": -1.0,
+                "whitened_observation_distance": 19.428954139304178,
+                "within_parameter_bounds": true
+              },
+              {
+                "actual_nonlinear_contrast_change": 0.03506637954697156,
+                "log_multipliers": [
+                  -0.045407471469246806,
+                  0.03885900074254997,
+                  0.023234961129817266
+                ],
+                "passed": true,
+                "requested_linear_contrast_change": 0.035,
+                "sign": 1.0,
+                "whitened_observation_distance": 19.50027604605833,
+                "within_parameter_bounds": true
+              }
+            ],
+            "interpretation": "Nonlinear forward check along locally least-informative contrast direction, not a nonlinear confidence interval.",
+            "passed": true
+          },
+          "passed": true,
+          "physical_domain_passed": true,
+          "temperature_coverage_passed": true,
+          "temperature_ranges_K": [
+            [
+              285.90075551572545,
+              290.1072933414133
+            ],
+            [
+              286.0,
+              290.0
+            ],
+            [
+              297.8920569367414,
+              302.11609207570854
+            ],
+            [
+              298.0,
+              302.0
+            ],
+            [
+              309.883373328744,
+              314.1247913621992
+            ],
+            [
+              310.0,
+              314.0
+            ]
+          ]
+        }
+      ],
+      "passed": true,
+      "worst_contrast_standard_error": 0.0017985379620195415,
+      "worst_max_marginal_log_standard_error": 0.0014511503058250968,
+      "worst_minimum_singular_value": 641.3646521897094
+    },
+    "elapsed_seconds": 112.17106783296913,
+    "evaluation_truths_used_for_selection": false,
+    "named_data_generated": false,
+    "noise_assumptions": {
+      "temperature_sigma_K": 0.01,
+      "voltage_sigma_V": 1e-05
+    },
+    "passing_count": 8,
+    "selected_fd_refinement": [
+      {
+        "conventional_refinement": {
+          "coarse_cells": 5,
+          "coarse_time_step": 0.0015,
+          "fine_cells": 10,
+          "fine_time_step": 0.00075,
+          "maximum_observable_difference_sigma": 0.004450513682741075,
+          "passed": true
+        },
+        "development_multipliers": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "passed": true,
+        "relative_jacobian_discrepancy": 1.5137936450825036e-07
+      },
+      {
+        "conventional_refinement": {
+          "coarse_cells": 5,
+          "coarse_time_step": 0.0015,
+          "fine_cells": 10,
+          "fine_time_step": 0.00075,
+          "maximum_observable_difference_sigma": 0.008213333333416395,
+          "passed": true
+        },
+        "development_multipliers": [
+          0.97,
+          1.02,
+          1.04
+        ],
+        "passed": true,
+        "relative_jacobian_discrepancy": 1.5148635686011755e-07
+      }
+    ],
+    "source_sha256": {
+      "thermotwin/core/controls.py": "bb2c257ab9a447b2b51e1cf5dc0731152dff4603dd70d856a9e4aab36dda3dc9",
+      "thermotwin/inference/distributed_properties.py": "9ceb452443bb6fcb2650ab9d423011864eb51a742cfce249a464d659aff3e7ee",
+      "thermotwin/inference/distributed_regularization.py": "16632d453ccf2e4fd97b7681d99334a6712951a262d0ed7e75210a79e4fddffa",
+      "thermotwin/numerics/integration.py": "fc376d4bdefd91f7cee170411b9c54cb605b7c507042ca28aada1a308fafc390",
+      "thermotwin/numerics/matrices.py": "5f77f2f5c661ee0c44895289ae620dda2e484afb1d203e434913d458f0799416",
+      "thermotwin/observations/distributed.py": "5e427207edd6196bb5e4f5ff0c24ebb41a09f7c18d8de9726ce60950c91b67b4",
+      "thermotwin/physics/distributed.py": "847564bac5ae8334b7b1126f736ff3839756f809ca0c12f4358b8fc24306635e",
+      "thermotwin/simulation/distributed.py": "fc9ba81beeea2323437b02a72f0bfe6a4103a2aaddc6a338d38f5d9f60009fb0",
+      "thermotwin/simulation/distributed_independent.py": "4caa8465b2343b5c3a5815b52f6c54f76f4596de6947a028ce434d1a1397e99c",
+      "thermotwin/studies/pinn_spatial_revision_1d.py": "5387af1e6e1891e3b26b9e70b9921315ac3b4ef4d167a1b7970fbb08fb0dcaa0"
+    },
+    "spec_sha256": "512a7825febbab8c6cf22b306120890b618697c73bef21ebf30468629042f11b",
+    "status": "selected"
+  },
+  "source_parent_commit": "0bfe84ea900ed4abe82cc80cef11152f5dcb7d23",
+  "status": "blocked_forward_gate",
+  "two_d_forward_development": {
+    "c07_c08_status": "not_run_delegated_to_root_new_inverse_plan",
+    "cases": [
+      {
+        "action": "preserve_completed",
+        "artifact_directory": "t01",
+        "config": {
+          "adam_epochs": 6000,
+          "architecture": "hard_boundary_decomposed",
+          "bath_drop_kelvin": 5.0,
+          "boundary_points": 128,
+          "duration": 120.0,
+          "h_bounds": [
+            400.0,
+            2000.0
+          ],
+          "initial_h": 894.4271909999159,
+          "initial_temperature": 300.0,
+          "interface_points": 256,
+          "interface_temperature_scale": 0.1,
+          "interior_points": 1536,
+          "layers": 3,
+          "lbfgs_iterations": 4000,
+          "learning_rate": 0.001,
+          "observation_weight": 1,
+          "physics_weight": 100,
+          "ramp_seconds": 10.0,
+          "refresh_adam_every": 100,
+          "skip_hard_bc_training": true,
+          "temperature_scale": 5.0,
+          "temporal_envelope": "ramp",
+          "time_feature": "log_diffusion",
+          "top_flux_watts_per_square_metre": 500.0,
+          "width": 48
+        },
+        "field_metrics": {
+          "maximum_error_K": 0.023113657281840005,
+          "rmse_K": 0.007546528645694564
+        },
+        "gate": {
+          "all": true,
+          "each_independent_residual": true,
+          "field": true,
+          "observations": true
+        },
+        "geometry": "full_contact",
+        "id": "t01",
+        "independent_residuals": {
+          "all_families_pass": true,
+          "expected_families": [
+            "interior",
+            "left",
+            "right",
+            "top",
+            "bottom_contact"
+          ],
+          "normalization_scales": {
+            "bottom_contact": 500.0,
+            "interior": 0.041666666666666664,
+            "left": 500.0,
+            "right": 500.0,
+            "top": 500.0
+          },
+          "normalized_rms": {
+            "bottom_contact": 3.9789470409091475e-16,
+            "interior": 0.04783577318126922,
+            "left": 0.0,
+            "right": 3.736996007269794e-18,
+            "top": 1.292652631805466e-16
+          },
+          "physical_rms": {
+            "bottom_contact": 1.9894735204545737e-13,
+            "interior": 0.0019931572158862175,
+            "left": 0.0,
+            "right": 1.868498003634897e-15,
+            "top": 6.46326315902733e-14
+          },
+          "point_counts": {
+            "bottom_contact": 1760,
+            "interior": 5280,
+            "left": 264,
+            "right": 264,
+            "top": 1760
+          },
+          "seed": 2026102204,
+          "times_s": [
+            0.25,
+            0.75,
+            1.5,
+            3.0,
+            6.0,
+            12.0,
+            22.0,
+            38.0,
+            60.0,
+            88.0,
+            115.0
+          ],
+          "validation_scheme": "independent shifted structured spatial grids and fixed explicit early/late times; chunked AD strong residuals"
+        },
+        "known_h": 800,
+        "status": "completed",
+        "wall_seconds": 297.739934000012
+      },
+      {
+        "action": "preserve_completed",
+        "artifact_directory": "t02",
+        "config": {
+          "adam_epochs": 6000,
+          "architecture": "hard_boundary_decomposed",
+          "bath_drop_kelvin": 5.0,
+          "boundary_points": 128,
+          "duration": 120.0,
+          "h_bounds": [
+            400.0,
+            2000.0
+          ],
+          "initial_h": 894.4271909999159,
+          "initial_temperature": 300.0,
+          "interface_points": 256,
+          "interface_temperature_scale": 0.1,
+          "interior_points": 1536,
+          "layers": 3,
+          "lbfgs_iterations": 4000,
+          "learning_rate": 0.001,
+          "observation_weight": 1,
+          "physics_weight": 100,
+          "ramp_seconds": 10.0,
+          "refresh_adam_every": 100,
+          "skip_hard_bc_training": true,
+          "temperature_scale": 5.0,
+          "temporal_envelope": "ramp",
+          "time_feature": "log_diffusion",
+          "top_flux_watts_per_square_metre": 500.0,
+          "width": 48
+        },
+        "field_metrics": {
+          "maximum_error_K": 0.029073696978741737,
+          "rmse_K": 0.007686649164431935
+        },
+        "gate": {
+          "all": false,
+          "each_independent_residual": false,
+          "field": true,
+          "observations": true
+        },
+        "geometry": "partial_contact",
+        "id": "t02",
+        "independent_residuals": {
+          "all_families_pass": false,
+          "expected_families": [
+            "interior",
+            "left",
+            "right",
+            "top",
+            "bottom_contact",
+            "bottom_insulated",
+            "interface_0_temperature",
+            "interface_0_flux",
+            "interface_1_temperature",
+            "interface_1_flux"
+          ],
+          "normalization_scales": {
+            "bottom_contact": 500.0,
+            "bottom_insulated": 500.0,
+            "interface_0_flux": 500.0,
+            "interface_0_temperature": 0.1,
+            "interface_1_flux": 500.0,
+            "interface_1_temperature": 0.1,
+            "interior": 0.041666666666666664,
+            "left": 500.0,
+            "right": 500.0,
+            "top": 500.0
+          },
+          "normalized_rms": {
+            "bottom_contact": 5.084794126855275e-16,
+            "bottom_insulated": 0.0,
+            "interface_0_flux": 0.027511542116219173,
+            "interface_0_temperature": 0.0755042854410407,
+            "interface_1_flux": 0.017710054719539868,
+            "interface_1_temperature": 0.14152884278589492,
+            "interior": 0.2431757775507959,
+            "left": 0.0,
+            "right": 0.0,
+            "top": 1.5948623424245652e-16
+          },
+          "physical_rms": {
+            "bottom_contact": 2.5423970634276375e-13,
+            "bottom_insulated": 0.0,
+            "interface_0_flux": 13.755771058109586,
+            "interface_0_temperature": 0.00755042854410407,
+            "interface_1_flux": 8.855027359769934,
+            "interface_1_temperature": 0.014152884278589493,
+            "interior": 0.010132324064616494,
+            "left": 0.0,
+            "right": 0.0,
+            "top": 7.974311712122827e-14
+          },
+          "point_counts": {
+            "bottom_contact": 704,
+            "bottom_insulated": 1056,
+            "interface_0": 264,
+            "interface_1": 264,
+            "interior": 5280,
+            "left": 264,
+            "right": 264,
+            "top": 1760
+          },
+          "seed": 2026102204,
+          "times_s": [
+            0.25,
+            0.75,
+            1.5,
+            3.0,
+            6.0,
+            12.0,
+            22.0,
+            38.0,
+            60.0,
+            88.0,
+            115.0
+          ],
+          "validation_scheme": "independent shifted structured spatial grids and fixed explicit early/late times; chunked AD strong residuals"
+        },
+        "known_h": 800,
+        "status": "completed",
+        "wall_seconds": 534.3381905409624
+      },
+      {
+        "action": "exact_deterministic_resource_replay",
+        "artifact_directory": "resource-continuation/t03",
+        "attempt": 2,
+        "config": {
+          "adam_epochs": 6000,
+          "architecture": "hard_boundary_decomposed",
+          "bath_drop_kelvin": 5.0,
+          "boundary_points": 128,
+          "duration": 120.0,
+          "h_bounds": [
+            400.0,
+            2000.0
+          ],
+          "initial_h": 894.4271909999159,
+          "initial_temperature": 300.0,
+          "interface_points": 256,
+          "interface_temperature_scale": 0.1,
+          "interior_points": 1536,
+          "layers": 3,
+          "lbfgs_iterations": 4000,
+          "learning_rate": 0.001,
+          "observation_weight": 1,
+          "physics_weight": 100,
+          "ramp_seconds": 10.0,
+          "refresh_adam_every": 100,
+          "skip_hard_bc_training": true,
+          "temperature_scale": 5.0,
+          "temporal_envelope": "ramp",
+          "time_feature": "log_diffusion",
+          "top_flux_watts_per_square_metre": 500.0,
+          "width": 48
+        },
+        "field_metrics": {
+          "maximum_error_K": 0.01973069708753883,
+          "rmse_K": 0.006802984203251569
+        },
+        "gate": {
+          "all": false,
+          "each_independent_residual": false,
+          "field": true,
+          "observations": true
+        },
+        "geometry": "full_contact",
+        "id": "t03",
+        "independent_residuals": {
+          "all_families_pass": false,
+          "expected_families": [
+            "interior",
+            "left",
+            "right",
+            "top",
+            "bottom_contact"
+          ],
+          "normalization_scales": {
+            "bottom_contact": 500.0,
+            "interior": 0.041666666666666664,
+            "left": 500.0,
+            "right": 500.0,
+            "top": 500.0
+          },
+          "normalized_rms": {
+            "bottom_contact": 6.555460852846496e-16,
+            "interior": 0.05737792088987334,
+            "left": 0.0,
+            "right": 2.6131143008378883e-18,
+            "top": 2.0050540419485429e-16
+          },
+          "physical_rms": {
+            "bottom_contact": 3.277730426423248e-13,
+            "interior": 0.0023907467037447222,
+            "left": 0.0,
+            "right": 1.3065571504189441e-15,
+            "top": 1.0025270209742714e-13
+          },
+          "point_counts": {
+            "bottom_contact": 1760,
+            "interior": 5280,
+            "left": 264,
+            "right": 264,
+            "top": 1760
+          },
+          "seed": 2026102204,
+          "times_s": [
+            0.25,
+            0.75,
+            1.5,
+            3.0,
+            6.0,
+            12.0,
+            22.0,
+            38.0,
+            60.0,
+            88.0,
+            115.0
+          ],
+          "validation_scheme": "independent shifted structured spatial grids and fixed explicit early/late times; chunked AD strong residuals"
+        },
+        "known_h": 1400,
+        "status": "completed",
+        "wall_seconds": 325.5638296669931
+      },
+      {
+        "action": "complete_previously_unrun_arm",
+        "artifact_directory": "resource-continuation/t04",
+        "attempt": 1,
+        "config": {
+          "adam_epochs": 6000,
+          "architecture": "hard_boundary_decomposed",
+          "bath_drop_kelvin": 5.0,
+          "boundary_points": 128,
+          "duration": 120.0,
+          "h_bounds": [
+            400.0,
+            2000.0
+          ],
+          "initial_h": 894.4271909999159,
+          "initial_temperature": 300.0,
+          "interface_points": 256,
+          "interface_temperature_scale": 0.1,
+          "interior_points": 1536,
+          "layers": 3,
+          "lbfgs_iterations": 4000,
+          "learning_rate": 0.001,
+          "observation_weight": 1,
+          "physics_weight": 100,
+          "ramp_seconds": 10.0,
+          "refresh_adam_every": 100,
+          "skip_hard_bc_training": true,
+          "temperature_scale": 5.0,
+          "temporal_envelope": "ramp",
+          "time_feature": "log_diffusion",
+          "top_flux_watts_per_square_metre": 500.0,
+          "width": 48
+        },
+        "field_metrics": {
+          "maximum_error_K": 0.044202951829902304,
+          "rmse_K": 0.010026185867793951
+        },
+        "gate": {
+          "all": false,
+          "each_independent_residual": false,
+          "field": true,
+          "observations": true
+        },
+        "geometry": "partial_contact",
+        "id": "t04",
+        "independent_residuals": {
+          "all_families_pass": false,
+          "expected_families": [
+            "interior",
+            "left",
+            "right",
+            "top",
+            "bottom_contact",
+            "bottom_insulated",
+            "interface_0_temperature",
+            "interface_0_flux",
+            "interface_1_temperature",
+            "interface_1_flux"
+          ],
+          "normalization_scales": {
+            "bottom_contact": 500.0,
+            "bottom_insulated": 500.0,
+            "interface_0_flux": 500.0,
+            "interface_0_temperature": 0.1,
+            "interface_1_flux": 500.0,
+            "interface_1_temperature": 0.1,
+            "interior": 0.041666666666666664,
+            "left": 500.0,
+            "right": 500.0,
+            "top": 500.0
+          },
+          "normalized_rms": {
+            "bottom_contact": 6.868215959618579e-16,
+            "bottom_insulated": 0.0,
+            "interface_0_flux": 0.05469559407330775,
+            "interface_0_temperature": 0.10876429888348568,
+            "interface_1_flux": 0.025464216661096013,
+            "interface_1_temperature": 0.1727401898313241,
+            "interior": 0.3612682214339557,
+            "left": 0.0,
+            "right": 0.0,
+            "top": 1.6114245681502872e-16
+          },
+          "physical_rms": {
+            "bottom_contact": 3.4341079798092897e-13,
+            "bottom_insulated": 0.0,
+            "interface_0_flux": 27.347797036653873,
+            "interface_0_temperature": 0.010876429888348568,
+            "interface_1_flux": 12.732108330548007,
+            "interface_1_temperature": 0.01727401898313241,
+            "interior": 0.015052842559748154,
+            "left": 0.0,
+            "right": 0.0,
+            "top": 8.057122840751436e-14
+          },
+          "point_counts": {
+            "bottom_contact": 704,
+            "bottom_insulated": 1056,
+            "interface_0": 264,
+            "interface_1": 264,
+            "interior": 5280,
+            "left": 264,
+            "right": 264,
+            "top": 1760
+          },
+          "seed": 2026102204,
+          "times_s": [
+            0.25,
+            0.75,
+            1.5,
+            3.0,
+            6.0,
+            12.0,
+            22.0,
+            38.0,
+            60.0,
+            88.0,
+            115.0
+          ],
+          "validation_scheme": "independent shifted structured spatial grids and fixed explicit early/late times; chunked AD strong residuals"
+        },
+        "known_h": 1400,
+        "status": "completed",
+        "wall_seconds": 577.684095375007
+      }
+    ],
+    "original_selection_preserved_at": "../final-forward-selection.json",
+    "resource_only_continuation": true,
+    "selected_candidate_id": null,
+    "selected_config": null,
+    "source_sha256": {
+      "thermotwin/pinn/planar_contact_revision.py": "c58498e96765b6cf50f3502743d67544891a27c652601621049e7dc6edf49894"
+    },
+    "source_unchanged": true,
+    "status": "blocked_forward_gate",
+    "truth_labels_used_in_neural_loss": false,
+    "wall_seconds": 1806.2844390830141
+  },
+  "verification": {
+    "final_focused_revision_tests": {
+      "passed": true,
+      "tests": 38
+    },
+    "full_suite": {
+      "passed": true,
+      "scope": "full suite started during development; final failure-path changes subsequently checked by focused tests",
+      "seconds": 1494.88,
+      "tests": 1038
+    },
+    "independent_review": "freeze proof, truth boundary, raw-before-score saving, stage preservation, failure recovery reviewed",
+    "planar_revision_tests": {
+      "passed": true,
+      "tests": 8
+    },
+    "source_sha256": {
+      "tests/test_pinn_spatial_revision.py": "439ad0c0f019db42e8489dd797c3462e778c5f57176dd0d5cfc3580a40eef5e7",
+      "tests/test_pinn_spatial_revision_1d.py": "ee9209b8a5fb888d3eeacd915c576ba18f50fb8c2eb97b1296b6e07706cbccfc",
+      "tests/test_pinn_spatial_revision_execution.py": "f1b2a596d0713b170acda3bccf2370d76ecfa1540fab21971ae4b84a4b8408f9",
+      "tests/test_pinn_spatial_revision_inverse.py": "9b37cb39ee39b767f53e00aca8964e51374a609f3084ab64357c57f5e2fda084",
+      "tests/test_pinn_spatial_revision_report.py": "e69d166edd3870e7843cb56ffc0e0e22e4b0d39163da3e0e85cbba580f4a1af3",
+      "tests/test_planar_contact_revision.py": "1cddc771ef2e3033ccaf4b45ca8bc084b7f2627ba71bb942cf61c4e01e0c9350",
+      "thermotwin/core/controls.py": "bb2c257ab9a447b2b51e1cf5dc0731152dff4603dd70d856a9e4aab36dda3dc9",
+      "thermotwin/inference/distributed_properties.py": "9ceb452443bb6fcb2650ab9d423011864eb51a742cfce249a464d659aff3e7ee",
+      "thermotwin/inference/distributed_regularization.py": "16632d453ccf2e4fd97b7681d99334a6712951a262d0ed7e75210a79e4fddffa",
+      "thermotwin/numerics/integration.py": "fc376d4bdefd91f7cee170411b9c54cb605b7c507042ca28aada1a308fafc390",
+      "thermotwin/numerics/matrices.py": "5f77f2f5c661ee0c44895289ae620dda2e484afb1d203e434913d458f0799416",
+      "thermotwin/observations/distributed.py": "5e427207edd6196bb5e4f5ff0c24ebb41a09f7c18d8de9726ce60950c91b67b4",
+      "thermotwin/physics/distributed.py": "847564bac5ae8334b7b1126f736ff3839756f809ca0c12f4358b8fc24306635e",
+      "thermotwin/pinn/planar_contact_revision.py": "c58498e96765b6cf50f3502743d67544891a27c652601621049e7dc6edf49894",
+      "thermotwin/reports/pinn_spatial_revision.py": "23350aed0e6a7ac2083c31c1eda4d85f605d89fae7ac925f9f54c2b50bbea3c5",
+      "thermotwin/reports/pinn_spatial_revision_supervisor.py": "4b7bfeb291b72d7e53fad0aebb4038f527a847816ab5e6223860368209977255",
+      "thermotwin/simulation/distributed.py": "fc9ba81beeea2323437b02a72f0bfe6a4103a2aaddc6a338d38f5d9f60009fb0",
+      "thermotwin/simulation/distributed_independent.py": "4caa8465b2343b5c3a5815b52f6c54f76f4596de6947a028ce434d1a1397e99c",
+      "thermotwin/studies/pinn_spatial_revision.py": "3f3d614489e185128b710af6e7c8173c6c1331665d100536e96e6b6fd6a09efb",
+      "thermotwin/studies/pinn_spatial_revision_1d.py": "5387af1e6e1891e3b26b9e70b9921315ac3b4ef4d167a1b7970fbb08fb0dcaa0",
+      "thermotwin/studies/pinn_spatial_revision_inverse.py": "de86a3a446f208c1e313e7f133d5dae0d75bd1fc799623f86b811575245c7b1d"
+    }
+  }
+}
