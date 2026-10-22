@@ -1,0 +1,806 @@
+{
+  "schema": "paired_2d_continuity_development_v3",
+  "candidate_id": "shared-hermite-corner-projected-readout-v3",
+  "created_utc": "2026-10-22T15:02:51.845372+00:00",
+  "scope": "development only; no inverse fitting or fresh evaluation",
+  "model_config": {
+    "width": 24,
+    "layers": 2,
+    "adam_epochs": 120,
+    "projection_every": 20,
+    "interior_points": 4096,
+    "bottom_points": 512,
+    "learning_rate": 0.0001,
+    "gradient_clip": 1.0,
+    "max_backtracks": 12,
+    "physics_weight": 100.0,
+    "observation_weight": 1.0,
+    "rank_rcond": 1e-07,
+    "projection_chunk": 128,
+    "bottom_log_feature": true,
+    "bottom_log_scale": 0.001,
+    "corner_enrichment": true,
+    "duration": 120.0,
+    "initial_temperature": 300.0,
+    "temperature_scale": 5.0,
+    "ramp_seconds": 10.0,
+    "bath_drop_kelvin": 5.0,
+    "top_flux_watts_per_square_metre": 500.0,
+    "interface_temperature_scale": 0.1
+  },
+  "cases": [
+    {
+      "id": "t01",
+      "geometry": "full_contact",
+      "known_h": 800.0
+    },
+    {
+      "id": "t02",
+      "geometry": "partial_contact",
+      "known_h": 800.0
+    },
+    {
+      "id": "t03",
+      "geometry": "full_contact",
+      "known_h": 1400.0
+    },
+    {
+      "id": "t04",
+      "geometry": "partial_contact",
+      "known_h": 1400.0
+    }
+  ],
+  "seeds": {
+    "noise": 2026102201,
+    "neural": 2026102202,
+    "sampling": 2026102203,
+    "diagnostic": 2026102204
+  },
+  "gates": {
+    "normalized_observation_mse": 2.0,
+    "each_normalized_residual_rms": 0.05,
+    "field_rmse_K": 0.05,
+    "field_maximum_error_K": 0.15,
+    "interface_temperature_scale_K": 0.1,
+    "flux_scale_W_m2": 500.0,
+    "interior_scale_K_s": 0.041666666666666664
+  },
+  "maximum_fits": 4,
+  "retries": 0,
+  "maximum_wall_seconds": 3600.0,
+  "maximum_rss_bytes": 2147483648,
+  "threads": 1,
+  "selection": "same predeclared configuration must pass all four arms; retain every failure",
+  "checkpoint_rule": "optimizer-returned final state; atomically retained before independent diagnostics or field scoring",
+  "runtime": {
+    "implementation": "CPython",
+    "python": "3.10.12",
+    "packages": {
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "torch": "2.9.1"
+    },
+    "float": "float64",
+    "threads": 1
+  },
+  "source_sha256": {
+    "pyproject.toml": "01b0ee6e83096856e09559aa4f7577c6a6c75da5de17dbf80d791ef4985cd165",
+    "tests/test_pinn_spatial_continuity.py": "ab149fcb47f008c16aa0831d49d07e3dc36259c3fdb1847e344da3ff9e653498",
+    "tests/test_planar_contact_continuity.py": "a1436feed28b93241ba3b9b743bfa9e731eec1d9f340389d1ac141df026786ba",
+    "thermotwin/physics/planar_contact.py": "f1091a133168ff7c4cdaa463f6dd838ad103d4cee1ffbf54aa612680b8b3abd8",
+    "thermotwin/pinn/planar_contact_continuity.py": "27c5a1cf741565128375c1da1b2e889e323bf8ac47c8f64338156ae5a396a8bd",
+    "thermotwin/pinn/planar_contact_inverse.py": "a8e183b4f43b3ca0ba41918cf43982c9d2e6034064f564388c603532366300e5",
+    "thermotwin/studies/pinn_spatial_continuity.py": "fddf36f14b72731ba963fbc865cbb92ec70e9fbf8b0aa86f36a74e84ad610f36"
+  },
+  "protected_directories": [],
+  "protected_indices": [
+    {
+      "directory": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development",
+      "index_sha256": "1378b3995067eb6f53d1fe260659f89f64f89c7950cbcf2fa9a9990c382d60ea",
+      "digest": "04924104ebe859839f8a5daff8c17e33030c5fd920c3b675c17f27617a7dcc9f",
+      "files": [
+        {
+          "bytes": 2256,
+          "path": "REPORT.md",
+          "sha256": "b2b450e96e68b7c18617414fce776953e241f7f42da46b9d726116efb03fe475"
+        },
+        {
+          "bytes": 8323,
+          "path": "finalize_development.py",
+          "sha256": "e7d14dfb39e0d438dd9f82fdba11016e200ddff16bec398ec75452f7dec4af3b"
+        },
+        {
+          "bytes": 93371,
+          "path": "one-d/design-v1/candidate-results.json",
+          "sha256": "18664ddc9c392436f6c3cf57e96f2103e32fddc8c563564172cc57421bad5b71"
+        },
+        {
+          "bytes": 10955,
+          "path": "one-d/design-v1/development-manifest.json",
+          "sha256": "10b7f02c4f1fa0fb4f727cf493b227389e57e6c8958d1b6a38c511aa0ea75bc7"
+        },
+        {
+          "bytes": 10925,
+          "path": "one-d/design-v1/predeclared-development-manifest.json",
+          "sha256": "0c1aac5cc7aa6938f694aba2a8ec83db774bbeb801f9060dc5f13051d905029d"
+        },
+        {
+          "bytes": 9708,
+          "path": "one-d/design-v1/selection.json",
+          "sha256": "b53e03bcc8f43ac43f883b6910a3a06939cebe0d6454972b45219be08b0af9a5"
+        },
+        {
+          "bytes": 93371,
+          "path": "one-d/design-v2/candidate-results.json",
+          "sha256": "18664ddc9c392436f6c3cf57e96f2103e32fddc8c563564172cc57421bad5b71"
+        },
+        {
+          "bytes": 11472,
+          "path": "one-d/design-v2/development-manifest.json",
+          "sha256": "081274cef666350a6bb7d5af62200b20341d3cf9f4689cbdd08adc00266e9159"
+        },
+        {
+          "bytes": 11442,
+          "path": "one-d/design-v2/predeclared-development-manifest.json",
+          "sha256": "b531d12dc1281dfe74051145efd009b87d1f001fbc8a9db89e2607e8a8ced0f9"
+        },
+        {
+          "bytes": 10154,
+          "path": "one-d/design-v2/selection.json",
+          "sha256": "aab1b595e07b2176bb18023f1896cb165062378a919660f40c15ef974fe08008"
+        },
+        {
+          "bytes": 973,
+          "path": "one-d/development-v1.log",
+          "sha256": "e1ce1316d4d9e9e283af06efbced097a786d7099d1b0df429513bc3b33f4f849"
+        },
+        {
+          "bytes": 1084,
+          "path": "one-d/development-v2.log",
+          "sha256": "a237e62d824c4a40fa2e3236f47f87a7daab5f8c232adffb86b27186efa6cfd2"
+        },
+        {
+          "bytes": 237403,
+          "path": "one-d/report-render-smoke/.matplotlib/fontlist-v390.json",
+          "sha256": "a6303bc4d18b9fd3bbe093024bf81cd5191cddc4c4e0f898abf2637798648518"
+        },
+        {
+          "bytes": 4124,
+          "path": "one-d/report-render-smoke/REPORT.md",
+          "sha256": "6e1602fb1a4c49370a225157089267782990ab7e66c0ef1166dbf8aba0c8291d"
+        },
+        {
+          "bytes": 63103,
+          "path": "one-d/report-render-smoke/revision-1d-metrics.png",
+          "sha256": "73576b89e8549892267164e2ef5a9287b6086d1e74961c879e3eae1611a836e0"
+        },
+        {
+          "bytes": 64436,
+          "path": "one-d/report-render-smoke/revision-2d-metrics.png",
+          "sha256": "aeee3e47d246ab5c4461dd5422612f7de32d3ce757d445aa9f7f0f193fb92a62"
+        },
+        {
+          "bytes": 237403,
+          "path": "one-d/report-render-smoke-v2/.matplotlib/fontlist-v390.json",
+          "sha256": "a03454b072f255ae83f3c90c5e210dc638e532b8e5c33818b079af11c28cf7b2"
+        },
+        {
+          "bytes": 4124,
+          "path": "one-d/report-render-smoke-v2/REPORT.md",
+          "sha256": "6e1602fb1a4c49370a225157089267782990ab7e66c0ef1166dbf8aba0c8291d"
+        },
+        {
+          "bytes": 63383,
+          "path": "one-d/report-render-smoke-v2/revision-1d-metrics.png",
+          "sha256": "9da873f34788f01f5bc0eafe872d7d71536184796f0804c4ecc8434df4f8b9e1"
+        },
+        {
+          "bytes": 64646,
+          "path": "one-d/report-render-smoke-v2/revision-2d-metrics.png",
+          "sha256": "17e66c0c2e7f6c333f5f0d61819fa9a9f50c4063560597b8046e5a764ea5b93c"
+        },
+        {
+          "bytes": 601,
+          "path": "one-d/report-render-smoke-v2.log",
+          "sha256": "97f2e53cdc8b6d1f3da2c9d3d0f2640bd7fce4d64b016cdf94c6699aa4252390"
+        },
+        {
+          "bytes": 592,
+          "path": "one-d/report-render-smoke.log",
+          "sha256": "40e844ca256fe805c934b924b00952e1c472bf393b34edb6959f40187f88bec5"
+        },
+        {
+          "bytes": 848,
+          "path": "one-d/report-tests-final.log",
+          "sha256": "0a268f0c328e902fc1d7df057464f7c986ebd221dcdca05017e0b3eb21e542d2"
+        },
+        {
+          "bytes": 848,
+          "path": "one-d/report-tests.log",
+          "sha256": "bb98a9294a1779d0dab594eb13c2ee88cf1a8d4c60c6da172ad083387e0df9c9"
+        },
+        {
+          "bytes": 1400,
+          "path": "one-d/scientific-tests-final.log",
+          "sha256": "9304cd4f21f8e270cd96c588785661ca905358313b3b9d3ebd5e5b2501439988"
+        },
+        {
+          "bytes": 1112,
+          "path": "one-d/scientific-tests.log",
+          "sha256": "ae783f24045d4a498b22693305f5c71257752029ee1fa1307a162df186ce640e"
+        },
+        {
+          "bytes": 4214,
+          "path": "phase-b-four-case-development.json",
+          "sha256": "e5258d1b7f1d8aaa4dd3fb1e05e9e6de1698be916cefc2cc63d03f30866f65f2"
+        },
+        {
+          "bytes": 22876,
+          "path": "phase-b-four-case-development.pdf",
+          "sha256": "6a14c5764ff4a1e7ea711e52f1925f3397108e6e8f483e071d9a778bfc830375"
+        },
+        {
+          "bytes": 184306,
+          "path": "phase-b-four-case-development.png",
+          "sha256": "b38feb98a33fc3d4fa26d9e9cc99f5d946b777aa4c0908944242d9cfbf00f16b"
+        },
+        {
+          "bytes": 596,
+          "path": "preservation-check.json",
+          "sha256": "85e8e7f85040145821ca04609db1aaa70aaaca75d7dd24d0975ceb03315ea4ce"
+        },
+        {
+          "bytes": 9101,
+          "path": "render_forward_development.py",
+          "sha256": "6d67111ae6f0adb8d159c411263a3687c48bd11d1ddb6d9ac2739136c0bb7d2b"
+        },
+        {
+          "bytes": 2965,
+          "path": "review-and-tests.json",
+          "sha256": "d61865a7b1b36360d47bda6a5e43fb56d5ea4292a0849ada2ba01f359098bf1e"
+        },
+        {
+          "bytes": 30615,
+          "path": "summary-before-index.json",
+          "sha256": "1e06e4bc5408215e1d1bbc2f02e2e2eae276d40c869cf3b57475a7420a920233"
+        },
+        {
+          "bytes": 896,
+          "path": "two-d/budget-amendment.json",
+          "sha256": "e5aae5f2a52cfc325975a3e3d9d181615b1704e9e6d01ae1351b78153f27f2c9"
+        },
+        {
+          "bytes": 1202,
+          "path": "two-d/c01/declared-config.json",
+          "sha256": "7013fc879bd53756ebe66557a59c9b13e541d3a97e1a4974619a3b6055fef329"
+        },
+        {
+          "bytes": 135527,
+          "path": "two-d/c01/field_scoring.npz",
+          "sha256": "edee5f72999bc9c8efc39c7a154578522ccacbbb042f7b8227ca3bc54f803866"
+        },
+        {
+          "bytes": 23248,
+          "path": "two-d/c01/final_checkpoint.pt",
+          "sha256": "42b7b5d36d6d96966b61795198318bd1bb301fb5928b35aa9fd31099fac49cd3"
+        },
+        {
+          "bytes": 1213,
+          "path": "two-d/c01/observations.npz",
+          "sha256": "0dd9d9ca82a1fb598187a5bb4700b5234887e6af0d82bf658fa846413d224019"
+        },
+        {
+          "bytes": 8822,
+          "path": "two-d/c01/result.json",
+          "sha256": "268621c49df5be586efb198e6923d40671d3f870bcd37c66d3ea9cd29449c11e"
+        },
+        {
+          "bytes": 1208,
+          "path": "two-d/c02/declared-config.json",
+          "sha256": "8d36f1afd6b65d55b8438ec171e57bb68cb28e6ab662560e7f494e04b213c454"
+        },
+        {
+          "bytes": 185789,
+          "path": "two-d/c02/field_scoring.npz",
+          "sha256": "8e4ac3bd58320a2539f9627a54011fc9009fcc376ef3470eaf9ce22674e5bcb3"
+        },
+        {
+          "bytes": 23248,
+          "path": "two-d/c02/final_checkpoint.pt",
+          "sha256": "494c87c3f47dda81eec7d2e59a115935f5a47f6e7636cff4ea9e5bf257753f93"
+        },
+        {
+          "bytes": 1342,
+          "path": "two-d/c02/observations.npz",
+          "sha256": "ea6a236c98683cb3ea4f9c5a85c2d94d81d96f280d958a2a9643cceac214be76"
+        },
+        {
+          "bytes": 8988,
+          "path": "two-d/c02/result.json",
+          "sha256": "8705b1f5b09d9760d3786e888b001ee76379e26d772eba8bb672697efc15fc03"
+        },
+        {
+          "bytes": 1262,
+          "path": "two-d/c03/declared-config.json",
+          "sha256": "286e3878e414e18a595c77b35197fc0eac6442e2a8dc08d87303da6cfc8bfbd9"
+        },
+        {
+          "bytes": 137407,
+          "path": "two-d/c03/field_scoring.npz",
+          "sha256": "b6ae4ccc4c623accb7f45157bc64fc236e3447a006bb2116773e2f19cfa76b21"
+        },
+        {
+          "bytes": 23504,
+          "path": "two-d/c03/final_checkpoint.pt",
+          "sha256": "80249b633fd370baa0466d12e6470e93779c790dd1605e0a56454b6b417a961c"
+        },
+        {
+          "bytes": 1213,
+          "path": "two-d/c03/observations.npz",
+          "sha256": "0dd9d9ca82a1fb598187a5bb4700b5234887e6af0d82bf658fa846413d224019"
+        },
+        {
+          "bytes": 8849,
+          "path": "two-d/c03/result.json",
+          "sha256": "5d4883418e7e2f6f6b85f152b640e9c6872a1965fd51629b6db883991553bbbc"
+        },
+        {
+          "bytes": 1268,
+          "path": "two-d/c04/declared-config.json",
+          "sha256": "92b03ed9199314d6c125fa31aaf72c5407861567830fa46ce6dfda63a90a5a18"
+        },
+        {
+          "bytes": 185781,
+          "path": "two-d/c04/field_scoring.npz",
+          "sha256": "d9996f880d13672d3ae6f7e8d1ca0855e36d73f3dc3ec451c445887c3bb805d8"
+        },
+        {
+          "bytes": 65327,
+          "path": "two-d/c04/final_checkpoint.pt",
+          "sha256": "1601748b41ec9ab3b3e775a29e15d64ab9a534e7772b5130f6f6d86208d1a5d2"
+        },
+        {
+          "bytes": 1342,
+          "path": "two-d/c04/observations.npz",
+          "sha256": "ea6a236c98683cb3ea4f9c5a85c2d94d81d96f280d958a2a9643cceac214be76"
+        },
+        {
+          "bytes": 9643,
+          "path": "two-d/c04/result.json",
+          "sha256": "66c6e84e5d3d6f9d6a750b608ebd6caa27963304c7a3cf9c10baba5cb7c00aaa"
+        },
+        {
+          "bytes": 1976,
+          "path": "two-d/candidate-plan-phase-b.json",
+          "sha256": "3b988fa0790b9cfa0cf19f968c049b9b578cb9d3ae2769f9c7f2f14a82b00348"
+        },
+        {
+          "bytes": 2907,
+          "path": "two-d/candidate-plan.json",
+          "sha256": "92d47088fc69730c456e3e3569ab680da7e32437b15c95ebf53681772a1f7905"
+        },
+        {
+          "bytes": 6920,
+          "path": "two-d/compose_final_report.py",
+          "sha256": "c5345c30a16db86896e5da672750192163f51c09962e9108d7a447eb6891bdca"
+        },
+        {
+          "bytes": 3100,
+          "path": "two-d/curvature_from_saved_fields.py",
+          "sha256": "023e3b18267e15157dbe1fa8923f8e1608033842aafc2e8b03224455a91e3212"
+        },
+        {
+          "bytes": 12757,
+          "path": "two-d/final-development-report.json",
+          "sha256": "e5f2ddc24e7e277c1454744a72f8efb5b42920a12726472ddf26ec665e8700aa"
+        },
+        {
+          "bytes": 7930,
+          "path": "two-d/final-forward-selection.json",
+          "sha256": "5b0d481684f29e2eef1023803a48d4c4d35184e8d306375fafcbdc4546e26837"
+        },
+        {
+          "bytes": 3402,
+          "path": "two-d/phase-a-manifest.json",
+          "sha256": "8539f34163cec9f4ef30ef0c715e8a846d76b6d18cc382e879964b35a42c58f2"
+        },
+        {
+          "bytes": 20295,
+          "path": "two-d/phase-a-source/planar_contact_revision.py",
+          "sha256": "e302b3128b7180fc890f77d04e218459deb23b5beb87fa4be72448ea57b0371e"
+        },
+        {
+          "bytes": 5387,
+          "path": "two-d/phase-a-source/test_planar_contact_revision.py",
+          "sha256": "f56f7feb9e1edc4078285d882a07d0b8db82ab97b72f6314f904fb04abe45685"
+        },
+        {
+          "bytes": 6676,
+          "path": "two-d/phase-b-manifest.json",
+          "sha256": "303020b3b03a09db4bf2cd0d4c6e7f80b8754aeb1196fb83368447da44035dfb"
+        },
+        {
+          "bytes": 6916,
+          "path": "two-d/phase-b-partial-results.json",
+          "sha256": "870f39a2f195a6879b66aaa7b7845764e4201eb35a51646eeac161f27546bdf6"
+        },
+        {
+          "bytes": 21728,
+          "path": "two-d/phase-b-source/planar_contact_revision.py",
+          "sha256": "c58498e96765b6cf50f3502743d67544891a27c652601621049e7dc6edf49894"
+        },
+        {
+          "bytes": 6654,
+          "path": "two-d/phase-b-source/test_planar_contact_revision.py",
+          "sha256": "1cddc771ef2e3033ccaf4b45ca8bc084b7f2627ba71bb942cf61c4e01e0c9350"
+        },
+        {
+          "bytes": 1206,
+          "path": "two-d/probe-summary-c01-c02-c03-c04.json",
+          "sha256": "f876d2791901b3b063bbed6f690a2ce68db7d7a7dcd8ea93bcc8c5f717c46586"
+        },
+        {
+          "bytes": 4534,
+          "path": "two-d/probes.py",
+          "sha256": "98c9587757ab444d74ff211349c45beeae6d066afe5e3e0edf56e6ae3265a33c"
+        },
+        {
+          "bytes": 5824,
+          "path": "two-d/probes_phase_b.py",
+          "sha256": "50887a97175f005c8288f124f8e11d34809fbf3617783386514975eb35f635fa"
+        },
+        {
+          "bytes": 13807,
+          "path": "two-d/resource-continuation/final-forward-selection.json",
+          "sha256": "8d1463df57d3154e010ddde452c89939ac248a2f6742a4f714fbd3c367ba25a6"
+        },
+        {
+          "bytes": 10209,
+          "path": "two-d/resource-continuation/manifest.json",
+          "sha256": "6f5b3f569fa70c414f5fc5c0483857057239692a908ca7c92fc38114f27ed1db"
+        },
+        {
+          "bytes": 12360,
+          "path": "two-d/resource-continuation/partial-results.json",
+          "sha256": "c70895ed17ec90f755e1e49212790cfcb0d6513f79bce67920cff0f473a136e5"
+        },
+        {
+          "bytes": 21728,
+          "path": "two-d/resource-continuation/planar_contact_revision.py",
+          "sha256": "c58498e96765b6cf50f3502743d67544891a27c652601621049e7dc6edf49894"
+        },
+        {
+          "bytes": 665,
+          "path": "two-d/resource-continuation/replay-prefix-verification.json",
+          "sha256": "109cbba19daa2f735b8daa759c94146d9a90b75c832149f64f60bb109324ddec"
+        },
+        {
+          "bytes": 2192,
+          "path": "two-d/resource-continuation/resource-continuation-plan.json",
+          "sha256": "f5a7ee0fd99b7d3f73380b127b3ea236309726f22f213bdba5190cb4e89b8669"
+        },
+        {
+          "bytes": 1294,
+          "path": "two-d/resource-continuation/t03/declared-config.json",
+          "sha256": "340bea310d86b5611786b356bebf286dfb0e6bd980cbf023477c5018238c9ea3"
+        },
+        {
+          "bytes": 136330,
+          "path": "two-d/resource-continuation/t03/field_scoring.npz",
+          "sha256": "b274b380ed05aa631894964ce8f13b2a73a3313e91f1a212a214bd9e78a71246"
+        },
+        {
+          "bytes": 45072,
+          "path": "two-d/resource-continuation/t03/final_checkpoint.pt",
+          "sha256": "2ca5813c3c4971a90486fa3a183e5c3652edb69e6066996a2e5948cea7702934"
+        },
+        {
+          "bytes": 1210,
+          "path": "two-d/resource-continuation/t03/observations.npz",
+          "sha256": "1c0bfd94a71d4cde7058996a171c89dc63473a7dab426ee6d4fbc8dd7752e7f3"
+        },
+        {
+          "bytes": 15378,
+          "path": "two-d/resource-continuation/t03/progress.jsonl",
+          "sha256": "de7a491e296294fd160e54c474fefea28f5b877ce1e0882087ddaf0f98ead5fa"
+        },
+        {
+          "bytes": 23990,
+          "path": "two-d/resource-continuation/t03/result.json",
+          "sha256": "192387e3241d2a4422d4744aebc416aa5ee6e6708392f086d382fe619d4ed66d"
+        },
+        {
+          "bytes": 1294,
+          "path": "two-d/resource-continuation/t04/declared-config.json",
+          "sha256": "2270e2785a565419515f7388ba5641173148edc95c1f3e4313a7b923a35316a8"
+        },
+        {
+          "bytes": 186036,
+          "path": "two-d/resource-continuation/t04/field_scoring.npz",
+          "sha256": "e8a9019a429117911b2c75818a6d876b8172b3cb0b6388522245c330687304e3"
+        },
+        {
+          "bytes": 129967,
+          "path": "two-d/resource-continuation/t04/final_checkpoint.pt",
+          "sha256": "baf2368b1dc47ff3601cf3a843df966e2d63802e938a502e402acf3d3b07ceab"
+        },
+        {
+          "bytes": 1346,
+          "path": "two-d/resource-continuation/t04/observations.npz",
+          "sha256": "ed3ed01de8cfca67c531ddf8bc5bcace1aa3e1ca7f8386f793794099a4c29c6d"
+        },
+        {
+          "bytes": 15050,
+          "path": "two-d/resource-continuation/t04/progress.jsonl",
+          "sha256": "8c057322a271251ed5fffa09981190c1ab5c5140ada8c7aad6a039c68b439d09"
+        },
+        {
+          "bytes": 24473,
+          "path": "two-d/resource-continuation/t04/result.json",
+          "sha256": "f0ed7cd8ddfa30791a0196f64ad777f54692e40c629f71f47ded7e2b9e4f5375"
+        },
+        {
+          "bytes": 8516,
+          "path": "two-d/resource_continuation.py",
+          "sha256": "67a74d2b27ffb25f6ec83fdbb62a0d39a297405ba00844106eb2a223bed2634e"
+        },
+        {
+          "bytes": 1249,
+          "path": "two-d/t01/declared-config.json",
+          "sha256": "fcb78c804a0705b09a8aaab91db74cd0671cfc1ff6dc80e3fafddcf4c6734a22"
+        },
+        {
+          "bytes": 136703,
+          "path": "two-d/t01/field_scoring.npz",
+          "sha256": "96f084f550d7f6fe114581d2058a1208da1f33aae230a607fe80c2673a636d9d"
+        },
+        {
+          "bytes": 45072,
+          "path": "two-d/t01/final_checkpoint.pt",
+          "sha256": "5abb6a6f7136e21346d1e4d5615f0575106505d98fa43a6a473c0fc127b1061d"
+        },
+        {
+          "bytes": 1213,
+          "path": "two-d/t01/observations.npz",
+          "sha256": "0dd9d9ca82a1fb598187a5bb4700b5234887e6af0d82bf658fa846413d224019"
+        },
+        {
+          "bytes": 15396,
+          "path": "two-d/t01/progress.jsonl",
+          "sha256": "bf6206a7d99eadc8da055da280f185ed16daefd89dcc62f6718f746bfe88ff0e"
+        },
+        {
+          "bytes": 23977,
+          "path": "two-d/t01/result.json",
+          "sha256": "b3272b9b9fdf164c014364116c577908b714d339e7ff8ced44a11b06df08b5c4"
+        },
+        {
+          "bytes": 1255,
+          "path": "two-d/t02/declared-config.json",
+          "sha256": "42a305b6a7d5afc75cde0c68c9361f1c361129e4fdc44a8108c3eb8c1c15f1aa"
+        },
+        {
+          "bytes": 185749,
+          "path": "two-d/t02/field_scoring.npz",
+          "sha256": "d0f4c85e2503feb18c00e201b5b174215fa74a97cfc3fd95fcdf867cfa0f6ce9"
+        },
+        {
+          "bytes": 129967,
+          "path": "two-d/t02/final_checkpoint.pt",
+          "sha256": "6cef4f625351a64ba2070943890a550f23b9869e0cb57c4ab2e0da4af9d382f7"
+        },
+        {
+          "bytes": 1342,
+          "path": "two-d/t02/observations.npz",
+          "sha256": "ea6a236c98683cb3ea4f9c5a85c2d94d81d96f280d958a2a9643cceac214be76"
+        },
+        {
+          "bytes": 15029,
+          "path": "two-d/t02/progress.jsonl",
+          "sha256": "1c75040e01c32c1e03fb5ef171ff4441f91157598e2e136e2fb154263d32c4f0"
+        },
+        {
+          "bytes": 24426,
+          "path": "two-d/t02/result.json",
+          "sha256": "04cf1856f7acdf74c9462983f135ffc7f193318897c5bc761154b99058a244ab"
+        },
+        {
+          "bytes": 12543,
+          "path": "two-d/t02-curvature-localization.json",
+          "sha256": "9849bfa1dc1c8755c24409d7d3d78d5a9a58e6587ad6ba02a39906eded07e38f"
+        },
+        {
+          "bytes": 1250,
+          "path": "two-d/t03/declared-config.json",
+          "sha256": "f0b5c4dbb4677e72cd3b14eb9eb8abc2eacf3659ddd433711b5f6a9640d58a9a"
+        },
+        {
+          "bytes": 913,
+          "path": "two-d/t03/failure.json",
+          "sha256": "b21f22f8de3f2d9d05ffdee37ee0222463342924533ccc202394288996916426"
+        },
+        {
+          "bytes": 1210,
+          "path": "two-d/t03/observations.npz",
+          "sha256": "1c0bfd94a71d4cde7058996a171c89dc63473a7dab426ee6d4fbc8dd7752e7f3"
+        },
+        {
+          "bytes": 3593,
+          "path": "two-d/t03/progress.jsonl",
+          "sha256": "f8ef603d97805de971b5914655a99f43c75b996f2dec843b3a9c601be03a6c44"
+        }
+      ]
+    }
+  ],
+  "prior_development": {
+    "path": "/Users/rolandbennett/projects/thermotwin/thermotwin/PINN_SPATIAL_REVISION_V2_DEVELOPMENT.json",
+    "sha256": "e1dd09187a0730647a9a4b6e0783f86e655af9c49c19bb6dcd629cce672c330a",
+    "source_sha256": {
+      "tests/test_pinn_spatial_revision.py": "439ad0c0f019db42e8489dd797c3462e778c5f57176dd0d5cfc3580a40eef5e7",
+      "tests/test_pinn_spatial_revision_1d.py": "ee9209b8a5fb888d3eeacd915c576ba18f50fb8c2eb97b1296b6e07706cbccfc",
+      "tests/test_pinn_spatial_revision_execution.py": "f1b2a596d0713b170acda3bccf2370d76ecfa1540fab21971ae4b84a4b8408f9",
+      "tests/test_pinn_spatial_revision_inverse.py": "9b37cb39ee39b767f53e00aca8964e51374a609f3084ab64357c57f5e2fda084",
+      "tests/test_pinn_spatial_revision_report.py": "e69d166edd3870e7843cb56ffc0e0e22e4b0d39163da3e0e85cbba580f4a1af3",
+      "tests/test_planar_contact_revision.py": "1cddc771ef2e3033ccaf4b45ca8bc084b7f2627ba71bb942cf61c4e01e0c9350",
+      "thermotwin/core/controls.py": "bb2c257ab9a447b2b51e1cf5dc0731152dff4603dd70d856a9e4aab36dda3dc9",
+      "thermotwin/inference/distributed_properties.py": "9ceb452443bb6fcb2650ab9d423011864eb51a742cfce249a464d659aff3e7ee",
+      "thermotwin/inference/distributed_regularization.py": "16632d453ccf2e4fd97b7681d99334a6712951a262d0ed7e75210a79e4fddffa",
+      "thermotwin/numerics/integration.py": "fc376d4bdefd91f7cee170411b9c54cb605b7c507042ca28aada1a308fafc390",
+      "thermotwin/numerics/matrices.py": "5f77f2f5c661ee0c44895289ae620dda2e484afb1d203e434913d458f0799416",
+      "thermotwin/observations/distributed.py": "5e427207edd6196bb5e4f5ff0c24ebb41a09f7c18d8de9726ce60950c91b67b4",
+      "thermotwin/physics/distributed.py": "847564bac5ae8334b7b1126f736ff3839756f809ca0c12f4358b8fc24306635e",
+      "thermotwin/pinn/planar_contact_revision.py": "c58498e96765b6cf50f3502743d67544891a27c652601621049e7dc6edf49894",
+      "thermotwin/reports/pinn_spatial_revision.py": "23350aed0e6a7ac2083c31c1eda4d85f605d89fae7ac925f9f54c2b50bbea3c5",
+      "thermotwin/reports/pinn_spatial_revision_supervisor.py": "4b7bfeb291b72d7e53fad0aebb4038f527a847816ab5e6223860368209977255",
+      "thermotwin/simulation/distributed.py": "fc9ba81beeea2323437b02a72f0bfe6a4103a2aaddc6a338d38f5d9f60009fb0",
+      "thermotwin/simulation/distributed_independent.py": "4caa8465b2343b5c3a5815b52f6c54f76f4596de6947a028ce434d1a1397e99c",
+      "thermotwin/studies/pinn_spatial_revision.py": "3f3d614489e185128b710af6e7c8173c6c1331665d100536e96e6b6fd6a09efb",
+      "thermotwin/studies/pinn_spatial_revision_1d.py": "5387af1e6e1891e3b26b9e70b9921315ac3b4ef4d167a1b7970fbb08fb0dcaa0",
+      "thermotwin/studies/pinn_spatial_revision_inverse.py": "de86a3a446f208c1e313e7f133d5dae0d75bd1fc799623f86b811575245c7b1d"
+    },
+    "preserved_evidence": {
+      "phase_f_gate_sha256": "ddf4fbbea146fecfd0b83c8581559427e0f1bcecc58c6cade15cc8fbb5bffda2",
+      "phase_f_record_count": 117,
+      "phase_f_records_digest": "80829787f69b94f01554456f72a49bb15876c4112cbcf8d67ac507cfbe24f221",
+      "v1_indexed_evidence": {
+        "evidence_digest": "ee2208b0fa33544b9eb837e60a6fcbdba6fe040b3ae5243f5dd9618268c677c8",
+        "validated_files": 123
+      },
+      "v1_manifest_sha256": "0c0e59d572f8cddee88aaab1e90dfb6c2d0bacceb4fa047107977439445e20f2",
+      "v1_source_record_count": 458,
+      "v1_source_records_digest": "848898bf1e9e50ae731869ce0f18ee66cc60a8b80e8857f39ad42e9a723ece44"
+    },
+    "preserved_campaign": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/campaign-0bfe84ea-v1"
+  },
+  "paired_evidence": {
+    "t01": {
+      "observations.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/t01/observations.npz",
+        "sha256": "0dd9d9ca82a1fb598187a5bb4700b5234887e6af0d82bf658fa846413d224019"
+      },
+      "field_scoring.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/t01/field_scoring.npz",
+        "sha256": "96f084f550d7f6fe114581d2058a1208da1f33aae230a607fe80c2673a636d9d"
+      }
+    },
+    "t02": {
+      "observations.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/t02/observations.npz",
+        "sha256": "ea6a236c98683cb3ea4f9c5a85c2d94d81d96f280d958a2a9643cceac214be76"
+      },
+      "field_scoring.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/t02/field_scoring.npz",
+        "sha256": "d0f4c85e2503feb18c00e201b5b174215fa74a97cfc3fd95fcdf867cfa0f6ce9"
+      }
+    },
+    "t03": {
+      "observations.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/resource-continuation/t03/observations.npz",
+        "sha256": "1c0bfd94a71d4cde7058996a171c89dc63473a7dab426ee6d4fbc8dd7752e7f3"
+      },
+      "field_scoring.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/resource-continuation/t03/field_scoring.npz",
+        "sha256": "b274b380ed05aa631894964ce8f13b2a73a3313e91f1a212a214bd9e78a71246"
+      }
+    },
+    "t04": {
+      "observations.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/resource-continuation/t04/observations.npz",
+        "sha256": "ed3ed01de8cfca67c531ddf8bc5bcace1aa3e1ca7f8386f793794099a4c29c6d"
+      },
+      "field_scoring.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/resource-continuation/t04/field_scoring.npz",
+        "sha256": "e8a9019a429117911b2c75818a6d876b8172b3cb0b6388522245c330687304e3"
+      }
+    }
+  },
+  "data_policy": "reuse exact saved v2 observations; load hidden reference field only after final checkpoint and raw training report",
+  "reference": {
+    "nx": 160,
+    "nz": 40,
+    "max_step_s": 0.0625,
+    "initial_temperature_K": 300.0,
+    "bath": "300+5*expm1(-t/10)",
+    "top_flux": "-500*expm1(-t/10)",
+    "output_times_s": [
+      0.0,
+      1.0,
+      2.0,
+      5.0,
+      10.0,
+      20.0,
+      30.0,
+      40.0,
+      50.0,
+      60.0,
+      70.0,
+      80.0,
+      90.0,
+      100.0,
+      110.0,
+      120.0
+    ],
+    "hidden_field": "40x20 cell centers at every reference output"
+  },
+  "observations": {
+    "x_m": [
+      0.004,
+      0.02,
+      0.036
+    ],
+    "z_m": 0.003,
+    "times_s": [
+      0,
+      10,
+      20,
+      30,
+      40,
+      50,
+      60,
+      70,
+      80,
+      90,
+      100,
+      110,
+      120
+    ],
+    "omit": "center sensor at 40,50,60 seconds",
+    "standard_deviation_K": 0.02,
+    "count": 36,
+    "pairing": "exact same phase-B noise seed in every arm"
+  },
+  "diagnostic_point_digests": {
+    "full_contact": "6355c5ba026578e361cfaf88799bc48a11e90471986add3eb91dc621aa375e9f",
+    "partial_contact": "21583349125c688eb3fad7a71a381100cb6cbb4e508390c89ae45ea2a4454520"
+  },
+  "supplemental_near_interface_audit": {
+    "role": "report only; no acceptance, fitting, or checkpoint selection",
+    "x_offsets_normalized": [
+      -0.005,
+      -0.001,
+      -0.0002,
+      0.0002,
+      0.001,
+      0.005
+    ],
+    "z_normalized": [
+      0.002,
+      0.01,
+      0.05,
+      0.2,
+      0.5
+    ],
+    "times_s": [
+      0.4,
+      1.1,
+      4.5,
+      14.0,
+      45.0,
+      105.0
+    ],
+    "point_digests": {
+      "full_contact": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "partial_contact": "e515f3ee90dc1c5ceff9f948f6e50e7226c102bbb49330476902de1b51e6df53"
+    }
+  }
+}
