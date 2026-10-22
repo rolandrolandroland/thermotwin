@@ -1,0 +1,4091 @@
+{
+  "schema_version": 1,
+  "parent_commit": "03ac94670ca9dbc0925f2774719d883d359933d8",
+  "recorded_utc": "2026-10-22T17:42:36.611376+00:00",
+  "development_only": true,
+  "scope": "paired bottom-graded log-input comparison; saved gates only",
+  "recorded_comparison_status": "completed",
+  "recorded_arm_status": {
+    "log_on": "blocked_forward_gate",
+    "log_off": "blocked_forward_gate"
+  },
+  "no_winner_selected": true,
+  "denominator": {
+    "method_fits": 8,
+    "reused_paired_datasets": 4,
+    "independent_noise_replications_claimed": false,
+    "fixed_variable_projection_updates_per_completed_fit": 80,
+    "automatic_retries": 0
+  },
+  "plan": {
+    "path": "thermotwin/PINN_SPATIAL_GRADED_LOG_PLAN.json",
+    "sha256": "7d3847b0c1bf2aeb1233051e580dbd60c66958e232adc03db1aa2639fd7f5d0e",
+    "source_sha256": {
+      "pyproject.toml": "01b0ee6e83096856e09559aa4f7577c6a6c75da5de17dbf80d791ef4985cd165",
+      "tests/test_pinn_spatial_continuity.py": "ab149fcb47f008c16aa0831d49d07e3dc36259c3fdb1847e344da3ff9e653498",
+      "tests/test_pinn_spatial_continuity_report.py": "b690a01357905c0a7d10964a7296fa714a9f33fd1aca810e5b57613f4431f519",
+      "tests/test_pinn_spatial_graded.py": "43dede33366e508c5a3abefb90844a5f3602007638302723437a3a87d83f48aa",
+      "tests/test_planar_contact_consistent.py": "c546403ce4be3785e01e313b3b5d2de072d2e99cb838f10d980497f22f11de8f",
+      "tests/test_planar_contact_continuity.py": "a1436feed28b93241ba3b9b743bfa9e731eec1d9f340389d1ac141df026786ba",
+      "tests/test_planar_contact_graded.py": "62fbe1ad995548be1175fabe991f8d64b1c3b9fb15506315b3da6c4ef64d2e5c",
+      "thermotwin/physics/planar_contact.py": "f1091a133168ff7c4cdaa463f6dd838ad103d4cee1ffbf54aa612680b8b3abd8",
+      "thermotwin/pinn/planar_contact_consistent.py": "ff9593ae2f5a96a01f70d10700c3c94c0b1629c31d2e01a239ffa7fa848ea8ae",
+      "thermotwin/pinn/planar_contact_continuity.py": "27c5a1cf741565128375c1da1b2e889e323bf8ac47c8f64338156ae5a396a8bd",
+      "thermotwin/pinn/planar_contact_graded.py": "7c9cf21c52e3bcffff880b6a70cb6f18a765c8d3e0f3cf1a651c69c153a4f1de",
+      "thermotwin/pinn/planar_contact_inverse.py": "a8e183b4f43b3ca0ba41918cf43982c9d2e6034064f564388c603532366300e5",
+      "thermotwin/reports/pinn_spatial_continuity.py": "2ce68167861c219c677238c2be02abfe9b2f2dfbcafabbeeb4b03d5b6c314362",
+      "thermotwin/studies/pinn_spatial_consistent.py": "c90c0d7dce26d8eb1865e8445e556c35c4476a02eabfa6ce17a3f710cea69484",
+      "thermotwin/studies/pinn_spatial_continuity.py": "fddf36f14b72731ba963fbc865cbb92ec70e9fbf8b0aa86f36a74e84ad610f36",
+      "thermotwin/studies/pinn_spatial_graded.py": "e9df846b33d34f5608cd919b3a1ce05d496c268e3a8e33faf7aebfbce4e28161"
+    },
+    "runtime": {
+      "implementation": "CPython",
+      "python": "3.10.12",
+      "packages": {
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "torch": "2.9.1"
+      },
+      "float": "float64",
+      "threads": 1
+    },
+    "model_configs": {
+      "log_on": {
+        "width": 24,
+        "layers": 2,
+        "adam_epochs": 80,
+        "projection_every": 1,
+        "interior_points": 8192,
+        "bottom_points": 512,
+        "learning_rate": 0.0001,
+        "gradient_clip": 1.0,
+        "max_backtracks": 2,
+        "physics_weight": 100.0,
+        "observation_weight": 1.0,
+        "rank_rcond": 1e-07,
+        "projection_chunk": 128,
+        "bottom_log_feature": true,
+        "bottom_log_scale": 0.001,
+        "corner_enrichment": true,
+        "duration": 120.0,
+        "initial_temperature": 300.0,
+        "temperature_scale": 5.0,
+        "ramp_seconds": 10.0,
+        "bath_drop_kelvin": 5.0,
+        "top_flux_watts_per_square_metre": 500.0,
+        "interface_temperature_scale": 0.1
+      },
+      "log_off": {
+        "width": 24,
+        "layers": 2,
+        "adam_epochs": 80,
+        "projection_every": 1,
+        "interior_points": 8192,
+        "bottom_points": 512,
+        "learning_rate": 0.0001,
+        "gradient_clip": 1.0,
+        "max_backtracks": 2,
+        "physics_weight": 100.0,
+        "observation_weight": 1.0,
+        "rank_rcond": 1e-07,
+        "projection_chunk": 128,
+        "bottom_log_feature": false,
+        "bottom_log_scale": 0.001,
+        "corner_enrichment": true,
+        "duration": 120.0,
+        "initial_temperature": 300.0,
+        "temperature_scale": 5.0,
+        "ramp_seconds": 10.0,
+        "bath_drop_kelvin": 5.0,
+        "top_flux_watts_per_square_metre": 500.0,
+        "interface_temperature_scale": 0.1
+      }
+    },
+    "topology": {
+      "execution": "two concurrent isolated main processes",
+      "per_process_threads": 1,
+      "aggregate_child_threads": 2,
+      "per_process_rss_limit_bytes": 2147483648,
+      "aggregate_child_rss_limit_bytes": 4294967296,
+      "per_arm_campaign_wall_seconds": 5400.0,
+      "sum_of_arm_wall_caps_seconds": 10800.0,
+      "case_order_within_each_arm": [
+        "t01",
+        "t02",
+        "t03",
+        "t04"
+      ]
+    },
+    "near_bottom_audit": {
+      "role": "report only after final checkpoint; no acceptance or selection use",
+      "normalized_x": "(arange(32)+.37)/32",
+      "normalized_heights": [
+        0.001,
+        0.002,
+        0.005,
+        0.01,
+        0.02,
+        0.05
+      ],
+      "times_s": [
+        0.4,
+        1.1,
+        4.5,
+        14.0,
+        45.0,
+        105.0
+      ],
+      "point_digest": "3fd7f485582a179c0ec2d0f4e7aaab42f0afd166e80c7a463a0d57868f84228a",
+      "point_count": 1152
+    },
+    "preflight_by_case": {
+      "t01": {
+        "initialization": {
+          "on": {
+            "arm": "on",
+            "neural_seed": 2026102202,
+            "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+            "shared_function_sha256": "2fef44233699464a045111674619a3032ed36a48e7fa7c64896cecb644153668",
+            "complete_state_sha256": "82af54943151b54192a354858dd685ff9e938f94a4206be10a5e84a0580857c6",
+            "log_column_zero": true,
+            "on_only_log_column_initially_zero": true,
+            "log_column_present": true,
+            "probe_agreement": {
+              "basis_max_abs": 1.1102230246251565e-16,
+              "temperature_max_abs": 0.0,
+              "normalized_gradient_max_abs": 2.7755575615628914e-17,
+              "normalized_hessian_max_abs": 2.7755575615628914e-16,
+              "physical_gradient_max_abs": 1.0658141036401503e-14,
+              "physical_hessian_max_abs": 8.185452315956354e-12,
+              "relative_tolerance": 1e-12,
+              "absolute_tolerance": 1e-10,
+              "passed": true
+            }
+          },
+          "off": {
+            "arm": "off",
+            "neural_seed": 2026102202,
+            "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+            "shared_function_sha256": "2fef44233699464a045111674619a3032ed36a48e7fa7c64896cecb644153668",
+            "complete_state_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+            "log_column_zero": null,
+            "on_only_log_column_initially_zero": true,
+            "log_column_present": false,
+            "probe_agreement": {
+              "basis_max_abs": 1.1102230246251565e-16,
+              "temperature_max_abs": 0.0,
+              "normalized_gradient_max_abs": 2.7755575615628914e-17,
+              "normalized_hessian_max_abs": 2.7755575615628914e-16,
+              "physical_gradient_max_abs": 1.0658141036401503e-14,
+              "physical_hessian_max_abs": 8.185452315956354e-12,
+              "relative_tolerance": 1e-12,
+              "absolute_tolerance": 1e-10,
+              "passed": true
+            }
+          },
+          "probe_agreement": {
+            "basis_max_abs": 1.1102230246251565e-16,
+            "temperature_max_abs": 0.0,
+            "normalized_gradient_max_abs": 2.7755575615628914e-17,
+            "normalized_hessian_max_abs": 2.7755575615628914e-16,
+            "physical_gradient_max_abs": 1.0658141036401503e-14,
+            "physical_hessian_max_abs": 8.185452315956354e-12,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance": 1e-10,
+            "passed": true
+          },
+          "probe_coordinates_normalized": [
+            [
+              0.0731,
+              0.0173,
+              0.0047
+            ],
+            [
+              0.2467,
+              0.1379,
+              0.0713
+            ],
+            [
+              0.3839,
+              0.3731,
+              0.2339
+            ],
+            [
+              0.6733,
+              0.6137,
+              0.5817
+            ],
+            [
+              0.9149,
+              0.9473,
+              0.9233
+            ]
+          ],
+          "probe_coordinate_sha256": "2e4bfe7270a510a281542fdaa6aee70326488553a5d1d4807632c263b96e6f84",
+          "comparison": "exact common parameters; float64 function and coordinate-derivative agreement, not bitwise numerical equality"
+        },
+        "training_grid": {
+          "log_on": {
+            "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+            "point_identities": {
+              "bottom_contact": {
+                "shape": [
+                  512,
+                  3
+                ],
+                "sha256": "c9e95a246c4c6ec815e76611d6914028aeb23f34ec9e178cf6315b647d07c94a"
+              },
+              "interior": {
+                "shape": [
+                  8192,
+                  3
+                ],
+                "sha256": "4904a8aa084b9d8402f062c87570db2b7873b5a8acad45f4c1a4a88a34cf5b60"
+              }
+            },
+            "point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512
+            },
+            "strata": [
+              {
+                "name": "bulk",
+                "start": 0,
+                "stop": 6144,
+                "count": 6144,
+                "mean_weight": 0.75
+              },
+              {
+                "name": "bottom_band",
+                "start": 6144,
+                "stop": 8192,
+                "count": 2048,
+                "mean_weight": 0.25
+              }
+            ],
+            "interior_min_height_m": 4e-06,
+            "interior_max_height_m": 0.0038397794084484714,
+            "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+          },
+          "log_off": {
+            "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+            "point_identities": {
+              "bottom_contact": {
+                "shape": [
+                  512,
+                  3
+                ],
+                "sha256": "c9e95a246c4c6ec815e76611d6914028aeb23f34ec9e178cf6315b647d07c94a"
+              },
+              "interior": {
+                "shape": [
+                  8192,
+                  3
+                ],
+                "sha256": "4904a8aa084b9d8402f062c87570db2b7873b5a8acad45f4c1a4a88a34cf5b60"
+              }
+            },
+            "point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512
+            },
+            "strata": [
+              {
+                "name": "bulk",
+                "start": 0,
+                "stop": 6144,
+                "count": 6144,
+                "mean_weight": 0.75
+              },
+              {
+                "name": "bottom_band",
+                "start": 6144,
+                "stop": 8192,
+                "count": 2048,
+                "mean_weight": 0.25
+              }
+            ],
+            "interior_min_height_m": 4e-06,
+            "interior_max_height_m": 0.0038397794084484714,
+            "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+          }
+        }
+      },
+      "t02": {
+        "initialization": {
+          "on": {
+            "arm": "on",
+            "neural_seed": 2026102202,
+            "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+            "shared_function_sha256": "f35d019305f3d901b9273bac7819da8902cf3efce98e3c537740be5a8b3d2963",
+            "complete_state_sha256": "867d9791e5f7b1687f1f3bda2079d2459f26934fb0f47a6eddb727592f886798",
+            "log_column_zero": true,
+            "on_only_log_column_initially_zero": true,
+            "log_column_present": true,
+            "probe_agreement": {
+              "basis_max_abs": 5.551115123125783e-17,
+              "temperature_max_abs": 0.0,
+              "normalized_gradient_max_abs": 8.673617379884035e-18,
+              "normalized_hessian_max_abs": 4.440892098500626e-16,
+              "physical_gradient_max_abs": 7.105427357601002e-15,
+              "physical_hessian_max_abs": 7.275957614183426e-12,
+              "relative_tolerance": 1e-12,
+              "absolute_tolerance": 1e-10,
+              "passed": true
+            }
+          },
+          "off": {
+            "arm": "off",
+            "neural_seed": 2026102202,
+            "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+            "shared_function_sha256": "f35d019305f3d901b9273bac7819da8902cf3efce98e3c537740be5a8b3d2963",
+            "complete_state_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+            "log_column_zero": null,
+            "on_only_log_column_initially_zero": true,
+            "log_column_present": false,
+            "probe_agreement": {
+              "basis_max_abs": 5.551115123125783e-17,
+              "temperature_max_abs": 0.0,
+              "normalized_gradient_max_abs": 8.673617379884035e-18,
+              "normalized_hessian_max_abs": 4.440892098500626e-16,
+              "physical_gradient_max_abs": 7.105427357601002e-15,
+              "physical_hessian_max_abs": 7.275957614183426e-12,
+              "relative_tolerance": 1e-12,
+              "absolute_tolerance": 1e-10,
+              "passed": true
+            }
+          },
+          "probe_agreement": {
+            "basis_max_abs": 5.551115123125783e-17,
+            "temperature_max_abs": 0.0,
+            "normalized_gradient_max_abs": 8.673617379884035e-18,
+            "normalized_hessian_max_abs": 4.440892098500626e-16,
+            "physical_gradient_max_abs": 7.105427357601002e-15,
+            "physical_hessian_max_abs": 7.275957614183426e-12,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance": 1e-10,
+            "passed": true
+          },
+          "probe_coordinates_normalized": [
+            [
+              0.0731,
+              0.0173,
+              0.0047
+            ],
+            [
+              0.2467,
+              0.1379,
+              0.0713
+            ],
+            [
+              0.3839,
+              0.3731,
+              0.2339
+            ],
+            [
+              0.6733,
+              0.6137,
+              0.5817
+            ],
+            [
+              0.9149,
+              0.9473,
+              0.9233
+            ]
+          ],
+          "probe_coordinate_sha256": "2e4bfe7270a510a281542fdaa6aee70326488553a5d1d4807632c263b96e6f84",
+          "comparison": "exact common parameters; float64 function and coordinate-derivative agreement, not bitwise numerical equality"
+        },
+        "training_grid": {
+          "log_on": {
+            "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+            "point_identities": {
+              "bottom_contact": {
+                "shape": [
+                  512,
+                  3
+                ],
+                "sha256": "395155e99704ba7f475abf6fd0880ba6e98a0a045a3655141a6d552f6a88fc13"
+              },
+              "bottom_insulated": {
+                "shape": [
+                  512,
+                  3
+                ],
+                "sha256": "30882613e482fb3b1cae210de9926c8f633ec990ccafea00aaa6fe9172770e2d"
+              },
+              "interior": {
+                "shape": [
+                  8192,
+                  3
+                ],
+                "sha256": "0cbf5d84eb8d10174e69e39c6775454ba05d5aabb6bee5763dc209080ae1a9e5"
+              }
+            },
+            "point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512,
+              "bottom_insulated": 512
+            },
+            "strata": [
+              {
+                "name": "bulk",
+                "start": 0,
+                "stop": 4096,
+                "count": 4096,
+                "mean_weight": 0.5
+              },
+              {
+                "name": "bottom_band",
+                "start": 4096,
+                "stop": 6144,
+                "count": 2048,
+                "mean_weight": 0.25
+              },
+              {
+                "name": "corner_patch",
+                "start": 6144,
+                "stop": 8192,
+                "count": 2048,
+                "mean_weight": 0.25
+              }
+            ],
+            "interior_min_height_m": 7.803612880645129e-07,
+            "interior_max_height_m": 0.003923141121612922,
+            "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+          },
+          "log_off": {
+            "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+            "point_identities": {
+              "bottom_contact": {
+                "shape": [
+                  512,
+                  3
+                ],
+                "sha256": "395155e99704ba7f475abf6fd0880ba6e98a0a045a3655141a6d552f6a88fc13"
+              },
+              "bottom_insulated": {
+                "shape": [
+                  512,
+                  3
+                ],
+                "sha256": "30882613e482fb3b1cae210de9926c8f633ec990ccafea00aaa6fe9172770e2d"
+              },
+              "interior": {
+                "shape": [
+                  8192,
+                  3
+                ],
+                "sha256": "0cbf5d84eb8d10174e69e39c6775454ba05d5aabb6bee5763dc209080ae1a9e5"
+              }
+            },
+            "point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512,
+              "bottom_insulated": 512
+            },
+            "strata": [
+              {
+                "name": "bulk",
+                "start": 0,
+                "stop": 4096,
+                "count": 4096,
+                "mean_weight": 0.5
+              },
+              {
+                "name": "bottom_band",
+                "start": 4096,
+                "stop": 6144,
+                "count": 2048,
+                "mean_weight": 0.25
+              },
+              {
+                "name": "corner_patch",
+                "start": 6144,
+                "stop": 8192,
+                "count": 2048,
+                "mean_weight": 0.25
+              }
+            ],
+            "interior_min_height_m": 7.803612880645129e-07,
+            "interior_max_height_m": 0.003923141121612922,
+            "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+          }
+        }
+      },
+      "t03": {
+        "initialization": {
+          "on": {
+            "arm": "on",
+            "neural_seed": 2026102202,
+            "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+            "shared_function_sha256": "1c4169af1002551b3f8838a6b2d65ab8f361249b75cbf458b20871620ee284c9",
+            "complete_state_sha256": "82af54943151b54192a354858dd685ff9e938f94a4206be10a5e84a0580857c6",
+            "log_column_zero": true,
+            "on_only_log_column_initially_zero": true,
+            "log_column_present": true,
+            "probe_agreement": {
+              "basis_max_abs": 1.1102230246251565e-16,
+              "temperature_max_abs": 0.0,
+              "normalized_gradient_max_abs": 2.7755575615628914e-17,
+              "normalized_hessian_max_abs": 2.7755575615628914e-16,
+              "physical_gradient_max_abs": 1.0658141036401503e-14,
+              "physical_hessian_max_abs": 8.185452315956354e-12,
+              "relative_tolerance": 1e-12,
+              "absolute_tolerance": 1e-10,
+              "passed": true
+            }
+          },
+          "off": {
+            "arm": "off",
+            "neural_seed": 2026102202,
+            "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+            "shared_function_sha256": "1c4169af1002551b3f8838a6b2d65ab8f361249b75cbf458b20871620ee284c9",
+            "complete_state_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+            "log_column_zero": null,
+            "on_only_log_column_initially_zero": true,
+            "log_column_present": false,
+            "probe_agreement": {
+              "basis_max_abs": 1.1102230246251565e-16,
+              "temperature_max_abs": 0.0,
+              "normalized_gradient_max_abs": 2.7755575615628914e-17,
+              "normalized_hessian_max_abs": 2.7755575615628914e-16,
+              "physical_gradient_max_abs": 1.0658141036401503e-14,
+              "physical_hessian_max_abs": 8.185452315956354e-12,
+              "relative_tolerance": 1e-12,
+              "absolute_tolerance": 1e-10,
+              "passed": true
+            }
+          },
+          "probe_agreement": {
+            "basis_max_abs": 1.1102230246251565e-16,
+            "temperature_max_abs": 0.0,
+            "normalized_gradient_max_abs": 2.7755575615628914e-17,
+            "normalized_hessian_max_abs": 2.7755575615628914e-16,
+            "physical_gradient_max_abs": 1.0658141036401503e-14,
+            "physical_hessian_max_abs": 8.185452315956354e-12,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance": 1e-10,
+            "passed": true
+          },
+          "probe_coordinates_normalized": [
+            [
+              0.0731,
+              0.0173,
+              0.0047
+            ],
+            [
+              0.2467,
+              0.1379,
+              0.0713
+            ],
+            [
+              0.3839,
+              0.3731,
+              0.2339
+            ],
+            [
+              0.6733,
+              0.6137,
+              0.5817
+            ],
+            [
+              0.9149,
+              0.9473,
+              0.9233
+            ]
+          ],
+          "probe_coordinate_sha256": "2e4bfe7270a510a281542fdaa6aee70326488553a5d1d4807632c263b96e6f84",
+          "comparison": "exact common parameters; float64 function and coordinate-derivative agreement, not bitwise numerical equality"
+        },
+        "training_grid": {
+          "log_on": {
+            "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+            "point_identities": {
+              "bottom_contact": {
+                "shape": [
+                  512,
+                  3
+                ],
+                "sha256": "c9e95a246c4c6ec815e76611d6914028aeb23f34ec9e178cf6315b647d07c94a"
+              },
+              "interior": {
+                "shape": [
+                  8192,
+                  3
+                ],
+                "sha256": "4904a8aa084b9d8402f062c87570db2b7873b5a8acad45f4c1a4a88a34cf5b60"
+              }
+            },
+            "point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512
+            },
+            "strata": [
+              {
+                "name": "bulk",
+                "start": 0,
+                "stop": 6144,
+                "count": 6144,
+                "mean_weight": 0.75
+              },
+              {
+                "name": "bottom_band",
+                "start": 6144,
+                "stop": 8192,
+                "count": 2048,
+                "mean_weight": 0.25
+              }
+            ],
+            "interior_min_height_m": 4e-06,
+            "interior_max_height_m": 0.0038397794084484714,
+            "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+          },
+          "log_off": {
+            "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+            "point_identities": {
+              "bottom_contact": {
+                "shape": [
+                  512,
+                  3
+                ],
+                "sha256": "c9e95a246c4c6ec815e76611d6914028aeb23f34ec9e178cf6315b647d07c94a"
+              },
+              "interior": {
+                "shape": [
+                  8192,
+                  3
+                ],
+                "sha256": "4904a8aa084b9d8402f062c87570db2b7873b5a8acad45f4c1a4a88a34cf5b60"
+              }
+            },
+            "point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512
+            },
+            "strata": [
+              {
+                "name": "bulk",
+                "start": 0,
+                "stop": 6144,
+                "count": 6144,
+                "mean_weight": 0.75
+              },
+              {
+                "name": "bottom_band",
+                "start": 6144,
+                "stop": 8192,
+                "count": 2048,
+                "mean_weight": 0.25
+              }
+            ],
+            "interior_min_height_m": 4e-06,
+            "interior_max_height_m": 0.0038397794084484714,
+            "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+          }
+        }
+      },
+      "t04": {
+        "initialization": {
+          "on": {
+            "arm": "on",
+            "neural_seed": 2026102202,
+            "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+            "shared_function_sha256": "271e85ca901f1e78e060ab7204f659cb2b1b2324af8582755daa3884cf3660c4",
+            "complete_state_sha256": "867d9791e5f7b1687f1f3bda2079d2459f26934fb0f47a6eddb727592f886798",
+            "log_column_zero": true,
+            "on_only_log_column_initially_zero": true,
+            "log_column_present": true,
+            "probe_agreement": {
+              "basis_max_abs": 5.551115123125783e-17,
+              "temperature_max_abs": 0.0,
+              "normalized_gradient_max_abs": 8.673617379884035e-18,
+              "normalized_hessian_max_abs": 4.440892098500626e-16,
+              "physical_gradient_max_abs": 7.105427357601002e-15,
+              "physical_hessian_max_abs": 7.275957614183426e-12,
+              "relative_tolerance": 1e-12,
+              "absolute_tolerance": 1e-10,
+              "passed": true
+            }
+          },
+          "off": {
+            "arm": "off",
+            "neural_seed": 2026102202,
+            "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+            "shared_function_sha256": "271e85ca901f1e78e060ab7204f659cb2b1b2324af8582755daa3884cf3660c4",
+            "complete_state_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+            "log_column_zero": null,
+            "on_only_log_column_initially_zero": true,
+            "log_column_present": false,
+            "probe_agreement": {
+              "basis_max_abs": 5.551115123125783e-17,
+              "temperature_max_abs": 0.0,
+              "normalized_gradient_max_abs": 8.673617379884035e-18,
+              "normalized_hessian_max_abs": 4.440892098500626e-16,
+              "physical_gradient_max_abs": 7.105427357601002e-15,
+              "physical_hessian_max_abs": 7.275957614183426e-12,
+              "relative_tolerance": 1e-12,
+              "absolute_tolerance": 1e-10,
+              "passed": true
+            }
+          },
+          "probe_agreement": {
+            "basis_max_abs": 5.551115123125783e-17,
+            "temperature_max_abs": 0.0,
+            "normalized_gradient_max_abs": 8.673617379884035e-18,
+            "normalized_hessian_max_abs": 4.440892098500626e-16,
+            "physical_gradient_max_abs": 7.105427357601002e-15,
+            "physical_hessian_max_abs": 7.275957614183426e-12,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance": 1e-10,
+            "passed": true
+          },
+          "probe_coordinates_normalized": [
+            [
+              0.0731,
+              0.0173,
+              0.0047
+            ],
+            [
+              0.2467,
+              0.1379,
+              0.0713
+            ],
+            [
+              0.3839,
+              0.3731,
+              0.2339
+            ],
+            [
+              0.6733,
+              0.6137,
+              0.5817
+            ],
+            [
+              0.9149,
+              0.9473,
+              0.9233
+            ]
+          ],
+          "probe_coordinate_sha256": "2e4bfe7270a510a281542fdaa6aee70326488553a5d1d4807632c263b96e6f84",
+          "comparison": "exact common parameters; float64 function and coordinate-derivative agreement, not bitwise numerical equality"
+        },
+        "training_grid": {
+          "log_on": {
+            "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+            "point_identities": {
+              "bottom_contact": {
+                "shape": [
+                  512,
+                  3
+                ],
+                "sha256": "395155e99704ba7f475abf6fd0880ba6e98a0a045a3655141a6d552f6a88fc13"
+              },
+              "bottom_insulated": {
+                "shape": [
+                  512,
+                  3
+                ],
+                "sha256": "30882613e482fb3b1cae210de9926c8f633ec990ccafea00aaa6fe9172770e2d"
+              },
+              "interior": {
+                "shape": [
+                  8192,
+                  3
+                ],
+                "sha256": "0cbf5d84eb8d10174e69e39c6775454ba05d5aabb6bee5763dc209080ae1a9e5"
+              }
+            },
+            "point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512,
+              "bottom_insulated": 512
+            },
+            "strata": [
+              {
+                "name": "bulk",
+                "start": 0,
+                "stop": 4096,
+                "count": 4096,
+                "mean_weight": 0.5
+              },
+              {
+                "name": "bottom_band",
+                "start": 4096,
+                "stop": 6144,
+                "count": 2048,
+                "mean_weight": 0.25
+              },
+              {
+                "name": "corner_patch",
+                "start": 6144,
+                "stop": 8192,
+                "count": 2048,
+                "mean_weight": 0.25
+              }
+            ],
+            "interior_min_height_m": 7.803612880645129e-07,
+            "interior_max_height_m": 0.003923141121612922,
+            "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+          },
+          "log_off": {
+            "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+            "point_identities": {
+              "bottom_contact": {
+                "shape": [
+                  512,
+                  3
+                ],
+                "sha256": "395155e99704ba7f475abf6fd0880ba6e98a0a045a3655141a6d552f6a88fc13"
+              },
+              "bottom_insulated": {
+                "shape": [
+                  512,
+                  3
+                ],
+                "sha256": "30882613e482fb3b1cae210de9926c8f633ec990ccafea00aaa6fe9172770e2d"
+              },
+              "interior": {
+                "shape": [
+                  8192,
+                  3
+                ],
+                "sha256": "0cbf5d84eb8d10174e69e39c6775454ba05d5aabb6bee5763dc209080ae1a9e5"
+              }
+            },
+            "point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512,
+              "bottom_insulated": 512
+            },
+            "strata": [
+              {
+                "name": "bulk",
+                "start": 0,
+                "stop": 4096,
+                "count": 4096,
+                "mean_weight": 0.5
+              },
+              {
+                "name": "bottom_band",
+                "start": 4096,
+                "stop": 6144,
+                "count": 2048,
+                "mean_weight": 0.25
+              },
+              {
+                "name": "corner_patch",
+                "start": 6144,
+                "stop": 8192,
+                "count": 2048,
+                "mean_weight": 0.25
+              }
+            ],
+            "interior_min_height_m": 7.803612880645129e-07,
+            "interior_max_height_m": 0.003923141121612922,
+            "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+          }
+        }
+      }
+    }
+  },
+  "raw_comparison": {
+    "directory": "reports/pinn-spatial-validation/graded-log-development",
+    "artifact_index_sha256": "70ffe39f5032c51bfa49cefdc273eef9d735fcd9e831de984886ac196016b03b",
+    "plan_sha256": "7d3847b0c1bf2aeb1233051e580dbd60c66958e232adc03db1aa2639fd7f5d0e",
+    "files": 125,
+    "method_fit_count": 8,
+    "reused_dataset_count": 4,
+    "tracked_plan": "thermotwin/PINN_SPATIAL_GRADED_LOG_PLAN.json",
+    "tracked_plan_sha256": "7d3847b0c1bf2aeb1233051e580dbd60c66958e232adc03db1aa2639fd7f5d0e",
+    "artifact_index_digest": "a659cd93882a93ad1badf2791b9e0337bcb6f9b037e06d42c56810be4988b07f"
+  },
+  "arms": {
+    "log_on": {
+      "directory": "reports/pinn-spatial-validation/graded-log-development/log_on",
+      "status": "blocked_forward_gate",
+      "plan_sha256": "3f4ea65161d04e0d6b98dbc296c551ae23cb79927b742eb42e8e7392cac57ae3",
+      "artifact_index_sha256": "ca9bfdb4af26c1e19fa80ddc72fc052e7b022011999f7fc145144be7ff6395dc",
+      "wall_seconds": 4755.046160541999,
+      "peak_rss_bytes": 975765504,
+      "source_unchanged": true,
+      "source_sha256": {
+        "pyproject.toml": "01b0ee6e83096856e09559aa4f7577c6a6c75da5de17dbf80d791ef4985cd165",
+        "tests/test_pinn_spatial_continuity.py": "ab149fcb47f008c16aa0831d49d07e3dc36259c3fdb1847e344da3ff9e653498",
+        "tests/test_pinn_spatial_continuity_report.py": "b690a01357905c0a7d10964a7296fa714a9f33fd1aca810e5b57613f4431f519",
+        "tests/test_pinn_spatial_graded.py": "43dede33366e508c5a3abefb90844a5f3602007638302723437a3a87d83f48aa",
+        "tests/test_planar_contact_consistent.py": "c546403ce4be3785e01e313b3b5d2de072d2e99cb838f10d980497f22f11de8f",
+        "tests/test_planar_contact_continuity.py": "a1436feed28b93241ba3b9b743bfa9e731eec1d9f340389d1ac141df026786ba",
+        "tests/test_planar_contact_graded.py": "62fbe1ad995548be1175fabe991f8d64b1c3b9fb15506315b3da6c4ef64d2e5c",
+        "thermotwin/physics/planar_contact.py": "f1091a133168ff7c4cdaa463f6dd838ad103d4cee1ffbf54aa612680b8b3abd8",
+        "thermotwin/pinn/planar_contact_consistent.py": "ff9593ae2f5a96a01f70d10700c3c94c0b1629c31d2e01a239ffa7fa848ea8ae",
+        "thermotwin/pinn/planar_contact_continuity.py": "27c5a1cf741565128375c1da1b2e889e323bf8ac47c8f64338156ae5a396a8bd",
+        "thermotwin/pinn/planar_contact_graded.py": "7c9cf21c52e3bcffff880b6a70cb6f18a765c8d3e0f3cf1a651c69c153a4f1de",
+        "thermotwin/pinn/planar_contact_inverse.py": "a8e183b4f43b3ca0ba41918cf43982c9d2e6034064f564388c603532366300e5",
+        "thermotwin/reports/pinn_spatial_continuity.py": "2ce68167861c219c677238c2be02abfe9b2f2dfbcafabbeeb4b03d5b6c314362",
+        "thermotwin/studies/pinn_spatial_consistent.py": "c90c0d7dce26d8eb1865e8445e556c35c4476a02eabfa6ce17a3f710cea69484",
+        "thermotwin/studies/pinn_spatial_continuity.py": "fddf36f14b72731ba963fbc865cbb92ec70e9fbf8b0aa86f36a74e84ad610f36",
+        "thermotwin/studies/pinn_spatial_graded.py": "e9df846b33d34f5608cd919b3a1ce05d496c268e3a8e33faf7aebfbce4e28161"
+      },
+      "process_exit": {
+        "arm": "log_on",
+        "return_code": 0,
+        "subcampaign_status": "completed",
+        "no_retry": true,
+        "raw_artifacts_retained": true
+      },
+      "completed": 4,
+      "failed": 0,
+      "not_run_or_not_recorded": 0,
+      "saved_gate_passes": 1
+    },
+    "log_off": {
+      "directory": "reports/pinn-spatial-validation/graded-log-development/log_off",
+      "status": "blocked_forward_gate",
+      "plan_sha256": "a2791d96791a253b355a5aeee58cef28e68f136033d0a7956a2b03655fc90178",
+      "artifact_index_sha256": "f18aa4ad9aed1736cd259eb10291b2a281d8dc31c9900a59e49f3293d4f5df0e",
+      "wall_seconds": 1603.6983126659761,
+      "peak_rss_bytes": 995295232,
+      "source_unchanged": true,
+      "source_sha256": {
+        "pyproject.toml": "01b0ee6e83096856e09559aa4f7577c6a6c75da5de17dbf80d791ef4985cd165",
+        "tests/test_pinn_spatial_continuity.py": "ab149fcb47f008c16aa0831d49d07e3dc36259c3fdb1847e344da3ff9e653498",
+        "tests/test_pinn_spatial_continuity_report.py": "b690a01357905c0a7d10964a7296fa714a9f33fd1aca810e5b57613f4431f519",
+        "tests/test_pinn_spatial_graded.py": "43dede33366e508c5a3abefb90844a5f3602007638302723437a3a87d83f48aa",
+        "tests/test_planar_contact_consistent.py": "c546403ce4be3785e01e313b3b5d2de072d2e99cb838f10d980497f22f11de8f",
+        "tests/test_planar_contact_continuity.py": "a1436feed28b93241ba3b9b743bfa9e731eec1d9f340389d1ac141df026786ba",
+        "tests/test_planar_contact_graded.py": "62fbe1ad995548be1175fabe991f8d64b1c3b9fb15506315b3da6c4ef64d2e5c",
+        "thermotwin/physics/planar_contact.py": "f1091a133168ff7c4cdaa463f6dd838ad103d4cee1ffbf54aa612680b8b3abd8",
+        "thermotwin/pinn/planar_contact_consistent.py": "ff9593ae2f5a96a01f70d10700c3c94c0b1629c31d2e01a239ffa7fa848ea8ae",
+        "thermotwin/pinn/planar_contact_continuity.py": "27c5a1cf741565128375c1da1b2e889e323bf8ac47c8f64338156ae5a396a8bd",
+        "thermotwin/pinn/planar_contact_graded.py": "7c9cf21c52e3bcffff880b6a70cb6f18a765c8d3e0f3cf1a651c69c153a4f1de",
+        "thermotwin/pinn/planar_contact_inverse.py": "a8e183b4f43b3ca0ba41918cf43982c9d2e6034064f564388c603532366300e5",
+        "thermotwin/reports/pinn_spatial_continuity.py": "2ce68167861c219c677238c2be02abfe9b2f2dfbcafabbeeb4b03d5b6c314362",
+        "thermotwin/studies/pinn_spatial_consistent.py": "c90c0d7dce26d8eb1865e8445e556c35c4476a02eabfa6ce17a3f710cea69484",
+        "thermotwin/studies/pinn_spatial_continuity.py": "fddf36f14b72731ba963fbc865cbb92ec70e9fbf8b0aa86f36a74e84ad610f36",
+        "thermotwin/studies/pinn_spatial_graded.py": "e9df846b33d34f5608cd919b3a1ce05d496c268e3a8e33faf7aebfbce4e28161"
+      },
+      "process_exit": {
+        "arm": "log_off",
+        "return_code": 0,
+        "subcampaign_status": "completed",
+        "no_retry": true,
+        "raw_artifacts_retained": true
+      },
+      "completed": 4,
+      "failed": 0,
+      "not_run_or_not_recorded": 0,
+      "saved_gate_passes": 2
+    }
+  },
+  "case_comparisons": [
+    {
+      "id": "t01",
+      "geometry": "full_contact",
+      "known_h": 800.0,
+      "pairing": {
+        "predeclared_matched_initialization": true,
+        "predeclared_identical_graded_grid": true,
+        "executed_proofs": {
+          "log_on": {
+            "status": "verified",
+            "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+            "shared_function_sha256": "2fef44233699464a045111674619a3032ed36a48e7fa7c64896cecb644153668",
+            "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+            "optimizer_updates": 80
+          },
+          "log_off": {
+            "status": "verified",
+            "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+            "shared_function_sha256": "2fef44233699464a045111674619a3032ed36a48e7fa7c64896cecb644153668",
+            "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+            "optimizer_updates": 80
+          }
+        }
+      },
+      "methods": {
+        "log_on": {
+          "status": "completed",
+          "gate": {
+            "observations": true,
+            "each_independent_residual": true,
+            "field": true,
+            "all": true
+          },
+          "normalized_observation_mse": 0.5204130645999485,
+          "field_metrics": {
+            "rmse_K": 0.00821366032602962,
+            "maximum_error_K": 0.02925857344985161
+          },
+          "primary_diagnostics": {
+            "normalized_rms": {
+              "interior": 0.035448970080113204,
+              "top": 6.195294082639628e-17,
+              "bottom_contact": 0.02336389553450018,
+              "left": 0.0,
+              "right": 0.0
+            },
+            "physical_rms": {
+              "interior": 0.0014770404200047168,
+              "top": 3.097647041319814e-14,
+              "bottom_contact": 11.68194776725009,
+              "left": 0.0,
+              "right": 0.0
+            },
+            "normalization_scales": {
+              "interior": 0.041666666666666664,
+              "top": 500.0,
+              "bottom_contact": 500.0,
+              "left": 500.0,
+              "right": 500.0
+            },
+            "point_counts": {
+              "interior": 5280,
+              "top": 1760,
+              "bottom_contact": 1760,
+              "left": 264,
+              "right": 264
+            },
+            "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+          },
+          "checkpoint_sha256": "0bd97646e212f42ffe8e91eedb342e0305e951db01607fe7a12c334016458b50",
+          "observations": {
+            "sha256": "0dd9d9ca82a1fb598187a5bb4700b5234887e6af0d82bf658fa846413d224019",
+            "bytes": 1213
+          },
+          "field_scoring": {
+            "sha256": "92dba50bf6f43877ffd6f270ef90af8020cf8fd344c2b9012d26a2c9485b8941",
+            "bytes": 137253
+          },
+          "error_or_reason": null,
+          "training": {
+            "status": "recorded",
+            "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_on/t01/training-report.json",
+            "raw_report_sha256": "6803930f2a2cd663ae1952c1b0c076db231c7b00e639c3abb3aa7ac25c813d9f",
+            "architecture": "matched_graded_hermite_variable_projection_mlp",
+            "model_module": "thermotwin.pinn.planar_contact_graded",
+            "wall_seconds": 936.4907810420264,
+            "timing_scope": "fit only; independent diagnostics and hidden-field scoring follow",
+            "final_objective": 0.7096499777088892,
+            "initial_projection_objective": 0.7096499777088892,
+            "coefficient_count": 150,
+            "initialization": {
+              "arm": "on",
+              "neural_seed": 2026102202,
+              "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+              "shared_function_sha256": "2fef44233699464a045111674619a3032ed36a48e7fa7c64896cecb644153668",
+              "complete_state_sha256": "82af54943151b54192a354858dd685ff9e938f94a4206be10a5e84a0580857c6",
+              "log_column_zero": true,
+              "on_only_log_column_initially_zero": true,
+              "log_column_present": true,
+              "probe_agreement": {
+                "basis_max_abs": 1.1102230246251565e-16,
+                "temperature_max_abs": 0.0,
+                "normalized_gradient_max_abs": 2.7755575615628914e-17,
+                "normalized_hessian_max_abs": 2.7755575615628914e-16,
+                "physical_gradient_max_abs": 1.0658141036401503e-14,
+                "physical_hessian_max_abs": 8.185452315956354e-12,
+                "relative_tolerance": 1e-12,
+                "absolute_tolerance": 1e-10,
+                "passed": true
+              }
+            },
+            "graded_point_metadata": {
+              "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+              "point_identities": {
+                "bottom_contact": {
+                  "shape": [
+                    512,
+                    3
+                  ],
+                  "sha256": "c9e95a246c4c6ec815e76611d6914028aeb23f34ec9e178cf6315b647d07c94a"
+                },
+                "interior": {
+                  "shape": [
+                    8192,
+                    3
+                  ],
+                  "sha256": "4904a8aa084b9d8402f062c87570db2b7873b5a8acad45f4c1a4a88a34cf5b60"
+                }
+              },
+              "point_counts": {
+                "interior": 8192,
+                "bottom_contact": 512
+              },
+              "strata": [
+                {
+                  "name": "bulk",
+                  "start": 0,
+                  "stop": 6144,
+                  "count": 6144,
+                  "mean_weight": 0.75
+                },
+                {
+                  "name": "bottom_band",
+                  "start": 6144,
+                  "stop": 8192,
+                  "count": 2048,
+                  "mean_weight": 0.25
+                }
+              ],
+              "interior_min_height_m": 4e-06,
+              "interior_max_height_m": 0.0038397794084484714,
+              "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+            },
+            "training_point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512
+            },
+            "training_point_weights": {
+              "policy": "uniform means by family; full row arrays retained only in the raw report",
+              "json_pointer": "/training_point_weights"
+            },
+            "trajectory": {
+              "entries": 80,
+              "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_on/t01/training-report.json",
+              "raw_report_sha256": "6803930f2a2cd663ae1952c1b0c076db231c7b00e639c3abb3aa7ac25c813d9f",
+              "json_pointer": "/hidden_update_history",
+              "identity_digest": "18d44cb1ef4889845ac831199076e54ee6b89377759045ca785dc24fcc30f270"
+            },
+            "hidden_update_count": 80,
+            "hidden_accepted_updates": 0,
+            "hidden_rejected_updates": 80,
+            "hidden_backtrack_count": 160,
+            "hidden_accepted_objective_increases": 0,
+            "optimizer_resets": 81,
+            "projection_count": 242,
+            "projection_records": {
+              "entries": 242,
+              "json_pointer": "/projections",
+              "identity_digest": "65d8c5e669aeca42015fd0e101784c3feb9490b5fdee3db6c22552056be49307"
+            },
+            "final_projection": {
+              "rank": 150,
+              "columns": 150,
+              "rows": 8740,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 70196.65093819257,
+              "smallest_singular_value": 8.295228838962566e-05,
+              "coefficient_norm_returned": 20.2524611819385,
+              "accepted": true,
+              "objective_before": 0.7096499777088892,
+              "objective_after": 0.7096499777088892
+            },
+            "gradient_semantics": "fixed-readout proposal; no exact profiled-gradient claim with truncated SVD",
+            "checkpoint_rule": "fixed-budget final state with inherited monotone complete-objective variable projection"
+          },
+          "near_interface_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_on/t01/near-interface-audit.json",
+            "sha256": "f724a482dda6552f9e5cc0ada3724cbd66bbff0705b8886c549bcae6175af094",
+            "saved": {
+              "status": "not_applicable",
+              "role": "report only",
+              "point_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+            }
+          },
+          "near_bottom_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_on/t01/near-bottom-audit.json",
+            "sha256": "1d779b2ce005b243112d17fc446bfebfd20b6695248146caa0074d10208a335d",
+            "saved": {
+              "status": "completed",
+              "role": "report only",
+              "point_digest": "3fd7f485582a179c0ec2d0f4e7aaab42f0afd166e80c7a463a0d57868f84228a",
+              "point_count": 1152,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.032741989583005914
+                },
+                "physical_rms": {
+                  "interior": 0.0013642495659585796
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 1152
+                },
+                "all_families_pass": true,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              },
+              "by_height": [
+                {
+                  "z_over_H": 0.001,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.037169769474812014
+                    },
+                    "physical_rms": {
+                      "interior": 0.001548740394783834
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.002,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.0363446034830119
+                    },
+                    "physical_rms": {
+                      "interior": 0.001514358478458829
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.005,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.034181215731789547
+                    },
+                    "physical_rms": {
+                      "interior": 0.0014242173221578978
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.01,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.03150602429815905
+                    },
+                    "physical_rms": {
+                      "interior": 0.0013127510124232935
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.02,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.028730564687928034
+                    },
+                    "physical_rms": {
+                      "interior": 0.0011971068619970014
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.05,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.02726306847564002
+                    },
+                    "physical_rms": {
+                      "interior": 0.0011359611864850006
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "log_off": {
+          "status": "completed",
+          "gate": {
+            "observations": true,
+            "each_independent_residual": true,
+            "field": true,
+            "all": true
+          },
+          "normalized_observation_mse": 0.4990734729358884,
+          "field_metrics": {
+            "rmse_K": 0.00920178586502136,
+            "maximum_error_K": 0.030509422099271433
+          },
+          "primary_diagnostics": {
+            "normalized_rms": {
+              "interior": 0.026109918102608806,
+              "top": 6.195294082639628e-17,
+              "bottom_contact": 0.014232500465010314,
+              "left": 0.0,
+              "right": 0.0
+            },
+            "physical_rms": {
+              "interior": 0.0010879132542753669,
+              "top": 3.097647041319814e-14,
+              "bottom_contact": 7.116250232505156,
+              "left": 0.0,
+              "right": 0.0
+            },
+            "normalization_scales": {
+              "interior": 0.041666666666666664,
+              "top": 500.0,
+              "bottom_contact": 500.0,
+              "left": 500.0,
+              "right": 500.0
+            },
+            "point_counts": {
+              "interior": 5280,
+              "top": 1760,
+              "bottom_contact": 1760,
+              "left": 264,
+              "right": 264
+            },
+            "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+          },
+          "checkpoint_sha256": "3788e245ee0492074f03a9d5725ffbde938e0597fa59f2d37218a08d539eac4d",
+          "observations": {
+            "sha256": "0dd9d9ca82a1fb598187a5bb4700b5234887e6af0d82bf658fa846413d224019",
+            "bytes": 1213
+          },
+          "field_scoring": {
+            "sha256": "475be2de7b21eb2a55bab0f64defe997fd0011e5fd82efa03f33ae788c5063c4",
+            "bytes": 137183
+          },
+          "error_or_reason": null,
+          "training": {
+            "status": "recorded",
+            "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_off/t01/training-report.json",
+            "raw_report_sha256": "cc747e4e1ebb0279c0cd7f9bee785efe512c1290860c421b94c26fb09359301c",
+            "architecture": "matched_graded_hermite_variable_projection_mlp",
+            "model_module": "thermotwin.pinn.planar_contact_graded",
+            "wall_seconds": 298.4777122079977,
+            "timing_scope": "fit only; independent diagnostics and hidden-field scoring follow",
+            "final_objective": 0.5826725399080501,
+            "initial_projection_objective": 0.7096499777088892,
+            "coefficient_count": 150,
+            "initialization": {
+              "arm": "off",
+              "neural_seed": 2026102202,
+              "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+              "shared_function_sha256": "2fef44233699464a045111674619a3032ed36a48e7fa7c64896cecb644153668",
+              "complete_state_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+              "log_column_zero": null,
+              "on_only_log_column_initially_zero": true,
+              "log_column_present": false,
+              "probe_agreement": {
+                "basis_max_abs": 1.1102230246251565e-16,
+                "temperature_max_abs": 0.0,
+                "normalized_gradient_max_abs": 2.7755575615628914e-17,
+                "normalized_hessian_max_abs": 2.7755575615628914e-16,
+                "physical_gradient_max_abs": 1.0658141036401503e-14,
+                "physical_hessian_max_abs": 8.185452315956354e-12,
+                "relative_tolerance": 1e-12,
+                "absolute_tolerance": 1e-10,
+                "passed": true
+              }
+            },
+            "graded_point_metadata": {
+              "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+              "point_identities": {
+                "bottom_contact": {
+                  "shape": [
+                    512,
+                    3
+                  ],
+                  "sha256": "c9e95a246c4c6ec815e76611d6914028aeb23f34ec9e178cf6315b647d07c94a"
+                },
+                "interior": {
+                  "shape": [
+                    8192,
+                    3
+                  ],
+                  "sha256": "4904a8aa084b9d8402f062c87570db2b7873b5a8acad45f4c1a4a88a34cf5b60"
+                }
+              },
+              "point_counts": {
+                "interior": 8192,
+                "bottom_contact": 512
+              },
+              "strata": [
+                {
+                  "name": "bulk",
+                  "start": 0,
+                  "stop": 6144,
+                  "count": 6144,
+                  "mean_weight": 0.75
+                },
+                {
+                  "name": "bottom_band",
+                  "start": 6144,
+                  "stop": 8192,
+                  "count": 2048,
+                  "mean_weight": 0.25
+                }
+              ],
+              "interior_min_height_m": 4e-06,
+              "interior_max_height_m": 0.0038397794084484714,
+              "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+            },
+            "training_point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512
+            },
+            "training_point_weights": {
+              "policy": "uniform means by family; full row arrays retained only in the raw report",
+              "json_pointer": "/training_point_weights"
+            },
+            "trajectory": {
+              "entries": 80,
+              "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_off/t01/training-report.json",
+              "raw_report_sha256": "cc747e4e1ebb0279c0cd7f9bee785efe512c1290860c421b94c26fb09359301c",
+              "json_pointer": "/hidden_update_history",
+              "identity_digest": "1b58227e8c32c4b40ab9a273ae996d537b16502e04eadf4abe3825b5a41482d6"
+            },
+            "hidden_update_count": 80,
+            "hidden_accepted_updates": 80,
+            "hidden_rejected_updates": 0,
+            "hidden_backtrack_count": 0,
+            "hidden_accepted_objective_increases": 0,
+            "optimizer_resets": 81,
+            "projection_count": 82,
+            "projection_records": {
+              "entries": 82,
+              "json_pointer": "/projections",
+              "identity_digest": "f5b2ead88dbc20f73eeffd2349fcfaebae8373e77612e80f2820553238857220"
+            },
+            "final_projection": {
+              "rank": 150,
+              "columns": 150,
+              "rows": 8740,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 78479.39181167945,
+              "smallest_singular_value": 7.498520085636512e-05,
+              "coefficient_norm_returned": 29.09370529270748,
+              "accepted": true,
+              "objective_before": 0.5826725399080501,
+              "objective_after": 0.5826725399080501
+            },
+            "gradient_semantics": "fixed-readout proposal; no exact profiled-gradient claim with truncated SVD",
+            "checkpoint_rule": "fixed-budget final state with inherited monotone complete-objective variable projection"
+          },
+          "near_interface_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_off/t01/near-interface-audit.json",
+            "sha256": "f724a482dda6552f9e5cc0ada3724cbd66bbff0705b8886c549bcae6175af094",
+            "saved": {
+              "status": "not_applicable",
+              "role": "report only",
+              "point_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+            }
+          },
+          "near_bottom_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_off/t01/near-bottom-audit.json",
+            "sha256": "3c7dcaf52eb636a738c050705161135cead513a5392aa4d413a01f8016f79697",
+            "saved": {
+              "status": "completed",
+              "role": "report only",
+              "point_digest": "3fd7f485582a179c0ec2d0f4e7aaab42f0afd166e80c7a463a0d57868f84228a",
+              "point_count": 1152,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.015777273913671307
+                },
+                "physical_rms": {
+                  "interior": 0.0006573864130696378
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 1152
+                },
+                "all_families_pass": true,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              },
+              "by_height": [
+                {
+                  "z_over_H": 0.001,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.0186371776587455
+                    },
+                    "physical_rms": {
+                      "interior": 0.0007765490691143958
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.002,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.017947689418960786
+                    },
+                    "physical_rms": {
+                      "interior": 0.0007478203924566994
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.005,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.01617249006743877
+                    },
+                    "physical_rms": {
+                      "interior": 0.0006738537528099488
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.01,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.01414365711796765
+                    },
+                    "physical_rms": {
+                      "interior": 0.0005893190465819854
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.02,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.012813529295531633
+                    },
+                    "physical_rms": {
+                      "interior": 0.0005338970539804847
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.05,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.014081593718733573
+                    },
+                    "physical_rms": {
+                      "interior": 0.0005867330716138988
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "t02",
+      "geometry": "partial_contact",
+      "known_h": 800.0,
+      "pairing": {
+        "predeclared_matched_initialization": true,
+        "predeclared_identical_graded_grid": true,
+        "executed_proofs": {
+          "log_on": {
+            "status": "verified",
+            "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+            "shared_function_sha256": "f35d019305f3d901b9273bac7819da8902cf3efce98e3c537740be5a8b3d2963",
+            "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+            "optimizer_updates": 80
+          },
+          "log_off": {
+            "status": "verified",
+            "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+            "shared_function_sha256": "f35d019305f3d901b9273bac7819da8902cf3efce98e3c537740be5a8b3d2963",
+            "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+            "optimizer_updates": 80
+          }
+        }
+      },
+      "methods": {
+        "log_on": {
+          "status": "completed",
+          "gate": {
+            "observations": true,
+            "each_independent_residual": false,
+            "field": true,
+            "all": false
+          },
+          "normalized_observation_mse": 0.4109051512275108,
+          "field_metrics": {
+            "rmse_K": 0.01067143608011427,
+            "maximum_error_K": 0.047134321572400495
+          },
+          "primary_diagnostics": {
+            "normalized_rms": {
+              "interior": 0.10059710914379594,
+              "top": 6.195294082639628e-17,
+              "bottom_contact": 0.07268977846245217,
+              "bottom_insulated": 0.06944271636237913,
+              "left": 0.0,
+              "right": 1.4005819097683315e-16,
+              "interface_0_temperature": 0.0,
+              "interface_0_flux": 1.4997432697070135e-15,
+              "interface_1_temperature": 0.0,
+              "interface_1_flux": 1.2059556644172909e-15
+            },
+            "physical_rms": {
+              "interior": 0.0041915462143248304,
+              "top": 3.097647041319814e-14,
+              "bottom_contact": 36.344889231226084,
+              "bottom_insulated": 34.721358181189565,
+              "left": 0.0,
+              "right": 7.002909548841658e-14,
+              "interface_0_temperature": 0.0,
+              "interface_0_flux": 7.498716348535068e-13,
+              "interface_1_temperature": 0.0,
+              "interface_1_flux": 6.029778322086455e-13
+            },
+            "normalization_scales": {
+              "interior": 0.041666666666666664,
+              "top": 500.0,
+              "bottom_contact": 500.0,
+              "bottom_insulated": 500.0,
+              "left": 500.0,
+              "right": 500.0,
+              "interface_0_temperature": 0.1,
+              "interface_0_flux": 500.0,
+              "interface_1_temperature": 0.1,
+              "interface_1_flux": 500.0
+            },
+            "point_counts": {
+              "interior": 5280,
+              "top": 1760,
+              "bottom_contact": 704,
+              "bottom_insulated": 1056,
+              "left": 264,
+              "right": 264,
+              "interface_0": 264,
+              "interface_1": 264
+            },
+            "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+          },
+          "checkpoint_sha256": "f9d23d47603442d1f0d92d099f9756f7c044445cefa551fa5b53460828f90cd0",
+          "observations": {
+            "sha256": "ea6a236c98683cb3ea4f9c5a85c2d94d81d96f280d958a2a9643cceac214be76",
+            "bytes": 1342
+          },
+          "field_scoring": {
+            "sha256": "41ef721ec494010ac23641809c4ea3e6ba9ca10b30ac734d87f94d0c8a51e7e2",
+            "bytes": 185701
+          },
+          "error_or_reason": null,
+          "training": {
+            "status": "recorded",
+            "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_on/t02/training-report.json",
+            "raw_report_sha256": "62362ea1306b0090dc48e38d9dfd937fd2aa06549cc5550d70d578bbdad643c2",
+            "architecture": "matched_graded_hermite_variable_projection_mlp",
+            "model_module": "thermotwin.pinn.planar_contact_graded",
+            "wall_seconds": 1444.7781837909715,
+            "timing_scope": "fit only; independent diagnostics and hidden-field scoring follow",
+            "final_objective": 5.0229086954255555,
+            "initial_projection_objective": 5.0229086954255555,
+            "coefficient_count": 550,
+            "initialization": {
+              "arm": "on",
+              "neural_seed": 2026102202,
+              "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+              "shared_function_sha256": "f35d019305f3d901b9273bac7819da8902cf3efce98e3c537740be5a8b3d2963",
+              "complete_state_sha256": "867d9791e5f7b1687f1f3bda2079d2459f26934fb0f47a6eddb727592f886798",
+              "log_column_zero": true,
+              "on_only_log_column_initially_zero": true,
+              "log_column_present": true,
+              "probe_agreement": {
+                "basis_max_abs": 5.551115123125783e-17,
+                "temperature_max_abs": 0.0,
+                "normalized_gradient_max_abs": 8.673617379884035e-18,
+                "normalized_hessian_max_abs": 4.440892098500626e-16,
+                "physical_gradient_max_abs": 7.105427357601002e-15,
+                "physical_hessian_max_abs": 7.275957614183426e-12,
+                "relative_tolerance": 1e-12,
+                "absolute_tolerance": 1e-10,
+                "passed": true
+              }
+            },
+            "graded_point_metadata": {
+              "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+              "point_identities": {
+                "bottom_contact": {
+                  "shape": [
+                    512,
+                    3
+                  ],
+                  "sha256": "395155e99704ba7f475abf6fd0880ba6e98a0a045a3655141a6d552f6a88fc13"
+                },
+                "bottom_insulated": {
+                  "shape": [
+                    512,
+                    3
+                  ],
+                  "sha256": "30882613e482fb3b1cae210de9926c8f633ec990ccafea00aaa6fe9172770e2d"
+                },
+                "interior": {
+                  "shape": [
+                    8192,
+                    3
+                  ],
+                  "sha256": "0cbf5d84eb8d10174e69e39c6775454ba05d5aabb6bee5763dc209080ae1a9e5"
+                }
+              },
+              "point_counts": {
+                "interior": 8192,
+                "bottom_contact": 512,
+                "bottom_insulated": 512
+              },
+              "strata": [
+                {
+                  "name": "bulk",
+                  "start": 0,
+                  "stop": 4096,
+                  "count": 4096,
+                  "mean_weight": 0.5
+                },
+                {
+                  "name": "bottom_band",
+                  "start": 4096,
+                  "stop": 6144,
+                  "count": 2048,
+                  "mean_weight": 0.25
+                },
+                {
+                  "name": "corner_patch",
+                  "start": 6144,
+                  "stop": 8192,
+                  "count": 2048,
+                  "mean_weight": 0.25
+                }
+              ],
+              "interior_min_height_m": 7.803612880645129e-07,
+              "interior_max_height_m": 0.003923141121612922,
+              "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+            },
+            "training_point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512,
+              "bottom_insulated": 512
+            },
+            "training_point_weights": {
+              "policy": "uniform means by family; full row arrays retained only in the raw report",
+              "json_pointer": "/training_point_weights"
+            },
+            "trajectory": {
+              "entries": 80,
+              "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_on/t02/training-report.json",
+              "raw_report_sha256": "62362ea1306b0090dc48e38d9dfd937fd2aa06549cc5550d70d578bbdad643c2",
+              "json_pointer": "/hidden_update_history",
+              "identity_digest": "52c520ce83870e5e021f22876790f28ad75e59d8a466dcdb7577760d44e833e0"
+            },
+            "hidden_update_count": 80,
+            "hidden_accepted_updates": 0,
+            "hidden_rejected_updates": 80,
+            "hidden_backtrack_count": 160,
+            "hidden_accepted_objective_increases": 0,
+            "optimizer_resets": 81,
+            "projection_count": 242,
+            "projection_records": {
+              "entries": 242,
+              "json_pointer": "/projections",
+              "identity_digest": "c03a505df50fe968d34d33810adf0053d9ea0f76387e3fab9ac1daaa29f66aa6"
+            },
+            "final_projection": {
+              "rank": 508,
+              "columns": 550,
+              "rows": 9252,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 6013651.3068850795,
+              "smallest_singular_value": 4.018889030629991e-13,
+              "coefficient_norm_returned": 2432.9247714738453,
+              "accepted": true,
+              "objective_before": 5.0229086954255555,
+              "objective_after": 5.0229086954255555
+            },
+            "gradient_semantics": "fixed-readout proposal; no exact profiled-gradient claim with truncated SVD",
+            "checkpoint_rule": "fixed-budget final state with inherited monotone complete-objective variable projection"
+          },
+          "near_interface_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_on/t02/near-interface-audit.json",
+            "sha256": "df43ed7c8d395ed477dececdd9741c3c5bbc022621938f76d72034b0b59cb854",
+            "saved": {
+              "status": "completed",
+              "role": "report only",
+              "point_digest": "e515f3ee90dc1c5ceff9f948f6e50e7226c102bbb49330476902de1b51e6df53",
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.29456598270232914,
+                  "interface_0_temperature": 0.0,
+                  "interface_0_flux": 1.6257046689682554e-15,
+                  "interface_1_temperature": 0.0,
+                  "interface_1_flux": 1.0584230165063348e-15
+                },
+                "physical_rms": {
+                  "interior": 0.012273582612597048,
+                  "interface_0_temperature": 0.0,
+                  "interface_0_flux": 8.128523344841277e-13,
+                  "interface_1_temperature": 0.0,
+                  "interface_1_flux": 5.292115082531674e-13
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664,
+                  "interface_0_temperature": 0.1,
+                  "interface_0_flux": 500.0,
+                  "interface_1_temperature": 0.1,
+                  "interface_1_flux": 500.0
+                },
+                "point_counts": {
+                  "interior": 360,
+                  "interface_0": 30,
+                  "interface_1": 30
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            }
+          },
+          "near_bottom_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_on/t02/near-bottom-audit.json",
+            "sha256": "5bbadbc40e0374761cf0753f4b089da61b01506792b3de6ddcfc7e2452e10b92",
+            "saved": {
+              "status": "completed",
+              "role": "report only",
+              "point_digest": "3fd7f485582a179c0ec2d0f4e7aaab42f0afd166e80c7a463a0d57868f84228a",
+              "point_count": 1152,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.18257112637335338
+                },
+                "physical_rms": {
+                  "interior": 0.00760713026555639
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 1152
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              },
+              "by_height": [
+                {
+                  "z_over_H": 0.001,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.2623534137509293
+                    },
+                    "physical_rms": {
+                      "interior": 0.010931392239622053
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.002,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.23543324350712894
+                    },
+                    "physical_rms": {
+                      "interior": 0.009809718479463705
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.005,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.1782168981362448
+                    },
+                    "physical_rms": {
+                      "interior": 0.0074257040890102
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.01,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.14680978203428605
+                    },
+                    "physical_rms": {
+                      "interior": 0.006117074251428585
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.02,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.11985793257083234
+                    },
+                    "physical_rms": {
+                      "interior": 0.00499408052378468
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.05,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.0897489407956545
+                    },
+                    "physical_rms": {
+                      "interior": 0.0037395391998189375
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "log_off": {
+          "status": "completed",
+          "gate": {
+            "observations": true,
+            "each_independent_residual": false,
+            "field": true,
+            "all": false
+          },
+          "normalized_observation_mse": 0.3529197334408087,
+          "field_metrics": {
+            "rmse_K": 0.00945810961634933,
+            "maximum_error_K": 0.04935284615663704
+          },
+          "primary_diagnostics": {
+            "normalized_rms": {
+              "interior": 0.08709317992034275,
+              "top": 6.195294082639628e-17,
+              "bottom_contact": 0.06377599810607283,
+              "bottom_insulated": 0.07197112191185473,
+              "left": 0.0,
+              "right": 1.2392877116647834e-16,
+              "interface_0_temperature": 0.0,
+              "interface_0_flux": 1.5127763875162042e-15,
+              "interface_1_temperature": 0.0,
+              "interface_1_flux": 1.2163628362516897e-15
+            },
+            "physical_rms": {
+              "interior": 0.003628882496680948,
+              "top": 3.097647041319814e-14,
+              "bottom_contact": 31.887999053036417,
+              "bottom_insulated": 35.98556095592736,
+              "left": 0.0,
+              "right": 6.196438558323917e-14,
+              "interface_0_temperature": 0.0,
+              "interface_0_flux": 7.563881937581021e-13,
+              "interface_1_temperature": 0.0,
+              "interface_1_flux": 6.081814181258448e-13
+            },
+            "normalization_scales": {
+              "interior": 0.041666666666666664,
+              "top": 500.0,
+              "bottom_contact": 500.0,
+              "bottom_insulated": 500.0,
+              "left": 500.0,
+              "right": 500.0,
+              "interface_0_temperature": 0.1,
+              "interface_0_flux": 500.0,
+              "interface_1_temperature": 0.1,
+              "interface_1_flux": 500.0
+            },
+            "point_counts": {
+              "interior": 5280,
+              "top": 1760,
+              "bottom_contact": 704,
+              "bottom_insulated": 1056,
+              "left": 264,
+              "right": 264,
+              "interface_0": 264,
+              "interface_1": 264
+            },
+            "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+          },
+          "checkpoint_sha256": "83d870eca761be3044dce1e7d79f755b4f16235b33cdd7e4cc5f24a278fdb45a",
+          "observations": {
+            "sha256": "ea6a236c98683cb3ea4f9c5a85c2d94d81d96f280d958a2a9643cceac214be76",
+            "bytes": 1342
+          },
+          "field_scoring": {
+            "sha256": "220f5313fe0b9e7938567f5fa3a66f73773911a7d771c9bf39573ecd38f4c020",
+            "bytes": 185749
+          },
+          "error_or_reason": null,
+          "training": {
+            "status": "recorded",
+            "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_off/t02/training-report.json",
+            "raw_report_sha256": "f66afbc9b0708fafcd2dff4e3a5f5944d079ef95cba200f84b742a2017ec9702",
+            "architecture": "matched_graded_hermite_variable_projection_mlp",
+            "model_module": "thermotwin.pinn.planar_contact_graded",
+            "wall_seconds": 481.23092716699466,
+            "timing_scope": "fit only; independent diagnostics and hidden-field scoring follow",
+            "final_objective": 4.225882496472446,
+            "initial_projection_objective": 5.0229086954255555,
+            "coefficient_count": 550,
+            "initialization": {
+              "arm": "off",
+              "neural_seed": 2026102202,
+              "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+              "shared_function_sha256": "f35d019305f3d901b9273bac7819da8902cf3efce98e3c537740be5a8b3d2963",
+              "complete_state_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+              "log_column_zero": null,
+              "on_only_log_column_initially_zero": true,
+              "log_column_present": false,
+              "probe_agreement": {
+                "basis_max_abs": 5.551115123125783e-17,
+                "temperature_max_abs": 0.0,
+                "normalized_gradient_max_abs": 8.673617379884035e-18,
+                "normalized_hessian_max_abs": 4.440892098500626e-16,
+                "physical_gradient_max_abs": 7.105427357601002e-15,
+                "physical_hessian_max_abs": 7.275957614183426e-12,
+                "relative_tolerance": 1e-12,
+                "absolute_tolerance": 1e-10,
+                "passed": true
+              }
+            },
+            "graded_point_metadata": {
+              "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+              "point_identities": {
+                "bottom_contact": {
+                  "shape": [
+                    512,
+                    3
+                  ],
+                  "sha256": "395155e99704ba7f475abf6fd0880ba6e98a0a045a3655141a6d552f6a88fc13"
+                },
+                "bottom_insulated": {
+                  "shape": [
+                    512,
+                    3
+                  ],
+                  "sha256": "30882613e482fb3b1cae210de9926c8f633ec990ccafea00aaa6fe9172770e2d"
+                },
+                "interior": {
+                  "shape": [
+                    8192,
+                    3
+                  ],
+                  "sha256": "0cbf5d84eb8d10174e69e39c6775454ba05d5aabb6bee5763dc209080ae1a9e5"
+                }
+              },
+              "point_counts": {
+                "interior": 8192,
+                "bottom_contact": 512,
+                "bottom_insulated": 512
+              },
+              "strata": [
+                {
+                  "name": "bulk",
+                  "start": 0,
+                  "stop": 4096,
+                  "count": 4096,
+                  "mean_weight": 0.5
+                },
+                {
+                  "name": "bottom_band",
+                  "start": 4096,
+                  "stop": 6144,
+                  "count": 2048,
+                  "mean_weight": 0.25
+                },
+                {
+                  "name": "corner_patch",
+                  "start": 6144,
+                  "stop": 8192,
+                  "count": 2048,
+                  "mean_weight": 0.25
+                }
+              ],
+              "interior_min_height_m": 7.803612880645129e-07,
+              "interior_max_height_m": 0.003923141121612922,
+              "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+            },
+            "training_point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512,
+              "bottom_insulated": 512
+            },
+            "training_point_weights": {
+              "policy": "uniform means by family; full row arrays retained only in the raw report",
+              "json_pointer": "/training_point_weights"
+            },
+            "trajectory": {
+              "entries": 80,
+              "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_off/t02/training-report.json",
+              "raw_report_sha256": "f66afbc9b0708fafcd2dff4e3a5f5944d079ef95cba200f84b742a2017ec9702",
+              "json_pointer": "/hidden_update_history",
+              "identity_digest": "e2ff20c06d3f6106d182691870827f6af5b2a4a9cd8b07ab3ccbac6cd7d387f5"
+            },
+            "hidden_update_count": 80,
+            "hidden_accepted_updates": 80,
+            "hidden_rejected_updates": 0,
+            "hidden_backtrack_count": 0,
+            "hidden_accepted_objective_increases": 0,
+            "optimizer_resets": 81,
+            "projection_count": 82,
+            "projection_records": {
+              "entries": 82,
+              "json_pointer": "/projections",
+              "identity_digest": "a0f48ba35fe3eda6e05669d90b99f67882287e23edfa1ed6539d42d0fae13338"
+            },
+            "final_projection": {
+              "rank": 508,
+              "columns": 550,
+              "rows": 9252,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 6244853.9948292095,
+              "smallest_singular_value": 5.105579168028863e-13,
+              "coefficient_norm_returned": 3103.4876557062594,
+              "accepted": true,
+              "objective_before": 4.225882496472446,
+              "objective_after": 4.225882496472446
+            },
+            "gradient_semantics": "fixed-readout proposal; no exact profiled-gradient claim with truncated SVD",
+            "checkpoint_rule": "fixed-budget final state with inherited monotone complete-objective variable projection"
+          },
+          "near_interface_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_off/t02/near-interface-audit.json",
+            "sha256": "c2934add9770b5abfdfd512325a4184cd7cb34059fdffbc86d3305de714236ad",
+            "saved": {
+              "status": "completed",
+              "role": "report only",
+              "point_digest": "e515f3ee90dc1c5ceff9f948f6e50e7226c102bbb49330476902de1b51e6df53",
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.26423559309074385,
+                  "interface_0_temperature": 0.0,
+                  "interface_0_flux": 1.12193835923992e-15,
+                  "interface_1_temperature": 0.0,
+                  "interface_1_flux": 1.0941580102513614e-15
+                },
+                "physical_rms": {
+                  "interior": 0.011009816378780993,
+                  "interface_0_temperature": 0.0,
+                  "interface_0_flux": 5.6096917961996e-13,
+                  "interface_1_temperature": 0.0,
+                  "interface_1_flux": 5.470790051256808e-13
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664,
+                  "interface_0_temperature": 0.1,
+                  "interface_0_flux": 500.0,
+                  "interface_1_temperature": 0.1,
+                  "interface_1_flux": 500.0
+                },
+                "point_counts": {
+                  "interior": 360,
+                  "interface_0": 30,
+                  "interface_1": 30
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            }
+          },
+          "near_bottom_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_off/t02/near-bottom-audit.json",
+            "sha256": "09be026901910d1e5e453dfd2441f98b140fb0f3d088b0837f0d290aa1b56760",
+            "saved": {
+              "status": "completed",
+              "role": "report only",
+              "point_digest": "3fd7f485582a179c0ec2d0f4e7aaab42f0afd166e80c7a463a0d57868f84228a",
+              "point_count": 1152,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.19056997266168335
+                },
+                "physical_rms": {
+                  "interior": 0.00794041552757014
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 1152
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              },
+              "by_height": [
+                {
+                  "z_over_H": 0.001,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.2669161691921367
+                    },
+                    "physical_rms": {
+                      "interior": 0.011121507049672361
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.002,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.2410320557376954
+                    },
+                    "physical_rms": {
+                      "interior": 0.010043002322403974
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.005,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.18669599615471158
+                    },
+                    "physical_rms": {
+                      "interior": 0.007778999839779649
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.01,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.15780407464498974
+                    },
+                    "physical_rms": {
+                      "interior": 0.006575169776874572
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.02,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.1338388348020463
+                    },
+                    "physical_rms": {
+                      "interior": 0.0055766181167519295
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.05,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.1043572659490909
+                    },
+                    "physical_rms": {
+                      "interior": 0.004348219414545454
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "t03",
+      "geometry": "full_contact",
+      "known_h": 1400.0,
+      "pairing": {
+        "predeclared_matched_initialization": true,
+        "predeclared_identical_graded_grid": true,
+        "executed_proofs": {
+          "log_on": {
+            "status": "verified",
+            "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+            "shared_function_sha256": "1c4169af1002551b3f8838a6b2d65ab8f361249b75cbf458b20871620ee284c9",
+            "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+            "optimizer_updates": 80
+          },
+          "log_off": {
+            "status": "verified",
+            "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+            "shared_function_sha256": "1c4169af1002551b3f8838a6b2d65ab8f361249b75cbf458b20871620ee284c9",
+            "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+            "optimizer_updates": 80
+          }
+        }
+      },
+      "methods": {
+        "log_on": {
+          "status": "completed",
+          "gate": {
+            "observations": true,
+            "each_independent_residual": false,
+            "field": true,
+            "all": false
+          },
+          "normalized_observation_mse": 0.6274761986342523,
+          "field_metrics": {
+            "rmse_K": 0.00631592952250855,
+            "maximum_error_K": 0.024229785664715564
+          },
+          "primary_diagnostics": {
+            "normalized_rms": {
+              "interior": 0.05077865294672318,
+              "top": 6.195294082639628e-17,
+              "bottom_contact": 0.033478471749093235,
+              "left": 0.0,
+              "right": 0.0
+            },
+            "physical_rms": {
+              "interior": 0.002115777206113466,
+              "top": 3.097647041319814e-14,
+              "bottom_contact": 16.73923587454662,
+              "left": 0.0,
+              "right": 0.0
+            },
+            "normalization_scales": {
+              "interior": 0.041666666666666664,
+              "top": 500.0,
+              "bottom_contact": 500.0,
+              "left": 500.0,
+              "right": 500.0
+            },
+            "point_counts": {
+              "interior": 5280,
+              "top": 1760,
+              "bottom_contact": 1760,
+              "left": 264,
+              "right": 264
+            },
+            "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+          },
+          "checkpoint_sha256": "06a6af3ba217b94dbba0af7ebac3363549e4737bffe67531f3e93b3844810dc1",
+          "observations": {
+            "sha256": "1c0bfd94a71d4cde7058996a171c89dc63473a7dab426ee6d4fbc8dd7752e7f3",
+            "bytes": 1210
+          },
+          "field_scoring": {
+            "sha256": "f851bc0bfd513e48d82b40075d218eeec70af663c214b8d916666a9371b02148",
+            "bytes": 136622
+          },
+          "error_or_reason": null,
+          "training": {
+            "status": "recorded",
+            "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_on/t03/training-report.json",
+            "raw_report_sha256": "69cf24661e2bee77046baf23a835a249c24ad0138737158905d9cbfebbd6ee20",
+            "architecture": "matched_graded_hermite_variable_projection_mlp",
+            "model_module": "thermotwin.pinn.planar_contact_graded",
+            "wall_seconds": 917.3511480829911,
+            "timing_scope": "fit only; independent diagnostics and hidden-field scoring follow",
+            "final_objective": 1.0102255332400987,
+            "initial_projection_objective": 1.0102255332400987,
+            "coefficient_count": 150,
+            "initialization": {
+              "arm": "on",
+              "neural_seed": 2026102202,
+              "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+              "shared_function_sha256": "1c4169af1002551b3f8838a6b2d65ab8f361249b75cbf458b20871620ee284c9",
+              "complete_state_sha256": "82af54943151b54192a354858dd685ff9e938f94a4206be10a5e84a0580857c6",
+              "log_column_zero": true,
+              "on_only_log_column_initially_zero": true,
+              "log_column_present": true,
+              "probe_agreement": {
+                "basis_max_abs": 1.1102230246251565e-16,
+                "temperature_max_abs": 0.0,
+                "normalized_gradient_max_abs": 2.7755575615628914e-17,
+                "normalized_hessian_max_abs": 2.7755575615628914e-16,
+                "physical_gradient_max_abs": 1.0658141036401503e-14,
+                "physical_hessian_max_abs": 8.185452315956354e-12,
+                "relative_tolerance": 1e-12,
+                "absolute_tolerance": 1e-10,
+                "passed": true
+              }
+            },
+            "graded_point_metadata": {
+              "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+              "point_identities": {
+                "bottom_contact": {
+                  "shape": [
+                    512,
+                    3
+                  ],
+                  "sha256": "c9e95a246c4c6ec815e76611d6914028aeb23f34ec9e178cf6315b647d07c94a"
+                },
+                "interior": {
+                  "shape": [
+                    8192,
+                    3
+                  ],
+                  "sha256": "4904a8aa084b9d8402f062c87570db2b7873b5a8acad45f4c1a4a88a34cf5b60"
+                }
+              },
+              "point_counts": {
+                "interior": 8192,
+                "bottom_contact": 512
+              },
+              "strata": [
+                {
+                  "name": "bulk",
+                  "start": 0,
+                  "stop": 6144,
+                  "count": 6144,
+                  "mean_weight": 0.75
+                },
+                {
+                  "name": "bottom_band",
+                  "start": 6144,
+                  "stop": 8192,
+                  "count": 2048,
+                  "mean_weight": 0.25
+                }
+              ],
+              "interior_min_height_m": 4e-06,
+              "interior_max_height_m": 0.0038397794084484714,
+              "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+            },
+            "training_point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512
+            },
+            "training_point_weights": {
+              "policy": "uniform means by family; full row arrays retained only in the raw report",
+              "json_pointer": "/training_point_weights"
+            },
+            "trajectory": {
+              "entries": 80,
+              "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_on/t03/training-report.json",
+              "raw_report_sha256": "69cf24661e2bee77046baf23a835a249c24ad0138737158905d9cbfebbd6ee20",
+              "json_pointer": "/hidden_update_history",
+              "identity_digest": "4a36928142c845fbcb4283abf5003cdc896a6011968cef55da4551e0b7089903"
+            },
+            "hidden_update_count": 80,
+            "hidden_accepted_updates": 0,
+            "hidden_rejected_updates": 80,
+            "hidden_backtrack_count": 160,
+            "hidden_accepted_objective_increases": 0,
+            "optimizer_resets": 81,
+            "projection_count": 242,
+            "projection_records": {
+              "entries": 242,
+              "json_pointer": "/projections",
+              "identity_digest": "eb07e6560130778e20bf461647b3e48ab5cce23208cba2f04255ab79f67142eb"
+            },
+            "final_projection": {
+              "rank": 150,
+              "columns": 150,
+              "rows": 8740,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 69416.57176152353,
+              "smallest_singular_value": 8.36747589980801e-05,
+              "coefficient_norm_returned": 29.299807503381064,
+              "accepted": true,
+              "objective_before": 1.0102255332400987,
+              "objective_after": 1.0102255332400987
+            },
+            "gradient_semantics": "fixed-readout proposal; no exact profiled-gradient claim with truncated SVD",
+            "checkpoint_rule": "fixed-budget final state with inherited monotone complete-objective variable projection"
+          },
+          "near_interface_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_on/t03/near-interface-audit.json",
+            "sha256": "f724a482dda6552f9e5cc0ada3724cbd66bbff0705b8886c549bcae6175af094",
+            "saved": {
+              "status": "not_applicable",
+              "role": "report only",
+              "point_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+            }
+          },
+          "near_bottom_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_on/t03/near-bottom-audit.json",
+            "sha256": "213d04ac1908ffbf3600eac4f296fb1e178c4aebabfb7e7f7595749870d998ae",
+            "saved": {
+              "status": "completed",
+              "role": "report only",
+              "point_digest": "3fd7f485582a179c0ec2d0f4e7aaab42f0afd166e80c7a463a0d57868f84228a",
+              "point_count": 1152,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.045919602821168005
+                },
+                "physical_rms": {
+                  "interior": 0.0019133167842153335
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 1152
+                },
+                "all_families_pass": true,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              },
+              "by_height": [
+                {
+                  "z_over_H": 0.001,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.056478767336100584
+                    },
+                    "physical_rms": {
+                      "interior": 0.0023532819723375243
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.002,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.05481808821929394
+                    },
+                    "physical_rms": {
+                      "interior": 0.002284087009137247
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.005,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.050233962341120264
+                    },
+                    "physical_rms": {
+                      "interior": 0.002093081764213344
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.01,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.04384068164870754
+                    },
+                    "physical_rms": {
+                      "interior": 0.0018266950686961474
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.02,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.03509806206155678
+                    },
+                    "physical_rms": {
+                      "interior": 0.0014624192525648657
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.05,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.027918726391258315
+                    },
+                    "physical_rms": {
+                      "interior": 0.0011632802663024298
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "log_off": {
+          "status": "completed",
+          "gate": {
+            "observations": true,
+            "each_independent_residual": true,
+            "field": true,
+            "all": true
+          },
+          "normalized_observation_mse": 0.513263306388501,
+          "field_metrics": {
+            "rmse_K": 0.008301818193099574,
+            "maximum_error_K": 0.029902852884958975
+          },
+          "primary_diagnostics": {
+            "normalized_rms": {
+              "interior": 0.032807772747676434,
+              "top": 6.195294082639628e-17,
+              "bottom_contact": 0.018049431392264927,
+              "left": 0.0,
+              "right": 0.0
+            },
+            "physical_rms": {
+              "interior": 0.0013669905311531846,
+              "top": 3.097647041319814e-14,
+              "bottom_contact": 9.024715696132464,
+              "left": 0.0,
+              "right": 0.0
+            },
+            "normalization_scales": {
+              "interior": 0.041666666666666664,
+              "top": 500.0,
+              "bottom_contact": 500.0,
+              "left": 500.0,
+              "right": 500.0
+            },
+            "point_counts": {
+              "interior": 5280,
+              "top": 1760,
+              "bottom_contact": 1760,
+              "left": 264,
+              "right": 264
+            },
+            "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+          },
+          "checkpoint_sha256": "cbc712239416d634756a244986fe968ea1493e7d027840ed6da6709147b836ef",
+          "observations": {
+            "sha256": "1c0bfd94a71d4cde7058996a171c89dc63473a7dab426ee6d4fbc8dd7752e7f3",
+            "bytes": 1210
+          },
+          "field_scoring": {
+            "sha256": "5932fcb534911c62a3b8f691f75e8dca24e0614d9f687872a8d86f7bf99da69f",
+            "bytes": 137004
+          },
+          "error_or_reason": null,
+          "training": {
+            "status": "recorded",
+            "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_off/t03/training-report.json",
+            "raw_report_sha256": "106afa98009e452f8ddc5233ecb718ea14e59bcd0d79d86320ad3ccb31ff4774",
+            "architecture": "matched_graded_hermite_variable_projection_mlp",
+            "model_module": "thermotwin.pinn.planar_contact_graded",
+            "wall_seconds": 298.87769620795734,
+            "timing_scope": "fit only; independent diagnostics and hidden-field scoring follow",
+            "final_objective": 0.6499660422774617,
+            "initial_projection_objective": 1.0102255332400987,
+            "coefficient_count": 150,
+            "initialization": {
+              "arm": "off",
+              "neural_seed": 2026102202,
+              "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+              "shared_function_sha256": "1c4169af1002551b3f8838a6b2d65ab8f361249b75cbf458b20871620ee284c9",
+              "complete_state_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+              "log_column_zero": null,
+              "on_only_log_column_initially_zero": true,
+              "log_column_present": false,
+              "probe_agreement": {
+                "basis_max_abs": 1.1102230246251565e-16,
+                "temperature_max_abs": 0.0,
+                "normalized_gradient_max_abs": 2.7755575615628914e-17,
+                "normalized_hessian_max_abs": 2.7755575615628914e-16,
+                "physical_gradient_max_abs": 1.0658141036401503e-14,
+                "physical_hessian_max_abs": 8.185452315956354e-12,
+                "relative_tolerance": 1e-12,
+                "absolute_tolerance": 1e-10,
+                "passed": true
+              }
+            },
+            "graded_point_metadata": {
+              "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+              "point_identities": {
+                "bottom_contact": {
+                  "shape": [
+                    512,
+                    3
+                  ],
+                  "sha256": "c9e95a246c4c6ec815e76611d6914028aeb23f34ec9e178cf6315b647d07c94a"
+                },
+                "interior": {
+                  "shape": [
+                    8192,
+                    3
+                  ],
+                  "sha256": "4904a8aa084b9d8402f062c87570db2b7873b5a8acad45f4c1a4a88a34cf5b60"
+                }
+              },
+              "point_counts": {
+                "interior": 8192,
+                "bottom_contact": 512
+              },
+              "strata": [
+                {
+                  "name": "bulk",
+                  "start": 0,
+                  "stop": 6144,
+                  "count": 6144,
+                  "mean_weight": 0.75
+                },
+                {
+                  "name": "bottom_band",
+                  "start": 6144,
+                  "stop": 8192,
+                  "count": 2048,
+                  "mean_weight": 0.25
+                }
+              ],
+              "interior_min_height_m": 4e-06,
+              "interior_max_height_m": 0.0038397794084484714,
+              "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+            },
+            "training_point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512
+            },
+            "training_point_weights": {
+              "policy": "uniform means by family; full row arrays retained only in the raw report",
+              "json_pointer": "/training_point_weights"
+            },
+            "trajectory": {
+              "entries": 80,
+              "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_off/t03/training-report.json",
+              "raw_report_sha256": "106afa98009e452f8ddc5233ecb718ea14e59bcd0d79d86320ad3ccb31ff4774",
+              "json_pointer": "/hidden_update_history",
+              "identity_digest": "ff3ad057b685ed222bb45a9a03d3e203b8ae514bfd7b58569c0d6dbac0043382"
+            },
+            "hidden_update_count": 80,
+            "hidden_accepted_updates": 80,
+            "hidden_rejected_updates": 0,
+            "hidden_backtrack_count": 0,
+            "hidden_accepted_objective_increases": 0,
+            "optimizer_resets": 81,
+            "projection_count": 82,
+            "projection_records": {
+              "entries": 82,
+              "json_pointer": "/projections",
+              "identity_digest": "1a0e64235f56f392db8d4210a71b2809c5d9ee46da5e3c081f1a4ab6d1624228"
+            },
+            "final_projection": {
+              "rank": 150,
+              "columns": 150,
+              "rows": 8740,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 98822.80815971376,
+              "smallest_singular_value": 5.8950917651678233e-05,
+              "coefficient_norm_returned": 67.46232792614414,
+              "accepted": true,
+              "objective_before": 0.6499660422774617,
+              "objective_after": 0.6499660422774617
+            },
+            "gradient_semantics": "fixed-readout proposal; no exact profiled-gradient claim with truncated SVD",
+            "checkpoint_rule": "fixed-budget final state with inherited monotone complete-objective variable projection"
+          },
+          "near_interface_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_off/t03/near-interface-audit.json",
+            "sha256": "f724a482dda6552f9e5cc0ada3724cbd66bbff0705b8886c549bcae6175af094",
+            "saved": {
+              "status": "not_applicable",
+              "role": "report only",
+              "point_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+            }
+          },
+          "near_bottom_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_off/t03/near-bottom-audit.json",
+            "sha256": "de564abb6e78aea76bf130804bee4156bc1aabbc2e63d3c03f7f8a35c59369db",
+            "saved": {
+              "status": "completed",
+              "role": "report only",
+              "point_digest": "3fd7f485582a179c0ec2d0f4e7aaab42f0afd166e80c7a463a0d57868f84228a",
+              "point_count": 1152,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.019900737021522428
+                },
+                "physical_rms": {
+                  "interior": 0.0008291973758967678
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 1152
+                },
+                "all_families_pass": true,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              },
+              "by_height": [
+                {
+                  "z_over_H": 0.001,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.022323995702654333
+                    },
+                    "physical_rms": {
+                      "interior": 0.0009301664876105971
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.002,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.021666222616687283
+                    },
+                    "physical_rms": {
+                      "interior": 0.0009027592756953034
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.005,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.020032723386168478
+                    },
+                    "physical_rms": {
+                      "interior": 0.0008346968077570199
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.01,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.01833804114219263
+                    },
+                    "physical_rms": {
+                      "interior": 0.0007640850475913595
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.02,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.017623566578542138
+                    },
+                    "physical_rms": {
+                      "interior": 0.0007343152741059223
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.05,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.018980678576989315
+                    },
+                    "physical_rms": {
+                      "interior": 0.0007908616073745547
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": true,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "t04",
+      "geometry": "partial_contact",
+      "known_h": 1400.0,
+      "pairing": {
+        "predeclared_matched_initialization": true,
+        "predeclared_identical_graded_grid": true,
+        "executed_proofs": {
+          "log_on": {
+            "status": "verified",
+            "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+            "shared_function_sha256": "271e85ca901f1e78e060ab7204f659cb2b1b2324af8582755daa3884cf3660c4",
+            "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+            "optimizer_updates": 80
+          },
+          "log_off": {
+            "status": "verified",
+            "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+            "shared_function_sha256": "271e85ca901f1e78e060ab7204f659cb2b1b2324af8582755daa3884cf3660c4",
+            "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+            "optimizer_updates": 80
+          }
+        }
+      },
+      "methods": {
+        "log_on": {
+          "status": "completed",
+          "gate": {
+            "observations": true,
+            "each_independent_residual": false,
+            "field": true,
+            "all": false
+          },
+          "normalized_observation_mse": 0.3956700752786812,
+          "field_metrics": {
+            "rmse_K": 0.00983320356513328,
+            "maximum_error_K": 0.0488434113550511
+          },
+          "primary_diagnostics": {
+            "normalized_rms": {
+              "interior": 0.13446554073413358,
+              "top": 6.195294082639628e-17,
+              "bottom_contact": 0.11169515026006856,
+              "bottom_insulated": 0.08987732358688133,
+              "left": 0.0,
+              "right": 2.0483107071720997e-16,
+              "interface_0_temperature": 0.0,
+              "interface_0_flux": 2.5043082413216905e-15,
+              "interface_1_temperature": 0.0,
+              "interface_1_flux": 2.070269947026132e-15
+            },
+            "physical_rms": {
+              "interior": 0.005602730863922233,
+              "top": 3.097647041319814e-14,
+              "bottom_contact": 55.84757513003428,
+              "bottom_insulated": 44.938661793440666,
+              "left": 0.0,
+              "right": 1.0241553535860498e-13,
+              "interface_0_temperature": 0.0,
+              "interface_0_flux": 1.2521541206608452e-12,
+              "interface_1_temperature": 0.0,
+              "interface_1_flux": 1.035134973513066e-12
+            },
+            "normalization_scales": {
+              "interior": 0.041666666666666664,
+              "top": 500.0,
+              "bottom_contact": 500.0,
+              "bottom_insulated": 500.0,
+              "left": 500.0,
+              "right": 500.0,
+              "interface_0_temperature": 0.1,
+              "interface_0_flux": 500.0,
+              "interface_1_temperature": 0.1,
+              "interface_1_flux": 500.0
+            },
+            "point_counts": {
+              "interior": 5280,
+              "top": 1760,
+              "bottom_contact": 704,
+              "bottom_insulated": 1056,
+              "left": 264,
+              "right": 264,
+              "interface_0": 264,
+              "interface_1": 264
+            },
+            "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+          },
+          "checkpoint_sha256": "f31e707a940a035afb37611d9107b91ae92de21c8b2acf79e0a35b9e3fb88287",
+          "observations": {
+            "sha256": "ed3ed01de8cfca67c531ddf8bc5bcace1aa3e1ca7f8386f793794099a4c29c6d",
+            "bytes": 1346
+          },
+          "field_scoring": {
+            "sha256": "60e299f01e7d642d25eca7185772cf1ec131de3ac52d1e9aea02da2ec6182669",
+            "bytes": 186007
+          },
+          "error_or_reason": null,
+          "training": {
+            "status": "recorded",
+            "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_on/t04/training-report.json",
+            "raw_report_sha256": "82162df5592bf897198f8a26a5db4fd13eecfbf79292119334c2c2f39b3be7c2",
+            "architecture": "matched_graded_hermite_variable_projection_mlp",
+            "model_module": "thermotwin.pinn.planar_contact_graded",
+            "wall_seconds": 1444.3282078750199,
+            "timing_scope": "fit only; independent diagnostics and hidden-field scoring follow",
+            "final_objective": 9.418484728554898,
+            "initial_projection_objective": 9.418484728554898,
+            "coefficient_count": 550,
+            "initialization": {
+              "arm": "on",
+              "neural_seed": 2026102202,
+              "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+              "shared_function_sha256": "271e85ca901f1e78e060ab7204f659cb2b1b2324af8582755daa3884cf3660c4",
+              "complete_state_sha256": "867d9791e5f7b1687f1f3bda2079d2459f26934fb0f47a6eddb727592f886798",
+              "log_column_zero": true,
+              "on_only_log_column_initially_zero": true,
+              "log_column_present": true,
+              "probe_agreement": {
+                "basis_max_abs": 5.551115123125783e-17,
+                "temperature_max_abs": 0.0,
+                "normalized_gradient_max_abs": 8.673617379884035e-18,
+                "normalized_hessian_max_abs": 4.440892098500626e-16,
+                "physical_gradient_max_abs": 7.105427357601002e-15,
+                "physical_hessian_max_abs": 7.275957614183426e-12,
+                "relative_tolerance": 1e-12,
+                "absolute_tolerance": 1e-10,
+                "passed": true
+              }
+            },
+            "graded_point_metadata": {
+              "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+              "point_identities": {
+                "bottom_contact": {
+                  "shape": [
+                    512,
+                    3
+                  ],
+                  "sha256": "395155e99704ba7f475abf6fd0880ba6e98a0a045a3655141a6d552f6a88fc13"
+                },
+                "bottom_insulated": {
+                  "shape": [
+                    512,
+                    3
+                  ],
+                  "sha256": "30882613e482fb3b1cae210de9926c8f633ec990ccafea00aaa6fe9172770e2d"
+                },
+                "interior": {
+                  "shape": [
+                    8192,
+                    3
+                  ],
+                  "sha256": "0cbf5d84eb8d10174e69e39c6775454ba05d5aabb6bee5763dc209080ae1a9e5"
+                }
+              },
+              "point_counts": {
+                "interior": 8192,
+                "bottom_contact": 512,
+                "bottom_insulated": 512
+              },
+              "strata": [
+                {
+                  "name": "bulk",
+                  "start": 0,
+                  "stop": 4096,
+                  "count": 4096,
+                  "mean_weight": 0.5
+                },
+                {
+                  "name": "bottom_band",
+                  "start": 4096,
+                  "stop": 6144,
+                  "count": 2048,
+                  "mean_weight": 0.25
+                },
+                {
+                  "name": "corner_patch",
+                  "start": 6144,
+                  "stop": 8192,
+                  "count": 2048,
+                  "mean_weight": 0.25
+                }
+              ],
+              "interior_min_height_m": 7.803612880645129e-07,
+              "interior_max_height_m": 0.003923141121612922,
+              "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+            },
+            "training_point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512,
+              "bottom_insulated": 512
+            },
+            "training_point_weights": {
+              "policy": "uniform means by family; full row arrays retained only in the raw report",
+              "json_pointer": "/training_point_weights"
+            },
+            "trajectory": {
+              "entries": 80,
+              "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_on/t04/training-report.json",
+              "raw_report_sha256": "82162df5592bf897198f8a26a5db4fd13eecfbf79292119334c2c2f39b3be7c2",
+              "json_pointer": "/hidden_update_history",
+              "identity_digest": "a94eef80905eec9ba2d8826bf9318fd435c31ec76d6ccc922ba286c5172534ab"
+            },
+            "hidden_update_count": 80,
+            "hidden_accepted_updates": 0,
+            "hidden_rejected_updates": 80,
+            "hidden_backtrack_count": 160,
+            "hidden_accepted_objective_increases": 0,
+            "optimizer_resets": 81,
+            "projection_count": 242,
+            "projection_records": {
+              "entries": 242,
+              "json_pointer": "/projections",
+              "identity_digest": "32cc054c75011aa0c55490796c27c5084e9b21f095f86212e185f9088625a881"
+            },
+            "final_projection": {
+              "rank": 508,
+              "columns": 550,
+              "rows": 9252,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 6082089.0881911665,
+              "smallest_singular_value": 3.902496162985051e-13,
+              "coefficient_norm_returned": 2578.9628341945063,
+              "accepted": true,
+              "objective_before": 9.418484728554898,
+              "objective_after": 9.418484728554898
+            },
+            "gradient_semantics": "fixed-readout proposal; no exact profiled-gradient claim with truncated SVD",
+            "checkpoint_rule": "fixed-budget final state with inherited monotone complete-objective variable projection"
+          },
+          "near_interface_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_on/t04/near-interface-audit.json",
+            "sha256": "232c8c16b8f06e6f478a2a8e67954e94a18ffc844eeeca95932763543299a451",
+            "saved": {
+              "status": "completed",
+              "role": "report only",
+              "point_digest": "e515f3ee90dc1c5ceff9f948f6e50e7226c102bbb49330476902de1b51e6df53",
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.4039272444286555,
+                  "interface_0_temperature": 0.0,
+                  "interface_0_flux": 2.0445171528652454e-15,
+                  "interface_1_temperature": 0.0,
+                  "interface_1_flux": 1.523742531650643e-15
+                },
+                "physical_rms": {
+                  "interior": 0.01683030185119398,
+                  "interface_0_temperature": 0.0,
+                  "interface_0_flux": 1.0222585764326226e-12,
+                  "interface_1_temperature": 0.0,
+                  "interface_1_flux": 7.618712658253215e-13
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664,
+                  "interface_0_temperature": 0.1,
+                  "interface_0_flux": 500.0,
+                  "interface_1_temperature": 0.1,
+                  "interface_1_flux": 500.0
+                },
+                "point_counts": {
+                  "interior": 360,
+                  "interface_0": 30,
+                  "interface_1": 30
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            }
+          },
+          "near_bottom_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_on/t04/near-bottom-audit.json",
+            "sha256": "4bad28690dc9758fca2fb68c23b9eba89953c1d2951beb49816327dc153e9463",
+            "saved": {
+              "status": "completed",
+              "role": "report only",
+              "point_digest": "3fd7f485582a179c0ec2d0f4e7aaab42f0afd166e80c7a463a0d57868f84228a",
+              "point_count": 1152,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.25231731075907043
+                },
+                "physical_rms": {
+                  "interior": 0.010513221281627934
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 1152
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              },
+              "by_height": [
+                {
+                  "z_over_H": 0.001,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.3637239135881282
+                    },
+                    "physical_rms": {
+                      "interior": 0.015155163066172008
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.002,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.3262672282238702
+                    },
+                    "physical_rms": {
+                      "interior": 0.01359446784266126
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.005,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.24645560344942996
+                    },
+                    "physical_rms": {
+                      "interior": 0.010268983477059582
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.01,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.20215495147070028
+                    },
+                    "physical_rms": {
+                      "interior": 0.008423122977945844
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.02,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.1642038292266447
+                    },
+                    "physical_rms": {
+                      "interior": 0.006841826217776862
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.05,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.12111513495412171
+                    },
+                    "physical_rms": {
+                      "interior": 0.005046463956421738
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "log_off": {
+          "status": "completed",
+          "gate": {
+            "observations": true,
+            "each_independent_residual": false,
+            "field": true,
+            "all": false
+          },
+          "normalized_observation_mse": 0.3521957142575668,
+          "field_metrics": {
+            "rmse_K": 0.009509163165092335,
+            "maximum_error_K": 0.05028790727391197
+          },
+          "primary_diagnostics": {
+            "normalized_rms": {
+              "interior": 0.1162714634997585,
+              "top": 6.195294082639628e-17,
+              "bottom_contact": 0.09587461985508756,
+              "bottom_insulated": 0.09507600063311725,
+              "left": 0.0,
+              "right": 1.8485661229016623e-16,
+              "interface_0_temperature": 0.0,
+              "interface_0_flux": 2.439485278418527e-15,
+              "interface_1_temperature": 0.0,
+              "interface_1_flux": 2.12876666102637e-15
+            },
+            "physical_rms": {
+              "interior": 0.004844644312489937,
+              "top": 3.097647041319814e-14,
+              "bottom_contact": 47.93730992754378,
+              "bottom_insulated": 47.53800031655862,
+              "left": 0.0,
+              "right": 9.242830614508311e-14,
+              "interface_0_temperature": 0.0,
+              "interface_0_flux": 1.2197426392092634e-12,
+              "interface_1_temperature": 0.0,
+              "interface_1_flux": 1.0643833305131849e-12
+            },
+            "normalization_scales": {
+              "interior": 0.041666666666666664,
+              "top": 500.0,
+              "bottom_contact": 500.0,
+              "bottom_insulated": 500.0,
+              "left": 500.0,
+              "right": 500.0,
+              "interface_0_temperature": 0.1,
+              "interface_0_flux": 500.0,
+              "interface_1_temperature": 0.1,
+              "interface_1_flux": 500.0
+            },
+            "point_counts": {
+              "interior": 5280,
+              "top": 1760,
+              "bottom_contact": 704,
+              "bottom_insulated": 1056,
+              "left": 264,
+              "right": 264,
+              "interface_0": 264,
+              "interface_1": 264
+            },
+            "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+          },
+          "checkpoint_sha256": "245f6f61d8a85cacd5d076e3133573a02955994d85a0a5935f07255353030bb3",
+          "observations": {
+            "sha256": "ed3ed01de8cfca67c531ddf8bc5bcace1aa3e1ca7f8386f793794099a4c29c6d",
+            "bytes": 1346
+          },
+          "field_scoring": {
+            "sha256": "af21174a88c7b6b87aaa83dad481e9442e596d5a690fee91515fcc1528df4445",
+            "bytes": 186000
+          },
+          "error_or_reason": null,
+          "training": {
+            "status": "recorded",
+            "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_off/t04/training-report.json",
+            "raw_report_sha256": "a3f4e3c9003f541c33633a1835ea4331f1c1aacafa1f03ad2b354a40df25960e",
+            "architecture": "matched_graded_hermite_variable_projection_mlp",
+            "model_module": "thermotwin.pinn.planar_contact_graded",
+            "wall_seconds": 514.9312992499908,
+            "timing_scope": "fit only; independent diagnostics and hidden-field scoring follow",
+            "final_objective": 7.850607532733248,
+            "initial_projection_objective": 9.418484728554898,
+            "coefficient_count": 550,
+            "initialization": {
+              "arm": "off",
+              "neural_seed": 2026102202,
+              "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+              "shared_function_sha256": "271e85ca901f1e78e060ab7204f659cb2b1b2324af8582755daa3884cf3660c4",
+              "complete_state_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+              "log_column_zero": null,
+              "on_only_log_column_initially_zero": true,
+              "log_column_present": false,
+              "probe_agreement": {
+                "basis_max_abs": 5.551115123125783e-17,
+                "temperature_max_abs": 0.0,
+                "normalized_gradient_max_abs": 8.673617379884035e-18,
+                "normalized_hessian_max_abs": 4.440892098500626e-16,
+                "physical_gradient_max_abs": 7.105427357601002e-15,
+                "physical_hessian_max_abs": 7.275957614183426e-12,
+                "relative_tolerance": 1e-12,
+                "absolute_tolerance": 1e-10,
+                "passed": true
+              }
+            },
+            "graded_point_metadata": {
+              "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+              "point_identities": {
+                "bottom_contact": {
+                  "shape": [
+                    512,
+                    3
+                  ],
+                  "sha256": "395155e99704ba7f475abf6fd0880ba6e98a0a045a3655141a6d552f6a88fc13"
+                },
+                "bottom_insulated": {
+                  "shape": [
+                    512,
+                    3
+                  ],
+                  "sha256": "30882613e482fb3b1cae210de9926c8f633ec990ccafea00aaa6fe9172770e2d"
+                },
+                "interior": {
+                  "shape": [
+                    8192,
+                    3
+                  ],
+                  "sha256": "0cbf5d84eb8d10174e69e39c6775454ba05d5aabb6bee5763dc209080ae1a9e5"
+                }
+              },
+              "point_counts": {
+                "interior": 8192,
+                "bottom_contact": 512,
+                "bottom_insulated": 512
+              },
+              "strata": [
+                {
+                  "name": "bulk",
+                  "start": 0,
+                  "stop": 4096,
+                  "count": 4096,
+                  "mean_weight": 0.5
+                },
+                {
+                  "name": "bottom_band",
+                  "start": 4096,
+                  "stop": 6144,
+                  "count": 2048,
+                  "mean_weight": 0.25
+                },
+                {
+                  "name": "corner_patch",
+                  "start": 6144,
+                  "stop": 8192,
+                  "count": 2048,
+                  "mean_weight": 0.25
+                }
+              ],
+              "interior_min_height_m": 7.803612880645129e-07,
+              "interior_max_height_m": 0.003923141121612922,
+              "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+            },
+            "training_point_counts": {
+              "interior": 8192,
+              "bottom_contact": 512,
+              "bottom_insulated": 512
+            },
+            "training_point_weights": {
+              "policy": "uniform means by family; full row arrays retained only in the raw report",
+              "json_pointer": "/training_point_weights"
+            },
+            "trajectory": {
+              "entries": 80,
+              "raw_report": "reports/pinn-spatial-validation/graded-log-development/log_off/t04/training-report.json",
+              "raw_report_sha256": "a3f4e3c9003f541c33633a1835ea4331f1c1aacafa1f03ad2b354a40df25960e",
+              "json_pointer": "/hidden_update_history",
+              "identity_digest": "e0204b14a213b56025fc975c9c6b1d540431df62edfa70d9220146a494798074"
+            },
+            "hidden_update_count": 80,
+            "hidden_accepted_updates": 80,
+            "hidden_rejected_updates": 0,
+            "hidden_backtrack_count": 0,
+            "hidden_accepted_objective_increases": 0,
+            "optimizer_resets": 81,
+            "projection_count": 82,
+            "projection_records": {
+              "entries": 82,
+              "json_pointer": "/projections",
+              "identity_digest": "825e00807d9fed388c9db8f3fe509ef6b800aaf75db50cb33ef6d5bf640b71db"
+            },
+            "final_projection": {
+              "rank": 508,
+              "columns": 550,
+              "rows": 9252,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 7107455.545005138,
+              "smallest_singular_value": 4.3949723488332345e-13,
+              "coefficient_norm_returned": 3253.7079356248887,
+              "accepted": true,
+              "objective_before": 7.850607532733248,
+              "objective_after": 7.850607532733248
+            },
+            "gradient_semantics": "fixed-readout proposal; no exact profiled-gradient claim with truncated SVD",
+            "checkpoint_rule": "fixed-budget final state with inherited monotone complete-objective variable projection"
+          },
+          "near_interface_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_off/t04/near-interface-audit.json",
+            "sha256": "3c616d0278aee142d14501ad1f35a4a57eca1b5868d1b5aa75a9de3348058744",
+            "saved": {
+              "status": "completed",
+              "role": "report only",
+              "point_digest": "e515f3ee90dc1c5ceff9f948f6e50e7226c102bbb49330476902de1b51e6df53",
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.3718050731586412,
+                  "interface_0_temperature": 0.0,
+                  "interface_0_flux": 2.6777298562315206e-15,
+                  "interface_1_temperature": 0.0,
+                  "interface_1_flux": 1.851696444779337e-15
+                },
+                "physical_rms": {
+                  "interior": 0.015491878048276717,
+                  "interface_0_temperature": 0.0,
+                  "interface_0_flux": 1.3388649281157604e-12,
+                  "interface_1_temperature": 0.0,
+                  "interface_1_flux": 9.258482223896685e-13
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664,
+                  "interface_0_temperature": 0.1,
+                  "interface_0_flux": 500.0,
+                  "interface_1_temperature": 0.1,
+                  "interface_1_flux": 500.0
+                },
+                "point_counts": {
+                  "interior": 360,
+                  "interface_0": 30,
+                  "interface_1": 30
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            }
+          },
+          "near_bottom_audit": {
+            "path": "reports/pinn-spatial-validation/graded-log-development/log_off/t04/near-bottom-audit.json",
+            "sha256": "7f32e522b79933dd9a3b99c8c0acec3ddca22c7a6126a2ecf56d6f67b8643f69",
+            "saved": {
+              "status": "completed",
+              "role": "report only",
+              "point_digest": "3fd7f485582a179c0ec2d0f4e7aaab42f0afd166e80c7a463a0d57868f84228a",
+              "point_count": 1152,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.25325110770075115
+                },
+                "physical_rms": {
+                  "interior": 0.010552129487531297
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 1152
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              },
+              "by_height": [
+                {
+                  "z_over_H": 0.001,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.36172739183269254
+                    },
+                    "physical_rms": {
+                      "interior": 0.015071974659695522
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.002,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.32476398920279237
+                    },
+                    "physical_rms": {
+                      "interior": 0.013531832883449682
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.005,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.24618163770784732
+                    },
+                    "physical_rms": {
+                      "interior": 0.010257568237826972
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.01,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.20398381106044888
+                    },
+                    "physical_rms": {
+                      "interior": 0.008499325460852036
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.02,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.17087952273805873
+                    },
+                    "physical_rms": {
+                      "interior": 0.0071199801140857805
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                },
+                {
+                  "z_over_H": 0.05,
+                  "point_count": 192,
+                  "diagnostics": {
+                    "normalized_rms": {
+                      "interior": 0.13070494028342172
+                    },
+                    "physical_rms": {
+                      "interior": 0.005446039178475905
+                    },
+                    "normalization_scales": {
+                      "interior": 0.041666666666666664
+                    },
+                    "point_counts": {
+                      "interior": 192
+                    },
+                    "all_families_pass": false,
+                    "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "execution": {
+    "path": "reports/pinn-spatial-validation/graded-log-validation/execution-state.json",
+    "sha256": "085709647dd994629132be5c950a898baf68b1019793cc23a35b926e06dba6ae",
+    "saved": {
+      "status": "completed",
+      "plan_sha256": "7d3847b0c1bf2aeb1233051e580dbd60c66958e232adc03db1aa2639fd7f5d0e",
+      "parallel_arm_processes": 2,
+      "return_codes": {
+        "log_off": 0,
+        "log_on": 0
+      },
+      "automatic_retries": 0,
+      "wall_seconds": 4769.18801420799
+    }
+  },
+  "report": {
+    "directory": "reports/pinn-spatial-validation/graded-log-report",
+    "report_index_sha256": "fe23546ad2607eb3f47c85c086789a70760d7e700978184c16a95c58826fe753",
+    "report_index_digest": "d3ad62a4c9462187c99545ccf131761d3ca676141bec7c477e1f15436f67c687",
+    "files": 6,
+    "renderer_sha256": "56c7951bb477b6028b16a36fb1e23e7f1850d8b66af02d62bef3f8a3b0ff906e"
+  },
+  "quality_checks": {
+    "new_unique_focused": {
+      "model": 6,
+      "runner": 7,
+      "reporter": 4,
+      "total": 17,
+      "passed": true
+    },
+    "root_combined_invocation": {
+      "tests": 18,
+      "includes_prior_architecture_checks": 5,
+      "passed": true
+    },
+    "preserved_unique_focused_baseline": 90,
+    "total_unique_focused_checks": 107,
+    "overlap_note": "The 18-test invocation overlaps the five prior architecture checks and is not added again.",
+    "full_repository_suite": {
+      "status": "passed",
+      "completed": true,
+      "state_path": "reports/pinn-spatial-validation/graded-log-validation/full-suite-state.json",
+      "state_sha256": "f540a6a2de3f31c3936ee6b19ad860c9fedb55aa5775ee3e7bd208876bf64dce",
+      "state": {
+        "status": "passed",
+        "started_utc": "2026-10-22T16:22:13.622929+00:00",
+        "command": [
+          "/Users/rolandbennett/projects/thermotwin/.artifacts/operating-decision/runtime-cpython31012-20261007/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests"
+        ],
+        "purpose": "constructed software tests; no scientific comparison fit",
+        "exit_code": 0,
+        "wall_seconds": 1285.624171042,
+        "finished_utc": "2026-10-22T16:43:39.303037+00:00"
+      },
+      "test_count": 1097,
+      "passed": true,
+      "log_read": true,
+      "log_path": "reports/pinn-spatial-validation/graded-log-validation/full-suite.log",
+      "log_sha256": "87cb0d15e7cd60a256ff42d05b749356cc7fb58d700ac7d6fb53f49e2ab48775",
+      "unittest_reported_seconds": 1278.313,
+      "terminal_log_summary": "OK"
+    },
+    "exact_head_ci": "not asserted; verify after the resulting source commit"
+  },
+  "legacy_preservation": {
+    "identical_before_and_after": true,
+    "baseline_path": "reports/pinn-spatial-validation/graded-log-validation/legacy-before.json",
+    "baseline_file_sha256": "c8f801de5a82e12f6fc9ff159be924d8b37abb15f148d453d8e12b0c87fa81c2",
+    "before_identity_digest": "5c95a9fa578491fec4eb6ba44878fd9a6e96c622cb62ed076f8b52cac89a1d25",
+    "after_identity_digest": "5c95a9fa578491fec4eb6ba44878fd9a6e96c622cb62ed076f8b52cac89a1d25",
+    "verifier": {
+      "path": "reports/pinn-spatial-validation/verify-graded-legacy.py",
+      "sha256": "8146eaa819fd4436c8aa11ea55e3f43844cdbc1170e858f2db8a8ef3d4184a75"
+    },
+    "after_proof": "reports/pinn-spatial-validation/graded-log-result-finalization/legacy-after.json"
+  },
+  "comparison_preservation": {
+    "before": {
+      "artifact_index_sha256": "70ffe39f5032c51bfa49cefdc273eef9d735fcd9e831de984886ac196016b03b",
+      "plan_sha256": "7d3847b0c1bf2aeb1233051e580dbd60c66958e232adc03db1aa2639fd7f5d0e",
+      "files": 125,
+      "method_fit_count": 8,
+      "reused_dataset_count": 4,
+      "tracked_plan": "thermotwin/PINN_SPATIAL_GRADED_LOG_PLAN.json",
+      "tracked_plan_sha256": "7d3847b0c1bf2aeb1233051e580dbd60c66958e232adc03db1aa2639fd7f5d0e",
+      "artifact_index_digest": "a659cd93882a93ad1badf2791b9e0337bcb6f9b037e06d42c56810be4988b07f"
+    },
+    "after": {
+      "artifact_index_sha256": "70ffe39f5032c51bfa49cefdc273eef9d735fcd9e831de984886ac196016b03b",
+      "plan_sha256": "7d3847b0c1bf2aeb1233051e580dbd60c66958e232adc03db1aa2639fd7f5d0e",
+      "files": 125,
+      "method_fit_count": 8,
+      "reused_dataset_count": 4,
+      "tracked_plan": "thermotwin/PINN_SPATIAL_GRADED_LOG_PLAN.json",
+      "tracked_plan_sha256": "7d3847b0c1bf2aeb1233051e580dbd60c66958e232adc03db1aa2639fd7f5d0e",
+      "artifact_index_digest": "a659cd93882a93ad1badf2791b9e0337bcb6f9b037e06d42c56810be4988b07f"
+    },
+    "identical": true
+  },
+  "inverse_opened": false,
+  "fresh_evaluation_opened": false,
+  "three_d_opened": false,
+  "finalizer": {
+    "path": "reports/pinn-spatial-validation/finalize-graded-log-result.py",
+    "sha256": "cf5f81c2448ffaa57dbb3ff26fc6f3bd884d6a25869c92054c02fadfb1a463c1"
+  },
+  "interpretation_limits": [
+    "All pass/fail decisions are saved coordinator gates; none is recomputed by this helper.",
+    "Both log arms remain reported; no winner, seed, epoch, or checkpoint is selected.",
+    "The eight fits reuse four paired datasets and are not eight independent noise replications.",
+    "Eighty fixed updates are budget endpoints, not convergence certificates.",
+    "Whole-plate near-bottom and near-interface audits remain report only.",
+    "Full training-point arrays and solver trajectories remain in indexed raw reports; compact pointers bind them by hash.",
+    "No inverse, untouched reserved evaluation, or 3D validation was performed."
+  ]
+}

@@ -119,3 +119,10 @@ The bounded forward comparison is finished. No inverse fit, new reserved
 cohort, or 3D study was opened. Further PINN work needs a new bounded
 development plan addressing the remaining PDE and bottom-condition errors;
 the established conventional reference remains the benchmark.
+
+The subsequent [graded-grid log-input comparison](PINN_SPATIAL_GRADED_LOG_COMPARISON.md)
+has now completed eight fits with unchanged acceptance thresholds. Log-off
+passed both full-contact cases (2/4 overall), while both partial-contact cases
+still failed the heat equation and bottom conditions. Its separate record
+retains the improvement, optimizer limitations, and remaining failures; the
+v3/v4 results above remain the preserved historical comparison.
