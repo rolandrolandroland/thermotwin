@@ -1,0 +1,2987 @@
+{
+  "artifact_digest": "ed58ade9da509307ce8a88ae97b549b8dc7bc21907e5d5e1d5272a6c47c12210",
+  "calibration_artifact_digest": "124d97f19c1cecb8cfefa6ee5a2b78f4f78570af8337b649f04bbc61435f4f2d",
+  "campaign": "operating_decision_prospective_v1_2026_09",
+  "complete_rule_artifact_digest": "d8ae3d9ea3748d4de776a672cf19798b145b589d681211ba88b8789186dd6341",
+  "compute_and_resources": {
+    "completed_block_cpu_seconds": 946449.8079299999,
+    "cpu_cost_is_for_whole_benchmark_not_deployed_single_case": true,
+    "execution_invocation": {
+      "execution_completed": true,
+      "partition": "p1_reserved_evaluation",
+      "process_tree_limit_bytes": 4294967296,
+      "process_tree_peak_rss_bytes": 506757120,
+      "process_tree_sample_count": 217773,
+      "process_tree_sampling_error": null,
+      "protocol_version": "phase_f_resources_v1",
+      "resource_gate_passed": true,
+      "schema_version": 1,
+      "source_revision": "7e3b9a3be22d991ec2e588cbd4a53a9d4d2d27d7",
+      "synchronous_monitor_preflight_rss_bytes": 94879744,
+      "wall_seconds_this_invocation": 247187.294694083,
+      "worker_count": 4
+    },
+    "external_final_state": {
+      "calendar_elapsed_seconds": 248271.972835,
+      "monitor_errors": [],
+      "process_tree_peak_rss_bytes": 520650752,
+      "process_tree_sample_count": 24450,
+      "wall_seconds_this_invocation": 248130.050415959
+    }
+  },
+  "evidence": {
+    "evaluation": {
+      "bytes": 4991360,
+      "path": "prospective-phase-f-reserved-7e3b9a3-v1/evaluation.json",
+      "sha256": "299f75ad492e5bde0acc724ed4e72ae029c86f2c05538677c2a856c23734c564"
+    },
+    "execution_journal_final_state": {
+      "bytes": 2741,
+      "path": "phase-f-durable-reserved-7e3b9a3-20261018/state.json",
+      "sha256": "0bf890081d7a0c63dac7a046e25be0abe26cb4d238c9370ce7b4851d40ed2669"
+    },
+    "execution_resources": {
+      "bytes": 533,
+      "path": "prospective-phase-f-reserved-7e3b9a3-v1/evaluation.resources.json",
+      "sha256": "304f9c358c5b8618b846765630ab9bea6057a550370416069c2cb93111795ef1"
+    },
+    "execution_stderr": {
+      "bytes": 0,
+      "path": "phase-f-durable-reserved-7e3b9a3-20261018/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution_stdout": {
+      "bytes": 5922,
+      "path": "phase-f-durable-reserved-7e3b9a3-20261018/stdout.log",
+      "sha256": "0660412e5564f3305fa4364f61751fdf0d18e0758510b6770b68129fc12eadd2"
+    },
+    "focused_closeout_tests": {
+      "bytes": 4320,
+      "path": "phase-f-closeout-tests-20261029.log",
+      "sha256": "85e1081034843dd1b637a1ef3427f63baa9fc1b162dac0fcb6068426a30d5b44"
+    },
+    "independent_audit_script": {
+      "bytes": 27864,
+      "path": "tools/verify_prospective_phase_f_result.py",
+      "sha256": "12cf1ae1a19a4817bb67058a9bd514f4f54798db0d3f953c71233ec149b713d7"
+    },
+    "independent_result_audit": {
+      "bytes": 2011,
+      "path": "phase-f-independent-result-audit-20261029.json",
+      "sha256": "2b36537a62970ba055062f96058703bc94de202451dc07d20caeef87f3a61449"
+    },
+    "original_independent_validation": {
+      "bytes": 826,
+      "path": "phase-f-durable-reserved-7e3b9a3-20261018/independent-validation.json",
+      "sha256": "802022260b953bf4bd4e9caa14f9db89b5e232febe4a47b9e1f17175912deca2"
+    },
+    "result_builder_script": {
+      "bytes": 10524,
+      "path": "tools/record_prospective_phase_f_result.py",
+      "sha256": "053dc16eb0a488547a72696251ed149c9021eabc0df7511403ac1a7acea629b5"
+    }
+  },
+  "evidence_root": ".artifacts/operating-decision",
+  "execution": {
+    "all_clearance_outcome_count": 6000,
+    "before_reveal_file_count": 300,
+    "block_count": 100,
+    "case_count": 300,
+    "cohort_closed_against_regeneration": true,
+    "independent_validation_completed_at_utc": "2026-10-21T23:24:08.958853+00:00",
+    "primary_case_procedure_outcome_count": 1500,
+    "procedure_count": 5,
+    "resumed_blocks": 0,
+    "sample_size_extended_after_outcomes": false,
+    "started_at_utc": "2026-10-19T02:26:16.986600+00:00"
+  },
+  "generation_gate_artifact_digest": "b64c707b4337ba6b09f99c6346e26c7042c2947fdf80b9dbae32e67bcda94b24",
+  "generation_gate_commit": "1eaf547e045c63e936622324af921b1b4949c0b0",
+  "independent_verification": {
+    "analysis_clearances_checked": [
+      0.0,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "audit_comparison_absolute_tolerance": 2e-10,
+    "audit_comparison_relative_tolerance": 2e-12,
+    "audit_passed": true,
+    "audit_script_file": {
+      "bytes": 27864,
+      "sha256": "12cf1ae1a19a4817bb67058a9bd514f4f54798db0d3f953c71233ec149b713d7"
+    },
+    "before_reveal_files_checked": 300,
+    "binomial_method": "direct Decimal binomial-tail inversion at 60 decimal digits",
+    "distinct_cases_checked": 300,
+    "energy_critical_value_method": "Student-t angular density integral recurrence and bisection, df=99",
+    "evaluation_file": {
+      "bytes": 4991360,
+      "sha256": "299f75ad492e5bde0acc724ed4e72ae029c86f2c05538677c2a856c23734c564"
+    },
+    "exact_saved_decisions_and_outcome_rows_checked": 6000,
+    "frozen_numerical_source_changed": false,
+    "independently_compared_numeric_fields": 1364,
+    "maximum_absolute_numeric_difference": 7.105427357601002e-15,
+    "new_observations_generated": false,
+    "numerical_fits_or_physical_simulations_replayed": false,
+    "original_validation_file": {
+      "bytes": 826,
+      "sha256": "802022260b953bf4bd4e9caa14f9db89b5e232febe4a47b9e1f17175912deca2"
+    },
+    "primary_simultaneous_bound_count": 73,
+    "primary_success": false,
+    "protocol_digest": "7f692093108b9e0c0765e5497475a89d1d27eea3d00bf13e4568d6f68fb4301b",
+    "protocol_version": "prospective_phase_f_independent_result_audit_v1",
+    "raw_blocks_checked": 100,
+    "recorded_at_utc": "2026-10-29T16:16:49.726551+00:00",
+    "schema_version": 1,
+    "scientific_result_digest": "d565c0c6368b602eeb3d2721c128aab88221bce9a6b5abe68fcda4c727d4edf0",
+    "secondary_analyses_are_descriptive": true,
+    "source_manifest_digest": "002d8afd7641dfa2e78269d195a5375c37b3f8aa547eb86d574dc439e7858662",
+    "source_revision": "7e3b9a3be22d991ec2e588cbd4a53a9d4d2d27d7",
+    "standard_library_only_no_thermotwin_numpy_or_scipy_imports": true,
+    "student_t_critical_value": 3.2942299046144523,
+    "tolerances_change_scientific_decisions_or_pass_fail_thresholds": false
+  },
+  "new_observations_generated_for_this_result_record": false,
+  "partition": "p1_reserved_evaluation",
+  "predeclared_primary_targets": {
+    "all_qualifying_fixed_comparators_required": true,
+    "at_least_one_qualifying_fixed_comparator_required": true,
+    "decision_clearance_kelvin": 0.0,
+    "decision_coverage_lower_at_least": 0.7,
+    "energy_inference_is_approximate": true,
+    "false_approval_risk_increase_upper_at_most": 0.02,
+    "false_approval_risk_upper_at_most": 0.1,
+    "familywise_alpha": 0.05,
+    "one_sided_primary_bounds": 73,
+    "paired_coverage_loss_upper_at_most": 0.05,
+    "paired_energy_saving_lower_strictly_above_joules": 0.0
+  },
+  "primary_analysis": {
+    "cases_are_not_independent_replicates": true,
+    "comparisons": {
+      "fixed_face_temperature": {
+        "all_comparison_checks_pass": false,
+        "checks": {
+          "coverage_noninferiority": false,
+          "energy_saving": true,
+          "risk_noninferiority": false
+        },
+        "coverage_loss_upper": 0.2029031419706401,
+        "coverage_pairs_by_family": {
+          "extra_interface_mass": {
+            "coverage_loss_estimate": -0.07,
+            "coverage_loss_upper": 0.13690977341835864,
+            "fixed_only_decisions": 7,
+            "selector_only_decisions": 14
+          },
+          "matched_four_state": {
+            "coverage_loss_estimate": 0.03,
+            "coverage_loss_upper": 0.19593951109966498,
+            "fixed_only_decisions": 8,
+            "selector_only_decisions": 5
+          },
+          "temperature_dependent_contact": {
+            "coverage_loss_estimate": 0.06,
+            "coverage_loss_upper": 0.2758601413938967,
+            "fixed_only_decisions": 16,
+            "selector_only_decisions": 10
+          }
+        },
+        "energy": {
+          "complete": true,
+          "lower_saving_joules": 10.832912400730914,
+          "mean_saving_joules": 14.292586089521379,
+          "method": "one-sided paired-block Student t; approximate",
+          "paired_blocks": 100,
+          "standard_error_joules": 1.05022229442586
+        },
+        "risk_increase_upper": 0.31851686460772544
+      },
+      "fixed_thermal": {
+        "all_comparison_checks_pass": false,
+        "checks": {
+          "coverage_noninferiority": false,
+          "energy_saving": true,
+          "risk_noninferiority": false
+        },
+        "coverage_loss_upper": 0.19654910810881182,
+        "coverage_pairs_by_family": {
+          "extra_interface_mass": {
+            "coverage_loss_estimate": -0.01,
+            "coverage_loss_upper": 0.137658641761801,
+            "fixed_only_decisions": 4,
+            "selector_only_decisions": 5
+          },
+          "matched_four_state": {
+            "coverage_loss_estimate": 0.14,
+            "coverage_loss_upper": 0.2805611186999661,
+            "fixed_only_decisions": 14,
+            "selector_only_decisions": 0
+          },
+          "temperature_dependent_contact": {
+            "coverage_loss_estimate": -0.05,
+            "coverage_loss_upper": 0.17142756386466837,
+            "fixed_only_decisions": 10,
+            "selector_only_decisions": 15
+          }
+        },
+        "energy": {
+          "complete": true,
+          "lower_saving_joules": 20.667916725884652,
+          "mean_saving_joules": 24.125273117517622,
+          "method": "one-sided paired-block Student t; approximate",
+          "paired_blocks": 100,
+          "standard_error_joules": 1.049518853189337
+        },
+        "risk_increase_upper": 0.31851686460772544
+      },
+      "fixed_voltage": {
+        "all_comparison_checks_pass": false,
+        "checks": {
+          "coverage_noninferiority": false,
+          "energy_saving": true,
+          "risk_noninferiority": false
+        },
+        "coverage_loss_upper": 0.2562244730418949,
+        "coverage_pairs_by_family": {
+          "extra_interface_mass": {
+            "coverage_loss_estimate": 0.04,
+            "coverage_loss_upper": 0.23647209737098804,
+            "fixed_only_decisions": 12,
+            "selector_only_decisions": 8
+          },
+          "matched_four_state": {
+            "coverage_loss_estimate": 0.06,
+            "coverage_loss_upper": 0.21472598255782782,
+            "fixed_only_decisions": 9,
+            "selector_only_decisions": 3
+          },
+          "temperature_dependent_contact": {
+            "coverage_loss_estimate": 0.09,
+            "coverage_loss_upper": 0.31747533919686877,
+            "fixed_only_decisions": 20,
+            "selector_only_decisions": 11
+          }
+        },
+        "energy": {
+          "complete": true,
+          "lower_saving_joules": 10.936512991211087,
+          "mean_saving_joules": 14.394882184803045,
+          "method": "one-sided paired-block Student t; approximate",
+          "paired_blocks": 100,
+          "standard_error_joules": 1.0498263004496413
+        },
+        "risk_increase_upper": 0.31851686460772544
+      },
+      "stop_now": {
+        "all_comparison_checks_pass": false,
+        "checks": {
+          "coverage_noninferiority": true,
+          "energy_saving": false,
+          "risk_noninferiority": false
+        },
+        "coverage_loss_upper": 0.0044880478661409135,
+        "coverage_pairs_by_family": {
+          "extra_interface_mass": {
+            "coverage_loss_estimate": -0.09,
+            "coverage_loss_upper": 0.04636625558189353,
+            "fixed_only_decisions": 0,
+            "selector_only_decisions": 9
+          },
+          "matched_four_state": {
+            "coverage_loss_estimate": -0.07,
+            "coverage_loss_upper": 0.05570042331653319,
+            "fixed_only_decisions": 0,
+            "selector_only_decisions": 7
+          },
+          "temperature_dependent_contact": {
+            "coverage_loss_estimate": -0.29,
+            "coverage_loss_upper": -0.08860253530000398,
+            "fixed_only_decisions": 0,
+            "selector_only_decisions": 29
+          }
+        },
+        "energy": {
+          "complete": true,
+          "lower_saving_joules": -17.847203137805607,
+          "mean_saving_joules": -14.380160192655786,
+          "method": "one-sided paired-block Student t; approximate",
+          "paired_blocks": 100,
+          "standard_error_joules": 1.0524593138728122
+        },
+        "risk_increase_upper": 0.31851686460772544
+      }
+    },
+    "conclusion_rule": "success requires selector qualification, at least one qualifying fixed policy, and all comparisons against every qualifying fixed policy",
+    "energy_inference_is_approximate": true,
+    "familywise_alpha": 0.05,
+    "independent_block_count": 100,
+    "named_comparisons_passing_all_checks": [],
+    "one_sided_alpha_per_bound": 0.0006849315068493151,
+    "primary_bound_count": 73,
+    "primary_success": false,
+    "procedures": {
+      "fixed_face_temperature": {
+        "by_truth_family": {
+          "extra_interface_mass": {
+            "abstentions": 52,
+            "approvals": 42,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 1.0,
+              "numerator": 100
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.48,
+              "numerator": 48
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.48,
+              "lower": 0.32125765812042645,
+              "numerator": 48
+            },
+            "decision_error_rate": {
+              "denominator": 48,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "definitive_decisions": 48,
+            "false_approval_risk": {
+              "denominator": 42,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 42,
+              "estimate": 0.0,
+              "lower": 0.0,
+              "numerator": 0,
+              "upper": 0.15926666917498447
+            },
+            "false_approvals": 0,
+            "false_rejection_rate_given_pass": {
+              "denominator": 73,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 27,
+              "estimate": 0.7777777777777778,
+              "numerator": 21
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 3,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 240.0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 1,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 89.24444071378036,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 6,
+            "true_passes": 73,
+            "true_violations": 27,
+            "verification_failures": 0
+          },
+          "matched_four_state": {
+            "abstentions": 38,
+            "approvals": 18,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 1.0,
+              "numerator": 100
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.62,
+              "numerator": 62
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.62,
+              "lower": 0.45545025088116925,
+              "numerator": 62
+            },
+            "decision_error_rate": {
+              "denominator": 62,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "definitive_decisions": 62,
+            "false_approval_risk": {
+              "denominator": 18,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 18,
+              "estimate": 0.0,
+              "lower": 0.0,
+              "numerator": 0,
+              "upper": 0.3328820609914521
+            },
+            "false_approvals": 0,
+            "false_rejection_rate_given_pass": {
+              "denominator": 35,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 65,
+              "estimate": 0.3230769230769231,
+              "numerator": 21
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 3,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 240.0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 1,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 89.53332867558461,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 44,
+            "true_passes": 35,
+            "true_violations": 65,
+            "verification_failures": 0
+          },
+          "temperature_dependent_contact": {
+            "abstentions": 45,
+            "approvals": 52,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 0.96,
+              "numerator": 96
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.55,
+              "numerator": 55
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.55,
+              "lower": 0.3868440699810099,
+              "numerator": 55
+            },
+            "decision_error_rate": {
+              "denominator": 55,
+              "estimate": 0.01818181818181818,
+              "numerator": 1
+            },
+            "definitive_decisions": 55,
+            "false_approval_risk": {
+              "denominator": 52,
+              "estimate": 0.019230769230769232,
+              "numerator": 1
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 52,
+              "estimate": 0.019230769230769232,
+              "lower": 1.3176185877847958e-05,
+              "numerator": 1,
+              "upper": 0.17093227115815893
+            },
+            "false_approvals": 1,
+            "false_rejection_rate_given_pass": {
+              "denominator": 68,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 32,
+              "estimate": 0.90625,
+              "numerator": 29
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 3,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 240.0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 1,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 89.19308780909202,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 3,
+            "true_passes": 68,
+            "true_violations": 32,
+            "verification_failures": 0
+          }
+        },
+        "overall": {
+          "abstentions": 135,
+          "approvals": 112,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.9866666666666667,
+            "numerator": 296
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.55,
+            "numerator": 165
+          },
+          "decision_error_rate": {
+            "denominator": 165,
+            "estimate": 0.006060606060606061,
+            "numerator": 1
+          },
+          "definitive_decisions": 165,
+          "false_approval_risk": {
+            "denominator": 112,
+            "estimate": 0.008928571428571428,
+            "numerator": 1
+          },
+          "false_approvals": 1,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.5725806451612904,
+            "numerator": 71
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 3,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 240.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 1,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 89.32361906615233,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 53,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "population_equal_family_decision_coverage_lower": 0.3878506596608685,
+        "population_mixture_risk_bounds": {
+          "lower": 0.0,
+          "method": "family extrema; unknown population approval weights",
+          "upper": 0.3328820609914521
+        },
+        "qualifies_for_primary_comparison": false,
+        "simultaneous_block_interval_coverage": {
+          "denominator": 100,
+          "estimate": 0.96,
+          "numerator": 96
+        }
+      },
+      "fixed_thermal": {
+        "by_truth_family": {
+          "extra_interface_mass": {
+            "abstentions": 46,
+            "approvals": 42,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 0.98,
+              "numerator": 98
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.54,
+              "numerator": 54
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.54,
+              "lower": 0.3772922529641743,
+              "numerator": 54
+            },
+            "decision_error_rate": {
+              "denominator": 54,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "definitive_decisions": 54,
+            "false_approval_risk": {
+              "denominator": 42,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 42,
+              "estimate": 0.0,
+              "lower": 0.0,
+              "numerator": 0,
+              "upper": 0.15926666917498447
+            },
+            "false_approvals": 0,
+            "false_rejection_rate_given_pass": {
+              "denominator": 73,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 27,
+              "estimate": 0.5555555555555556,
+              "numerator": 15
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 5,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 400.0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 99.05693255737437,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 12,
+            "true_passes": 73,
+            "true_violations": 27,
+            "verification_failures": 0
+          },
+          "matched_four_state": {
+            "abstentions": 27,
+            "approvals": 26,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 0.97,
+              "numerator": 97
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.73,
+              "numerator": 73
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.73,
+              "lower": 0.5699741351616865,
+              "numerator": 73
+            },
+            "decision_error_rate": {
+              "denominator": 73,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "definitive_decisions": 73,
+            "false_approval_risk": {
+              "denominator": 26,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 26,
+              "estimate": 0.0,
+              "lower": 0.0,
+              "numerator": 0,
+              "upper": 0.24439622162664457
+            },
+            "false_approvals": 0,
+            "false_rejection_rate_given_pass": {
+              "denominator": 35,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 65,
+              "estimate": 0.27692307692307694,
+              "numerator": 18
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 5,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 400.0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 99.42122629443459,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 47,
+            "true_passes": 35,
+            "true_violations": 65,
+            "verification_failures": 0
+          },
+          "temperature_dependent_contact": {
+            "abstentions": 56,
+            "approvals": 33,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 0.99,
+              "numerator": 99
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.44,
+              "numerator": 44
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.44,
+              "lower": 0.28511748187074143,
+              "numerator": 44
+            },
+            "decision_error_rate": {
+              "denominator": 44,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "definitive_decisions": 44,
+            "false_approval_risk": {
+              "denominator": 33,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 33,
+              "estimate": 0.0,
+              "lower": 0.0,
+              "numerator": 0,
+              "upper": 0.19811789913455696
+            },
+            "false_approvals": 0,
+            "false_rejection_rate_given_pass": {
+              "denominator": 68,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 32,
+              "estimate": 0.65625,
+              "numerator": 21
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 5,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 400.0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 98.99075943063677,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 11,
+            "true_passes": 68,
+            "true_violations": 32,
+            "verification_failures": 0
+          }
+        },
+        "overall": {
+          "abstentions": 129,
+          "approvals": 101,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.98,
+            "numerator": 294
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.57,
+            "numerator": 171
+          },
+          "decision_error_rate": {
+            "denominator": 171,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 171,
+          "false_approval_risk": {
+            "denominator": 101,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.43548387096774194,
+            "numerator": 54
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 5,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 400.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 99.15630609414858,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 70,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "population_equal_family_decision_coverage_lower": 0.41079462333220074,
+        "population_mixture_risk_bounds": {
+          "lower": 0.0,
+          "method": "family extrema; unknown population approval weights",
+          "upper": 0.24439622162664457
+        },
+        "qualifies_for_primary_comparison": false,
+        "simultaneous_block_interval_coverage": {
+          "denominator": 100,
+          "estimate": 0.94,
+          "numerator": 94
+        }
+      },
+      "fixed_voltage": {
+        "by_truth_family": {
+          "extra_interface_mass": {
+            "abstentions": 41,
+            "approvals": 52,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 1.0,
+              "numerator": 100
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.59,
+              "numerator": 59
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.59,
+              "lower": 0.4256686814859831,
+              "numerator": 59
+            },
+            "decision_error_rate": {
+              "denominator": 59,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "definitive_decisions": 59,
+            "false_approval_risk": {
+              "denominator": 52,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 52,
+              "estimate": 0.0,
+              "lower": 0.0,
+              "numerator": 0,
+              "upper": 0.1307452741725499
+            },
+            "false_approvals": 0,
+            "false_rejection_rate_given_pass": {
+              "denominator": 73,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 27,
+              "estimate": 0.7407407407407407,
+              "numerator": 20
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 3,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 240.0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 1,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 89.34105061178933,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 7,
+            "true_passes": 73,
+            "true_violations": 27,
+            "verification_failures": 0
+          },
+          "matched_four_state": {
+            "abstentions": 35,
+            "approvals": 20,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 1.0,
+              "numerator": 100
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.65,
+              "numerator": 65
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.65,
+              "lower": 0.4858234575054999,
+              "numerator": 65
+            },
+            "decision_error_rate": {
+              "denominator": 65,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "definitive_decisions": 65,
+            "false_approval_risk": {
+              "denominator": 20,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 20,
+              "estimate": 0.0,
+              "lower": 0.0,
+              "numerator": 0,
+              "upper": 0.30532390036153445
+            },
+            "false_approvals": 0,
+            "false_rejection_rate_given_pass": {
+              "denominator": 35,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 65,
+              "estimate": 0.3076923076923077,
+              "numerator": 20
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 3,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 240.0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 1,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 89.65225722184783,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 45,
+            "true_passes": 35,
+            "true_violations": 65,
+            "verification_failures": 0
+          },
+          "temperature_dependent_contact": {
+            "abstentions": 42,
+            "approvals": 57,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 1.0,
+              "numerator": 100
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.58,
+              "numerator": 58
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.58,
+              "lower": 0.4158690278365503,
+              "numerator": 58
+            },
+            "decision_error_rate": {
+              "denominator": 58,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "definitive_decisions": 58,
+            "false_approval_risk": {
+              "denominator": 57,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 57,
+              "estimate": 0.0,
+              "lower": 0.0,
+              "numerator": 0,
+              "upper": 0.11999520689926672
+            },
+            "false_approvals": 0,
+            "false_rejection_rate_given_pass": {
+              "denominator": 68,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 32,
+              "estimate": 0.96875,
+              "numerator": 31
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 3,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 240.0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 1,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 89.28443765066484,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 1,
+            "true_passes": 68,
+            "true_violations": 32,
+            "verification_failures": 0
+          }
+        },
+        "overall": {
+          "abstentions": 118,
+          "approvals": 129,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 1.0,
+            "numerator": 300
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.6066666666666667,
+            "numerator": 182
+          },
+          "decision_error_rate": {
+            "denominator": 182,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 182,
+          "false_approval_risk": {
+            "denominator": 129,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.5725806451612904,
+            "numerator": 71
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 3,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 240.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 1,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 89.425915161434,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 53,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "population_equal_family_decision_coverage_lower": 0.4424537222760111,
+        "population_mixture_risk_bounds": {
+          "lower": 0.0,
+          "method": "family extrema; unknown population approval weights",
+          "upper": 0.30532390036153445
+        },
+        "qualifies_for_primary_comparison": false,
+        "simultaneous_block_interval_coverage": {
+          "denominator": 100,
+          "estimate": 1.0,
+          "numerator": 100
+        }
+      },
+      "prospective_selector": {
+        "by_truth_family": {
+          "extra_interface_mass": {
+            "abstentions": 45,
+            "approvals": 44,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 0.99,
+              "numerator": 99
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.55,
+              "numerator": 55
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.55,
+              "lower": 0.3868440699810099,
+              "numerator": 55
+            },
+            "decision_error_rate": {
+              "denominator": 55,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "definitive_decisions": 55,
+            "false_approval_risk": {
+              "denominator": 44,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 44,
+              "estimate": 0.0,
+              "lower": 0.0,
+              "numerator": 0,
+              "upper": 0.1526108682196491
+            },
+            "false_approvals": 0,
+            "false_rejection_rate_given_pass": {
+              "denominator": 73,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 27,
+              "estimate": 0.5925925925925926,
+              "numerator": 16
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 3.02,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 241.6,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 0.09,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 75.11985638896752,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 11,
+            "true_passes": 73,
+            "true_violations": 27,
+            "verification_failures": 0
+          },
+          "matched_four_state": {
+            "abstentions": 41,
+            "approvals": 19,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 0.99,
+              "numerator": 99
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.59,
+              "numerator": 59
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.59,
+              "lower": 0.4256686814859831,
+              "numerator": 59
+            },
+            "decision_error_rate": {
+              "denominator": 59,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "definitive_decisions": 59,
+            "false_approval_risk": {
+              "denominator": 19,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 19,
+              "estimate": 0.0,
+              "lower": 0.0,
+              "numerator": 0,
+              "upper": 0.31851686460772544
+            },
+            "false_approvals": 0,
+            "false_rejection_rate_given_pass": {
+              "denominator": 35,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 65,
+              "estimate": 0.38461538461538464,
+              "numerator": 25
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 2.41,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 192.8,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 0.08,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 67.3543241583691,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 40,
+            "true_passes": 35,
+            "true_violations": 65,
+            "verification_failures": 0
+          },
+          "temperature_dependent_contact": {
+            "abstentions": 51,
+            "approvals": 41,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 0.95,
+              "numerator": 95
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.49,
+              "numerator": 49
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.49,
+              "lower": 0.3304452138006829,
+              "numerator": 49
+            },
+            "decision_error_rate": {
+              "denominator": 49,
+              "estimate": 0.02040816326530612,
+              "numerator": 1
+            },
+            "definitive_decisions": 49,
+            "false_approval_risk": {
+              "denominator": 41,
+              "estimate": 0.024390243902439025,
+              "numerator": 1
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 41,
+              "estimate": 0.024390243902439025,
+              "lower": 1.6711230599890677e-05,
+              "numerator": 1,
+              "upper": 0.21210932004149152
+            },
+            "false_approvals": 1,
+            "false_rejection_rate_given_pass": {
+              "denominator": 68,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 32,
+              "estimate": 0.75,
+              "numerator": 24
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 3.3,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 264.0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 0.34,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 82.61891838255625,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 8,
+            "true_passes": 68,
+            "true_violations": 32,
+            "verification_failures": 0
+          }
+        },
+        "overall": {
+          "abstentions": 137,
+          "approvals": 104,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.9766666666666667,
+            "numerator": 293
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.5433333333333333,
+            "numerator": 163
+          },
+          "decision_error_rate": {
+            "denominator": 163,
+            "estimate": 0.006134969325153374,
+            "numerator": 1
+          },
+          "definitive_decisions": 163,
+          "false_approval_risk": {
+            "denominator": 104,
+            "estimate": 0.009615384615384616,
+            "numerator": 1
+          },
+          "false_approvals": 1,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.5241935483870968,
+            "numerator": 65
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 2.91,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 232.8,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 0.17,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 75.03103297663095,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 59,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "population_equal_family_decision_coverage_lower": 0.38098598842255865,
+        "population_mixture_risk_bounds": {
+          "lower": 0.0,
+          "method": "family extrema; unknown population approval weights",
+          "upper": 0.31851686460772544
+        },
+        "qualifies_for_primary_comparison": false,
+        "simultaneous_block_interval_coverage": {
+          "denominator": 100,
+          "estimate": 0.93,
+          "numerator": 93
+        }
+      },
+      "stop_now": {
+        "by_truth_family": {
+          "extra_interface_mass": {
+            "abstentions": 54,
+            "approvals": 38,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 1.0,
+              "numerator": 100
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.46,
+              "numerator": 46
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.46,
+              "lower": 0.3030650405895067,
+              "numerator": 46
+            },
+            "decision_error_rate": {
+              "denominator": 46,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "definitive_decisions": 46,
+            "false_approval_risk": {
+              "denominator": 38,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 38,
+              "estimate": 0.0,
+              "lower": 0.0,
+              "numerator": 0,
+              "upper": 0.17448008177132723
+            },
+            "false_approvals": 0,
+            "false_rejection_rate_given_pass": {
+              "denominator": 73,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 27,
+              "estimate": 0.7037037037037037,
+              "numerator": 19
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 2,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 160.0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 60.59430705847508,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 8,
+            "true_passes": 73,
+            "true_violations": 27,
+            "verification_failures": 0
+          },
+          "matched_four_state": {
+            "abstentions": 48,
+            "approvals": 15,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 1.0,
+              "numerator": 100
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.52,
+              "numerator": 52
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.52,
+              "lower": 0.35837148038195743,
+              "numerator": 52
+            },
+            "decision_error_rate": {
+              "denominator": 52,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "definitive_decisions": 52,
+            "false_approval_risk": {
+              "denominator": 15,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 15,
+              "estimate": 0.0,
+              "lower": 0.0,
+              "numerator": 0,
+              "upper": 0.3847620123944302
+            },
+            "false_approvals": 0,
+            "false_rejection_rate_given_pass": {
+              "denominator": 35,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 65,
+              "estimate": 0.4307692307692308,
+              "numerator": 28
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 2,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 160.0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 60.79952582474539,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 37,
+            "true_passes": 35,
+            "true_violations": 65,
+            "verification_failures": 0
+          },
+          "temperature_dependent_contact": {
+            "abstentions": 80,
+            "approvals": 14,
+            "case_count": 100,
+            "case_interval_coverage": {
+              "denominator": 100,
+              "estimate": 0.99,
+              "numerator": 99
+            },
+            "decision_coverage": {
+              "denominator": 100,
+              "estimate": 0.2,
+              "numerator": 20
+            },
+            "decision_coverage_bounds": {
+              "denominator": 100,
+              "estimate": 0.2,
+              "lower": 0.09167156468861876,
+              "numerator": 20
+            },
+            "decision_error_rate": {
+              "denominator": 20,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "definitive_decisions": 20,
+            "false_approval_risk": {
+              "denominator": 14,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_approval_risk_bounds": {
+              "denominator": 14,
+              "estimate": 0.0,
+              "lower": 0.0,
+              "numerator": 0,
+              "upper": 0.4057423297245115
+            },
+            "false_approvals": 0,
+            "false_rejection_rate_given_pass": {
+              "denominator": 68,
+              "estimate": 0.0,
+              "numerator": 0
+            },
+            "false_rejections": 0,
+            "missed_violation_rate": {
+              "denominator": 32,
+              "estimate": 0.8125,
+              "numerator": 26
+            },
+            "missing_or_invalid_final_intervals": 0,
+            "pipeline_failures": 0,
+            "realized_resources": {
+              "diagnostic_run_count": {
+                "mean": 2,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "energized_schedule_time_seconds": {
+                "mean": 160.0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "extra_sensor_count": {
+                "mean": 0,
+                "recorded_count": 100,
+                "required_count": 100
+              },
+              "total_diagnostic_energy": {
+                "mean": 60.558785468705025,
+                "recorded_count": 100,
+                "required_count": 100
+              }
+            },
+            "rejections": 6,
+            "true_passes": 68,
+            "true_violations": 32,
+            "verification_failures": 0
+          }
+        },
+        "overall": {
+          "abstentions": 182,
+          "approvals": 67,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.9966666666666667,
+            "numerator": 299
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.3933333333333333,
+            "numerator": 118
+          },
+          "decision_error_rate": {
+            "denominator": 118,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 118,
+          "false_approval_risk": {
+            "denominator": 67,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.5887096774193549,
+            "numerator": 73
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 2,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 160.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 60.65087278397517,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 51,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "population_equal_family_decision_coverage_lower": 0.25103602855336093,
+        "population_mixture_risk_bounds": {
+          "lower": 0.0,
+          "method": "family extrema; unknown population approval weights",
+          "upper": 0.4057423297245115
+        },
+        "qualifies_for_primary_comparison": false,
+        "simultaneous_block_interval_coverage": {
+          "denominator": 100,
+          "estimate": 0.99,
+          "numerator": 99
+        }
+      }
+    },
+    "protocol_version": "prospective_phase_e_paired_analysis_v1",
+    "qualifying_fixed_frontier": [],
+    "qualifying_fixed_policies": []
+  },
+  "primary_selected_action_counts": {
+    "fixed_face_temperature": 21,
+    "fixed_thermal": 74,
+    "fixed_voltage": 30,
+    "stop_now": 175
+  },
+  "protocol_digest": "7f692093108b9e0c0765e5497475a89d1d27eea3d00bf13e4568d6f68fb4301b",
+  "protocol_version": "operating_decision_prospective_phase_f_result_v1",
+  "remaining_closeout": {
+    "exploratory_abstention_analysis_complete": false,
+    "external_evidence_deposit_complete": false,
+    "final_report_complete": false,
+    "final_three_figures_complete": false,
+    "predetermined_numerical_refit_replay_complete": false,
+    "presentation_complete": false
+  },
+  "result_record_date": "2026-10-29",
+  "runtime_identity": {
+    "machine": "arm64",
+    "operating_system": "Darwin",
+    "python_implementation": "CPython",
+    "python_version": "3.10.12",
+    "requirements_path": "thermotwin/requirements-prospective-phase-d.txt",
+    "requirements_sha256": "be75b5b62c2dad9d48a412ecd857882a20cd10f8f03a60ea24c53debe05dea12",
+    "scientific_packages": {
+      "matplotlib": "3.10.8",
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "torch": "2.9.1"
+    }
+  },
+  "schema_version": 1,
+  "scientific_conclusion": {
+    "approval_risk_ceiling_established": false,
+    "at_least_one_fixed_policy_qualified": false,
+    "diagnostic_energy_is_simulated_not_computer_energy_or_hardware_validation": true,
+    "energy_saving_check_passed_against": [
+      "fixed_face_temperature",
+      "fixed_thermal",
+      "fixed_voltage"
+    ],
+    "interval_coverage_and_decision_coverage_are_different_endpoints": true,
+    "observed_decisiveness_target_missed": true,
+    "observed_selector_decision_rate": 0.5433333333333333,
+    "primary_success": false,
+    "risk_assurance_is_inconclusive_not_an_observed_31_percent_error_rate": true,
+    "selector_passed_absolute_quality_qualification": false,
+    "strongest_fixed_strategy_superiority_established": false
+  },
+  "scientific_result_digest": "d565c0c6368b602eeb3d2721c128aab88221bce9a6b5abe68fcda4c727d4edf0",
+  "scientific_status": "closed_primary_success_not_established",
+  "secondary_observed_results_by_clearance": {
+    "0.05": {
+      "procedures": {
+        "fixed_face_temperature": {
+          "abstentions": 166,
+          "approvals": 94,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.9866666666666667,
+            "numerator": 296
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.44666666666666666,
+            "numerator": 134
+          },
+          "decision_error_rate": {
+            "denominator": 134,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 134,
+          "false_approval_risk": {
+            "denominator": 94,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.6774193548387096,
+            "numerator": 84
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 3,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 240.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 1,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 89.32361906615233,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 40,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "fixed_thermal": {
+          "abstentions": 163,
+          "approvals": 77,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.98,
+            "numerator": 294
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.45666666666666667,
+            "numerator": 137
+          },
+          "decision_error_rate": {
+            "denominator": 137,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 137,
+          "false_approval_risk": {
+            "denominator": 77,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.5161290322580645,
+            "numerator": 64
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 5,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 400.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 99.15630609414858,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 60,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "fixed_voltage": {
+          "abstentions": 148,
+          "approvals": 106,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 1.0,
+            "numerator": 300
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.5066666666666667,
+            "numerator": 152
+          },
+          "decision_error_rate": {
+            "denominator": 152,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 152,
+          "false_approval_risk": {
+            "denominator": 106,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.6290322580645161,
+            "numerator": 78
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 3,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 240.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 1,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 89.425915161434,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 46,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "prospective_selector": {
+          "abstentions": 175,
+          "approvals": 77,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.9766666666666667,
+            "numerator": 293
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.4166666666666667,
+            "numerator": 125
+          },
+          "decision_error_rate": {
+            "denominator": 125,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 125,
+          "false_approval_risk": {
+            "denominator": 77,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.6129032258064516,
+            "numerator": 76
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 2.91,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 232.8,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 0.17,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 75.03103297663095,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 48,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "stop_now": {
+          "abstentions": 202,
+          "approvals": 55,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.9966666666666667,
+            "numerator": 299
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.32666666666666666,
+            "numerator": 98
+          },
+          "decision_error_rate": {
+            "denominator": 98,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 98,
+          "false_approval_risk": {
+            "denominator": 55,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.6532258064516129,
+            "numerator": 81
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 2,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 160.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 60.65087278397517,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 43,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        }
+      },
+      "scientific_use": "descriptive_only_no_threshold_selection_or_confirmatory_inference"
+    },
+    "0.1": {
+      "procedures": {
+        "fixed_face_temperature": {
+          "abstentions": 193,
+          "approvals": 74,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.9866666666666667,
+            "numerator": 296
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.3566666666666667,
+            "numerator": 107
+          },
+          "decision_error_rate": {
+            "denominator": 107,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 107,
+          "false_approval_risk": {
+            "denominator": 74,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.7338709677419355,
+            "numerator": 91
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 3,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 240.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 1,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 89.32361906615233,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 33,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "fixed_thermal": {
+          "abstentions": 188,
+          "approvals": 62,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.98,
+            "numerator": 294
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.37333333333333335,
+            "numerator": 112
+          },
+          "decision_error_rate": {
+            "denominator": 112,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 112,
+          "false_approval_risk": {
+            "denominator": 62,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.5967741935483871,
+            "numerator": 74
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 5,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 400.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 99.15630609414858,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 50,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "fixed_voltage": {
+          "abstentions": 181,
+          "approvals": 83,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 1.0,
+            "numerator": 300
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.39666666666666667,
+            "numerator": 119
+          },
+          "decision_error_rate": {
+            "denominator": 119,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 119,
+          "false_approval_risk": {
+            "denominator": 83,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.7096774193548387,
+            "numerator": 88
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 3,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 240.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 1,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 89.425915161434,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 36,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "prospective_selector": {
+          "abstentions": 202,
+          "approvals": 60,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.9766666666666667,
+            "numerator": 293
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.32666666666666666,
+            "numerator": 98
+          },
+          "decision_error_rate": {
+            "denominator": 98,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 98,
+          "false_approval_risk": {
+            "denominator": 60,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.6935483870967742,
+            "numerator": 86
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 2.91,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 232.8,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 0.17,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 75.03103297663095,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 38,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "stop_now": {
+          "abstentions": 224,
+          "approvals": 43,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.9966666666666667,
+            "numerator": 299
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.25333333333333335,
+            "numerator": 76
+          },
+          "decision_error_rate": {
+            "denominator": 76,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 76,
+          "false_approval_risk": {
+            "denominator": 43,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.7338709677419355,
+            "numerator": 91
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 2,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 160.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 60.65087278397517,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 33,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        }
+      },
+      "scientific_use": "descriptive_only_no_threshold_selection_or_confirmatory_inference"
+    },
+    "0.2": {
+      "procedures": {
+        "fixed_face_temperature": {
+          "abstentions": 240,
+          "approvals": 37,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.9866666666666667,
+            "numerator": 296
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.2,
+            "numerator": 60
+          },
+          "decision_error_rate": {
+            "denominator": 60,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 60,
+          "false_approval_risk": {
+            "denominator": 37,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.8145161290322581,
+            "numerator": 101
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 3,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 240.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 1,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 89.32361906615233,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 23,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "fixed_thermal": {
+          "abstentions": 229,
+          "approvals": 39,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.98,
+            "numerator": 294
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.23666666666666666,
+            "numerator": 71
+          },
+          "decision_error_rate": {
+            "denominator": 71,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 71,
+          "false_approval_risk": {
+            "denominator": 39,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.7419354838709677,
+            "numerator": 92
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 5,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 400.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 99.15630609414858,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 32,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "fixed_voltage": {
+          "abstentions": 229,
+          "approvals": 47,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 1.0,
+            "numerator": 300
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.23666666666666666,
+            "numerator": 71
+          },
+          "decision_error_rate": {
+            "denominator": 71,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 71,
+          "false_approval_risk": {
+            "denominator": 47,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.8064516129032258,
+            "numerator": 100
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 3,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 240.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 1,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 89.425915161434,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 24,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "prospective_selector": {
+          "abstentions": 242,
+          "approvals": 38,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.9766666666666667,
+            "numerator": 293
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.19333333333333333,
+            "numerator": 58
+          },
+          "decision_error_rate": {
+            "denominator": 58,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 58,
+          "false_approval_risk": {
+            "denominator": 38,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.8387096774193549,
+            "numerator": 104
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 2.91,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 232.8,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 0.17,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 75.03103297663095,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 20,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        },
+        "stop_now": {
+          "abstentions": 252,
+          "approvals": 30,
+          "case_count": 300,
+          "case_interval_coverage": {
+            "denominator": 300,
+            "estimate": 0.9966666666666667,
+            "numerator": 299
+          },
+          "decision_coverage": {
+            "denominator": 300,
+            "estimate": 0.16,
+            "numerator": 48
+          },
+          "decision_error_rate": {
+            "denominator": 48,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "definitive_decisions": 48,
+          "false_approval_risk": {
+            "denominator": 30,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_approvals": 0,
+          "false_rejection_rate_given_pass": {
+            "denominator": 176,
+            "estimate": 0.0,
+            "numerator": 0
+          },
+          "false_rejections": 0,
+          "missed_violation_rate": {
+            "denominator": 124,
+            "estimate": 0.8548387096774194,
+            "numerator": 106
+          },
+          "missing_or_invalid_final_intervals": 0,
+          "pipeline_failures": 0,
+          "realized_resources": {
+            "diagnostic_run_count": {
+              "mean": 2,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "energized_schedule_time_seconds": {
+              "mean": 160.0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "extra_sensor_count": {
+              "mean": 0,
+              "recorded_count": 300,
+              "required_count": 300
+            },
+            "total_diagnostic_energy": {
+              "mean": 60.65087278397517,
+              "recorded_count": 300,
+              "required_count": 300
+            }
+          },
+          "rejections": 18,
+          "true_passes": 176,
+          "true_violations": 124,
+          "verification_failures": 0
+        }
+      },
+      "scientific_use": "descriptive_only_no_threshold_selection_or_confirmatory_inference"
+    }
+  },
+  "source_manifest_digest": "002d8afd7641dfa2e78269d195a5375c37b3f8aa547eb86d574dc439e7858662",
+  "source_revision": "7e3b9a3be22d991ec2e588cbd4a53a9d4d2d27d7"
+}

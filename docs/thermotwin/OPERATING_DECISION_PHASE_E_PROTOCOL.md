@@ -7,7 +7,9 @@ and independent evidence reload passed at `23a076f`. The separate generation
 gate was committed as `76a0fc7` before E4 calibration opened. All 100 blocks
 completed on October 16; the [accepted result](OPERATING_DECISION_PHASE_E_RESULT.md)
 records independent validation and five finite corrections. No calibration or
-reserved case was generated to design this protocol. Reserved remains unopened.
+reserved case was generated to design this protocol. Reserved later completed
+under its separate Phase F gate; see the [Phase F result](OPERATING_DECISION_PHASE_F_RESULT.md)
+for current outcome and closeout status.
 
 This adopts the Phase E recommendations in the
 [completion plan](OPERATING_DECISION_COMPLETION_PLAN_2026_09_17.md) and the

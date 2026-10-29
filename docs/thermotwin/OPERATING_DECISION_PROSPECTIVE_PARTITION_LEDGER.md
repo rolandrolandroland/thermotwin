@@ -1,6 +1,6 @@
 # Prospective operating-decision partition ledger
 
-Ledger version: 17. Date declared: 2026-09-17. Last reconciled: 2026-10-18.
+Ledger version: 18. Date declared: 2026-09-17. Last reconciled: 2026-10-29.
 Status: P1 is complete and failed. P2 is closed as invalid incident evidence.
 P3 and its conditional all-case N32 continuation executed at source `2f906a2`;
 both archives validate, and the combined engineering gate failed. No draw count
@@ -40,16 +40,19 @@ calibration and closes that partition against regeneration.
 The complete Phase F rule/source freeze at `7e3b9a3` passed exact-source CI,
 both disposable computations, independent reloads, and the resource gate.
 The [F3 acceptance](OPERATING_DECISION_PHASE_F3_ACCEPTANCE.md) binds the separate
-generation gate. Reserved remains unopened at acceptance; after that gate is
-committed, its single 100-block execution is authorized. Existing partition
-sizes, numerical streams, and selector rules remain unchanged.
+generation gate was committed as `1eaf547` before the reserved cohort opened
+once on October 18. All 100 blocks and independent archive validation completed
+October 21 at 19:24 Eastern. The [Phase F result](OPERATING_DECISION_PHASE_F_RESULT.md)
+records the non-success on the primary criterion and October 29 independent
+arithmetic audit. The reserved cohort is closed against regeneration, tuning
+and extension; existing partition sizes, streams and selector rules are unchanged.
 
 ## Campaign identity
 
 ```text
 campaign: operating_decision_prospective_v1_2026_09
 procedure under development: prospective_four_action_selector_v2 with prospective uncertainty v3
-next scientific action: commit the accepted F3 generation gate, then execute p1_reserved_evaluation once from the original clean tested 7e3b9a3 clone and independently validate all 100 blocks
+next scientific action: preserve the closed validated result, complete explicitly exploratory diagnosis and final reporting/reproducibility; no further generation under this campaign
 reviewed source baseline: 9a21aa7
 ```
 
@@ -80,7 +83,7 @@ observations explicitly declared common by the protocol.
 | `p0_disposable_phase_e_roundtrip_v2` | 1 paired block computed twice / 3 distinct disposable cases, complete and valid | Exact archive/replay/resource acceptance, separate constructed storage fixture, and independent reload. | Regeneration; development tuning; calibration or reserved inference; treating repeated/constructed cases as additional observations. | Opened once at `23a076f` after CI; both archives, scientific replay, storage and memory checks passed. Closed as accepted engineering evidence. |
 | `p1_independent_calibration` | 100 paired blocks / 300 cases, complete and independently validated | Compute five procedure-specific rank-96 block tolerance corrections under the same standard; retain failed verification and missing intervals as infinite scores. | Selector, offset, stop, threshold, sensor-scenario, endpoint, or sample-size tuning; replacing successful checkpoints or selecting new seeds after interruption. | Opened once on October 8 at `23a076f`, after acceptance/generation gate commit `76a0fc7`. Completed October 16; five finite corrections accepted October 17. Closed against regeneration. |
 | `p0_disposable_phase_f_roundtrip_v1` | 1 paired block computed twice / 3 distinct disposable cases; complete and accepted | Complete calibrated before-reveal persistence, archive/analysis round trips, exact scientific replay, and constructed resource fixture under the [Phase F protocol](OPERATING_DECISION_PHASE_F_PROTOCOL.md). | Calibration or reserved inference; selector tuning; treating repetitions or constructed records as independent observations. | Declared before generation in `7e3b9a3`; opened after exact-source CI, both computations matched, independent reloads and resource checks passed. Closed as accepted engineering evidence. |
-| `p1_reserved_evaluation` | 100 paired blocks / 300 cases; unopened at F3 gate acceptance | One final paired comparison of the frozen selector with stop, fixed thermal, fixed voltage, and fixed face temperature in the primary scenario. | Any tuning, recalibration, favorable-case selection, or reactive sample-size extension. | F1–F3 passed; the separate accepted generation gate must be committed before opening once. Execute from tested source `7e3b9a3`; the persistent reserved journal records launch and checkpoint progress. |
+| `p1_reserved_evaluation` | 100 paired blocks / 300 cases, complete and independently validated | One final paired comparison of the frozen selector with stop, fixed thermal, fixed voltage, and fixed face temperature in the primary scenario. | Any tuning, recalibration, favorable-case selection, or reactive sample-size extension. | Gate commit `1eaf547` preceded the October 18 opening from tested source `7e3b9a3`. All blocks and independent validation completed October 21; independent result arithmetic passed October 29. Closed; primary success not established. |
 
 The 100-block sizes are now adopted by the development-only Phase E precision
 review. They do not adequately power the adopted strict risk comparison; this
@@ -183,13 +186,21 @@ changed in response to its outcomes.
     were committed as `7e3b9a3`. Exact-source CI passed before the fresh Phase F
     disposable workflow started. Both computations matched and independent
     reloads/resources passed by 01:08 Eastern on October 18. A further standard-
-    library check verified all 120 calibrated decisions. Commit the separate
-    F3 acceptance/generation gate before opening reserved evaluation once.
-16. After that gate commit, execute the existing 100-block reserved namespace
-    from the original clean tested `7e3b9a3` clone. Retain every ordinary failure
-    and comparator. The one-time launch journal records opening and checkpoint
-    progress; source, seeds, offsets, costs, sample size and analysis stay fixed.
-    Independently validate the completed archive before interpretation.
+    library check verified all 120 calibrated decisions. The separate
+    F3 acceptance/generation gate was committed as `1eaf547` before reserved
+    generation.
+16. The existing 100-block reserved namespace opened once from the original
+    clean tested `7e3b9a3` clone on October 18 at 22:26 Eastern. All 100 blocks,
+    every comparator and 300 before-reveal saves were retained. Independent
+    archive validation completed October 21 at 19:24 Eastern, without a
+    recorded interruption or resource error. Source, seeds, offsets, costs,
+    sample size and analysis were unchanged.
+17. The October 29 independent standard-library audit reconstructed all 6,000
+    outcomes and recomputed primary and secondary metrics/confidence bounds.
+    It matched the saved results, including primary success = false. Record
+    the accepted result and close the cohort against regeneration, retuning
+    and extension. Remaining reporting and exploratory diagnosis cannot confer
+    confirmatory status on any revised rule.
 
 The pre-P2 archive tests checked deterministic record structure, cross-record
 identities, exact stream inventory and RNG offsets, fit invariants, and interval

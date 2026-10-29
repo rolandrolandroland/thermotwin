@@ -1,12 +1,14 @@
 # Phase F: complete calibrated procedure and final evaluation
 
 Declared: 2026-10-17. Version: `operating_decision_prospective_phase_f_v1`.
-Status updated 2026-10-18: the complete rule/source freeze at `7e3b9a3`,
-exact-source hosted CI, both disposable computations, independent reloads,
-and resource acceptance passed. The [F3 acceptance](OPERATING_DECISION_PHASE_F3_ACCEPTANCE.md)
-binds the separate reserved-generation gate. Reserved is unopened at gate
-acceptance and may open once only after that gate is committed. The execution
-journal records the subsequent launch and checkpoint progress.
+Status updated 2026-10-29: the complete rule/source freeze at `7e3b9a3`,
+exact-source CI and disposable acceptance passed. The separate F3 gate was
+committed as `1eaf547` before the reserved cohort opened once. All 100 blocks
+and independent archive validation completed October 21. The
+[Phase F result](OPERATING_DECISION_PHASE_F_RESULT.md) records the unchanged
+predeclared analysis and subsequent independent arithmetic check. Primary
+success was not established; the cohort is closed against regeneration,
+retuning and extension. The design below remains the original frozen protocol.
 
 The [accepted Phase E result](OPERATING_DECISION_PHASE_E_RESULT.md) supplies
 five finite corrections. The [complete rule artifact](../../thermotwin/OPERATING_DECISION_PROSPECTIVE_PHASE_F_RULE.json)

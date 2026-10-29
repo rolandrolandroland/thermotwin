@@ -588,8 +588,15 @@ heat-transfer parameter.
   100 blocks completed on October 16 and independent validation passed with
   five finite corrections. Phase F's complete rule/source froze at `7e3b9a3`;
   exact-source CI, both fresh disposable computations, independent archive
-  checks and resources passed. F3 acceptance now authorizes the single
-  100-block reserved run after its separate gate is committed. See
+  checks and resources passed. Gate commit `1eaf547` preceded the reserved
+  opening. All 100 blocks and independent archive validation completed October
+  21; the October 29 independent arithmetic check matched all results. The
+  selector made 163/300 definitive decisions at 75.03 J, with one false approval
+  among 104 approvals. Energy savings against fixed measurement policies passed
+  their named checks, but the full primary criterion was not met: no procedure
+  qualified on decision coverage and approval-risk assurance. The cohort is
+  closed; final diagnosis, figures/report/presentation and archival packaging
+  remain. See `docs/thermotwin/OPERATING_DECISION_PHASE_F_RESULT.md` and
   `docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md`.
 
 ---
