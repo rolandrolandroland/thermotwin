@@ -1,0 +1,929 @@
+{
+  "status": "completed",
+  "plan_sha256": "e0f97735386c7b7f5053fd4e49830e80e76dd2460a9d9d8151f0be3d395928c0",
+  "attempted_readout_solves": 14,
+  "successful_readout_solves": 14,
+  "maximum_readout_solves": 14,
+  "training_only": true,
+  "neural_training_updates": 0,
+  "inputs_and_sources_preserved": true,
+  "reference_fields_used": false,
+  "independent_diagnostics_used": false,
+  "new_checkpoints_written": 0,
+  "independent_diagnostics_used_for_selection": false,
+  "sampled_cutoff_sensitivity_observed": true,
+  "interpretation": "projection-policy review supported; this does not explain all forward error",
+  "automatic_followup_launched": false,
+  "wall_seconds": 76.47658216697164,
+  "peak_rss_bytes": 1036173312,
+  "failure": null,
+  "recorded_utc": "2026-10-29T16:42:14.546366+00:00",
+  "declaration": {
+    "path": "thermotwin/PINN_SPATIAL_CUTOFF_AUDIT_PLAN.json",
+    "sha256": "c1710e92c6adb4f9f775ac40d33d9d064dd000894c76b23fb362c2ae6715f656",
+    "bytes": 18088
+  },
+  "raw_result": {
+    "path": "reports/pinn-spatial-validation/cutoff-directional-audit/result.json",
+    "sha256": "6bdd2fa40b32378d444813e0c5887ad68c5271921bd258d9e75096fd699de06a",
+    "bytes": 298972
+  },
+  "artifact_index": {
+    "path": "reports/pinn-spatial-validation/cutoff-directional-audit/artifact-index.json",
+    "sha256": "730172fc6b1315c276dcacf2fa44e52b2ba166eecc0a4acd62a3a107ed781530",
+    "bytes": 6967
+  },
+  "preservation_verified": true,
+  "denominator": {
+    "declared_points": 14,
+    "solved": 14,
+    "failed": 0,
+    "not_run": 0
+  },
+  "cases": [
+    {
+      "case": "t02",
+      "status": "completed",
+      "direction": {
+        "sha256": "652efdfee63709ed06e708c4c33ea5ae5db57b604399a0c28bdfd17c231013dc",
+        "normalization": "maximum absolute hidden component equals one",
+        "parameter_shapes": [
+          [
+            24,
+            4
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            4
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            4
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            4
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            4
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            4
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            5
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            5
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            5
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            3
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            3
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ]
+        ],
+        "gradient_max_abs": 0.18651839362196476,
+        "gradient_l2": 1.1179444390098956,
+        "fixed_head_ad_directional_derivative": -6.700678385887468,
+        "terminal_fixed_head_objective": 2.794009652104442
+      },
+      "directional_differences": [
+        {
+          "radius": 0.0001,
+          "sampled_rank_stable": false,
+          "sampled_ranks": [
+            510,
+            510,
+            509
+          ],
+          "fixed_head_ad_directional_derivative": -6.700678385887468,
+          "pure_tsvd_centered_fd": null,
+          "monotone_policy_centered_fd": null,
+          "limitation": "sampled rank equality does not exclude intermediate crossings; no envelope-theorem equality is assumed"
+        },
+        {
+          "radius": 1e-05,
+          "sampled_rank_stable": false,
+          "sampled_ranks": [
+            510,
+            510,
+            509
+          ],
+          "fixed_head_ad_directional_derivative": -6.700678385887468,
+          "pure_tsvd_centered_fd": null,
+          "monotone_policy_centered_fd": null,
+          "limitation": "sampled rank equality does not exclude intermediate crossings; no envelope-theorem equality is assumed"
+        },
+        {
+          "radius": 1e-06,
+          "sampled_rank_stable": false,
+          "sampled_ranks": [
+            510,
+            510,
+            509
+          ],
+          "fixed_head_ad_directional_derivative": -6.700678385887468,
+          "pure_tsvd_centered_fd": null,
+          "monotone_policy_centered_fd": null,
+          "limitation": "sampled rank equality does not exclude intermediate crossings; no envelope-theorem equality is assumed"
+        }
+      ],
+      "failure": null,
+      "resource_failure": false,
+      "distinct_solved_ranks": [
+        509,
+        510
+      ],
+      "sampled_cutoff_sensitivity": true,
+      "policy_rejections": 0,
+      "original_state_restored_exactly": true,
+      "samples": [
+        {
+          "case": "t02",
+          "kind": "baseline",
+          "radius": 0.0,
+          "sign": 0,
+          "status": "solved",
+          "failure": null,
+          "rank": 510,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.769149588977086e-07,
+          "smallest_retained_singular": 7.769159898527355e-07,
+          "largest_discarded_singular": 5.518770487612513e-07,
+          "retained_relative_cutoff_margin": 1.3269856824482673e-06,
+          "discarded_relative_cutoff_margin": 0.28965578221809807,
+          "fixed_terminal_head_objective": 2.794009652104442,
+          "pure_tsvd_objective": 2.794009652104442,
+          "pure_tsvd_algebraic_objective": 2.794009652065636,
+          "algebraic_strong_objective_abs_difference": 3.880584742432802e-11,
+          "monotone_policy_accepted": true,
+          "monotone_policy_objective": 2.794009652104442,
+          "coefficient_norm_proposed": 2758.1281762808326,
+          "head_gradient_norm": 6.2593240902217256e-06,
+          "column_scaled_head_gradient_norm": 4.7279474945711e-08,
+          "head_normal_equation_relative_residual": 5.413856721097904e-11,
+          "solve_number": 1,
+          "attempt_before": 0,
+          "attempt_after": 1,
+          "readout_attempted": true
+        },
+        {
+          "case": "t02",
+          "kind": "perturbation",
+          "radius": 0.0001,
+          "sign": -1,
+          "status": "solved",
+          "failure": null,
+          "rank": 510,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.769106372168164e-07,
+          "smallest_retained_singular": 7.786080425197752e-07,
+          "largest_discarded_singular": 5.524071665773499e-07,
+          "retained_relative_cutoff_margin": 0.002184814084975839,
+          "discarded_relative_cutoff_margin": 0.288969490035201,
+          "fixed_terminal_head_objective": 323.6492454231981,
+          "pure_tsvd_objective": 2.794827083117008,
+          "pure_tsvd_algebraic_objective": 2.7948270831271564,
+          "algebraic_strong_objective_abs_difference": 1.0148326623493631e-11,
+          "monotone_policy_accepted": true,
+          "monotone_policy_objective": 2.794827083117008,
+          "coefficient_norm_proposed": 2745.869841347259,
+          "head_gradient_norm": 6.315572679776668e-06,
+          "column_scaled_head_gradient_norm": 4.792228357964682e-08,
+          "head_normal_equation_relative_residual": 5.4626879925047056e-11,
+          "solve_number": 2,
+          "attempt_before": 1,
+          "attempt_after": 2,
+          "readout_attempted": true
+        },
+        {
+          "case": "t02",
+          "kind": "perturbation",
+          "radius": 0.0001,
+          "sign": 1,
+          "status": "solved",
+          "failure": null,
+          "rank": 509,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.769192809385006e-07,
+          "smallest_retained_singular": 8.50644533025093e-07,
+          "largest_discarded_singular": 7.752355813810473e-07,
+          "retained_relative_cutoff_margin": 0.09489435247061184,
+          "discarded_relative_cutoff_margin": 0.0021671486327633493,
+          "fixed_terminal_head_objective": 323.75029959834063,
+          "pure_tsvd_objective": 2.806379566751119,
+          "pure_tsvd_algebraic_objective": 2.806379566747074,
+          "algebraic_strong_objective_abs_difference": 4.04520861252422e-12,
+          "monotone_policy_accepted": true,
+          "monotone_policy_objective": 2.806379566751119,
+          "coefficient_norm_proposed": 484.21405816443126,
+          "head_gradient_norm": 1.7542860252032985e-05,
+          "column_scaled_head_gradient_norm": 1.821998522411326e-07,
+          "head_normal_equation_relative_residual": 1.5172787889994338e-10,
+          "solve_number": 3,
+          "attempt_before": 2,
+          "attempt_after": 3,
+          "readout_attempted": true
+        },
+        {
+          "case": "t02",
+          "kind": "perturbation",
+          "radius": 1e-05,
+          "sign": -1,
+          "status": "solved",
+          "failure": null,
+          "rank": 510,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.76914526713531e-07,
+          "smallest_retained_singular": 7.770846768567381e-07,
+          "largest_discarded_singular": 5.519291244687347e-07,
+          "retained_relative_cutoff_margin": 0.00021900754504722286,
+          "discarded_relative_cutoff_margin": 0.28958835818982487,
+          "fixed_terminal_head_objective": 6.003083216471786,
+          "pure_tsvd_objective": 2.7940787893525076,
+          "pure_tsvd_algebraic_objective": 2.794078789352854,
+          "algebraic_strong_objective_abs_difference": 3.4638958368304884e-13,
+          "monotone_policy_accepted": true,
+          "monotone_policy_objective": 2.7940787893525076,
+          "coefficient_norm_proposed": 2756.895422138411,
+          "head_gradient_norm": 6.281783581638621e-06,
+          "column_scaled_head_gradient_norm": 4.7337414410265777e-08,
+          "head_normal_equation_relative_residual": 5.433300473374474e-11,
+          "solve_number": 4,
+          "attempt_before": 3,
+          "attempt_after": 4,
+          "readout_attempted": true
+        },
+        {
+          "case": "t02",
+          "kind": "perturbation",
+          "radius": 1e-05,
+          "sign": 1,
+          "status": "solved",
+          "failure": null,
+          "rank": 509,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.769153910854853e-07,
+          "smallest_retained_singular": 8.513450809060756e-07,
+          "largest_discarded_singular": 7.767474192425175e-07,
+          "retained_relative_cutoff_margin": 0.0958015385904496,
+          "discarded_relative_cutoff_margin": 0.0002162035208661539,
+          "fixed_terminal_head_objective": 6.0030515971687555,
+          "pure_tsvd_objective": 2.806795097423534,
+          "pure_tsvd_algebraic_objective": 2.8067950974285827,
+          "algebraic_strong_objective_abs_difference": 5.048850226785362e-12,
+          "monotone_policy_accepted": true,
+          "monotone_policy_objective": 2.806795097423534,
+          "coefficient_norm_proposed": 477.7643773453245,
+          "head_gradient_norm": 1.756828951854347e-05,
+          "column_scaled_head_gradient_norm": 1.823284156697895e-07,
+          "head_normal_equation_relative_residual": 1.5195233049973544e-10,
+          "solve_number": 5,
+          "attempt_before": 4,
+          "attempt_after": 5,
+          "readout_attempted": true
+        },
+        {
+          "case": "t02",
+          "kind": "perturbation",
+          "radius": 1e-06,
+          "sign": -1,
+          "status": "solved",
+          "failure": null,
+          "rank": 510,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.769149156791288e-07,
+          "smallest_retained_singular": 7.769328532569728e-07,
+          "largest_discarded_singular": 5.518822469124673e-07,
+          "retained_relative_cutoff_margin": 2.3088214014199693e-05,
+          "discarded_relative_cutoff_margin": 0.2896490519427761,
+          "fixed_terminal_head_objective": 2.8261068791516273,
+          "pure_tsvd_objective": 2.7940164389083284,
+          "pure_tsvd_algebraic_objective": 2.794016438876504,
+          "algebraic_strong_objective_abs_difference": 3.182432095627519e-11,
+          "monotone_policy_accepted": true,
+          "monotone_policy_objective": 2.7940164389083284,
+          "coefficient_norm_proposed": 2758.004833820294,
+          "head_gradient_norm": 6.274218637282215e-06,
+          "column_scaled_head_gradient_norm": 4.7283500907773754e-08,
+          "head_normal_equation_relative_residual": 5.4267412045900836e-11,
+          "solve_number": 6,
+          "attempt_before": 5,
+          "attempt_after": 6,
+          "readout_attempted": true
+        },
+        {
+          "case": "t02",
+          "kind": "perturbation",
+          "radius": 1e-06,
+          "sign": 1,
+          "status": "solved",
+          "failure": null,
+          "rank": 509,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.769150021163236e-07,
+          "smallest_retained_singular": 8.514158359521364e-07,
+          "largest_discarded_singular": 7.768991274888486e-07,
+          "retained_relative_cutoff_margin": 0.09589315901079498,
+          "discarded_relative_cutoff_margin": 2.0432901194800124e-05,
+          "fixed_terminal_head_objective": 2.8260935801772242,
+          "pure_tsvd_objective": 2.806849338692203,
+          "pure_tsvd_algebraic_objective": 2.8068493386948843,
+          "algebraic_strong_objective_abs_difference": 2.681410649074678e-12,
+          "monotone_policy_accepted": true,
+          "monotone_policy_objective": 2.806849338692203,
+          "coefficient_norm_proposed": 477.1086299629125,
+          "head_gradient_norm": 1.7574929188633285e-05,
+          "column_scaled_head_gradient_norm": 1.8234157583231625e-07,
+          "head_normal_equation_relative_residual": 1.520102102508707e-10,
+          "solve_number": 7,
+          "attempt_before": 6,
+          "attempt_after": 7,
+          "readout_attempted": true
+        }
+      ],
+      "full_saved_row": {
+        "path": "reports/pinn-spatial-validation/cutoff-directional-audit/t02.json",
+        "sha256": "e495e74ae70cb89cab2faf46ada6035b228b085ecaa81f807cd317d4eff2776e",
+        "bytes": 131212
+      }
+    },
+    {
+      "case": "t04",
+      "status": "completed",
+      "direction": {
+        "sha256": "1de1cbfa89d21e22cbb87d0bcd4de8e773cd74d62b900243ed7e93aece9ae868",
+        "normalization": "maximum absolute hidden component equals one",
+        "parameter_shapes": [
+          [
+            24,
+            4
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            4
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            4
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            4
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            4
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            4
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            5
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            5
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            5
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            3
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            3
+          ],
+          [
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24
+          ]
+        ],
+        "gradient_max_abs": 0.21750327216601661,
+        "gradient_l2": 1.0473611919559698,
+        "fixed_head_ad_directional_derivative": -5.043443510027447,
+        "terminal_fixed_head_objective": 4.867755095655382
+      },
+      "directional_differences": [
+        {
+          "radius": 0.0001,
+          "sampled_rank_stable": false,
+          "sampled_ranks": [
+            514,
+            514,
+            513
+          ],
+          "fixed_head_ad_directional_derivative": -5.043443510027447,
+          "pure_tsvd_centered_fd": null,
+          "monotone_policy_centered_fd": null,
+          "limitation": "sampled rank equality does not exclude intermediate crossings; no envelope-theorem equality is assumed"
+        },
+        {
+          "radius": 1e-05,
+          "sampled_rank_stable": false,
+          "sampled_ranks": [
+            514,
+            514,
+            513
+          ],
+          "fixed_head_ad_directional_derivative": -5.043443510027447,
+          "pure_tsvd_centered_fd": null,
+          "monotone_policy_centered_fd": null,
+          "limitation": "sampled rank equality does not exclude intermediate crossings; no envelope-theorem equality is assumed"
+        },
+        {
+          "radius": 1e-06,
+          "sampled_rank_stable": false,
+          "sampled_ranks": [
+            514,
+            514,
+            513
+          ],
+          "fixed_head_ad_directional_derivative": -5.043443510027447,
+          "pure_tsvd_centered_fd": null,
+          "monotone_policy_centered_fd": null,
+          "limitation": "sampled rank equality does not exclude intermediate crossings; no envelope-theorem equality is assumed"
+        }
+      ],
+      "failure": null,
+      "resource_failure": false,
+      "distinct_solved_ranks": [
+        513,
+        514
+      ],
+      "sampled_cutoff_sensitivity": true,
+      "policy_rejections": 1,
+      "original_state_restored_exactly": true,
+      "samples": [
+        {
+          "case": "t04",
+          "kind": "baseline",
+          "radius": 0.0,
+          "sign": 0,
+          "status": "solved",
+          "failure": null,
+          "rank": 514,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.939526132188755e-07,
+          "smallest_retained_singular": 7.939530604112987e-07,
+          "largest_discarded_singular": 5.859036769961536e-07,
+          "retained_relative_cutoff_margin": 5.632482540374184e-07,
+          "discarded_relative_cutoff_margin": 0.2620420069898647,
+          "fixed_terminal_head_objective": 4.867755095655382,
+          "pure_tsvd_objective": 4.867755095655382,
+          "pure_tsvd_algebraic_objective": 4.867755095682586,
+          "algebraic_strong_objective_abs_difference": 2.7204016816995136e-11,
+          "monotone_policy_accepted": true,
+          "monotone_policy_objective": 4.867755095655382,
+          "coefficient_norm_proposed": 5171.627340171463,
+          "head_gradient_norm": 1.077876221546055e-05,
+          "column_scaled_head_gradient_norm": 5.98171329821681e-08,
+          "head_normal_equation_relative_residual": 5.406759290093538e-11,
+          "solve_number": 8,
+          "attempt_before": 7,
+          "attempt_after": 8,
+          "readout_attempted": true
+        },
+        {
+          "case": "t04",
+          "kind": "perturbation",
+          "radius": 0.0001,
+          "sign": -1,
+          "status": "solved",
+          "failure": null,
+          "rank": 514,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.939482836901313e-07,
+          "smallest_retained_singular": 7.941139248774247e-07,
+          "largest_discarded_singular": 5.859134485611748e-07,
+          "retained_relative_cutoff_margin": 0.0002086296937673371,
+          "discarded_relative_cutoff_margin": 0.26202567522666254,
+          "fixed_terminal_head_objective": 45.03181504600946,
+          "pure_tsvd_objective": 4.868402561504633,
+          "pure_tsvd_algebraic_objective": 4.868402561576027,
+          "algebraic_strong_objective_abs_difference": 7.139444591075517e-11,
+          "monotone_policy_accepted": true,
+          "monotone_policy_objective": 4.868402561504633,
+          "coefficient_norm_proposed": 5174.309447770043,
+          "head_gradient_norm": 1.0772071088509483e-05,
+          "column_scaled_head_gradient_norm": 5.970563394482782e-08,
+          "head_normal_equation_relative_residual": 5.4033657079137685e-11,
+          "solve_number": 9,
+          "attempt_before": 8,
+          "attempt_after": 9,
+          "readout_attempted": true
+        },
+        {
+          "case": "t04",
+          "kind": "perturbation",
+          "radius": 0.0001,
+          "sign": 1,
+          "status": "solved",
+          "failure": null,
+          "rank": 513,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.939569423515448e-07,
+          "smallest_retained_singular": 8.240435636116177e-07,
+          "largest_discarded_singular": 7.937947673968061e-07,
+          "retained_relative_cutoff_margin": 0.03789452507457414,
+          "discarded_relative_cutoff_margin": 0.0002042616495780969,
+          "fixed_terminal_head_objective": 45.028193984871244,
+          "pure_tsvd_objective": 4.886786575458743,
+          "pure_tsvd_algebraic_objective": 4.886786575447814,
+          "algebraic_strong_objective_abs_difference": 1.0929035454410041e-11,
+          "monotone_policy_accepted": true,
+          "monotone_policy_objective": 4.886786575458743,
+          "coefficient_norm_proposed": 3034.2263464669086,
+          "head_gradient_norm": 2.6940067463036106e-05,
+          "column_scaled_head_gradient_norm": 2.2906412565180858e-07,
+          "head_normal_equation_relative_residual": 1.35135612017526e-10,
+          "solve_number": 10,
+          "attempt_before": 9,
+          "attempt_after": 10,
+          "readout_attempted": true
+        },
+        {
+          "case": "t04",
+          "kind": "perturbation",
+          "radius": 1e-05,
+          "sign": -1,
+          "status": "solved",
+          "failure": null,
+          "rank": 514,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.939521802838128e-07,
+          "smallest_retained_singular": 7.939690313197493e-07,
+          "largest_discarded_singular": 5.859046550079128e-07,
+          "retained_relative_cutoff_margin": 2.122424543316015e-05,
+          "discarded_relative_cutoff_margin": 0.26204037276090053,
+          "fixed_terminal_head_objective": 5.269429331650026,
+          "pure_tsvd_objective": 4.867806927647934,
+          "pure_tsvd_algebraic_objective": 4.8678069277501645,
+          "algebraic_strong_objective_abs_difference": 1.0223022428590411e-10,
+          "monotone_policy_accepted": true,
+          "monotone_policy_objective": 4.867806927647934,
+          "coefficient_norm_proposed": 5171.915861108104,
+          "head_gradient_norm": 1.0786456330199628e-05,
+          "column_scaled_head_gradient_norm": 5.979561951883947e-08,
+          "head_normal_equation_relative_residual": 5.410615025631024e-11,
+          "solve_number": 11,
+          "attempt_before": 10,
+          "attempt_after": 11,
+          "readout_attempted": true
+        },
+        {
+          "case": "t04",
+          "kind": "perturbation",
+          "radius": 1e-05,
+          "sign": 1,
+          "status": "solved",
+          "failure": null,
+          "rank": 513,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.93953046149977e-07,
+          "smallest_retained_singular": 8.237371858983288e-07,
+          "largest_discarded_singular": 7.939371151927075e-07,
+          "retained_relative_cutoff_margin": 0.0375137294236485,
+          "discarded_relative_cutoff_margin": 2.0065364503274452e-05,
+          "fixed_terminal_head_objective": 5.269325850392044,
+          "pure_tsvd_objective": 4.887093789210799,
+          "pure_tsvd_algebraic_objective": 4.887093789167132,
+          "algebraic_strong_objective_abs_difference": 4.366729200455666e-11,
+          "monotone_policy_accepted": true,
+          "monotone_policy_objective": 4.887093789210799,
+          "coefficient_norm_proposed": 3036.216011402456,
+          "head_gradient_norm": 2.697552195268158e-05,
+          "column_scaled_head_gradient_norm": 2.2904399457293266e-07,
+          "head_normal_equation_relative_residual": 1.353126188879769e-10,
+          "solve_number": 12,
+          "attempt_before": 11,
+          "attempt_after": 12,
+          "readout_attempted": true
+        },
+        {
+          "case": "t04",
+          "kind": "perturbation",
+          "radius": 1e-06,
+          "sign": -1,
+          "status": "solved",
+          "failure": null,
+          "rank": 514,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.939525699255465e-07,
+          "smallest_retained_singular": 7.939546563475171e-07,
+          "largest_discarded_singular": 5.859037747600508e-07,
+          "retained_relative_cutoff_margin": 2.627892458084702e-06,
+          "discarded_relative_cutoff_margin": 0.2620418436141665,
+          "fixed_terminal_head_objective": 4.871776365357276,
+          "pure_tsvd_objective": 4.867760149453494,
+          "pure_tsvd_algebraic_objective": 4.8677601494627645,
+          "algebraic_strong_objective_abs_difference": 9.270806344829907e-12,
+          "monotone_policy_accepted": true,
+          "monotone_policy_objective": 4.867760149453494,
+          "coefficient_norm_proposed": 5171.656402393966,
+          "head_gradient_norm": 1.079301184187679e-05,
+          "column_scaled_head_gradient_norm": 5.98074150780639e-08,
+          "head_normal_equation_relative_residual": 5.4139067045353244e-11,
+          "solve_number": 13,
+          "attempt_before": 12,
+          "attempt_after": 13,
+          "readout_attempted": true
+        },
+        {
+          "case": "t04",
+          "kind": "perturbation",
+          "radius": 1e-06,
+          "sign": 1,
+          "status": "solved",
+          "failure": null,
+          "rank": 513,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "cutoff": 7.939526565121636e-07,
+          "smallest_retained_singular": 8.237066040802862e-07,
+          "largest_discarded_singular": 7.939514647140499e-07,
+          "retained_relative_cutoff_margin": 0.037475720150407676,
+          "discarded_relative_cutoff_margin": 1.5010946861071517e-06,
+          "fixed_terminal_head_objective": 4.87176627585738,
+          "pure_tsvd_objective": 4.88713700254435,
+          "pure_tsvd_algebraic_objective": 4.8871370025862895,
+          "algebraic_strong_objective_abs_difference": 4.1939784978239913e-11,
+          "monotone_policy_accepted": false,
+          "monotone_policy_objective": 4.87176627585738,
+          "coefficient_norm_proposed": 3036.4143169668305,
+          "head_gradient_norm": 2.6959279465023647e-05,
+          "column_scaled_head_gradient_norm": 2.2904281854223235e-07,
+          "head_normal_equation_relative_residual": 1.3523106069836215e-10,
+          "solve_number": 14,
+          "attempt_before": 13,
+          "attempt_after": 14,
+          "readout_attempted": true
+        }
+      ],
+      "full_saved_row": {
+        "path": "reports/pinn-spatial-validation/cutoff-directional-audit/t04.json",
+        "sha256": "d8f742ffb49c9283c8cddbb6c5f7b2e52d6b7182d1963ed53b29f5723af40437",
+        "bytes": 131186
+      }
+    }
+  ]
+}

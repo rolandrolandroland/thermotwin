@@ -1,0 +1,316 @@
+{
+  "schema": "terminal_partial_cutoff_directional_audit_v1",
+  "cases": [
+    "t02",
+    "t04"
+  ],
+  "created_utc": "2026-10-29T16:40:05.636801+00:00",
+  "parent_commit": "1c867c43cefb3aa963c57a9cea6bead0631cc8be",
+  "protocol": [
+    {
+      "case": "t02",
+      "kind": "baseline",
+      "radius": 0.0,
+      "sign": 0
+    },
+    {
+      "case": "t02",
+      "kind": "perturbation",
+      "radius": 0.0001,
+      "sign": -1
+    },
+    {
+      "case": "t02",
+      "kind": "perturbation",
+      "radius": 0.0001,
+      "sign": 1
+    },
+    {
+      "case": "t02",
+      "kind": "perturbation",
+      "radius": 1e-05,
+      "sign": -1
+    },
+    {
+      "case": "t02",
+      "kind": "perturbation",
+      "radius": 1e-05,
+      "sign": 1
+    },
+    {
+      "case": "t02",
+      "kind": "perturbation",
+      "radius": 1e-06,
+      "sign": -1
+    },
+    {
+      "case": "t02",
+      "kind": "perturbation",
+      "radius": 1e-06,
+      "sign": 1
+    },
+    {
+      "case": "t04",
+      "kind": "baseline",
+      "radius": 0.0,
+      "sign": 0
+    },
+    {
+      "case": "t04",
+      "kind": "perturbation",
+      "radius": 0.0001,
+      "sign": -1
+    },
+    {
+      "case": "t04",
+      "kind": "perturbation",
+      "radius": 0.0001,
+      "sign": 1
+    },
+    {
+      "case": "t04",
+      "kind": "perturbation",
+      "radius": 1e-05,
+      "sign": -1
+    },
+    {
+      "case": "t04",
+      "kind": "perturbation",
+      "radius": 1e-05,
+      "sign": 1
+    },
+    {
+      "case": "t04",
+      "kind": "perturbation",
+      "radius": 1e-06,
+      "sign": -1
+    },
+    {
+      "case": "t04",
+      "kind": "perturbation",
+      "radius": 1e-06,
+      "sign": 1
+    }
+  ],
+  "radii": [
+    0.0001,
+    1e-05,
+    1e-06
+  ],
+  "inputs": {
+    "t02": {
+      "final_checkpoint.pt": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-development/t02/final_checkpoint.pt",
+        "sha256": "ed4d80715faa9b8cff8786c7b2f585548e153ce3b43179225602b8b674fc6e31",
+        "bytes": 86236
+      },
+      "training-report.json": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-development/t02/training-report.json",
+        "sha256": "8b452d02fb84d2d4e0b0c1359372884c733f057e5475dc6eeadd66aac229fdc5",
+        "bytes": 1713413
+      },
+      "observations.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-development/t02/observations.npz",
+        "sha256": "ea6a236c98683cb3ea4f9c5a85c2d94d81d96f280d958a2a9643cceac214be76",
+        "bytes": 1342
+      }
+    },
+    "t04": {
+      "final_checkpoint.pt": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-development/t04/final_checkpoint.pt",
+        "sha256": "c14563b535b533f93a42537f59bf46e3848b78b00531540b05149e45822863cb",
+        "bytes": 86236
+      },
+      "training-report.json": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-development/t04/training-report.json",
+        "sha256": "c4e9fdffa94731accfb715c1be8dd3eafd5a8ad05517e3192330d2015bfe7ad0",
+        "bytes": 1918427
+      },
+      "observations.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-development/t04/observations.npz",
+        "sha256": "ed3ed01de8cfca67c531ddf8bc5bcace1aa3e1ca7f8386f793794099a4c29c6d",
+        "bytes": 1346
+      }
+    }
+  },
+  "campaign_directory": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-development",
+  "source_sha256": {
+    "pyproject.toml": "01b0ee6e83096856e09559aa4f7577c6a6c75da5de17dbf80d791ef4985cd165",
+    "reports/pinn-spatial-validation/optimization-directional-probe.py": "e72fb63d6399e9beabab4c8607f642aa2dabb6b64b7d33cec9a8976d120e1a80",
+    "reports/pinn-spatial-validation/optimization-history-probe.py": "4cc04b036c394f348ffc7e8515ff4d5600e6b379d0295f82425801e826312b8f",
+    "reports/pinn-spatial-validation/prepare-and-launch-optimized.py": "9132cdb9592927a1f3c825c3cb1c71c3309fcd8426b4b000fb9f03631d8d45fe",
+    "tests/test_pinn_spatial_continuity.py": "ab149fcb47f008c16aa0831d49d07e3dc36259c3fdb1847e344da3ff9e653498",
+    "tests/test_pinn_spatial_continuity_report.py": "b690a01357905c0a7d10964a7296fa714a9f33fd1aca810e5b57613f4431f519",
+    "tests/test_pinn_spatial_graded.py": "43dede33366e508c5a3abefb90844a5f3602007638302723437a3a87d83f48aa",
+    "tests/test_pinn_spatial_optimized.py": "aae25f25f98fb54ac2e8d9055a4b8837a52acdbd151c16352cd9c8d3004c35f5",
+    "tests/test_pinn_spatial_step_control.py": "1e8f8c51ae4c9a81dad72e9f701562f657bb55e11004e88a4aac420ee727c10d",
+    "tests/test_pinn_spatial_step_control_report.py": "1b0ff737cb4cf828978684628182371e006a75bcaf77c57cad692f51ace4384a",
+    "tests/test_planar_contact_consistent.py": "c546403ce4be3785e01e313b3b5d2de072d2e99cb838f10d980497f22f11de8f",
+    "tests/test_planar_contact_continuity.py": "a1436feed28b93241ba3b9b743bfa9e731eec1d9f340389d1ac141df026786ba",
+    "tests/test_planar_contact_graded.py": "62fbe1ad995548be1175fabe991f8d64b1c3b9fb15506315b3da6c4ef64d2e5c",
+    "tests/test_planar_contact_optimized.py": "0716d1bfc23e9c1c55804152e54ede795b499151b3e3ebe532b26f906d78fcc7",
+    "tests/test_planar_contact_step_control.py": "424d9bd2f6a5ba36bdcb84096d1513c0ce3c6263f29ec509f52344392cf89d18",
+    "thermotwin/physics/planar_contact.py": "f1091a133168ff7c4cdaa463f6dd838ad103d4cee1ffbf54aa612680b8b3abd8",
+    "thermotwin/pinn/planar_contact_consistent.py": "ff9593ae2f5a96a01f70d10700c3c94c0b1629c31d2e01a239ffa7fa848ea8ae",
+    "thermotwin/pinn/planar_contact_continuity.py": "27c5a1cf741565128375c1da1b2e889e323bf8ac47c8f64338156ae5a396a8bd",
+    "thermotwin/pinn/planar_contact_graded.py": "7c9cf21c52e3bcffff880b6a70cb6f18a765c8d3e0f3cf1a651c69c153a4f1de",
+    "thermotwin/pinn/planar_contact_inverse.py": "a8e183b4f43b3ca0ba41918cf43982c9d2e6034064f564388c603532366300e5",
+    "thermotwin/pinn/planar_contact_optimized.py": "2b471b75e13549c9db9274b8d34246bcef0615974556300f5eee39ced2f7786a",
+    "thermotwin/pinn/planar_contact_step_control.py": "70feee0ef6f013b841d1ef186b47a5cd568f8be425b439c18f209c6bffbfca02",
+    "thermotwin/reports/pinn_spatial_continuity.py": "2ce68167861c219c677238c2be02abfe9b2f2dfbcafabbeeb4b03d5b6c314362",
+    "thermotwin/reports/pinn_spatial_step_control.py": "bc46a6e7c3e0501fb337165f99a721a02fcdab091e478deb8ad9ea6170155a36",
+    "thermotwin/studies/pinn_spatial_consistent.py": "c90c0d7dce26d8eb1865e8445e556c35c4476a02eabfa6ce17a3f710cea69484",
+    "thermotwin/studies/pinn_spatial_continuity.py": "fddf36f14b72731ba963fbc865cbb92ec70e9fbf8b0aa86f36a74e84ad610f36",
+    "thermotwin/studies/pinn_spatial_graded.py": "e9df846b33d34f5608cd919b3a1ce05d496c268e3a8e33faf7aebfbce4e28161",
+    "thermotwin/studies/pinn_spatial_optimized.py": "f89e9a7d471d99e7f1cac6a23e4da97244a63246b7b3924e05aa68233b4a244f",
+    "thermotwin/studies/pinn_spatial_step_control.py": "29c3a1aa5b34e427c07a2371832efde0a6896b846d456727f2bb768871076357",
+    "tools/pinn_spatial/prepare-and-launch-step-control.py": "accc12e83146be516a685d383f7af13530bc80a11a106c8c53db30962dbfb852",
+    "tools/pinn_spatial/step-control-probe.py": "e74368d99fa57c4226b40cebb5b852987bdf5d96ad2a349aede0ac5524158830",
+    "tools/pinn_spatial/step-control-terminal-probe.py": "c301a38386e237fc6ab8c38e0e7980ad93cd1b9175c92766e65e530f51e769a4",
+    "tests/test_pinn_spatial_cutoff_audit.py": "081ba4bd28fba591a1d1f310bdf2895226e2a9b80fccf9e345681e64e546c42a",
+    "tests/test_pinn_spatial_cutoff_record.py": "d1ea3408255d109fe1e2d8274ed0aaa8593eeb9dbe090754b97958990d191727",
+    "thermotwin/studies/pinn_spatial_cutoff_audit.py": "7902d66153ab8d21fad1b4c3357b4a454626b2bed03e28bdde270c070fa7d15d",
+    "tools/pinn_spatial/record-cutoff-audit.py": "0fb1b7d45cc697685519615cd9e54cd3309a96cd8b35521f9a2e2a4b9a5c459b"
+  },
+  "runtime": {
+    "implementation": "CPython",
+    "python": "3.10.12",
+    "packages": {
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "torch": "2.9.1"
+    },
+    "float": "float64",
+    "threads": 1,
+    "executable": "/Users/rolandbennett/.pyenv/versions/3.10.12/bin/python3.10",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "numpy_blas_lapack_configuration": "{\n  \"Compilers\": {\n    \"c\": {\n      \"name\": \"clang\",\n      \"linker\": \"ld64\",\n      \"version\": \"15.0.0\",\n      \"commands\": \"cc\"\n    },\n    \"cython\": {\n      \"name\": \"cython\",\n      \"linker\": \"cython\",\n      \"version\": \"3.1.0\",\n      \"commands\": \"cython\"\n    },\n    \"c++\": {\n      \"name\": \"clang\",\n      \"linker\": \"ld64\",\n      \"version\": \"15.0.0\",\n      \"commands\": \"c++\"\n    }\n  },\n  \"Machine Information\": {\n    \"host\": {\n      \"cpu\": \"aarch64\",\n      \"family\": \"aarch64\",\n      \"endian\": \"little\",\n      \"system\": \"darwin\"\n    },\n    \"build\": {\n      \"cpu\": \"aarch64\",\n      \"family\": \"aarch64\",\n      \"endian\": \"little\",\n      \"system\": \"darwin\"\n    }\n  },\n  \"Build Dependencies\": {\n    \"blas\": {\n      \"name\": \"accelerate\",\n      \"found\": true,\n      \"version\": \"unknown\",\n      \"detection method\": \"system\",\n      \"include directory\": \"unknown\",\n      \"lib directory\": \"unknown\",\n      \"openblas configuration\": \"unknown\",\n      \"pc file directory\": \"unknown\"\n    },\n    \"lapack\": {\n      \"name\": \"accelerate\",\n      \"found\": true,\n      \"version\": \"unknown\",\n      \"detection method\": \"system\",\n      \"include directory\": \"unknown\",\n      \"lib directory\": \"unknown\",\n      \"openblas configuration\": \"unknown\",\n      \"pc file directory\": \"unknown\"\n    }\n  },\n  \"Python Information\": {\n    \"path\": \"/private/var/folders/w5/_8wgjw3j5cg6mgrth3s2kg9m0000gn/T/build-env-g9clshsu/bin/python\",\n    \"version\": \"3.10\"\n  },\n  \"SIMD Extensions\": {\n    \"baseline\": [\n      \"NEON\",\n      \"NEON_FP16\",\n      \"NEON_VFPV4\",\n      \"ASIMD\"\n    ],\n    \"found\": [\n      \"ASIMDHP\"\n    ],\n    \"not found\": [\n      \"ASIMDFHM\"\n    ]\n  }\n}\n",
+    "torch_intraop_threads": 1,
+    "torch_interop_threads": 1,
+    "blas_thread_environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "campaign_context": {
+    "plan_sha256": "4d82092fdf26c3f7e296d08952c5a5d033ab1fa6781373effac2ca22958b78c4",
+    "artifact_index_sha256": "1c332d789e498e10114423780b91432c79dcf209105b84dd7926797f7778d017",
+    "method_fit_count": 4
+  },
+  "protected_files": {
+    "reports/pinn-spatial-validation/cutoff-audit-validation/focused-tests-state.json": "639fc794f063333f91927f072cd8478ac83e18aba789c0e6ac86189eb3aee103",
+    "reports/pinn-spatial-validation/cutoff-audit-validation/focused-tests.log": "a07457577210fde273ce8cd38b63a65f999c4f62556bd9c76ef752e716e9dd92",
+    "thermotwin/PINN_SPATIAL_CONTINUITY_REPAIR_RESULT.json": "5230e6263bee6b29b0c922ba5933021a9391c17c028e4d1b77d5331eb5e8bdd6",
+    "thermotwin/PINN_SPATIAL_CONTINUITY_V3_PLAN.json": "325e9c468c57ccc18e8c530bd937d4c347f17c181984176ac1d5115a3a9f7d8f",
+    "thermotwin/PINN_SPATIAL_CONTINUITY_V4_PLAN.json": "917fb60ccc9d868148925ebec70027aa87af63644a5dd7d565d990f8b12ace7f",
+    "thermotwin/PINN_SPATIAL_GRADED_LOG_PLAN.json": "7d3847b0c1bf2aeb1233051e580dbd60c66958e232adc03db1aa2639fd7f5d0e",
+    "thermotwin/PINN_SPATIAL_GRADED_LOG_RESULT.json": "a44cb059e94b22260fc45094628e6be32e04ff0f748d81f34ff1b22e01fa0746",
+    "thermotwin/PINN_SPATIAL_OPTIMIZATION_PLAN.json": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+    "thermotwin/PINN_SPATIAL_OPTIMIZATION_PROBE.json": "6105a27d94c2394342e1f1467f3ce720cdbc9411f6922201b7523bc7c09466e2",
+    "thermotwin/PINN_SPATIAL_OPTIMIZATION_RESULT.json": "5aa03db225c33cbe105a4e543fa54784b77a5795ee70c3a44908c0eb34b544aa",
+    "thermotwin/PINN_SPATIAL_REVISION_V2_DEVELOPMENT.json": "e1dd09187a0730647a9a4b6e0783f86e655af9c49c19bb6dcd629cce672c330a",
+    "thermotwin/PINN_SPATIAL_STEP_CONTROL_PLAN.json": "4d82092fdf26c3f7e296d08952c5a5d033ab1fa6781373effac2ca22958b78c4",
+    "thermotwin/PINN_SPATIAL_STEP_CONTROL_PROBE.json": "743bd771ce93c13c219bd11060e1d2173bd7db004883421c398446736a71514f",
+    "thermotwin/PINN_SPATIAL_STEP_CONTROL_RESULT.json": "379bbd02e49bcaf0f632e5b7bfaf17b122bd29e16a58416701e62ced4f8f0278",
+    "thermotwin/PINN_SPATIAL_VALIDATION_PROTOCOL.json": "0b27a124ec821ecd29c15f25003f91e0f2eb190735392f5537f4b3ccc394f235"
+  },
+  "maximum_readout_solves": 14,
+  "maximum_wall_seconds": 900.0,
+  "maximum_rss_bytes": 2147483648,
+  "threads": 1,
+  "automatic_retries": 0,
+  "neural_training_updates": 0,
+  "new_checkpoints_written": 0,
+  "training_only": true,
+  "reference_fields_used": false,
+  "independent_diagnostics_used": false,
+  "independent_diagnostics_used_for_selection": false,
+  "preservation_validation_role": "saved diagnostics may be authenticated solely for preservation and are never passed to the numerical audit",
+  "observation_keys_read": [
+    "coordinates",
+    "temperature"
+  ],
+  "noise_standard_deviation_K": 0.02,
+  "direction": "negative original-terminal fixed-head gradient divided by maximum absolute hidden-parameter component",
+  "reset_policy": "restore terminal hidden parameters and terminal head independently before every point",
+  "readout_policy": "one frozen column-scaled TSVD solve; compare strong-AD candidate loss to same-point original-terminal-head loss",
+  "fd_policy": "centered pure-TSVD and monotone-policy differences only when sampled minus/base/plus ranks agree; sampled equality does not exclude intermediate crossings or imply an envelope-theorem identity",
+  "interpretation": "any differing solved ranks within a case support projection-policy review only; all stable ranks are inconclusive about hard cutoff; no automatic corner or optimizer revision",
+  "authoritative_plan": {
+    "path": "reports/pinn-spatial-validation/cutoff-directional-audit/plan.json",
+    "sha256": "e0f97735386c7b7f5053fd4e49830e80e76dd2460a9d9d8151f0be3d395928c0",
+    "bytes": 72579
+  },
+  "protected_trees": {
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development": {
+      "file_count": 127,
+      "manifest_sha256": "bd40a10443feede025400e1320e6179b6805604d7fb5af20449cd93e695da945"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-report": {
+      "file_count": 7,
+      "manifest_sha256": "c688732928aaf3cabcc3d64f0eec9cebee400e17058c625bf612e77f0019dd12"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-result-finalization": {
+      "file_count": 4,
+      "manifest_sha256": "a76ead92d484fb864b44363534f004fbec8970924b998ac1264e10989bc13cda"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-validation": {
+      "file_count": 7,
+      "manifest_sha256": "b854bedcb316bad8170a5296828d0821a7488e10076454d860687d96b0c7f69d"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimization-directional-probe": {
+      "file_count": 6,
+      "manifest_sha256": "3ca553fc87ce03d59a9dd5630450339a5462a9cf03f9ee6c8a4b83fcba06c147"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimization-history-probe": {
+      "file_count": 10,
+      "manifest_sha256": "255f55a4253f896514e18410a28a5a4fd8789f933063cbc33a849cb7d872009d"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimization-validation": {
+      "file_count": 60,
+      "manifest_sha256": "88e41b13003f9a848a9df1cba65ef7fcd3cc6653ae161f58d08383c8bf68b131"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimized-result-finalization": {
+      "file_count": 7,
+      "manifest_sha256": "1a8239eb1b2908282153802c61cc292bbdd831b5b6c4191907e57c894af4f73b"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimized-v6-development": {
+      "file_count": 56,
+      "manifest_sha256": "06249e703fe30bcadc34d9e8d45df162a8a602e9fc322638937ae9016da67d9b"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimized-v6-report": {
+      "file_count": 9,
+      "manifest_sha256": "016ed65123502018c3955079ff9388fb049e4015d5f58a9a033a188c8bdcd5f4"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-development": {
+      "file_count": 96,
+      "manifest_sha256": "4a4771651356c67a0de079cf8a579d4546d17e50efd36334fdd34e93cdb2f905"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-recovery-probe": {
+      "file_count": 8,
+      "manifest_sha256": "8c4c4ee8b0a02fe5f49a624dbc9b1bdbec5f9af2fc26aeb44aa15a1c31f0fa25"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-report": {
+      "file_count": 9,
+      "manifest_sha256": "ad263bd10dd6c0ad542f704d85faa6f442df3a433b5d1e75d0afa50c477fdc24"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-result-finalization": {
+      "file_count": 7,
+      "manifest_sha256": "c3ff5b1b4d8e85437c3922ec643f16da89c9038ae5b92aad733cf2a7edfafdb6"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-terminal-probe": {
+      "file_count": 6,
+      "manifest_sha256": "a3227d3d6a9afe533fa3760faed17fa02b2ca8a354f9820fcb6d973f0d7d155f"
+    },
+    "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-validation": {
+      "file_count": 76,
+      "manifest_sha256": "408bac0ee29b11dacdc1e1cd44a6ded98fca803eed7a05bb93bc4f4183cbfff2"
+    }
+  },
+  "compact_record_only": true,
+  "recorded_utc": "2026-10-29T16:40:26.908854+00:00"
+}

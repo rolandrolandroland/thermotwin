@@ -39,7 +39,7 @@ The report and compact result were then finalized without rerunning any fit
 or changing scientific artifacts. Original failed helper/state evidence is
 preserved under `step-control-validation/completion-repair-20261029/original/`.
 
-## Next proposed diagnostic
+## Follow-up diagnostic
 
 The saved partial-contact trajectories stopped at the hard truncated-SVD
 rank boundary. Final retained ranks were 510/550 and 514/550, with resolved
@@ -59,9 +59,13 @@ be compared with the fixed-head derivative only where rank is stable.
 The existing projection can reject a newly solved head and retain its prior
 head, so both objective definitions must be distinguished.
 
-No follow-up diagnostic or further optimizer search has been launched. A new
-method, if justified by that audit, needs its own freeze and four-case check.
-Inverse fitting and 3D remain blocked by the current forward gate.
+The separately frozen [fourteen-solve cutoff diagnostic](PINN_SPATIAL_CUTOFF_AUDIT.md)
+completed on October 29 without neural training. Both cases changed rank at
+every declared positive displacement, supporting a projection correction
+before a corner-field revision. It does not establish improved independent
+physics accuracy. A replacement method still needs its own declaration and
+four-case check. Inverse fitting and 3D remain blocked by the current forward
+gate.
 
 ## Frozen declaration and evidence
 
