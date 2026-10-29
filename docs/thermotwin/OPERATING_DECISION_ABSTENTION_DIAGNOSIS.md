@@ -144,7 +144,7 @@ threshold from reserved outcomes.
 
 ## Implication for the next experiment
 
-Complete the current figures, final report, numerical replay and reproducibility
+Complete the current figures, final report and reproducibility
 package with the primary non-success intact. The present diagnosis makes a
 decision-aware acquisition objective a reasonable hypothesis for a new version:
 value an action for its expected chance of producing a reliable final decision
@@ -199,3 +199,6 @@ The accepted Phase F result artifact remains the historical October 29 result
 snapshot, including its then-pending closeout flags. The
 [project status](OPERATING_DECISION_PROJECT_STATUS.md) records this subsequent
 diagnosis and the work still outstanding.
+The subsequent [bounded numerical replay](OPERATING_DECISION_PHASE_H_REPLAY.md)
+has also passed; it does not change this diagnosis or establish a redesigned
+selector's performance.

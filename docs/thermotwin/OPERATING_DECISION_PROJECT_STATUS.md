@@ -17,8 +17,11 @@ is also complete: 98 abstentions arise in raw intervals, 12 first appear after
 development padding, and 27 after final calibration. Among 125 selected
 measurements, 116 narrow the interval and 85 of those still abstain. This
 motivates a future decision-resolution objective, without validating a redesign.
-Final figures/report/presentation, small numerical replay and archival packaging
-remain.
+The separate [Phase H numerical replay](OPERATING_DECISION_PHASE_H_REPLAY.md)
+has now passed: 15 case tasks, 15 policy refits, six predictive draws and 116
+calibrated decisions reproduced exactly under the original source and runtime.
+Independent evidence reload passed. All 1,199 existing tests and seven new replay
+tests passed. Final figures/report/presentation and archival packaging remain.
 
 ## Execution history
 
@@ -333,7 +336,7 @@ comparator metrics are recorded in the [D6 result](OPERATING_DECISION_PHASE_D6_R
 | E — analysis freeze and calibration | Complete: 100/100 blocks; five finite corrections; frozen-source and independent arithmetic validation passed | Preserve the accepted calibration artifact and closed cohort. Record interrupted-run resource limitations; the separate F3 gate governs reserved opening. |
 | F — reserved evaluation | Complete: 100 blocks; original independent validation passed October 21; [result](OPERATING_DECISION_PHASE_F_RESULT.md) and independent arithmetic audit recorded October 29 | Preserve the closed cohort and accepted non-success on the primary criterion. No regeneration, retuning or reactive extension. |
 | G — interpretation | Complete for the primary classification, independent statistical verification and [bounded exploratory abstention diagnosis](OPERATING_DECISION_ABSTENTION_DIAGNOSIS.md) | Preserve the primary non-success and label the diagnosis post hoc. A decision-aware redesign remains a hypothesis requiring a separate protocol and fresh partitions. |
-| H — final reporting and archive | Pending | Complete the small numerical replay, three figures, final report, presentation and reproducibility/deposit package. |
+| H — final reporting and archive | In progress: bounded numerical replay, independent evidence reload and test acceptance complete | Complete the three figures, final report, presentation and reproducibility/deposit package. |
 
 Phase B records the following boundaries for the pilot and later development:
 

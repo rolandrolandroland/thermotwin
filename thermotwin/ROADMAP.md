@@ -598,8 +598,11 @@ heat-transfer parameter.
   closed. The subsequent bounded abstention diagnosis is complete: 116/125
   selected measurements narrow the interval, but 85 of those still abstain.
   This motivates a future decision-resolution objective; no redesign is
-  validated. Final figures/report/presentation, small numerical replay and
-  archival packaging remain. See
+  validated. The bounded Phase H replay subsequently reproduced 15 policy
+  refits, six predictive draws and 116 calibrated decisions exactly; independent
+  evidence reload and 1,199 existing plus seven new tests passed. Final
+  figures/report/presentation and archival packaging remain. See
+  `docs/thermotwin/OPERATING_DECISION_PHASE_H_REPLAY.md`,
   `docs/thermotwin/OPERATING_DECISION_ABSTENTION_DIAGNOSIS.md`,
   `docs/thermotwin/OPERATING_DECISION_PHASE_F_RESULT.md` and
   `docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md`.

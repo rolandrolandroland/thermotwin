@@ -128,8 +128,10 @@ dependency changed and no observation, physical simulation, or refit was run.
 Resource means and paired energy contrasts are recomputed from retained
 post-reveal scores; the underlying ODE and power integrations are not rerun.
 This verifies arithmetic and retained evidence, not all real-world physics.
-The predetermined small numerical-refit replay in the broader final-closeout
-plan is still pending and is not claimed by this audit.
+The separate [bounded Phase H numerical replay](OPERATING_DECISION_PHASE_H_REPLAY.md)
+has now passed. It refits 15 policy acquisitions and replays six predictive
+draws under the original source/runtime. That computational check is distinct
+from this arithmetic audit and leaves the primary result unchanged.
 
 ## Instruments, schedule assumptions, and software cost
 
@@ -201,7 +203,7 @@ This completes the validated Phase F result record and the independent
 arithmetic/statistical check. The original campaign is not reopened. The
 subsequent [exploratory abstention diagnosis](OPERATING_DECISION_ABSTENTION_DIAGNOSIS.md)
 is now complete and leaves this primary result unchanged. Remaining Phase H
-work is the predetermined small numerical replay, three final figures, final report,
+work is three final figures, final report,
 presentation, and reproducibility/deposit package. Any redesigned selector
 requires a new version and fresh development, calibration and reserved
 partitions; this exposed cohort cannot confirm its performance.

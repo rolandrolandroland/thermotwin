@@ -1,0 +1,301 @@
+{
+  "artifact_digest": "273b40f7e126c7a722da4bcba0261dc375816acac3daac3d544e3b74d3ad2c90",
+  "evaluation_file": {
+    "bytes": 4991360,
+    "sha256": "299f75ad492e5bde0acc724ed4e72ae029c86f2c05538677c2a856c23734c564"
+  },
+  "limits": {
+    "process_tree_memory_bytes": 4294967296,
+    "task_timeout_seconds": 1800,
+    "total_timeout_seconds": 5400,
+    "workers": 2
+  },
+  "math_environment": {
+    "BLIS_NUM_THREADS": null,
+    "MKL_CBWR": null,
+    "MKL_DYNAMIC": null,
+    "MKL_NUM_THREADS": null,
+    "NPY_DISABLE_CPU_FEATURES": null,
+    "NUMEXPR_MAX_THREADS": null,
+    "NUMEXPR_NUM_THREADS": null,
+    "OMP_DYNAMIC": null,
+    "OMP_NUM_THREADS": null,
+    "OMP_PLACES": null,
+    "OMP_PROC_BIND": null,
+    "OMP_SCHEDULE": null,
+    "OMP_THREAD_LIMIT": null,
+    "OPENBLAS_CORETYPE": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONHASHSEED": null,
+    "PYTHONOPTIMIZE": null,
+    "VECLIB_MAXIMUM_THREADS": null
+  },
+  "new_cohort_or_partition_authorized": false,
+  "planned_at_utc": "2026-10-29T19:06:04.561850+00:00",
+  "rule": {
+    "boundary": "minimum absolute final-interval endpoint for each selector decision label; ties block then frozen family order",
+    "comparison": "exact canonical numerical payloads; only raw decision_computation_seconds excluded",
+    "draws": "first stable draw per measurement action, first whole failure, first usable bound and nonconvergence candidate exclusion; ties block/family/action/source/index",
+    "family_action": "first block with each selected family/action; if absent replay that fixed action on first family block and record fallback",
+    "full_n16_rescoring_or_new_target_truth_simulation": false,
+    "no_retuning_no_replacement_targets_no_automatic_retries": true,
+    "replay_reuses_original_semantic_keys_explicitly": true
+  },
+  "runner_file": {
+    "bytes": 30877,
+    "sha256": "ed13d594fa0beef913b90eed6cb7359422b3ceb88eef716c706139dffd9db2ba"
+  },
+  "runtime_identity": {
+    "machine": "arm64",
+    "operating_system": "Darwin",
+    "python_implementation": "CPython",
+    "python_version": "3.10.12",
+    "requirements_path": "thermotwin/requirements-prospective-phase-d.txt",
+    "requirements_sha256": "be75b5b62c2dad9d48a412ecd857882a20cd10f8f03a60ea24c53debe05dea12",
+    "scientific_packages": {
+      "matplotlib": "3.10.8",
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "torch": "2.9.1"
+    }
+  },
+  "sample": {
+    "absent_selected_family_action_cells": [
+      {
+        "action": "fixed_face_temperature",
+        "family": "matched_four_state"
+      }
+    ],
+    "available_whole_predictive_failure_count": 20,
+    "primary_pipeline_failure_count": 0,
+    "tasks": [
+      {
+        "block": 0,
+        "draws": [
+          {
+            "draw_index": 0,
+            "generator_model": "four_state",
+            "policy_name": "fixed_thermal",
+            "reasons": [
+              "stable_predictive_fixed_thermal"
+            ]
+          },
+          {
+            "draw_index": 0,
+            "generator_model": "four_state",
+            "policy_name": "fixed_voltage",
+            "reasons": [
+              "stable_predictive_fixed_voltage"
+            ]
+          },
+          {
+            "draw_index": 0,
+            "generator_model": "four_state",
+            "policy_name": "fixed_face_temperature",
+            "reasons": [
+              "stable_predictive_fixed_face_temperature"
+            ]
+          }
+        ],
+        "family": "matched_four_state",
+        "policies": {
+          "fixed_face_temperature": [
+            "unselected_fixed_fallback_for_absent_cell"
+          ],
+          "stop_now": [
+            "first_selected_family_action"
+          ]
+        },
+        "task_id": "case-00-block-000-matched_four_state"
+      },
+      {
+        "block": 0,
+        "draws": [
+          {
+            "draw_index": 1,
+            "generator_model": "four_state",
+            "policy_name": "fixed_thermal",
+            "reasons": [
+              "usable_candidate_exclusion_fit_reached_bound"
+            ]
+          }
+        ],
+        "family": "extra_interface_mass",
+        "policies": {
+          "stop_now": [
+            "first_selected_family_action"
+          ]
+        },
+        "task_id": "case-01-block-000-extra_interface_mass"
+      },
+      {
+        "block": 0,
+        "draws": [
+          {
+            "draw_index": 5,
+            "generator_model": "five_state",
+            "policy_name": "fixed_face_temperature",
+            "reasons": [
+              "usable_candidate_exclusion_optimizer_not_converged"
+            ]
+          }
+        ],
+        "family": "temperature_dependent_contact",
+        "policies": {
+          "stop_now": [
+            "first_selected_family_action"
+          ]
+        },
+        "task_id": "case-02-block-000-temperature_dependent_contact"
+      },
+      {
+        "block": 1,
+        "draws": [],
+        "family": "temperature_dependent_contact",
+        "policies": {
+          "fixed_thermal": [
+            "first_selected_family_action"
+          ]
+        },
+        "task_id": "case-03-block-001-temperature_dependent_contact"
+      },
+      {
+        "block": 2,
+        "draws": [],
+        "family": "extra_interface_mass",
+        "policies": {
+          "fixed_face_temperature": [
+            "first_selected_family_action"
+          ]
+        },
+        "task_id": "case-04-block-002-extra_interface_mass"
+      },
+      {
+        "block": 3,
+        "draws": [],
+        "family": "temperature_dependent_contact",
+        "policies": {
+          "fixed_voltage": [
+            "first_selected_family_action"
+          ]
+        },
+        "task_id": "case-05-block-003-temperature_dependent_contact"
+      },
+      {
+        "block": 5,
+        "draws": [],
+        "family": "extra_interface_mass",
+        "policies": {
+          "fixed_thermal": [
+            "first_selected_family_action"
+          ]
+        },
+        "task_id": "case-06-block-005-extra_interface_mass"
+      },
+      {
+        "block": 7,
+        "draws": [
+          {
+            "draw_index": 10,
+            "generator_model": "five_state",
+            "policy_name": "fixed_face_temperature",
+            "reasons": [
+              "whole_predictive_draw_failure"
+            ]
+          }
+        ],
+        "family": "temperature_dependent_contact",
+        "policies": {},
+        "task_id": "case-07-block-007-temperature_dependent_contact"
+      },
+      {
+        "block": 8,
+        "draws": [],
+        "family": "matched_four_state",
+        "policies": {
+          "fixed_voltage": [
+            "first_selected_family_action"
+          ]
+        },
+        "task_id": "case-08-block-008-matched_four_state"
+      },
+      {
+        "block": 9,
+        "draws": [],
+        "family": "matched_four_state",
+        "policies": {
+          "stop_now": [
+            "nearest_saved_zero_endpoint_approve"
+          ]
+        },
+        "task_id": "case-09-block-009-matched_four_state"
+      },
+      {
+        "block": 19,
+        "draws": [],
+        "family": "matched_four_state",
+        "policies": {
+          "fixed_thermal": [
+            "first_selected_family_action"
+          ]
+        },
+        "task_id": "case-10-block-019-matched_four_state"
+      },
+      {
+        "block": 24,
+        "draws": [],
+        "family": "temperature_dependent_contact",
+        "policies": {
+          "fixed_face_temperature": [
+            "first_selected_family_action"
+          ]
+        },
+        "task_id": "case-11-block-024-temperature_dependent_contact"
+      },
+      {
+        "block": 25,
+        "draws": [],
+        "family": "matched_four_state",
+        "policies": {
+          "stop_now": [
+            "nearest_saved_zero_endpoint_reject"
+          ]
+        },
+        "task_id": "case-12-block-025-matched_four_state"
+      },
+      {
+        "block": 26,
+        "draws": [],
+        "family": "extra_interface_mass",
+        "policies": {
+          "fixed_voltage": [
+            "first_selected_family_action"
+          ]
+        },
+        "task_id": "case-13-block-026-extra_interface_mass"
+      },
+      {
+        "block": 87,
+        "draws": [],
+        "family": "temperature_dependent_contact",
+        "policies": {
+          "stop_now": [
+            "nearest_saved_zero_endpoint_insufficient_evidence"
+          ]
+        },
+        "task_id": "case-14-block-087-temperature_dependent_contact"
+      }
+    ]
+  },
+  "schema_version": 1,
+  "scientific_result_digest": "d565c0c6368b602eeb3d2721c128aab88221bce9a6b5abe68fcda4c727d4edf0",
+  "scientific_use": "post_hoc_implementation_validation_only",
+  "selection_is_after_original_outcomes_but_before_any_new_numerical_replay": true,
+  "source_manifest_digest": "002d8afd7641dfa2e78269d195a5375c37b3f8aa547eb86d574dc439e7858662",
+  "source_revision": "7e3b9a3be22d991ec2e588cbd4a53a9d4d2d27d7",
+  "validation_file": {
+    "bytes": 826,
+    "sha256": "802022260b953bf4bd4e9caa14f9db89b5e232febe4a47b9e1f17175912deca2"
+  },
+  "version": "closed_phase_f_bounded_numerical_replay_v1"
+}

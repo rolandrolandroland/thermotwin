@@ -1,0 +1,414 @@
+{
+  "case_tasks": 15,
+  "draw_rows": [
+    {
+      "candidate_statuses": [
+        "fit_reached_bound",
+        "admissible"
+      ],
+      "draw_index": 0,
+      "failed": false,
+      "failure_stage": null,
+      "failure_type": null,
+      "generator_model": "four_state",
+      "policy_name": "fixed_thermal",
+      "reasons": [
+        "stable_predictive_fixed_thermal"
+      ],
+      "synthetic_observation_digest": "f7fdc2736b79b03ad11d1db12540bc344be5d81d982896b2b0ed3c593f7ebe1f",
+      "task_id": "case-00-block-000-matched_four_state"
+    },
+    {
+      "candidate_statuses": [
+        "fit_reached_bound",
+        "admissible"
+      ],
+      "draw_index": 0,
+      "failed": false,
+      "failure_stage": null,
+      "failure_type": null,
+      "generator_model": "four_state",
+      "policy_name": "fixed_voltage",
+      "reasons": [
+        "stable_predictive_fixed_voltage"
+      ],
+      "synthetic_observation_digest": "e0d794342acf29914800060320d5fad0bca21f0abc5729c9ccfe6382369d7676",
+      "task_id": "case-00-block-000-matched_four_state"
+    },
+    {
+      "candidate_statuses": [
+        "fit_reached_bound",
+        "admissible"
+      ],
+      "draw_index": 0,
+      "failed": false,
+      "failure_stage": null,
+      "failure_type": null,
+      "generator_model": "four_state",
+      "policy_name": "fixed_face_temperature",
+      "reasons": [
+        "stable_predictive_fixed_face_temperature"
+      ],
+      "synthetic_observation_digest": "4240d26872fa1761895c1776a45e0d65372e22cfe89a3845be2726054b43202f",
+      "task_id": "case-00-block-000-matched_four_state"
+    },
+    {
+      "candidate_statuses": [
+        "fit_reached_bound",
+        "admissible"
+      ],
+      "draw_index": 1,
+      "failed": false,
+      "failure_stage": null,
+      "failure_type": null,
+      "generator_model": "four_state",
+      "policy_name": "fixed_thermal",
+      "reasons": [
+        "usable_candidate_exclusion_fit_reached_bound"
+      ],
+      "synthetic_observation_digest": "d666e9a4d3793a3c3094d90368ca5dabb72f585d102c6e01a2ea34b2f276bba6",
+      "task_id": "case-01-block-000-extra_interface_mass"
+    },
+    {
+      "candidate_statuses": [
+        "admissible",
+        "optimizer_not_converged"
+      ],
+      "draw_index": 5,
+      "failed": false,
+      "failure_stage": null,
+      "failure_type": null,
+      "generator_model": "five_state",
+      "policy_name": "fixed_face_temperature",
+      "reasons": [
+        "usable_candidate_exclusion_optimizer_not_converged"
+      ],
+      "synthetic_observation_digest": "3ad13b28e3fd5fd806bc351a4341d2e40c0995f755904a0f6190ed496b263d16",
+      "task_id": "case-02-block-000-temperature_dependent_contact"
+    },
+    {
+      "candidate_statuses": [
+        "fit_reached_bound",
+        "fit_reached_bound"
+      ],
+      "draw_index": 10,
+      "failed": true,
+      "failure_stage": "prospective_uncertainty",
+      "failure_type": "NoAdmissibleCandidate",
+      "generator_model": "five_state",
+      "policy_name": "fixed_face_temperature",
+      "reasons": [
+        "whole_predictive_draw_failure"
+      ],
+      "synthetic_observation_digest": "7c1a35bb0ffb668b523085c2663a9bac143a1396b525f5644b77e3df9d0264ae",
+      "task_id": "case-07-block-007-temperature_dependent_contact"
+    }
+  ],
+  "focused_test_log": {
+    "bytes": 141,
+    "sha256": "a7844d5372bb669eeeb8974c32858de9a98d9f0bd9da617c70b758d7bddca81e"
+  },
+  "focused_tests_passed": 42,
+  "full_repository_test_seconds": 1210.339,
+  "full_repository_tests_passed": 1199,
+  "full_test_log": {
+    "bytes": 2968,
+    "sha256": "ce4a49f4a31568750d4d98e86ee39cc8a9309a2177fad97584dc9a2bcc03ea2f"
+  },
+  "independent_replay_verification_passed": true,
+  "new_numerical_computations_during_this_verification": false,
+  "new_replay_tests_in_focused_suite": 7,
+  "original_scientific_result_digest": "d565c0c6368b602eeb3d2721c128aab88221bce9a6b5abe68fcda4c727d4edf0",
+  "original_stream_uses_explicitly_replayed": 72,
+  "plan_digest": "273b40f7e126c7a722da4bcba0261dc375816acac3daac3d544e3b74d3ad2c90",
+  "policy_refits": 15,
+  "policy_rows": [
+    {
+      "block": 0,
+      "calibrated_procedures": [
+        "fixed_face_temperature"
+      ],
+      "family": "matched_four_state",
+      "policy": "fixed_face_temperature",
+      "raw_decision": "approve",
+      "raw_interval": {
+        "lower": 0.43053139732603046,
+        "upper": 0.5192082708939602
+      },
+      "reasons": [
+        "unselected_fixed_fallback_for_absent_cell"
+      ],
+      "task_id": "case-00-block-000-matched_four_state"
+    },
+    {
+      "block": 0,
+      "calibrated_procedures": [
+        "prospective_selector",
+        "stop_now"
+      ],
+      "family": "matched_four_state",
+      "policy": "stop_now",
+      "raw_decision": "approve",
+      "raw_interval": {
+        "lower": 0.440792654214866,
+        "upper": 0.6480117667844153
+      },
+      "reasons": [
+        "first_selected_family_action"
+      ],
+      "task_id": "case-00-block-000-matched_four_state"
+    },
+    {
+      "block": 0,
+      "calibrated_procedures": [
+        "prospective_selector",
+        "stop_now"
+      ],
+      "family": "extra_interface_mass",
+      "policy": "stop_now",
+      "raw_decision": "approve",
+      "raw_interval": {
+        "lower": 0.4734651320317333,
+        "upper": 0.7584482359330638
+      },
+      "reasons": [
+        "first_selected_family_action"
+      ],
+      "task_id": "case-01-block-000-extra_interface_mass"
+    },
+    {
+      "block": 0,
+      "calibrated_procedures": [
+        "prospective_selector",
+        "stop_now"
+      ],
+      "family": "temperature_dependent_contact",
+      "policy": "stop_now",
+      "raw_decision": "approve",
+      "raw_interval": {
+        "lower": 0.38857811085863525,
+        "upper": 0.6997184591101122
+      },
+      "reasons": [
+        "first_selected_family_action"
+      ],
+      "task_id": "case-02-block-000-temperature_dependent_contact"
+    },
+    {
+      "block": 1,
+      "calibrated_procedures": [
+        "fixed_thermal",
+        "prospective_selector"
+      ],
+      "family": "temperature_dependent_contact",
+      "policy": "fixed_thermal",
+      "raw_decision": "reject",
+      "raw_interval": {
+        "lower": -0.3755660436198061,
+        "upper": -0.021985547311720616
+      },
+      "reasons": [
+        "first_selected_family_action"
+      ],
+      "task_id": "case-03-block-001-temperature_dependent_contact"
+    },
+    {
+      "block": 2,
+      "calibrated_procedures": [
+        "fixed_face_temperature",
+        "prospective_selector"
+      ],
+      "family": "extra_interface_mass",
+      "policy": "fixed_face_temperature",
+      "raw_decision": "approve",
+      "raw_interval": {
+        "lower": 0.14511057664881571,
+        "upper": 0.3158921418292446
+      },
+      "reasons": [
+        "first_selected_family_action"
+      ],
+      "task_id": "case-04-block-002-extra_interface_mass"
+    },
+    {
+      "block": 3,
+      "calibrated_procedures": [
+        "fixed_voltage",
+        "prospective_selector"
+      ],
+      "family": "temperature_dependent_contact",
+      "policy": "fixed_voltage",
+      "raw_decision": "approve",
+      "raw_interval": {
+        "lower": 0.5126123635076827,
+        "upper": 0.6420572205599513
+      },
+      "reasons": [
+        "first_selected_family_action"
+      ],
+      "task_id": "case-05-block-003-temperature_dependent_contact"
+    },
+    {
+      "block": 5,
+      "calibrated_procedures": [
+        "fixed_thermal",
+        "prospective_selector"
+      ],
+      "family": "extra_interface_mass",
+      "policy": "fixed_thermal",
+      "raw_decision": "insufficient_evidence",
+      "raw_interval": {
+        "lower": -0.002990460323039734,
+        "upper": 0.3851364106473829
+      },
+      "reasons": [
+        "first_selected_family_action"
+      ],
+      "task_id": "case-06-block-005-extra_interface_mass"
+    },
+    {
+      "block": 8,
+      "calibrated_procedures": [
+        "fixed_voltage",
+        "prospective_selector"
+      ],
+      "family": "matched_four_state",
+      "policy": "fixed_voltage",
+      "raw_decision": "reject",
+      "raw_interval": {
+        "lower": -0.13090598232646933,
+        "upper": -0.06502493346452633
+      },
+      "reasons": [
+        "first_selected_family_action"
+      ],
+      "task_id": "case-08-block-008-matched_four_state"
+    },
+    {
+      "block": 9,
+      "calibrated_procedures": [
+        "prospective_selector",
+        "stop_now"
+      ],
+      "family": "matched_four_state",
+      "policy": "stop_now",
+      "raw_decision": "approve",
+      "raw_interval": {
+        "lower": 0.027430900812457942,
+        "upper": 0.2835700573890809
+      },
+      "reasons": [
+        "nearest_saved_zero_endpoint_approve"
+      ],
+      "task_id": "case-09-block-009-matched_four_state"
+    },
+    {
+      "block": 19,
+      "calibrated_procedures": [
+        "fixed_thermal",
+        "prospective_selector"
+      ],
+      "family": "matched_four_state",
+      "policy": "fixed_thermal",
+      "raw_decision": "insufficient_evidence",
+      "raw_interval": {
+        "lower": -0.183537970621035,
+        "upper": 0.02796863793005068
+      },
+      "reasons": [
+        "first_selected_family_action"
+      ],
+      "task_id": "case-10-block-019-matched_four_state"
+    },
+    {
+      "block": 24,
+      "calibrated_procedures": [
+        "fixed_face_temperature",
+        "prospective_selector"
+      ],
+      "family": "temperature_dependent_contact",
+      "policy": "fixed_face_temperature",
+      "raw_decision": "approve",
+      "raw_interval": {
+        "lower": 0.19444550230603305,
+        "upper": 0.4032246052733135
+      },
+      "reasons": [
+        "first_selected_family_action"
+      ],
+      "task_id": "case-11-block-024-temperature_dependent_contact"
+    },
+    {
+      "block": 25,
+      "calibrated_procedures": [
+        "prospective_selector",
+        "stop_now"
+      ],
+      "family": "matched_four_state",
+      "policy": "stop_now",
+      "raw_decision": "reject",
+      "raw_interval": {
+        "lower": -0.35919985880558236,
+        "upper": -0.025503144217645407
+      },
+      "reasons": [
+        "nearest_saved_zero_endpoint_reject"
+      ],
+      "task_id": "case-12-block-025-matched_four_state"
+    },
+    {
+      "block": 26,
+      "calibrated_procedures": [
+        "fixed_voltage",
+        "prospective_selector"
+      ],
+      "family": "extra_interface_mass",
+      "policy": "fixed_voltage",
+      "raw_decision": "insufficient_evidence",
+      "raw_interval": {
+        "lower": -0.02588462059868822,
+        "upper": 0.21545454819684312
+      },
+      "reasons": [
+        "first_selected_family_action"
+      ],
+      "task_id": "case-13-block-026-extra_interface_mass"
+    },
+    {
+      "block": 87,
+      "calibrated_procedures": [
+        "prospective_selector",
+        "stop_now"
+      ],
+      "family": "temperature_dependent_contact",
+      "policy": "stop_now",
+      "raw_decision": "approve",
+      "raw_interval": {
+        "lower": 0.02420379769168926,
+        "upper": 0.4302174229227601
+      },
+      "reasons": [
+        "nearest_saved_zero_endpoint_insufficient_evidence"
+      ],
+      "task_id": "case-14-block-087-temperature_dependent_contact"
+    }
+  ],
+  "predictive_draw_replays": 6,
+  "replay_artifact_digest": "9e08a8922451102f3a0c33359eaccbb35afff857b4f7c94cc544ff8524971a91",
+  "replay_scientific_digest": "5aac186cc9e17ef8fcaf3045e311582059c0276f9df316742990ecea77904b86",
+  "result_file": {
+    "bytes": 12275,
+    "sha256": "3798351ea70f97a3697f1c6de3f062f9c0af67b8cb7dc9925c315149d86ea1d3"
+  },
+  "saved_calibrated_decisions_recomputed": 116,
+  "schema_version": 1,
+  "source_revision": "7e3b9a3be22d991ec2e588cbd4a53a9d4d2d27d7",
+  "started_file": {
+    "bytes": 391,
+    "sha256": "b5c110a8292a2d703145c3ef8205805f7d7f0bd862dbcad5f096e09d5dc0b1bd"
+  },
+  "verification_script_file": {
+    "bytes": 12106,
+    "sha256": "355b1404c8e39e9eb7eb61b7789bd19e2a87d978258b8a564ee61ba94de705a6"
+  }
+}
