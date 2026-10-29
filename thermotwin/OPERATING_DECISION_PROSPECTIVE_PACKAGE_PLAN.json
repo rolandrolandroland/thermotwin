@@ -1,0 +1,56 @@
+{
+  "deliverables_directory": "reports/operating-decision-closeout-20261029",
+  "evaluation_path": ".artifacts/operating-decision/prospective-phase-f-reserved-7e3b9a3-v1/evaluation.json",
+  "evidence_directories": [
+    ".artifacts/operating-decision/prospective-pilot-v4",
+    ".artifacts/operating-decision/prospective-phase-d1-f848a95",
+    ".artifacts/operating-decision/prospective-phase-d2-ed45041",
+    ".artifacts/operating-decision/prospective-phase-d3-b0fd063",
+    ".artifacts/operating-decision/prospective-phase-d4-028fbca",
+    ".artifacts/operating-decision/prospective-phase-d5-72e711b",
+    ".artifacts/operating-decision/prospective-phase-d6-75f598a",
+    ".artifacts/operating-decision/prospective-phase-e-calibration-23a076f",
+    ".artifacts/operating-decision/prospective-phase-f-reserved-7e3b9a3-v1",
+    ".artifacts/operating-decision/phase-h-numerical-replay-20261029",
+    ".artifacts/operating-decision/phase-f-durable-reserved-7e3b9a3-20261018",
+    ".artifacts/operating-decision/phase-e-durable-run-20261012",
+    ".artifacts/operating-decision/phase-e-durable-run-20261015"
+  ],
+  "evidence_files": [
+    ".artifacts/operating-decision/phase-h-full-suite-20261029.log",
+    ".artifacts/operating-decision/phase-h-replay-focused-tests-20261029.log",
+    ".artifacts/operating-decision/phase-f-closeout-tests-20261029.log",
+    ".artifacts/operating-decision/phase-f-independent-result-audit-20261029.json",
+    ".artifacts/operating-decision/phase-f-abstention-cases-20261029.json",
+    ".artifacts/operating-decision/final-figure-verification-20261029.json",
+    ".artifacts/operating-decision/closeout-focused-tests-20261029.log",
+    ".artifacts/operating-decision/closeout-build-20261029/presentation-validation.json"
+  ],
+  "figures_directory": "reports/operating-decision-final-figures-20261029",
+  "intentionally_excluded": [
+    "Git metadata",
+    "virtual environments",
+    "unrelated uncommitted work",
+    "superseded invalid disposable raw campaigns",
+    "this package and final package receipt to avoid self reference"
+  ],
+  "repository_base_revision": "c836d19bc63a42580fbc17843c08872cc488e6cd",
+  "schema_version": 1,
+  "source_overlays": [
+    "tools/operating_decision_report_diagnostics.py",
+    "tools/build_operating_decision_final_report.py",
+    "tools/build_operating_decision_final_presentation.mjs",
+    "tools/operating_decision_closeout_package.py",
+    "tests/test_operating_decision_closeout.py",
+    "thermotwin/OPERATING_DECISION_PROSPECTIVE_REPORT_DIAGNOSTICS.json",
+    "thermotwin/OPERATING_DECISION_PROSPECTIVE_PACKAGE_PLAN.json",
+    "docs/thermotwin/OPERATING_DECISION_FINAL_REPORT.md",
+    "docs/thermotwin/OPERATING_DECISION_REPRODUCIBILITY.md",
+    "docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md",
+    "docs/thermotwin/OPERATING_DECISION_PHASE_F_RESULT.md",
+    "docs/thermotwin/OPERATING_DECISION_PHASE_H_REPLAY.md",
+    "docs/thermotwin/OPERATING_DECISION_ABSTENTION_DIAGNOSIS.md",
+    "docs/thermotwin/OPERATING_DECISION_FINAL_FIGURES.md",
+    "thermotwin/ROADMAP.md"
+  ]
+}

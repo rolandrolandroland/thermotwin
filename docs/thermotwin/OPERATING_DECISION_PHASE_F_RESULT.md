@@ -197,7 +197,7 @@ hashes can change the packaging digest. The frozen scientific-result digest
 and reported scientific numbers must remain unchanged. Neither tool imports
 the original scoring implementation or regenerates reserved observations.
 
-## Remaining work
+## Final closeout
 
 This completes the validated Phase F result record and the independent
 arithmetic/statistical check. The original campaign is not reopened. The
@@ -205,7 +205,9 @@ subsequent [exploratory abstention diagnosis](OPERATING_DECISION_ABSTENTION_DIAG
 is now complete and leaves this primary result unchanged. The bounded
 [numerical replay](OPERATING_DECISION_PHASE_H_REPLAY.md) and
 [three final figures](OPERATING_DECISION_FINAL_FIGURES.md) are also complete.
-Remaining Phase H work is the final report, presentation and
-reproducibility/deposit package. Any redesigned selector
+The [final report](OPERATING_DECISION_FINAL_REPORT.md), ten-slide editable
+presentation and [local hash-verified reproducibility package](OPERATING_DECISION_REPRODUCIBILITY.md)
+complete Phase H locally. An immutable external deposit has not been made.
+Any redesigned selector
 requires a new version and fresh development, calibration and reserved
 partitions; this exposed cohort cannot confirm its performance.

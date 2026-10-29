@@ -144,9 +144,10 @@ threshold from reserved outcomes.
 
 ## Implication for the next experiment
 
-The [current figures](OPERATING_DECISION_FINAL_FIGURES.md) are complete.
-Complete the final report and reproducibility package with the primary
-non-success intact. The present diagnosis makes a
+The [figures](OPERATING_DECISION_FINAL_FIGURES.md),
+[final report](OPERATING_DECISION_FINAL_REPORT.md) and
+[local reproducibility package](OPERATING_DECISION_REPRODUCIBILITY.md)
+are complete with the primary non-success intact. The present diagnosis makes a
 decision-aware acquisition objective a reasonable hypothesis for a new version:
 value an action for its expected chance of producing a reliable final decision
 per cost, accounting for the location of the interval relative to zero as well

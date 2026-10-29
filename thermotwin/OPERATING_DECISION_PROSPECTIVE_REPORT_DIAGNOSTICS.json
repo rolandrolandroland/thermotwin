@@ -1,0 +1,221 @@
+{
+  "analysis_script_file": {
+    "bytes": 7075,
+    "sha256": "a91c8477da7d7533c428217291b65bf58e8e9e6417df623b46a10ecc1d951b5f"
+  },
+  "archive_file": {
+    "bytes": 4991360,
+    "sha256": "299f75ad492e5bde0acc724ed4e72ae029c86f2c05538677c2a856c23734c564"
+  },
+  "artifact_digest": "cdc504608e8681a781604e63f273418051c55769bb1ac808f3890f4fc5063d88",
+  "illustrative_trajectory": {
+    "block": 1,
+    "family": "temperature_dependent_contact",
+    "records": [
+      {
+        "candidate": "five_state",
+        "maximum_absolute_error_kelvin": 0.13567661031373746,
+        "phase": "initial",
+        "rmse_kelvin": 0.061125328353692394,
+        "time_points": 321
+      },
+      {
+        "candidate": "four_state",
+        "maximum_absolute_error_kelvin": 0.16996655563752938,
+        "phase": "initial",
+        "rmse_kelvin": 0.10418488152776027,
+        "time_points": 321
+      },
+      {
+        "candidate": "four_state",
+        "maximum_absolute_error_kelvin": 0.175269402880474,
+        "phase": "verified",
+        "rmse_kelvin": 0.1065789945035572,
+        "time_points": 321
+      },
+      {
+        "candidate": "five_state",
+        "maximum_absolute_error_kelvin": 0.11458752758369428,
+        "phase": "verified",
+        "rmse_kelvin": 0.050368677825874536,
+        "time_points": 321
+      }
+    ]
+  },
+  "matched_family_parameter_errors": {
+    "fixed_face_temperature": {
+      "absolute_relative_error": {
+        "cold_contact_resistance": {
+          "count": 100,
+          "maximum": 0.0304384881307308,
+          "mean": 0.008872498485608683,
+          "median": 0.007441550712792899
+        },
+        "cold_face_capacitance": {
+          "count": 100,
+          "maximum": 0.02516587926723768,
+          "mean": 0.009431781127215608,
+          "median": 0.007222177474313418
+        },
+        "series_resistance": {
+          "count": 100,
+          "maximum": 1.8473107742304067,
+          "mean": 0.39613157413795774,
+          "median": 0.2776333231115092
+        },
+        "shared_sensor_lag": {
+          "count": 100,
+          "maximum": 0.0807337857147139,
+          "mean": 0.02980900128442441,
+          "median": 0.02556433747393433
+        }
+      },
+      "status": {
+        "excluded_or_unverified": 0,
+        "passed_four_state_fits": 100,
+        "total_cases": 100
+      }
+    },
+    "fixed_thermal": {
+      "absolute_relative_error": {
+        "cold_contact_resistance": {
+          "count": 100,
+          "maximum": 0.1136336664826394,
+          "mean": 0.029627718371929207,
+          "median": 0.02709507143693629
+        },
+        "cold_face_capacitance": {
+          "count": 100,
+          "maximum": 0.06573321505973473,
+          "mean": 0.01596577666479161,
+          "median": 0.013109908392420988
+        },
+        "series_resistance": {
+          "count": 100,
+          "maximum": 1.7744022820535608,
+          "mean": 0.38618792332837804,
+          "median": 0.286478562030526
+        },
+        "shared_sensor_lag": {
+          "count": 100,
+          "maximum": 0.18524132097752788,
+          "mean": 0.03754924762330009,
+          "median": 0.030495747900158132
+        }
+      },
+      "status": {
+        "excluded_or_unverified": 0,
+        "passed_four_state_fits": 100,
+        "total_cases": 100
+      }
+    },
+    "fixed_voltage": {
+      "absolute_relative_error": {
+        "cold_contact_resistance": {
+          "count": 100,
+          "maximum": 0.03782799960337746,
+          "mean": 0.011889555915829606,
+          "median": 0.009493155466746894
+        },
+        "cold_face_capacitance": {
+          "count": 100,
+          "maximum": 0.019937970581628717,
+          "mean": 0.006282870014623794,
+          "median": 0.005295159869105948
+        },
+        "series_resistance": {
+          "count": 100,
+          "maximum": 0.04876690756271551,
+          "mean": 0.00790429938253585,
+          "median": 0.006765789652617038
+        },
+        "shared_sensor_lag": {
+          "count": 100,
+          "maximum": 0.1108183423639314,
+          "mean": 0.031104819831412153,
+          "median": 0.024690184849430807
+        }
+      },
+      "status": {
+        "excluded_or_unverified": 0,
+        "passed_four_state_fits": 100,
+        "total_cases": 100
+      }
+    },
+    "prospective_selector": {
+      "absolute_relative_error": {
+        "cold_contact_resistance": {
+          "count": 100,
+          "maximum": 0.16983578631826846,
+          "mean": 0.03991747828762243,
+          "median": 0.03546305155030377
+        },
+        "cold_face_capacitance": {
+          "count": 100,
+          "maximum": 0.07552984658821071,
+          "mean": 0.02137872418111087,
+          "median": 0.01794627467790877
+        },
+        "series_resistance": {
+          "count": 100,
+          "maximum": 2.084806853021487,
+          "mean": 0.3739365261184929,
+          "median": 0.2631940839523705
+        },
+        "shared_sensor_lag": {
+          "count": 100,
+          "maximum": 0.22854549886511544,
+          "mean": 0.0529613641982174,
+          "median": 0.03990509701153433
+        }
+      },
+      "status": {
+        "excluded_or_unverified": 0,
+        "passed_four_state_fits": 100,
+        "total_cases": 100
+      }
+    },
+    "stop_now": {
+      "absolute_relative_error": {
+        "cold_contact_resistance": {
+          "count": 100,
+          "maximum": 0.16983578631826846,
+          "mean": 0.04449462113870893,
+          "median": 0.040431194008541116
+        },
+        "cold_face_capacitance": {
+          "count": 100,
+          "maximum": 0.07552984658821071,
+          "mean": 0.023422486496356237,
+          "median": 0.020483019968997873
+        },
+        "series_resistance": {
+          "count": 100,
+          "maximum": 2.084806853021487,
+          "mean": 0.39498936743605984,
+          "median": 0.2866152687573917
+        },
+        "shared_sensor_lag": {
+          "count": 100,
+          "maximum": 0.22854549886511544,
+          "mean": 0.05482664864043827,
+          "median": 0.040916672334396
+        }
+      },
+      "status": {
+        "excluded_or_unverified": 0,
+        "passed_four_state_fits": 100,
+        "total_cases": 100
+      }
+    }
+  },
+  "new_fits_ode_integrations_observations_or_partitions": false,
+  "new_parameter_draws": false,
+  "parameter_case_records_digest": "078ac0bad0db8b921b18431e0f67b2804eebf16d1c262d2988e588fc5dc55f2e",
+  "parameter_scope": "passed four-state verifications in matched_four_state only; excluded fits counted separately; conditional descriptive errors",
+  "scalar_parameter_replayed_blocks": 100,
+  "schema_version": 1,
+  "scientific_result_digest": "d565c0c6368b602eeb3d2721c128aab88221bce9a6b5abe68fcda4c727d4edf0",
+  "scientific_use": "post_hoc_supporting_diagnostics_not_primary_or_model_identification",
+  "source_revision": "7e3b9a3be22d991ec2e588cbd4a53a9d4d2d27d7"
+}

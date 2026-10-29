@@ -602,7 +602,12 @@ heat-transfer parameter.
   refits, six predictive draws and 116 calibrated decisions exactly; independent
   evidence reload and 1,199 existing plus seven new tests passed. The three
   final figures are complete, with nine byte-reproduced exports and 48 passing
-  focused tests. Full report, presentation and archival packaging remain. See
+  focused tests. The 11-page final report, ten-slide editable presentation and
+  local hash-verified evidence package complete the software-only experiment.
+  Archive extraction, independent result/replay checks and 58 focused tests
+  passed. An immutable external deposit has not been made. See
+  `docs/thermotwin/OPERATING_DECISION_FINAL_REPORT.md`,
+  `docs/thermotwin/OPERATING_DECISION_REPRODUCIBILITY.md`,
   `docs/thermotwin/OPERATING_DECISION_FINAL_FIGURES.md`,
   `docs/thermotwin/OPERATING_DECISION_PHASE_H_REPLAY.md`,
   `docs/thermotwin/OPERATING_DECISION_ABSTENTION_DIAGNOSIS.md`,

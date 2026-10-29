@@ -1,0 +1,77 @@
+{
+  "artifact_digest": "6ddac95e2d897348a4c91565756c4ea0a54fef61a5bcec9ce426742ce8188236",
+  "deliverables": {
+    "operating-decision-final-presentation.pptx": {
+      "bytes": 56919,
+      "path": "reports/operating-decision-closeout-20261029/operating-decision-final-presentation.pptx",
+      "sha256": "4b088bd5ef02c1538735234b48484b35d7832e6c0494536401e8973be98e3c49"
+    },
+    "operating-decision-final-report.pdf": {
+      "bytes": 135676,
+      "path": "reports/operating-decision-closeout-20261029/operating-decision-final-report.pdf",
+      "sha256": "29da9b553607477005dc55a032e6cbd38c21bbb0adde4acc46b1b32cc7304fef"
+    },
+    "operating-decision-reproducibility.zip": {
+      "bytes": 194908648,
+      "path": "reports/operating-decision-closeout-20261029/operating-decision-reproducibility.zip",
+      "sha256": "03f1c3d104ea534dbd33b4ada18d1d249a16e706bac8fc44dce867afa833035c"
+    }
+  },
+  "external_deposit_url": null,
+  "external_immutable_deposit": false,
+  "new_fits_observations_ode_responses_or_partitions_for_closeout": false,
+  "numerical_source_revision": "7e3b9a3be22d991ec2e588cbd4a53a9d4d2d27d7",
+  "package": {
+    "files_verified": 1532,
+    "immutable_external_deposit": false,
+    "manifest_digest": "517d9e9e1b26a5148ce7cfbb7ff6886094a9bd5b2126b3d006de2867ae2e6432",
+    "package_file": {
+      "bytes": 194908648,
+      "sha256": "03f1c3d104ea534dbd33b4ada18d1d249a16e706bac8fc44dce867afa833035c"
+    },
+    "round_trip_extraction_verified": true,
+    "safe_membership_verified": true,
+    "uncompressed_bytes": 1657498482
+  },
+  "packaging_repository_base_revision": "c836d19bc63a42580fbc17843c08872cc488e6cd",
+  "presentation_slides": 10,
+  "primary_success": false,
+  "recorded_date": "2026-10-29",
+  "report_pages": 11,
+  "reports_directory_remains_gitignored": true,
+  "scalar_parameters_replayed_from_original_registered_seeds": true,
+  "schema_version": 1,
+  "scientific_conclusion": "primary_success_not_established_no_qualified_operating_policy",
+  "scientific_result_digest": "d565c0c6368b602eeb3d2721c128aab88221bce9a6b5abe68fcda4c727d4edf0",
+  "status": "complete_local_hash_verified_evidence_package",
+  "supporting_diagnostics_artifact_digest": "cdc504608e8681a781604e63f273418051c55769bb1ac808f3890f4fc5063d88",
+  "validation": {
+    "extracted_independent_result_audit": {
+      "bytes": 2011,
+      "sha256": "93b17399ccd2f4c7796924f4a5086b6968de4503b742b25ff1b1a293ca25d0b6"
+    },
+    "extracted_retained_replay_verification": {
+      "bytes": 11967,
+      "sha256": "5637a2c1062246b540779f0cb37299bc10add0855a8cc8cea88d4bb17106d174"
+    },
+    "final_pptx_reimported_and_all_slides_rendered": true,
+    "focused_tests_passed": 58,
+    "native_powerpoint_application_tested": false,
+    "new_closeout_tests": 10,
+    "presentation_slides_visually_reviewed": 10,
+    "presentation_validation": {
+      "bytes": 8759,
+      "sha256": "bcdf481edd9d55bc55d2729d29c464a55ef075ed7551d254258583bed54902b0"
+    },
+    "previous_scientific_artifacts_unchanged": true,
+    "report_pages_visually_reviewed": 11,
+    "retained_replay_calibrated_decisions_verified": 116,
+    "saved_outcomes_reconstructed_from_extracted_archive": 6000,
+    "test_log": {
+      "bytes": 157,
+      "sha256": "adb6f31c2dd74b919768058f4bbc7b5cb6f2c97045a3a61b9d670399920ab952"
+    },
+    "unchanged_frozen_numerical_paths_in_each_source_root": 117
+  },
+  "version": "operating_decision_local_closeout_v1"
+}

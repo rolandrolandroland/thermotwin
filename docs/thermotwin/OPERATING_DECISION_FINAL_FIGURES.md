@@ -1,7 +1,8 @@
 # Operating-decision final figures
 
-Date: 2026-10-29. Status: complete; full report, presentation and deposit package
-remain separate Phase H work.
+Date: 2026-10-29. Status: complete. The [final report](OPERATING_DECISION_FINAL_REPORT.md),
+presentation and [local evidence package](OPERATING_DECISION_REPRODUCIBILITY.md)
+also complete local Phase H work.
 
 The three figures present the accepted synthetic experiment, its limitations
 and the development measurement map. Primary success was not established.
@@ -149,6 +150,7 @@ The local verification record is retained at
 `.artifacts/operating-decision/final-figure-verification-20261029.json`.
 
 This completes the figure portion of Phase H. The full report, presentation
-and reproducibility/deposit package remain. The study is software-only
+and local reproducibility package are also complete. No immutable external
+deposit has been made. The study is software-only
 evidence; a future decision-aware redesign requires a separate protocol and
 fresh development, calibration and reserved partitions.

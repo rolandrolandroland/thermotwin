@@ -2,8 +2,12 @@
 
 Date: 2026-09-17. Last reconciled: 2026-10-29.
 
-**Current status: the 100-block Phase F reserved experiment and independent
-archive validation completed on October 21 at 19:24 Eastern.** The
+**Current status: the software-only operating-decision experiment is complete,
+including the final report, presentation and local hash-verified evidence
+package.** See the [final report](OPERATING_DECISION_FINAL_REPORT.md) and
+[reproduction guide](OPERATING_DECISION_REPRODUCIBILITY.md). The 100-block
+Phase F reserved experiment and independent archive validation completed on
+October 21 at 19:24 Eastern. The
 [Phase F result](OPERATING_DECISION_PHASE_F_RESULT.md) is now recorded with an
 independent standard-library reconstruction of all 6,000 outcomes and all
 primary/secondary statistics. Primary success was not established: the selector
@@ -23,8 +27,11 @@ calibrated decisions reproduced exactly under the original source and runtime.
 Independent evidence reload passed. All 1,199 existing tests and seven new replay
 tests passed. The [three final figures](OPERATING_DECISION_FINAL_FIGURES.md)
 are also complete, with authenticated plot inputs, nine reproducible exports
-and 48 passing focused tests. Full report, presentation and archival packaging
-remain.
+and 48 passing focused tests. The final report contains 11 pages and the
+editable presentation ten slides. The evidence package passed full hash and
+extraction checks, independent result reconstruction and retained-replay
+verification. All 58 closeout-focused tests passed. The package is local and
+hash-verified; an immutable external deposit has not been made.
 
 ## Execution history
 
@@ -100,8 +107,8 @@ described below. The audits are retained as
 [`THERMOTWIN_AUDIT_2026_09_17_STEPS_2_3.md`](THERMOTWIN_AUDIT_2026_09_17_STEPS_2_3.md).
 
 This status record does not freeze a scientific procedure. It records the
-boundary between completed numerical evidence and the remaining prospective
-experiment reporting and archival work. P1, invalid P2, valid P3, and the valid P3 N32 continuation are
+boundary between completed numerical evidence, completed local closeout and
+any optional later external deposit. P1, invalid P2, valid P3, and the valid P3 N32 continuation are
 closed disposable evidence. Both Phase D development partitions are now
 complete and closed against regeneration. Independent calibration is complete,
 independently validated, and closed against regeneration under its accepted
@@ -339,7 +346,7 @@ comparator metrics are recorded in the [D6 result](OPERATING_DECISION_PHASE_D6_R
 | E — analysis freeze and calibration | Complete: 100/100 blocks; five finite corrections; frozen-source and independent arithmetic validation passed | Preserve the accepted calibration artifact and closed cohort. Record interrupted-run resource limitations; the separate F3 gate governs reserved opening. |
 | F — reserved evaluation | Complete: 100 blocks; original independent validation passed October 21; [result](OPERATING_DECISION_PHASE_F_RESULT.md) and independent arithmetic audit recorded October 29 | Preserve the closed cohort and accepted non-success on the primary criterion. No regeneration, retuning or reactive extension. |
 | G — interpretation | Complete for the primary classification, independent statistical verification and [bounded exploratory abstention diagnosis](OPERATING_DECISION_ABSTENTION_DIAGNOSIS.md) | Preserve the primary non-success and label the diagnosis post hoc. A decision-aware redesign remains a hypothesis requiring a separate protocol and fresh partitions. |
-| H — final reporting and archive | In progress: bounded numerical replay, independent evidence reload, tests and [three final figures](OPERATING_DECISION_FINAL_FIGURES.md) complete | Complete the final report, presentation and reproducibility/deposit package. |
+| H — final reporting and archive | Complete locally: replay, figures, [final report](OPERATING_DECISION_FINAL_REPORT.md), ten-slide presentation and [hash-verified package](OPERATING_DECISION_REPRODUCIBILITY.md) | Preserve the closed scientific record and package. An optional immutable external deposit remains separate. |
 
 Phase B records the following boundaries for the pilot and later development:
 
