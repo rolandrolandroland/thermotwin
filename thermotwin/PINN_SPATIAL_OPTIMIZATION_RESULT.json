@@ -1,0 +1,1762 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-10-23T15:29:45.020790+00:00",
+  "parent_commit": "12bc6337c328a6ab85404eedf766c1bfc5c59d7d",
+  "development_only": true,
+  "scope": "Training-probe-selected optimizer on four reused 2D forward development datasets; saved gates only.",
+  "recorded_status": "blocked_forward_gate",
+  "denominator": {
+    "declared_cases": 4,
+    "new_method_fits": 4,
+    "reused_paired_datasets": 4,
+    "completed": 2,
+    "failed": 1,
+    "not_run_or_not_recorded": 1,
+    "saved_gate_passes": 1,
+    "fixed_updates_per_completed_fit": 320,
+    "automatic_retries": 0,
+    "independent_noise_replications_claimed": false
+  },
+  "plan": {
+    "path": "thermotwin/PINN_SPATIAL_OPTIMIZATION_PLAN.json",
+    "sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+    "source_sha256": {
+      "pyproject.toml": "01b0ee6e83096856e09559aa4f7577c6a6c75da5de17dbf80d791ef4985cd165",
+      "reports/pinn-spatial-validation/optimization-directional-probe.py": "e72fb63d6399e9beabab4c8607f642aa2dabb6b64b7d33cec9a8976d120e1a80",
+      "reports/pinn-spatial-validation/optimization-history-probe.py": "4cc04b036c394f348ffc7e8515ff4d5600e6b379d0295f82425801e826312b8f",
+      "reports/pinn-spatial-validation/prepare-and-launch-optimized.py": "9132cdb9592927a1f3c825c3cb1c71c3309fcd8426b4b000fb9f03631d8d45fe",
+      "tests/test_pinn_spatial_continuity.py": "ab149fcb47f008c16aa0831d49d07e3dc36259c3fdb1847e344da3ff9e653498",
+      "tests/test_pinn_spatial_continuity_report.py": "b690a01357905c0a7d10964a7296fa714a9f33fd1aca810e5b57613f4431f519",
+      "tests/test_pinn_spatial_graded.py": "43dede33366e508c5a3abefb90844a5f3602007638302723437a3a87d83f48aa",
+      "tests/test_pinn_spatial_optimized.py": "aae25f25f98fb54ac2e8d9055a4b8837a52acdbd151c16352cd9c8d3004c35f5",
+      "tests/test_planar_contact_consistent.py": "c546403ce4be3785e01e313b3b5d2de072d2e99cb838f10d980497f22f11de8f",
+      "tests/test_planar_contact_continuity.py": "a1436feed28b93241ba3b9b743bfa9e731eec1d9f340389d1ac141df026786ba",
+      "tests/test_planar_contact_graded.py": "62fbe1ad995548be1175fabe991f8d64b1c3b9fb15506315b3da6c4ef64d2e5c",
+      "tests/test_planar_contact_optimized.py": "0716d1bfc23e9c1c55804152e54ede795b499151b3e3ebe532b26f906d78fcc7",
+      "thermotwin/physics/planar_contact.py": "f1091a133168ff7c4cdaa463f6dd838ad103d4cee1ffbf54aa612680b8b3abd8",
+      "thermotwin/pinn/planar_contact_consistent.py": "ff9593ae2f5a96a01f70d10700c3c94c0b1629c31d2e01a239ffa7fa848ea8ae",
+      "thermotwin/pinn/planar_contact_continuity.py": "27c5a1cf741565128375c1da1b2e889e323bf8ac47c8f64338156ae5a396a8bd",
+      "thermotwin/pinn/planar_contact_graded.py": "7c9cf21c52e3bcffff880b6a70cb6f18a765c8d3e0f3cf1a651c69c153a4f1de",
+      "thermotwin/pinn/planar_contact_inverse.py": "a8e183b4f43b3ca0ba41918cf43982c9d2e6034064f564388c603532366300e5",
+      "thermotwin/pinn/planar_contact_optimized.py": "2b471b75e13549c9db9274b8d34246bcef0615974556300f5eee39ced2f7786a",
+      "thermotwin/reports/pinn_spatial_continuity.py": "2ce68167861c219c677238c2be02abfe9b2f2dfbcafabbeeb4b03d5b6c314362",
+      "thermotwin/studies/pinn_spatial_consistent.py": "c90c0d7dce26d8eb1865e8445e556c35c4476a02eabfa6ce17a3f710cea69484",
+      "thermotwin/studies/pinn_spatial_continuity.py": "fddf36f14b72731ba963fbc865cbb92ec70e9fbf8b0aa86f36a74e84ad610f36",
+      "thermotwin/studies/pinn_spatial_graded.py": "e9df846b33d34f5608cd919b3a1ce05d496c268e3a8e33faf7aebfbce4e28161",
+      "thermotwin/studies/pinn_spatial_optimized.py": "f89e9a7d471d99e7f1cac6a23e4da97244a63246b7b3924e05aa68233b4a244f"
+    },
+    "runtime": {
+      "implementation": "CPython",
+      "python": "3.10.12",
+      "packages": {
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "torch": "2.9.1"
+      },
+      "float": "float64",
+      "threads": 1
+    },
+    "model_config": {
+      "width": 24,
+      "layers": 2,
+      "adam_epochs": 320,
+      "projection_every": 1,
+      "interior_points": 8192,
+      "bottom_points": 512,
+      "learning_rate": 0.0064,
+      "gradient_clip": 1.0,
+      "max_backtracks": 4,
+      "physics_weight": 100.0,
+      "observation_weight": 1.0,
+      "rank_rcond": 1e-07,
+      "projection_chunk": 128,
+      "bottom_log_feature": false,
+      "bottom_log_scale": 0.001,
+      "corner_enrichment": true,
+      "duration": 120.0,
+      "initial_temperature": 300.0,
+      "temperature_scale": 5.0,
+      "ramp_seconds": 10.0,
+      "bath_drop_kelvin": 5.0,
+      "top_flux_watts_per_square_metre": 500.0,
+      "interface_temperature_scale": 0.1,
+      "optimizer_history": "persistent"
+    },
+    "gates": {
+      "normalized_observation_mse": 2.0,
+      "each_normalized_residual_rms": 0.05,
+      "field_rmse_K": 0.05,
+      "field_maximum_error_K": 0.15,
+      "interface_temperature_scale_K": 0.1,
+      "flux_scale_W_m2": 500.0,
+      "interior_scale_K_s": 0.041666666666666664
+    },
+    "seeds": {
+      "noise": 2026102201,
+      "neural": 2026102202,
+      "sampling": 2026102203,
+      "diagnostic": 2026102204
+    },
+    "topology": {
+      "execution": "single isolated main process; four cases in declared order",
+      "threads": 1,
+      "rss_limit_bytes": 2147483648,
+      "campaign_wall_seconds": 14400.0
+    },
+    "near_bottom_audit": {
+      "point_digest": "3fd7f485582a179c0ec2d0f4e7aaab42f0afd166e80c7a463a0d57868f84228a",
+      "role": "inherited report-only whole-plate audit after checkpoint; unchanged six height strata"
+    },
+    "initialization_policy": "fresh original seed and original common weights; no probe or campaign checkpoint continuation",
+    "selection_boundary": "training-only probe objectives; no independent acceptance diagnostics or hidden reference fields"
+  },
+  "raw_campaign": {
+    "directory": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimized-v6-development",
+    "files": 54,
+    "artifact_index_sha256": "5477ec6976ae143a62e8ea63a94d37cdcf515b4fb66cbed25f90eb7bf587366f",
+    "plan_sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+    "optimizer_history": "persistent",
+    "fixed_optimizer_updates": 320,
+    "reused_dataset_count": 4,
+    "tracked_plan": "thermotwin/PINN_SPATIAL_OPTIMIZATION_PLAN.json",
+    "tracked_plan_sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+    "artifact_index_digest": "771214d6015e0dbf4cd4fd9515282803fa5dbb0f07c41f6ce11abd9da0864e61"
+  },
+  "case_outcomes": [
+    {
+      "id": "t01",
+      "geometry": "full_contact",
+      "known_h": 800.0,
+      "status": "completed",
+      "gate": {
+        "observations": true,
+        "each_independent_residual": true,
+        "field": true,
+        "all": true
+      },
+      "normalized_observation_mse": 0.40309016972291184,
+      "field_metrics": {
+        "rmse_K": 0.00836618160670445,
+        "maximum_error_K": 0.03838364410268014
+      },
+      "primary_diagnostics": {
+        "normalized_rms": {
+          "interior": 0.026068031771371125,
+          "top": 6.195294082639628e-17,
+          "bottom_contact": 0.01688963293347906,
+          "left": 0.0,
+          "right": 0.0
+        },
+        "physical_rms": {
+          "interior": 0.0010861679904737968,
+          "top": 3.097647041319814e-14,
+          "bottom_contact": 8.44481646673953,
+          "left": 0.0,
+          "right": 0.0
+        },
+        "normalization_scales": {
+          "interior": 0.041666666666666664,
+          "top": 500.0,
+          "bottom_contact": 500.0,
+          "left": 500.0,
+          "right": 500.0
+        },
+        "point_counts": {
+          "interior": 5280,
+          "top": 1760,
+          "bottom_contact": 1760,
+          "left": 264,
+          "right": 264
+        },
+        "validation_scheme": "unchanged caller-supplied independent v2 strong residual points",
+        "all_families_pass": true
+      },
+      "checkpoint_sha256": "c740ee73e4e5584d0354e4b8f88f0796fcd62575922700f8a573d0b0dfdcf2cc",
+      "indexed_artifacts": {
+        "result.json": {
+          "sha256": "8c98bb49bb4b86737ad816816e02782513553e3641c03b09f02ed920d6c256fc",
+          "bytes": 2106
+        },
+        "final_checkpoint.pt": {
+          "sha256": "c740ee73e4e5584d0354e4b8f88f0796fcd62575922700f8a573d0b0dfdcf2cc",
+          "bytes": 70032
+        },
+        "training-report.json": {
+          "sha256": "1ebf221b5dc033ebe96e9aeec2c74a9069d2a6c67e7155ea1f5ed7c72a0bed6e",
+          "bytes": 5299968
+        },
+        "observations.npz": {
+          "sha256": "0dd9d9ca82a1fb598187a5bb4700b5234887e6af0d82bf658fa846413d224019",
+          "bytes": 1213
+        },
+        "field_scoring.npz": {
+          "sha256": "1191da99b8bedced8ae4b24d359baae38b8a70ba84adbd93823b7aeaed4d7c19",
+          "bytes": 136883
+        }
+      },
+      "error_or_reason": null,
+      "training": {
+        "architecture": "graded_hermite_field_with_transactional_profiled_adam",
+        "model_module": "thermotwin.pinn.planar_contact_optimized",
+        "wall_seconds": 4491.8449282919755,
+        "final_objective": 0.4856861930052603,
+        "final_physics_loss": 0.0008259602328234842,
+        "normalized_observation_mse": 0.40309016972291184,
+        "training_family_mse": {
+          "interior": 0.0006119580665967223,
+          "bottom_contact": 0.00021400216622676188
+        },
+        "coefficient_count": 150,
+        "base_coefficient_count": 75,
+        "initialization": {
+          "arm": "off",
+          "neural_seed": 2026102202,
+          "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+          "shared_function_sha256": "4446cc633af1a8fdd46fc1e12a1945c4a2a2546f878378aa9f973e7890a81836",
+          "complete_state_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+          "log_column_zero": null,
+          "on_only_log_column_initially_zero": true,
+          "log_column_present": false,
+          "probe_agreement": {
+            "basis_max_abs": 1.1102230246251565e-16,
+            "temperature_max_abs": 0.0,
+            "normalized_gradient_max_abs": 2.7755575615628914e-17,
+            "normalized_hessian_max_abs": 2.7755575615628914e-16,
+            "physical_gradient_max_abs": 1.0658141036401503e-14,
+            "physical_hessian_max_abs": 8.185452315956354e-12,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance": 1e-10,
+            "passed": true
+          }
+        },
+        "graded_point_metadata": {
+          "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+          "point_identities": {
+            "bottom_contact": {
+              "shape": [
+                512,
+                3
+              ],
+              "sha256": "c9e95a246c4c6ec815e76611d6914028aeb23f34ec9e178cf6315b647d07c94a"
+            },
+            "interior": {
+              "shape": [
+                8192,
+                3
+              ],
+              "sha256": "4904a8aa084b9d8402f062c87570db2b7873b5a8acad45f4c1a4a88a34cf5b60"
+            }
+          },
+          "point_counts": {
+            "interior": 8192,
+            "bottom_contact": 512
+          },
+          "strata": [
+            {
+              "name": "bulk",
+              "start": 0,
+              "stop": 6144,
+              "count": 6144,
+              "mean_weight": 0.75
+            },
+            {
+              "name": "bottom_band",
+              "start": 6144,
+              "stop": 8192,
+              "count": 2048,
+              "mean_weight": 0.25
+            }
+          ],
+          "interior_min_height_m": 4e-06,
+          "interior_max_height_m": 0.0038397794084484714,
+          "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+        },
+        "training_point_counts": {
+          "interior": 8192,
+          "bottom_contact": 512
+        },
+        "hidden_rejected_updates": 253,
+        "hidden_backtrack_count": 1064,
+        "hidden_accepted_objective_increases": 0,
+        "optimizer_history": "persistent",
+        "optimizer_instances": 1,
+        "optimizer_resets": 0,
+        "optimizer_state_rollbacks": 253,
+        "optimizer_state_policy": "transactional moments, step counters, groups and gradient buffers; commit once on acceptance; exact rollback on rejection or exception",
+        "final_optimizer_step_counts": [
+          67
+        ],
+        "gradient_semantics": "fixed-readout proposal; no exact profiled-gradient claim with truncated SVD",
+        "status": "recorded",
+        "raw_report": "reports/pinn-spatial-validation/optimized-v6-development/t01/training-report.json",
+        "raw_report_sha256": "1ebf221b5dc033ebe96e9aeec2c74a9069d2a6c67e7155ea1f5ed7c72a0bed6e",
+        "timing_scope": "Fit only; independent diagnostics and hidden-field scoring follow.",
+        "initial_projection_objective": 0.7096499777088892,
+        "trajectory": {
+          "entries": 320,
+          "json_pointer": "/hidden_update_history",
+          "identity_digest": "6b7da818e665c3d37c321a959bba7c1ceecd58aef411c208beb38220082777a6"
+        },
+        "hidden_update_count": 320,
+        "hidden_accepted_updates": 67,
+        "projection_records": {
+          "entries": 1386,
+          "json_pointer": "/projections",
+          "identity_digest": "c86153caf5ac0155dd598f802179a37d9a143e2c5371eb912531a4c4487807dd"
+        },
+        "final_projection": {
+          "rank": 150,
+          "columns": 150,
+          "rows": 8740,
+          "rank_rcond": 1e-07,
+          "resolved_condition": 178083.40960614444,
+          "smallest_singular_value": 3.3930235858179235e-05,
+          "coefficient_norm_returned": 73.58089279670358,
+          "accepted": true,
+          "objective_before": 0.4856861930052603,
+          "objective_after": 0.4856861930052603
+        },
+        "checkpoint_rule": "fixed-budget final accepted model state",
+        "training_point_arrays": {
+          "json_pointer": "/training_points",
+          "included_in_compact_result": false
+        },
+        "training_point_weights": {
+          "json_pointer": "/training_point_weights",
+          "policy": "The validator verifies the frozen uniform within-family mean weights; full row arrays remain in the indexed raw report."
+        }
+      },
+      "near_interface_audit": {
+        "path": "reports/pinn-spatial-validation/optimized-v6-development/t01/near-interface-audit.json",
+        "sha256": "f724a482dda6552f9e5cc0ada3724cbd66bbff0705b8886c549bcae6175af094",
+        "saved": {
+          "status": "not_applicable",
+          "role": "report only",
+          "point_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        }
+      },
+      "near_bottom_audit": {
+        "path": "reports/pinn-spatial-validation/optimized-v6-development/t01/near-bottom-audit.json",
+        "sha256": "47a0203cd3aca85ab55c1ee2efde41bd09ebfe2764eb3f190cb0a97fbf2baf44",
+        "saved": {
+          "status": "completed",
+          "role": "report only",
+          "point_digest": "3fd7f485582a179c0ec2d0f4e7aaab42f0afd166e80c7a463a0d57868f84228a",
+          "point_count": 1152,
+          "diagnostics": {
+            "normalized_rms": {
+              "interior": 0.015117136861924861
+            },
+            "physical_rms": {
+              "interior": 0.0006298807025802025
+            },
+            "normalization_scales": {
+              "interior": 0.041666666666666664
+            },
+            "point_counts": {
+              "interior": 1152
+            },
+            "all_families_pass": true,
+            "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+          },
+          "by_height": [
+            {
+              "z_over_H": 0.001,
+              "point_count": 192,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.016644539666076263
+                },
+                "physical_rms": {
+                  "interior": 0.0006935224860865109
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 192
+                },
+                "all_families_pass": true,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            },
+            {
+              "z_over_H": 0.002,
+              "point_count": 192,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.016352572656033314
+                },
+                "physical_rms": {
+                  "interior": 0.000681357194001388
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 192
+                },
+                "all_families_pass": true,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            },
+            {
+              "z_over_H": 0.005,
+              "point_count": 192,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.01556839199609916
+                },
+                "physical_rms": {
+                  "interior": 0.000648682999837465
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 192
+                },
+                "all_families_pass": true,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            },
+            {
+              "z_over_H": 0.01,
+              "point_count": 192,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.014547590598764476
+                },
+                "physical_rms": {
+                  "interior": 0.0006061496082818531
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 192
+                },
+                "all_families_pass": true,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            },
+            {
+              "z_over_H": 0.02,
+              "point_count": 192,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.013412338669962118
+                },
+                "physical_rms": {
+                  "interior": 0.0005588474445817549
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 192
+                },
+                "all_families_pass": true,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            },
+            {
+              "z_over_H": 0.05,
+              "point_count": 192,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.013886020959059855
+                },
+                "physical_rms": {
+                  "interior": 0.0005785842066274939
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 192
+                },
+                "all_families_pass": true,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "t02",
+      "geometry": "partial_contact",
+      "known_h": 800.0,
+      "status": "completed",
+      "gate": {
+        "observations": true,
+        "each_independent_residual": false,
+        "field": true,
+        "all": false
+      },
+      "normalized_observation_mse": 0.2873380398648462,
+      "field_metrics": {
+        "rmse_K": 0.011125469941354089,
+        "maximum_error_K": 0.054958611336360264
+      },
+      "primary_diagnostics": {
+        "normalized_rms": {
+          "interior": 0.09331347681892536,
+          "top": 6.195294082639628e-17,
+          "bottom_contact": 0.04671453967950336,
+          "bottom_insulated": 0.07992383268722485,
+          "left": 0.0,
+          "right": 3.3586682307757157e-16,
+          "interface_0_temperature": 0.0,
+          "interface_0_flux": 1.777341616229544e-15,
+          "interface_1_temperature": 0.0,
+          "interface_1_flux": 2.0354991829055366e-15
+        },
+        "physical_rms": {
+          "interior": 0.00388806153412189,
+          "top": 3.097647041319814e-14,
+          "bottom_contact": 23.35726983975168,
+          "bottom_insulated": 39.96191634361242,
+          "left": 0.0,
+          "right": 1.6793341153878578e-13,
+          "interface_0_temperature": 0.0,
+          "interface_0_flux": 8.886708081147721e-13,
+          "interface_1_temperature": 0.0,
+          "interface_1_flux": 1.0177495914527683e-12
+        },
+        "normalization_scales": {
+          "interior": 0.041666666666666664,
+          "top": 500.0,
+          "bottom_contact": 500.0,
+          "bottom_insulated": 500.0,
+          "left": 500.0,
+          "right": 500.0,
+          "interface_0_temperature": 0.1,
+          "interface_0_flux": 500.0,
+          "interface_1_temperature": 0.1,
+          "interface_1_flux": 500.0
+        },
+        "point_counts": {
+          "interior": 5280,
+          "top": 1760,
+          "bottom_contact": 704,
+          "bottom_insulated": 1056,
+          "left": 264,
+          "right": 264,
+          "interface_0": 264,
+          "interface_1": 264
+        },
+        "validation_scheme": "unchanged caller-supplied independent v2 strong residual points",
+        "all_families_pass": false
+      },
+      "checkpoint_sha256": "91261cf2222ca6ef169c9cc9cb4a2a574dc851486f4772122e36c32f79817c48",
+      "indexed_artifacts": {
+        "result.json": {
+          "sha256": "9c542ef085816e0cfb08b707fed46cb4dac6a5ec0c083fa9c00f38fc58d44872",
+          "bytes": 2844
+        },
+        "final_checkpoint.pt": {
+          "sha256": "91261cf2222ca6ef169c9cc9cb4a2a574dc851486f4772122e36c32f79817c48",
+          "bytes": 248157
+        },
+        "training-report.json": {
+          "sha256": "f9258c76194f5a830c267720bb2de18d4eaed70810b53ec1161b149364812632",
+          "bytes": 5658257
+        },
+        "observations.npz": {
+          "sha256": "ea6a236c98683cb3ea4f9c5a85c2d94d81d96f280d958a2a9643cceac214be76",
+          "bytes": 1342
+        },
+        "field_scoring.npz": {
+          "sha256": "2dea15bb729b5faaa316c11e602b6520ca8753b3f3f181240dd4a15b2e441da9",
+          "bytes": 185745
+        }
+      },
+      "error_or_reason": null,
+      "training": {
+        "architecture": "graded_hermite_field_with_transactional_profiled_adam",
+        "model_module": "thermotwin.pinn.planar_contact_optimized",
+        "wall_seconds": 7191.025372041971,
+        "final_objective": 2.7949606742025574,
+        "final_physics_loss": 0.02507622634337711,
+        "normalized_observation_mse": 0.28733803986484613,
+        "training_family_mse": {
+          "interior": 0.020883994962222263,
+          "bottom_contact": 0.0022991889152294393,
+          "bottom_insulated": 0.0018930424659254087
+        },
+        "coefficient_count": 550,
+        "base_coefficient_count": 275,
+        "initialization": {
+          "arm": "off",
+          "neural_seed": 2026102202,
+          "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+          "shared_function_sha256": "0021f602dc935855a43f9cfef864aee2286699453a65a0f1a9c4b20dd7e9d967",
+          "complete_state_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+          "log_column_zero": null,
+          "on_only_log_column_initially_zero": true,
+          "log_column_present": false,
+          "probe_agreement": {
+            "basis_max_abs": 5.551115123125783e-17,
+            "temperature_max_abs": 0.0,
+            "normalized_gradient_max_abs": 8.673617379884035e-18,
+            "normalized_hessian_max_abs": 4.440892098500626e-16,
+            "physical_gradient_max_abs": 7.105427357601002e-15,
+            "physical_hessian_max_abs": 7.275957614183426e-12,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance": 1e-10,
+            "passed": true
+          }
+        },
+        "graded_point_metadata": {
+          "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+          "point_identities": {
+            "bottom_contact": {
+              "shape": [
+                512,
+                3
+              ],
+              "sha256": "395155e99704ba7f475abf6fd0880ba6e98a0a045a3655141a6d552f6a88fc13"
+            },
+            "bottom_insulated": {
+              "shape": [
+                512,
+                3
+              ],
+              "sha256": "30882613e482fb3b1cae210de9926c8f633ec990ccafea00aaa6fe9172770e2d"
+            },
+            "interior": {
+              "shape": [
+                8192,
+                3
+              ],
+              "sha256": "0cbf5d84eb8d10174e69e39c6775454ba05d5aabb6bee5763dc209080ae1a9e5"
+            }
+          },
+          "point_counts": {
+            "interior": 8192,
+            "bottom_contact": 512,
+            "bottom_insulated": 512
+          },
+          "strata": [
+            {
+              "name": "bulk",
+              "start": 0,
+              "stop": 4096,
+              "count": 4096,
+              "mean_weight": 0.5
+            },
+            {
+              "name": "bottom_band",
+              "start": 4096,
+              "stop": 6144,
+              "count": 2048,
+              "mean_weight": 0.25
+            },
+            {
+              "name": "corner_patch",
+              "start": 6144,
+              "stop": 8192,
+              "count": 2048,
+              "mean_weight": 0.25
+            }
+          ],
+          "interior_min_height_m": 7.803612880645129e-07,
+          "interior_max_height_m": 0.003923141121612922,
+          "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+        },
+        "training_point_counts": {
+          "interior": 8192,
+          "bottom_contact": 512,
+          "bottom_insulated": 512
+        },
+        "hidden_rejected_updates": 249,
+        "hidden_backtrack_count": 1035,
+        "hidden_accepted_objective_increases": 0,
+        "optimizer_history": "persistent",
+        "optimizer_instances": 1,
+        "optimizer_resets": 0,
+        "optimizer_state_rollbacks": 249,
+        "optimizer_state_policy": "transactional moments, step counters, groups and gradient buffers; commit once on acceptance; exact rollback on rejection or exception",
+        "final_optimizer_step_counts": [
+          71
+        ],
+        "gradient_semantics": "fixed-readout proposal; no exact profiled-gradient claim with truncated SVD",
+        "status": "recorded",
+        "raw_report": "reports/pinn-spatial-validation/optimized-v6-development/t02/training-report.json",
+        "raw_report_sha256": "f9258c76194f5a830c267720bb2de18d4eaed70810b53ec1161b149364812632",
+        "timing_scope": "Fit only; independent diagnostics and hidden-field scoring follow.",
+        "initial_projection_objective": 5.0229086954255555,
+        "trajectory": {
+          "entries": 320,
+          "json_pointer": "/hidden_update_history",
+          "identity_digest": "277d875c27c32833efd6c5cbdcb61b880b721bbd53253a059c494f154b4a1713"
+        },
+        "hidden_update_count": 320,
+        "hidden_accepted_updates": 71,
+        "projection_records": {
+          "entries": 1357,
+          "json_pointer": "/projections",
+          "identity_digest": "bc38edf7646aacd559b0ea6d7589daa96dcb0c5d82ad3c748fa86c91e72794b1"
+        },
+        "final_projection": {
+          "rank": 510,
+          "columns": 550,
+          "rows": 9252,
+          "rank_rcond": 1e-07,
+          "resolved_condition": 9947072.056340866,
+          "smallest_singular_value": 8.072884909154663e-13,
+          "coefficient_norm_returned": 2712.938837551895,
+          "accepted": true,
+          "objective_before": 2.7949606742025574,
+          "objective_after": 2.7949606742025574
+        },
+        "checkpoint_rule": "fixed-budget final accepted model state",
+        "training_point_arrays": {
+          "json_pointer": "/training_points",
+          "included_in_compact_result": false
+        },
+        "training_point_weights": {
+          "json_pointer": "/training_point_weights",
+          "policy": "The validator verifies the frozen uniform within-family mean weights; full row arrays remain in the indexed raw report."
+        }
+      },
+      "near_interface_audit": {
+        "path": "reports/pinn-spatial-validation/optimized-v6-development/t02/near-interface-audit.json",
+        "sha256": "a5acc77e638e8ab825b92305c59ffddac6bfb8418483f051ec871c9e3b63689c",
+        "saved": {
+          "status": "completed",
+          "role": "report only",
+          "point_digest": "e515f3ee90dc1c5ceff9f948f6e50e7226c102bbb49330476902de1b51e6df53",
+          "diagnostics": {
+            "normalized_rms": {
+              "interior": 0.22127099319836385,
+              "interface_0_temperature": 0.0,
+              "interface_0_flux": 1.4466439341273548e-15,
+              "interface_1_temperature": 0.0,
+              "interface_1_flux": 1.0041599341461483e-15
+            },
+            "physical_rms": {
+              "interior": 0.009219624716598493,
+              "interface_0_temperature": 0.0,
+              "interface_0_flux": 7.233219670636774e-13,
+              "interface_1_temperature": 0.0,
+              "interface_1_flux": 5.020799670730742e-13
+            },
+            "normalization_scales": {
+              "interior": 0.041666666666666664,
+              "interface_0_temperature": 0.1,
+              "interface_0_flux": 500.0,
+              "interface_1_temperature": 0.1,
+              "interface_1_flux": 500.0
+            },
+            "point_counts": {
+              "interior": 360,
+              "interface_0": 30,
+              "interface_1": 30
+            },
+            "all_families_pass": false,
+            "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+          }
+        }
+      },
+      "near_bottom_audit": {
+        "path": "reports/pinn-spatial-validation/optimized-v6-development/t02/near-bottom-audit.json",
+        "sha256": "43b97c90faaa84256461d7da7d0523caa05c2f54dc00f8130b4bc1fcff38e986",
+        "saved": {
+          "status": "completed",
+          "role": "report only",
+          "point_digest": "3fd7f485582a179c0ec2d0f4e7aaab42f0afd166e80c7a463a0d57868f84228a",
+          "point_count": 1152,
+          "diagnostics": {
+            "normalized_rms": {
+              "interior": 0.2566080388489576
+            },
+            "physical_rms": {
+              "interior": 0.010692001618706566
+            },
+            "normalization_scales": {
+              "interior": 0.041666666666666664
+            },
+            "point_counts": {
+              "interior": 1152
+            },
+            "all_families_pass": false,
+            "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+          },
+          "by_height": [
+            {
+              "z_over_H": 0.001,
+              "point_count": 192,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.3140906420062851
+                },
+                "physical_rms": {
+                  "interior": 0.013087110083595213
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 192
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            },
+            {
+              "z_over_H": 0.002,
+              "point_count": 192,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.29756850714467664
+                },
+                "physical_rms": {
+                  "interior": 0.01239868779769486
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 192
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            },
+            {
+              "z_over_H": 0.005,
+              "point_count": 192,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.2632810251038331
+                },
+                "physical_rms": {
+                  "interior": 0.010970042712659712
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 192
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            },
+            {
+              "z_over_H": 0.01,
+              "point_count": 192,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.24086610320850926
+                },
+                "physical_rms": {
+                  "interior": 0.010036087633687886
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 192
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            },
+            {
+              "z_over_H": 0.02,
+              "point_count": 192,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.21526942078183722
+                },
+                "physical_rms": {
+                  "interior": 0.008969559199243218
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 192
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            },
+            {
+              "z_over_H": 0.05,
+              "point_count": 192,
+              "diagnostics": {
+                "normalized_rms": {
+                  "interior": 0.18496449495207432
+                },
+                "physical_rms": {
+                  "interior": 0.00770685395633643
+                },
+                "normalization_scales": {
+                  "interior": 0.041666666666666664
+                },
+                "point_counts": {
+                  "interior": 192
+                },
+                "all_families_pass": false,
+                "validation_scheme": "unchanged caller-supplied independent v2 strong residual points"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "t03",
+      "geometry": "full_contact",
+      "known_h": 1400.0,
+      "status": "failed",
+      "gate": null,
+      "normalized_observation_mse": null,
+      "field_metrics": null,
+      "primary_diagnostics": {
+        "normalized_rms": null,
+        "physical_rms": null,
+        "normalization_scales": null,
+        "point_counts": null,
+        "validation_scheme": null,
+        "all_families_pass": null
+      },
+      "checkpoint_sha256": null,
+      "indexed_artifacts": {
+        "result.json": null,
+        "final_checkpoint.pt": null,
+        "training-report.json": null,
+        "observations.npz": {
+          "sha256": "1c0bfd94a71d4cde7058996a171c89dc63473a7dab426ee6d4fbc8dd7752e7f3",
+          "bytes": 1210
+        },
+        "field_scoring.npz": null
+      },
+      "error_or_reason": "ResourceLimit('predeclared campaign wall limit reached')",
+      "training": {
+        "status": "not_recorded_after_failure",
+        "raw_report": "reports/pinn-spatial-validation/optimized-v6-development/t03/training-report.json",
+        "raw_report_sha256": null,
+        "trajectory": null
+      },
+      "near_interface_audit": {
+        "path": "reports/pinn-spatial-validation/optimized-v6-development/t03/near-interface-audit.json",
+        "sha256": null,
+        "saved": {
+          "status": "not_recorded",
+          "role": "report only"
+        }
+      },
+      "near_bottom_audit": {
+        "path": "reports/pinn-spatial-validation/optimized-v6-development/t03/near-bottom-audit.json",
+        "sha256": null,
+        "saved": {
+          "status": "not_recorded",
+          "role": "report only"
+        }
+      }
+    },
+    {
+      "id": "t04",
+      "geometry": "partial_contact",
+      "known_h": 1400.0,
+      "status": "not_run",
+      "gate": null,
+      "normalized_observation_mse": null,
+      "field_metrics": null,
+      "primary_diagnostics": {
+        "normalized_rms": null,
+        "physical_rms": null,
+        "normalization_scales": null,
+        "point_counts": null,
+        "validation_scheme": null,
+        "all_families_pass": null
+      },
+      "checkpoint_sha256": null,
+      "indexed_artifacts": {
+        "result.json": null,
+        "final_checkpoint.pt": null,
+        "training-report.json": null,
+        "observations.npz": null,
+        "field_scoring.npz": null
+      },
+      "error_or_reason": "campaign resource or preservation limit",
+      "training": {
+        "status": "not_recorded_after_failure",
+        "raw_report": "reports/pinn-spatial-validation/optimized-v6-development/t04/training-report.json",
+        "raw_report_sha256": null,
+        "trajectory": null
+      },
+      "near_interface_audit": {
+        "path": "reports/pinn-spatial-validation/optimized-v6-development/t04/near-interface-audit.json",
+        "sha256": null,
+        "saved": {
+          "status": "not_recorded",
+          "role": "report only"
+        }
+      },
+      "near_bottom_audit": {
+        "path": "reports/pinn-spatial-validation/optimized-v6-development/t04/near-bottom-audit.json",
+        "sha256": null,
+        "saved": {
+          "status": "not_recorded",
+          "role": "report only"
+        }
+      }
+    }
+  ],
+  "optimizer_probe": {
+    "tracked_summary": {
+      "path": "thermotwin/PINN_SPATIAL_OPTIMIZATION_PROBE.json",
+      "sha256": "6105a27d94c2394342e1f1467f3ce720cdbc9411f6922201b7523bc7c09466e2"
+    },
+    "decision": {
+      "path": "reports/pinn-spatial-validation/optimization-history-probe/decision.json",
+      "sha256": "320102f5a95f5e0bc1859849185ee075f728df3a9fb5ba55a7f157defda82ff0",
+      "saved": {
+        "status": "approved_for_forward_development",
+        "training_only": true,
+        "reference_fields_used": false,
+        "independent_diagnostics_used_for_selection": false,
+        "selected_config": {
+          "width": 24,
+          "layers": 2,
+          "adam_epochs": 320,
+          "projection_every": 1,
+          "interior_points": 8192,
+          "bottom_points": 512,
+          "learning_rate": 0.0064,
+          "gradient_clip": 1.0,
+          "max_backtracks": 4,
+          "physics_weight": 100.0,
+          "observation_weight": 1.0,
+          "rank_rcond": 1e-07,
+          "projection_chunk": 128,
+          "bottom_log_feature": false,
+          "bottom_log_scale": 0.001,
+          "corner_enrichment": true,
+          "duration": 120.0,
+          "initial_temperature": 300.0,
+          "temperature_scale": 5.0,
+          "ramp_seconds": 10.0,
+          "bath_drop_kelvin": 5.0,
+          "top_flux_watts_per_square_metre": 500.0,
+          "interface_temperature_scale": 0.1,
+          "optimizer_history": "persistent"
+        },
+        "probe_evidence": [
+          {
+            "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimization-directional-probe/plan.json",
+            "sha256": "24a7080a08f685b1029743f6a57e20157ce236be58d8da3b1fe121ad542af8ef"
+          },
+          {
+            "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimization-directional-probe/result.json",
+            "sha256": "4046536aecac67261b3ca1bea2b2a5568fe3ad2332988b2ce9a2b722c322e4f2"
+          },
+          {
+            "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimization-history-probe/plan.json",
+            "sha256": "60afb5cc00ab4d406320ffe608cbfee6915009e9cfde4ab2d4a40ef41c2a7314"
+          },
+          {
+            "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimization-history-probe/result.json",
+            "sha256": "764bf3c8bf1cf1cd29493acd85f48970a53990627d99db925655c5fe3a6ee9f1"
+          }
+        ],
+        "start_policy": "fresh matched log-off initialization in every case; probe checkpoint states are not reused",
+        "maximum_wall_seconds": 14400.0,
+        "maximum_rss_bytes": 2147483648,
+        "selection_rule": "persistent only if finite monotone trajectories, no worse on both cases within relative 1e-8, and worst terminal objective ratio improves by at least 1e-4; otherwise reset; reject followup if neither is finite monotone on both",
+        "no_guarantee_of_forward_gate_success": true
+      }
+    },
+    "evidence": [
+      {
+        "path": "reports/pinn-spatial-validation/optimization-directional-probe/plan.json",
+        "sha256": "24a7080a08f685b1029743f6a57e20157ce236be58d8da3b1fe121ad542af8ef"
+      },
+      {
+        "path": "reports/pinn-spatial-validation/optimization-directional-probe/result.json",
+        "sha256": "4046536aecac67261b3ca1bea2b2a5568fe3ad2332988b2ce9a2b722c322e4f2"
+      },
+      {
+        "path": "reports/pinn-spatial-validation/optimization-history-probe/plan.json",
+        "sha256": "60afb5cc00ab4d406320ffe608cbfee6915009e9cfde4ab2d4a40ef41c2a7314"
+      },
+      {
+        "path": "reports/pinn-spatial-validation/optimization-history-probe/result.json",
+        "sha256": "764bf3c8bf1cf1cd29493acd85f48970a53990627d99db925655c5fe3a6ee9f1"
+      }
+    ],
+    "frozen_followup": {
+      "start_policy": "fresh matched log-off initialization in every case; probe checkpoint states are not reused",
+      "fixed_updates": 320,
+      "maximum_backtracks": 4,
+      "maximum_wall_seconds": 14400.0,
+      "maximum_rss_bytes": 2147483648,
+      "threads": 1,
+      "automatic_retries": 0,
+      "architecture_grid_loss_cutoff_and_gates": "unchanged log-off baseline",
+      "checkpoint_policy": "final state only, retained before independent scoring"
+    },
+    "selection_recomputed": false,
+    "limits": "Training-only continuation probes on two already opened partial datasets; no independent diagnostics or hidden-field labels selected the rule."
+  },
+  "costs": {
+    "campaign_wall_seconds": 14403.865157374996,
+    "peak_rss_bytes": 925024256,
+    "wrapper_wall_seconds": 14414.338712375029,
+    "scope": "Fit times in each row exclude later scoring. Probe and wrapper elapsed times are distinct records and are not summed into CPU time."
+  },
+  "execution": {
+    "path": "reports/pinn-spatial-validation/optimization-validation/execution-state.json",
+    "sha256": "36af7daac81167de0fd635ae5df518de0231f377d426f629d0a2ad4d64d8f96c",
+    "saved": {
+      "status": "completed",
+      "plan_sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+      "scientific_processes": 1,
+      "threads": 1,
+      "automatic_retries": 0,
+      "started_utc": "2026-10-22T21:27:01.328425+00:00",
+      "child_pid": 35864,
+      "return_code": 0,
+      "wall_seconds": 14414.338712375029,
+      "finished_utc": "2026-10-23T01:27:16.067102+00:00",
+      "evidence": {
+        "directory": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimized-v6-development",
+        "files": 54,
+        "artifact_index_sha256": "5477ec6976ae143a62e8ea63a94d37cdcf515b4fb66cbed25f90eb7bf587366f",
+        "plan_sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+        "optimizer_history": "persistent",
+        "fixed_optimizer_updates": 320,
+        "reused_dataset_count": 4
+      }
+    }
+  },
+  "report": {
+    "directory": "reports/pinn-spatial-validation/optimized-v6-report",
+    "report_index_sha256": "7249ef2dcd1c6b27eb395ba744ec7cf2c980bf3ce616e3d020cde42c823f6dc9",
+    "report_index_digest": "2dd1786b7e153c9d32048c51a4c17b27e6e17c51b4e63e39f3bac9055e27fb15",
+    "files": 8,
+    "renderer_sha256": "6898788bcba235d7dc2460ea397c48539e352987a859910df852f23af61325c4",
+    "summary_sha256": "722a37fd45cf9678ba456cfe46d675a9ef2802b626537bc23606d5b54d5fea9b"
+  },
+  "quality_checks": {
+    "spatial_focused": {
+      "status": "passed",
+      "completed": true,
+      "state_path": "reports/pinn-spatial-validation/optimization-validation/spatial-focused-state.json",
+      "state_sha256": "0141aa6adc8f0931181797a710cf664558c4417168b1f0a14900a1ed2aba3c37",
+      "state": {
+        "status": "passed",
+        "scope": "frozen old/new focused spatial software regression checks; no named scientific campaign",
+        "modules": [
+          "test_pinn_spatial_2d",
+          "test_pinn_spatial_continuity",
+          "test_pinn_spatial_continuity_report",
+          "test_pinn_spatial_fresh_1d",
+          "test_pinn_spatial_graded",
+          "test_pinn_spatial_graded_report",
+          "test_pinn_spatial_optimized",
+          "test_pinn_spatial_revision",
+          "test_pinn_spatial_revision_1d",
+          "test_pinn_spatial_revision_execution",
+          "test_pinn_spatial_revision_inverse",
+          "test_pinn_spatial_revision_report",
+          "test_pinn_spatial_validation",
+          "test_planar_contact",
+          "test_planar_contact_consistent",
+          "test_planar_contact_continuity",
+          "test_planar_contact_graded",
+          "test_planar_contact_inverse",
+          "test_planar_contact_optimized",
+          "test_planar_contact_revision"
+        ],
+        "source_sha256": {
+          "tests/test_pinn_spatial_2d.py": "6f5eb58c6ead7f29624f6ea7b92a98134a80ce8469c92317c1f5047326557e23",
+          "tests/test_pinn_spatial_continuity.py": "ab149fcb47f008c16aa0831d49d07e3dc36259c3fdb1847e344da3ff9e653498",
+          "tests/test_pinn_spatial_continuity_report.py": "b690a01357905c0a7d10964a7296fa714a9f33fd1aca810e5b57613f4431f519",
+          "tests/test_pinn_spatial_fresh_1d.py": "34a515e78ff77e3cac4f4b47c6d79734d480b2c4371824fd551faf441ed471f2",
+          "tests/test_pinn_spatial_graded.py": "43dede33366e508c5a3abefb90844a5f3602007638302723437a3a87d83f48aa",
+          "tests/test_pinn_spatial_graded_report.py": "48aed7f89ca71c6605c4facc6db287e803b69c4e8e04d20b4caa71478843421e",
+          "tests/test_pinn_spatial_optimized.py": "aae25f25f98fb54ac2e8d9055a4b8837a52acdbd151c16352cd9c8d3004c35f5",
+          "tests/test_pinn_spatial_revision.py": "439ad0c0f019db42e8489dd797c3462e778c5f57176dd0d5cfc3580a40eef5e7",
+          "tests/test_pinn_spatial_revision_1d.py": "ee9209b8a5fb888d3eeacd915c576ba18f50fb8c2eb97b1296b6e07706cbccfc",
+          "tests/test_pinn_spatial_revision_execution.py": "f1b2a596d0713b170acda3bccf2370d76ecfa1540fab21971ae4b84a4b8408f9",
+          "tests/test_pinn_spatial_revision_inverse.py": "9b37cb39ee39b767f53e00aca8964e51374a609f3084ab64357c57f5e2fda084",
+          "tests/test_pinn_spatial_revision_report.py": "e69d166edd3870e7843cb56ffc0e0e22e4b0d39163da3e0e85cbba580f4a1af3",
+          "tests/test_pinn_spatial_validation.py": "5ccf1a142ab07a11fb3e9aeca89061801fe53e8cfc012493f1b252a174c687cd",
+          "tests/test_planar_contact.py": "c02573f7147c219e359515e1a4eacdb2e81aa55082bff810e5221c5838571350",
+          "tests/test_planar_contact_consistent.py": "c546403ce4be3785e01e313b3b5d2de072d2e99cb838f10d980497f22f11de8f",
+          "tests/test_planar_contact_continuity.py": "a1436feed28b93241ba3b9b743bfa9e731eec1d9f340389d1ac141df026786ba",
+          "tests/test_planar_contact_graded.py": "62fbe1ad995548be1175fabe991f8d64b1c3b9fb15506315b3da6c4ef64d2e5c",
+          "tests/test_planar_contact_inverse.py": "23375ea0b08d17a4efef88a33be03f4694d60c34f9df6039738aecadae443bb6",
+          "tests/test_planar_contact_optimized.py": "0716d1bfc23e9c1c55804152e54ede795b499151b3e3ebe532b26f906d78fcc7",
+          "tests/test_planar_contact_revision.py": "1cddc771ef2e3033ccaf4b45ca8bc084b7f2627ba71bb942cf61c4e01e0c9350"
+        },
+        "tests": 167,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "wall_seconds": 26.710737415938638,
+        "source_unchanged": true
+      },
+      "test_count": 167,
+      "passed": true,
+      "log_read": true,
+      "log_path": "reports/pinn-spatial-validation/optimization-validation/spatial-focused.log",
+      "log_sha256": "b8907b7da63207a489e13deac2b4efc2e5e4b77ac4c4192cdabf74c287d00a87",
+      "unittest_reported_seconds": 23.535,
+      "terminal_log_summary": "OK",
+      "source_records_match_current": true
+    },
+    "reporter_focused": {
+      "status": "not_recorded",
+      "completed": false,
+      "test_count": null,
+      "passed": null,
+      "log_read": false
+    },
+    "full_repository_suite": {
+      "status": "passed",
+      "completed": true,
+      "state_path": "reports/pinn-spatial-validation/optimization-validation/full-suite-state.json",
+      "state_sha256": "80c9abdf1432878c6c9c16ebc65c8194d8f714ba887b97e89f3872f5bc89f2c3",
+      "state": {
+        "status": "passed",
+        "started_utc": "2026-10-22T21:31:04.960440+00:00",
+        "command": [
+          "/Users/rolandbennett/projects/thermotwin/.artifacts/operating-decision/runtime-cpython31012-20261007/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests"
+        ],
+        "scope": "complete repository software tests; no named scientific campaign",
+        "threads": 1,
+        "source_sha256": {
+          "pyproject.toml": "01b0ee6e83096856e09559aa4f7577c6a6c75da5de17dbf80d791ef4985cd165",
+          "tests/__init__.py": "c374d1f48f00da0317dc265b8a2ec75ebcbf9dfd2e7e0bbf3130ecf9cac4045e",
+          "tests/test_adaptive_experiment_campaign.py": "80eeb6989e0fb769bbc83f067edcb1d838d5d83894613e51a6e03fe099d7bf4c",
+          "tests/test_ag2se_substitution.py": "d5c2d04148568f2c5aea221ca0413963a3a6b665ea7a4135e614e2c2cb44428b",
+          "tests/test_ag2se_substitution_report.py": "e4eccd28e6db41548339b7696c4b2f1434e0b8e7782ff4cc7f0f8d667762f310",
+          "tests/test_assembly_fingerprint.py": "868414e4af2d48a9f9360520e98d93e97a48b24aff11389b2b22acdb741c2803",
+          "tests/test_contact_diagnostics.py": "000b2f7a939e8c1f58f18a767ea2be066af07ca942c2d6db7dd54fdb2243f994",
+          "tests/test_contact_experiments.py": "f5bb46f16243e7d8a902a2babe05c0879a019e88b4c28cb720e00cf5a9f66368",
+          "tests/test_contact_forward_pinn.py": "b19f691e06a9931883595112bb68d6112309bba49f05b2e74aa4db2db9120aed",
+          "tests/test_contact_forward_pinn_report.py": "22d27e34f3b35ac3b1bd0522924003ab58e2ab37ab487a881bcd996f01c53d8e",
+          "tests/test_contact_process_window.py": "8078a2d74f98e51436d53961d50881749a185f4727b2fc413be29236b7b5be3d",
+          "tests/test_contact_process_window_report.py": "5c722fe769b60d2b49011e06e28260fbf12fdb6a3d7da724db73d19743907d62",
+          "tests/test_contact_report.py": "8a60c38a61c8b68b80122ede90ec6636b90fc8941adc09ff6e1fb97efd3be8fd",
+          "tests/test_contact_resistance_bias_study.py": "c06c970e4b33bc8b56c442ef78e784223796acf4711654f27c52c2e35480eff4",
+          "tests/test_contact_resistance_combined_study.py": "b0755679ef2ad71928d86dc9c8329eb93f5c44478e67233a84df76153817a6f4",
+          "tests/test_contact_resistance_inference.py": "a74f8089f2008635133fafbb8d940eeff25bb3e540f06b0da81505611d33dea1",
+          "tests/test_contact_resistance_lag_study.py": "1761e42940dda6e1e538bd617d82e639a9b7721fb75dd6bcdca8a2487747d282",
+          "tests/test_contact_resistance_missingness_study.py": "200e7d09b76f1318e936c230d9bac74c68f9fd32bf4f559e89ab7ff08dabcecb",
+          "tests/test_contact_resistance_noise_study.py": "f808d49349b4132ecbf49ba685b013ce2daeda1b23d5a039234674e0622b17bc",
+          "tests/test_contact_resistance_robustness.py": "82457bb6d1acfd999addcf85ea34683aa653b7ecd1bfdec9df34df0e3720473c",
+          "tests/test_contact_resistance_sensor_study.py": "3c79ee80e912f4bc65c6ebe7525a886928b069f0bc61bada3e303146722f06a4",
+          "tests/test_contact_transient.py": "4b55e98ec82026a80b86694f931f7fa8b918b993c194a7282d98682d1e38861a",
+          "tests/test_control_comparison.py": "4659c0eb5041b95a05c2f65a68d279b976d829254623b95a78a38af07f4b38d3",
+          "tests/test_controls.py": "54fba7f90fb384b8cbe4e04e83bedec01804327e4a174145a4a8a90ab376c31f",
+          "tests/test_cop_operating_map.py": "7815c5722e81c4c673382ea63a100dd1e76f6033e3e0fb7678228b5e7d0df6d5",
+          "tests/test_cop_operating_map_report.py": "82d5ffc35534335e64f5eac7983de49d8782cf9559c7b16e2b40e3899cdf8660",
+          "tests/test_dataset_metadata.py": "ffcd42c90aea161af3722ac522188deef2ebc19d3e371448696c9e987a612c86",
+          "tests/test_dataset_quality.py": "88d300c416ba0b1e34062e54f8234b20ebbeac40d5244e589d6da6b0e9c740b8",
+          "tests/test_diagnostics.py": "536bd608a8f80ed2266cf644a370398fc531c06477bc56102b11011d17277678",
+          "tests/test_distributed_experiment_selection.py": "36c45c2a9777bfc78d6258ed66c6892bac411a89644c7e565dff7bdf3f675011",
+          "tests/test_distributed_forward_pinn.py": "340047f007a744bbc8f3b053265193c919f153e3951647afeea7eb6b9281b233",
+          "tests/test_distributed_identifiability.py": "1d39adea890093fb33859b774bc6d39f6f167df442cdf7513e604f6737910e2a",
+          "tests/test_distributed_independent.py": "5a2814fa71f9359a2c3833454c89f09f036c39bef52b2a68de9041d2eb2246f1",
+          "tests/test_distributed_independent_validation.py": "0cc39ebf9a4e7501a645dcdd9e2c2b9fb6ee0d5460d27069f1f33e723a0e0fb6",
+          "tests/test_distributed_independent_validation_report.py": "be2878d1d1fc8bd0cd2916ce4625327acb20a96c60b3becdc33e9e84c2f76e99",
+          "tests/test_distributed_inverse_pinn.py": "a3a9dd9ca09f859c143907ec365bc1731abd8a33e5b89d0e209bed19f6ff3904",
+          "tests/test_distributed_inverse_robustness.py": "96c7edb5ed00650191d06d0149561be6193fbba107aa25db3452ab0abb56c9fd",
+          "tests/test_distributed_inverse_robustness_report.py": "ebbbd4555e1605a2b4c527dc8034341e470eac2edef4396180987d707e098098",
+          "tests/test_distributed_observation_identifiability.py": "01bab2a5fb2fd36655a8785881ada19ace76d9668578379574f5c364d2eae7d9",
+          "tests/test_distributed_observation_identifiability_report.py": "160c1c2fb2afae3ee644810581a6a5bc375d3badadf8855a3ad41ea853499334",
+          "tests/test_distributed_observations.py": "6cf2d277c13068b1a79d02906e4d57490053b30c90ed0ef42be48244960cac5d",
+          "tests/test_distributed_physics.py": "e1506c7ab2f0e67ba889af2c2878e5780a6a8d17c2485667b0d076f6df4bed77",
+          "tests/test_distributed_pinn_training_audit.py": "7afdc5dc196c690eeeeb5dde4ccd3296ae2617b2bff20fa34c1580e149318d2e",
+          "tests/test_distributed_pinn_training_audit_report.py": "e6cba923852413f040ec683e1d64d0ffccc97e03969704e1b402786ea6a0f2f4",
+          "tests/test_distributed_profile_coverage.py": "e42ee596fd9351ef031728b5698f52fc8510db3f1f1659fbdc940cae0ac8a409",
+          "tests/test_distributed_profile_coverage_report.py": "317e9834c986cbd44c6cffbbaed9811085e5569904344781c79c9164065a4967",
+          "tests/test_distributed_property_inference.py": "6c2f5c1da8a93408c0ceb3f7262c0f01a38a5ebad42409ee4a43e5dc61553840",
+          "tests/test_distributed_property_report.py": "580197df8c6abbdf9ddd70f37a67518499b3d6e254298e1399dbda91c5f44cbe",
+          "tests/test_distributed_simulation.py": "aa783d06094db100f7f04df6a613f711e467ea98e57f8b9b9dcaaaf4b35c4d5c",
+          "tests/test_distributed_withheld_validation.py": "6963643ab1df25b7458e1e1951aeb422180ca3eecb3690643056176540fa3734",
+          "tests/test_distributed_withheld_validation_report.py": "526d3d0a43e1f0e36b666af84906e2b1df76b3af21d2d709426cf9caa300f0e5",
+          "tests/test_engineering_showcase.py": "1c0b3ad228b216c2524e484c58dff1111ec90c79b5fabf434c0ddd5d4bec3c02",
+          "tests/test_experiment_result_reports.py": "91bd3d09c95726699a33b4f8cefe43ed857a7d808e40ff8056b4d7b69f4ceff6",
+          "tests/test_experiment_selection.py": "7726e6b85a901d59ad010b531676b61a9d7c19043f9f5716d7289bd6752a24c5",
+          "tests/test_experiments.py": "a04bdd674fef0a9fb065b24cafad34a855409f8ce998ac04d5526030d8c3c939",
+          "tests/test_forward_pinn.py": "af3f5cb7ab248ad163e49a65b1e3bd8f456f2253e656394a0269e7740c1c14b7",
+          "tests/test_forward_pinn_report.py": "249abd8724d9ae16cabd4e19d89bdb0b14c0a4b5e3184c482b484319acb07d93",
+          "tests/test_forward_reconstruction_comparison.py": "8b29322c2ee55b7312a9b6223f03224830e6abc15d531a93b8049a45874bae0d",
+          "tests/test_forward_reconstruction_comparison_report.py": "680818a7eefaf0df2b53a3808bf4dc0f25d53ad1b7cc1ddae35068483c6db645",
+          "tests/test_generate_all_figures.py": "37fae8ea82a6f630059e320aa3184e98e050ecbc80e09999c3a583569928364b",
+          "tests/test_hardware_data.py": "6f5e10b34fa68d7f7eb41d8ae6db25974fa351038401b51ab6d23f070881eb30",
+          "tests/test_hax_research_bundle.py": "d8dc3cb24c1bd0500bec7eea3bd96038e493245615dafd6a487da9264aea270a",
+          "tests/test_imperfect_inverse_pinn_report.py": "bff78b8a93727b196b1b923cb218813e42a5e73aa760f5bd0a31a18e83b0ac98",
+          "tests/test_imperfect_inverse_pinn_study.py": "bf7369f6349a596c5158fa274ea6fa8a93e3ef3343f494f70ec870c117477311",
+          "tests/test_inverse_contact_resistance.py": "93eceb6f9f6d877e7646ff4a5a3fce6dc4f3b1ad5e2d85cc79876afcfa59cdc8",
+          "tests/test_inverse_contact_resistance_report.py": "f75da093f6db08f7c5321d8d24a50ed71606fde532a8d4737acde99c2cbcbf35",
+          "tests/test_inverse_thermal_conductance.py": "89a3a11d04567f39d341c991fe3de7b203707184427bf328c81da0f5aa87e047",
+          "tests/test_joint_thermal_parameters.py": "566970097b433c5fdf6e0597790887908842b32a551a2c2209476581659ccf71",
+          "tests/test_literature_materials.py": "c97983a843766324b9cce314295c2648db3132aa7b97f4bf1af04c2132096282",
+          "tests/test_material_catalog.py": "9b621e70eeeb986b88220c31ba55090aa485098dcd7d7cf905e16aa4a8184828",
+          "tests/test_material_geometry_codesign.py": "5b4439b759a29cbcc29f6b54bcd735f1b99eae857782795e2258fe6acce91ed3",
+          "tests/test_material_geometry_codesign_report.py": "0ee565884f624f306f1b35b756837f7af18797c7b35a517efd011fec7f78649b",
+          "tests/test_material_pair.py": "c1cec8eb4d9c476e17f527402bcae4ca5af03be7a9841d89a3a724ebde8056cc",
+          "tests/test_measurement_bias.py": "d3fcf61a6617c22bc15d1deb5c9bf0c8f6f97502673f1b77280f3b8cc25c03a1",
+          "tests/test_measurement_lag.py": "321813d3269245e68e85277ffd6a6fe92aedcdeaa10bb91e074122f79d45d200",
+          "tests/test_measurement_missingness.py": "fb906c10e7f5572044e4e037e983a60593968d6209fd1ba513b6236a2eb92ccd",
+          "tests/test_measurement_noise.py": "e9f683b1a484a2d090f76d44356793ad25622ff9be1738de42c0393b0bce0b73",
+          "tests/test_nonlinear_experiment_selection.py": "76d2f556b230d8ab78f6fad76de42dca3abc83f502c77efcf0c5de7caa64b78d",
+          "tests/test_nonlinear_experiment_selection_report.py": "48d6de757e961d5c7d61b1a7bdd46dbc7433f6da86735d5e3703b7c393499796",
+          "tests/test_operating_decision.py": "afbc86e28e6e7b318cb08c231eb068fb94cc3ffb7c23fd83e98f292c48dd84bd",
+          "tests/test_operating_decision_calibration.py": "6b89f1a598b1257a99a62c7474b2e108408d047d01ac575cdcf64eacae9f0783",
+          "tests/test_operating_decision_diagnostics.py": "c27f883dd4bf4ecb9bb4e0693ba6c41779d39718bc61c5425c78a183e705cb12",
+          "tests/test_operating_decision_evidence_archive.py": "1f7d38b0e2662fa8c71003827b8f128a1855fb4a857da597e93d5c9f49dcb08c",
+          "tests/test_operating_decision_final_evaluation.py": "5d13461b289bca445599c0bd4310b0bada4fc12c9dc6e52f297594f3b3aac758",
+          "tests/test_operating_decision_phase_b_acceptance.py": "b3c6de87316b45d84a4ccf2f1b751012f869cc4434295473ace5bf3eabc74648",
+          "tests/test_operating_decision_prospective.py": "52cb2904a566324cfc1768a337992f9f8960d70a20608922511a636bae27dd57",
+          "tests/test_operating_decision_prospective_costs.py": "56c9457f7ee7ce78a6422a144b3f6bcde3c599a792a647f5dcc4f875996638aa",
+          "tests/test_operating_decision_prospective_phase_c_freeze.py": "270e301b0c1164820af6da2e589d877b9d22fc2c451c757e56a3ea5df6ac306c",
+          "tests/test_operating_decision_prospective_phase_d.py": "035582b437b2c1f370512507e4fff53338011c46aa96be7555f9c96bf62b4085",
+          "tests/test_operating_decision_prospective_phase_d2_offsets.py": "67c21a72ee7916755ff2fdf9e9fed5363456c1349d5b9b2e6136564e3db08eed",
+          "tests/test_operating_decision_prospective_phase_d3_grid.py": "3b82f9eb366b9b2eb5a84a601321c691a60244064257b65298c5b0c457f3856e",
+          "tests/test_operating_decision_prospective_phase_d4_sensitivity.py": "b17d79ed7ee7815e2660088ff60cfd78873c0d4d88aa67d98896114ce017deb5",
+          "tests/test_operating_decision_prospective_phase_d5_maps.py": "d34707d3eedbdac397fb86322e07c5adeb36a59571ae933a9c34bb87ac23da33",
+          "tests/test_operating_decision_prospective_phase_d6_internal_check.py": "811556cd074294e8802e7d1b3a438a15ddd0aa639d24c0f2ee56ee60688539b7",
+          "tests/test_operating_decision_prospective_phase_d_final_freeze.py": "140e3859efa0d7999a253162d9a8af7aed75c1fa73c8f52dade096e397e1cb3d",
+          "tests/test_operating_decision_prospective_phase_d_freeze.py": "3a27242e34f20d4988a6523ae119ea74f45d9a21575512a3595504612a4f0cdb",
+          "tests/test_operating_decision_prospective_phase_e.py": "e823ac3e472592cbd6065c3c008fcafc8221c1d457cc6f8b28963acf69b337f9",
+          "tests/test_operating_decision_prospective_phase_e_execution.py": "27a7578cca255970f255dba5ef18d125946d2120c8e66fd5aa51cdec38feae19",
+          "tests/test_operating_decision_prospective_phase_f_decisions.py": "4c936dbd2104efa16332e478120cfe730a161a1b65d31b0243839cbdeb90e91c",
+          "tests/test_operating_decision_prospective_phase_f_execution.py": "0f844b1726c3bae338882f864ffc893d9ccd7b9956838bd3457c5c7ee3df1ca5",
+          "tests/test_operating_decision_prospective_pilot.py": "717a7bb779ff2b5f5da62b70eff11f0c0541b64fbbe7820f5086f94093ba74aa",
+          "tests/test_operating_decision_prospective_random_streams.py": "d942441295cbe93b1d94deb70c340220f5f110d744c983ba0d608b72beb9dd22",
+          "tests/test_operating_decision_prospective_uncertainty.py": "aaa98fb1cf53801401bfa0a5cfe316380b7a03c4a4de10fe78fda43a37f27feb",
+          "tests/test_operating_decision_provenance.py": "842f773147c6994fc1b7b09f2556d83e53c2e7529d9d32d89b488b72272d839e",
+          "tests/test_operating_decision_random_streams.py": "d0951263a80ef37cda2a6e53bb4b0f1f60fdc5fffb1b6de8ad7f576db9ebc866",
+          "tests/test_operating_decision_realism.py": "fbbc759c7babb4e18c1e2bacf93219bd4d23780badfee0a28a831f0b3994dc7d",
+          "tests/test_operating_decision_replication.py": "3fd536ea03ced2968b0284dafe1d283dd54b963200f38fef5621e64ae8f6e412",
+          "tests/test_operating_decision_replication_calibration.py": "ef2f504e0d7589dbbc1846313b4a181224c8e3452f6d3bc91a787fc6fac30d2a",
+          "tests/test_operating_decision_replication_guard.py": "64802ac9442ee16034b6da8a94324b52117cb784d230c73e686dd5f108207f82",
+          "tests/test_operating_decision_replication_protocol.py": "37ba8d244a2cd8ae4e860be7cf11ca0716ecafb02f28408e778940185a971602",
+          "tests/test_operating_decision_replication_report.py": "55793b7c5bc670a7149e736561a045d3fc2703232a726844b256409a26789903",
+          "tests/test_operating_decision_resources.py": "6aaab8228e860c9d2908d12a3441b1c6ba4356f39566ef7bfc759f63a1d389d9",
+          "tests/test_operating_realism_composition.py": "4a46f8efc4d36641304e877d9e0c70a0057fa9406f441f499db0afc375c8d00f",
+          "tests/test_package_architecture.py": "bd8ecc1a6149a323ca84a20d39a6d46a911da095b3e4a430d5f1516a9e8c548b",
+          "tests/test_piecewise_contact_forward_pinn.py": "6b5b33110d1a67a16475230fa01bd2cd08b5130b9c634f9481b6873a95dea47c",
+          "tests/test_piecewise_contact_forward_pinn_report.py": "6dba625999e37493a78ae7ad05fc475a5e463f899f8d185d46fb18cb99f6b49b",
+          "tests/test_piecewise_inverse_contact_resistance.py": "399880435a3b8f69e49527a7e69f0b76a39c89a39b80e5a12c5897bcb748b90a",
+          "tests/test_piecewise_inverse_contact_resistance_report.py": "bbe79135246645210e57e0c68034cc0141e7531b07eb31971b680c538e3058ac",
+          "tests/test_pinn_energy_closure.py": "c4adb12e8043ffb26e364109d0bff61e53772b4d5e68fb2ef3693665c1513f8f",
+          "tests/test_pinn_showcase.py": "a1bcb442d1bd2eaa6dab03084285da9410ebadbb6b081b2b18f8b69fe3822b37",
+          "tests/test_pinn_spatial_2d.py": "6f5eb58c6ead7f29624f6ea7b92a98134a80ce8469c92317c1f5047326557e23",
+          "tests/test_pinn_spatial_continuity.py": "ab149fcb47f008c16aa0831d49d07e3dc36259c3fdb1847e344da3ff9e653498",
+          "tests/test_pinn_spatial_continuity_report.py": "b690a01357905c0a7d10964a7296fa714a9f33fd1aca810e5b57613f4431f519",
+          "tests/test_pinn_spatial_fresh_1d.py": "34a515e78ff77e3cac4f4b47c6d79734d480b2c4371824fd551faf441ed471f2",
+          "tests/test_pinn_spatial_graded.py": "43dede33366e508c5a3abefb90844a5f3602007638302723437a3a87d83f48aa",
+          "tests/test_pinn_spatial_graded_report.py": "48aed7f89ca71c6605c4facc6db287e803b69c4e8e04d20b4caa71478843421e",
+          "tests/test_pinn_spatial_optimized.py": "aae25f25f98fb54ac2e8d9055a4b8837a52acdbd151c16352cd9c8d3004c35f5",
+          "tests/test_pinn_spatial_optimized_report.py": "26a5a551d4024a7159ef5be73e6504291f89d4c4cbce51317d63eafa6dbcf443",
+          "tests/test_pinn_spatial_revision.py": "439ad0c0f019db42e8489dd797c3462e778c5f57176dd0d5cfc3580a40eef5e7",
+          "tests/test_pinn_spatial_revision_1d.py": "ee9209b8a5fb888d3eeacd915c576ba18f50fb8c2eb97b1296b6e07706cbccfc",
+          "tests/test_pinn_spatial_revision_execution.py": "f1b2a596d0713b170acda3bccf2370d76ecfa1540fab21971ae4b84a4b8408f9",
+          "tests/test_pinn_spatial_revision_inverse.py": "9b37cb39ee39b767f53e00aca8964e51374a609f3084ab64357c57f5e2fda084",
+          "tests/test_pinn_spatial_revision_report.py": "e69d166edd3870e7843cb56ffc0e0e22e4b0d39163da3e0e85cbba580f4a1af3",
+          "tests/test_pinn_spatial_validation.py": "5ccf1a142ab07a11fb3e9aeca89061801fe53e8cfc012493f1b252a174c687cd",
+          "tests/test_planar_contact.py": "c02573f7147c219e359515e1a4eacdb2e81aa55082bff810e5221c5838571350",
+          "tests/test_planar_contact_consistent.py": "c546403ce4be3785e01e313b3b5d2de072d2e99cb838f10d980497f22f11de8f",
+          "tests/test_planar_contact_continuity.py": "a1436feed28b93241ba3b9b743bfa9e731eec1d9f340389d1ac141df026786ba",
+          "tests/test_planar_contact_graded.py": "62fbe1ad995548be1175fabe991f8d64b1c3b9fb15506315b3da6c4ef64d2e5c",
+          "tests/test_planar_contact_inverse.py": "23375ea0b08d17a4efef88a33be03f4694d60c34f9df6039738aecadae443bb6",
+          "tests/test_planar_contact_optimized.py": "0716d1bfc23e9c1c55804152e54ede795b499151b3e3ebe532b26f906d78fcc7",
+          "tests/test_planar_contact_revision.py": "1cddc771ef2e3033ccaf4b45ca8bc084b7f2627ba71bb942cf61c4e01e0c9350",
+          "tests/test_pulse_operating_map.py": "eb864ef9adfcc171945538f97328ef5d75cd6ea650d9c1a76bfe711b39f9a613",
+          "tests/test_pulse_operating_map_report.py": "3e0208759388bd615c7a9dce5354322297ab66998ea7b5990a1c4d2ee306885a",
+          "tests/test_pwm_power_electronics.py": "8a9486bfc0730b1249de25a85c7160094ce5bde12a43ff93788fe985e3e4718c",
+          "tests/test_pwm_power_electronics_report.py": "06c124520af0c7c031b271c43c82175cec803dac7df7d75b8c77b767e7b48613",
+          "tests/test_release_audit.py": "44a74d2a693e20229af35c815f758a7a508f9bd8b5600cae71f953185037492a",
+          "tests/test_report_paths.py": "b5eb84e6a61592d4a38056a667fa4ceadf20f2820b50a9c40aa83d4744ba89c2",
+          "tests/test_sensor_model_discrimination.py": "6fe0bbcd84fef2ce0e4a68874dba21ae83e2d78f75d7c170aa10cb022019f170",
+          "tests/test_series_resistance_realism.py": "53913811a450eb32f7c28df2764835ac3b52ef13985f72a5df5378ced50df2f7",
+          "tests/test_small_matrix.py": "47cef1743aa0355c3ff3e1fdb5fb0e8699dff3478a3a7d0467010ffe76849f2a",
+          "tests/test_sparse_sensor_inference.py": "9cbdf2dedae1ce19821b6bc917061621a87907b5f245c9481327fa9414bae00e",
+          "tests/test_temperature_dependent_contact.py": "d4e2823db366960b7bad077581e5bc16d5e5f8416ed4458d9a3fb057a6df9089",
+          "tests/test_temporary_face_sensor.py": "f9fec49b14bcad0ed44839c013ce8e707ed527ac64b4b84763874282d48d3df0",
+          "tests/test_thermoelectric.py": "9ef5809c414a76ddb35d8860e21ecdeb67a7608591e387e6198c80cba3cdc8d4",
+          "tests/test_transient.py": "08f1eafd17c4b83207e7ec43a77c795f69c2ddf2f457408ab17a61fab3855b8a",
+          "tests/test_virtual_test_stand.py": "fe432ff7c981f489ffaa9442a873cfb836f40f0b486dfd0934cf8e4347a74c2b",
+          "thermotwin/__init__.py": "2711fbcc0a9bcbd0ac320b1cb83937bc04527f20e3e03be177d32b3c521b29ae",
+          "thermotwin/_public_api.py": "cfb96fa3a7fd6a685783d7e776c246fb6df189c8b80082b1ff39944bca230206",
+          "thermotwin/adaptive_experiment_campaign.py": "4680c447e2565d4831659657ef3dd7214e4489cb2830397aa32868dd751b7eab",
+          "thermotwin/ag2se_substitution.py": "40da287629178582685fa0e9d615580f95b1eb413291f04c166224a9a69569e2",
+          "thermotwin/assembly_fingerprint.py": "9fc4f3b1f7b2942447184b357d604af92b9d5bdbc96356aabafe0dab9be0a528",
+          "thermotwin/assembly_fingerprint_report.py": "bc651dd9fb46355a7f36561fdcda15dddd3aa10000100dd28546ae0bfd4786a2",
+          "thermotwin/contact_diagnostics.py": "6e40b66fcb1a8b8eb40b861ccca6b766d28498bfaf5469e0e9a0afc4982cbecd",
+          "thermotwin/contact_experiments.py": "ed750c03c1d8ce0a4fec19ad717de59f847957ae2821709d8bce9a72c2aa0d57",
+          "thermotwin/contact_forward_pinn.py": "64b47e4a7fe1778448eaf04153717a170c29a6018f4786c0d05e6dc38c46d138",
+          "thermotwin/contact_forward_pinn_report.py": "45bd34a5f933424dfeb833d20a72c006e202f5d94ac26df41726149441bbfba1",
+          "thermotwin/contact_process_window.py": "76961b817f1b07fa50c7c72193c6e95e209b7d74fcaa31df1f1e328f3705cc4e",
+          "thermotwin/contact_report.py": "fa9a320e836c20b78cf5e63a5be96586fc7ea7cbfc73e074f8ac5daa743677da",
+          "thermotwin/contact_resistance_bias_study.py": "20912dbb9f833a243632d6406fa138daabef261077195734568501389c2fe72f",
+          "thermotwin/contact_resistance_combined_study.py": "da68545bd2353495d522091d85af8b41c25edf5aa9b1bd04ab3c85c461498b43",
+          "thermotwin/contact_resistance_inference.py": "9337177df1e05016724ce44cf659bb0fb63851b01116ee1f4058bffddf102468",
+          "thermotwin/contact_resistance_lag_study.py": "747703f66e06660bae3d660f014547fd71c5b80947fdba5b45331254b7f7ad0f",
+          "thermotwin/contact_resistance_missingness_study.py": "a704e647e905e6c8c75b20e85c79ef13f265686ecb13d67e4a2970817157191f",
+          "thermotwin/contact_resistance_noise_study.py": "a152b29da49972c8f662077cf1d37831e7278970966ec67c75219862d0ad65b1",
+          "thermotwin/contact_resistance_robustness.py": "08d2dbdf57f28b8f3bfb27007d214a60040f7ba83ae6e7137165e17514755744",
+          "thermotwin/contact_resistance_sensor_study.py": "258849736e9bb96ac5a1816bfe099ca6dc1f5da15511cd269917a5d6816d7eb7",
+          "thermotwin/contact_transient.py": "fe56f0de4062cefb9c6ac876645121c9d6f4f53ecc1deaa6cfc85e2f03521633",
+          "thermotwin/control_comparison.py": "5a434f1ac3744b1598ab5bbc21e0c87c7ef061287aa3b389ca6104679a9801df",
+          "thermotwin/control_comparison_report.py": "6c75553588aaec2fe0a7ecc80aaa5f2ff274b01a4b813f83a43e7c215bd0daae",
+          "thermotwin/controls.py": "65166e3119b600e0ec8377f81504361dc3fde214bb75682570bac883bb5d97ec",
+          "thermotwin/cop_operating_map.py": "cb74d461ba6e0960640a2066797b3d1ae20d565c18224100cf39b88bbe2b2c5e",
+          "thermotwin/cop_operating_map_report.py": "fd79134335499326c30cd20fad0f400712ef20aff444592a4b5e7274c9a75687",
+          "thermotwin/core/__init__.py": "b99d9fa6be14cc8d2df1b6435de0e51ab6d257f9d69624176b2eb9b4f76f2cab",
+          "thermotwin/core/controls.py": "bb2c257ab9a447b2b51e1cf5dc0731152dff4603dd70d856a9e4aab36dda3dc9",
+          "thermotwin/dataset_metadata.py": "25d2385a5b22036f1fee1c71758fcd74d71332b1efef5d09139e0893085ecda8",
+          "thermotwin/dataset_quality.py": "8aca3f1d97ca5c3c6e46a5f690d0a9be6a5d8deca41d2e96d69c912933eaae8e",
+          "thermotwin/design/__init__.py": "26dea61942495fb1cf22e969116978ec40c0aa78001e37e6d62dd6eb5f66a8e2",
+          "thermotwin/design/ag2se_substitution.py": "cd0ebe22f995264f43ca95424df338a7ec1441c53e5c7ee15fb36d18d5e1f31a",
+          "thermotwin/design/codesign/__init__.py": "d31e294c3fae100b2e08b226664c0b70d206f03000461d431e1e63c0ef4869eb",
+          "thermotwin/design/codesign/campaign.py": "3c5a9f7524b08e767e90af96f4246fe38ce08c428c3197fd69fff9eac1c9203e",
+          "thermotwin/design/codesign/evaluation.py": "38553e6f8f01ae2dfab0c7802156db0b4858a14baa3986784ceff4a8f5a35022",
+          "thermotwin/design/codesign/models.py": "2a2d80fbe5647436bb036e4962d2e41e1a21e621e8e20825f46e2e24c8985450",
+          "thermotwin/design/codesign/optimization.py": "cca3e8cd98a9b52f0f15093bed06cafec562b495792d88f085818da25517d06d",
+          "thermotwin/design/codesign/robustness.py": "cfab74ac65475088b44ee3456dae535b6b76dadd2d96090bc1d53fb0cae1fa38",
+          "thermotwin/design/codesign/sampling.py": "8850e53beab22c0c5349a0e15f92a4d0aba1f253482219714c994c5e4e1103d2",
+          "thermotwin/design/contact_process_window.py": "997e890e29cced175da7508c652cf6a84de68cb41355526143c0c7210bbea61e",
+          "thermotwin/design/control_comparison.py": "c27aa544b7d3daf4feb05daff128a4b21739ca543e8756cae89faefebfdbae5b",
+          "thermotwin/design/literature_materials.py": "f3ddb42c8d64deeeda6a7b1a4c766a557bd8e6f9a73d8a9f6ff1710b0d7be3b8",
+          "thermotwin/design/material_pair.py": "b4115c63a0687b9686af99933ad701917e5fc8e578c7fbc352fb7395f843c748",
+          "thermotwin/design/materials.py": "1e9d5cb2570cc488ced9b4d59057ece536264ee7a8ef51a25f797e80e8327115",
+          "thermotwin/design/operating_map.py": "b46a803328dec7de79e37030b26bb9b0d6876483cce1e521641b61436d43b0a0",
+          "thermotwin/design/power_electronics.py": "fa80555050a345d73a5cb792b52b1b8f40d1e02a60d1b83406b14bddfb82b84b",
+          "thermotwin/design/pulse_map.py": "c0d707e771428790b4b84b281222e6fb3cf9bee97e02bfa0b24c37a1eabb6633",
+          "thermotwin/diagnostics.py": "6f65b722c92356980c6afb405efcd90e75959dd26650fde0e7cb4f91385bad2d",
+          "thermotwin/distributed_independent_validation.py": "12f0b6af1aaf96ac8076010f537d67d213570b3e229456be8a9bcaf8a4d4841b",
+          "thermotwin/distributed_inverse_robustness.py": "03869aadb2512a515d4982ff79aa35c075396e62104175a5e4c832513879956b",
+          "thermotwin/distributed_observation_identifiability.py": "3fdaada03bc13ca2e501598eb871b90dcc12d2a5aa30ca7dfa0ab86e00d60b89",
+          "thermotwin/distributed_pinn_training_audit.py": "571cc8ea3a33747a87546900c021a5193fda57e70d5afb7f583d54ae18e00fb7",
+          "thermotwin/distributed_profile_coverage.py": "0fadb33f61c710c47bf7aaaa9c3677a4ba1e86514069f70acf44cef6bfa1854b",
+          "thermotwin/distributed_property_report.py": "b65bf2f0b0546eb28cfe5846d544bae80f711de01c7ee3ed468cc9eb180af479",
+          "thermotwin/distributed_withheld_validation.py": "27c3108b4dde500938bbbac182edc670a1a78a6e40bd175b8e137f1b6820fb5f",
+          "thermotwin/engineering_showcase.py": "2b6b2e83ac2be06997d3ac49a6ef4b8db210e94df7b047de700c3a7fd86b03b3",
+          "thermotwin/experiment_selection.py": "a62bb06a40c59cf4891a951d831c36375a1125d9805797d707d36be47bd39a30",
+          "thermotwin/experiment_selection_report.py": "815acdda56f64169dfbca114a9c62ed0c989d4e7359bf7782b17c5f0162bd629",
+          "thermotwin/experiments.py": "dd0bc9af0ab98d7d757f18602694588eeef361df4934200d1a99d66a7107cf82",
+          "thermotwin/figure_paths.py": "162e3da30f82ddb1a0b4529a3a6a90c2f13f68973e2068a980b88cfc93639bd8",
+          "thermotwin/forward_pinn.py": "bc204c9bfba10f35fc4221e83570f1f0020f592a3fc084423656def65b92afba",
+          "thermotwin/forward_pinn_report.py": "63e040397e88c4502affeaf31d7d1b2d89218998e374aa4e49c2085a6565c1e5",
+          "thermotwin/forward_reconstruction_comparison.py": "918e4344c0bea065b0c67d5898e38227312399a5b9e6ed720972777f2827293b",
+          "thermotwin/generate_all_figures.py": "f4752e465e52865ced99ff362166d3cc87723c433cd462cd31cc388f124eb7db",
+          "thermotwin/hardware_data.py": "3a60cb9a3e6caac8758a91b7f9be88a09bc7c56d765039516f3e348e5b1825bf",
+          "thermotwin/imperfect_inverse_pinn.py": "66bf2d5008aa8aa48c0bb11bb79a564463f18bcd1ef189b956978c45064093f2",
+          "thermotwin/inference/__init__.py": "ac66a76c13550127930c709428958fb15bc0e8958e3aca0f7f9231e55d19f6e1",
+          "thermotwin/inference/assembly_fingerprint.py": "a36db8eda16da346e1376b287e9de7c9b852715faa1307651fe48c06072fdfd7",
+          "thermotwin/inference/contact_resistance.py": "b8513a412a04493f56fdd55aa2a74ac85e710ab8fa3056da6cf708c57e4253a5",
+          "thermotwin/inference/distributed_experiment_selection.py": "6b6d62ccaf916f0f01c8821e9514471877b3c1b6850c96e330ec65a3edb7714e",
+          "thermotwin/inference/distributed_identifiability.py": "ebc1e5d56ad2966aa0137add819713c749fe4aef91f6a6cb7e296d8e219307ef",
+          "thermotwin/inference/distributed_profile_likelihood.py": "28abc79b8aac021eb792f01d963468d6998816d19aafa1767c80fe6792fce921",
+          "thermotwin/inference/distributed_properties.py": "9ceb452443bb6fcb2650ab9d423011864eb51a742cfce249a464d659aff3e7ee",
+          "thermotwin/inference/distributed_regularization.py": "16632d453ccf2e4fd97b7681d99334a6712951a262d0ed7e75210a79e4fddffa",
+          "thermotwin/inference/experiment_selection.py": "49e7912a564a914534ef054ceaec438a59b5c4e6da315979098b8237258077bd",
+          "thermotwin/inference/joint_thermal_parameters.py": "180f33121bf8e9aeb647ea85474f0cdaf76b6c4652b1b4382acfd532a02fa64b",
+          "thermotwin/inference/sparse_sensors.py": "3b5323a7e376abd1e9948cefefff0c5a0ef3082a3ceb6e3c217bfd384815528f",
+          "thermotwin/inverse_contact_resistance.py": "708efbc28f4e8a9b48ca1af720ea9f0a46d9405eab8cb95fe341560d33b8abd5",
+          "thermotwin/inverse_contact_resistance_report.py": "228b69b90044b4bacdffaa623b42c67479ada991e12ffc016055f569cfab0d84",
+          "thermotwin/inverse_thermal_conductance.py": "afdfb0005d94f1a7dbca51de604f239b4c72581e8cdbe1521597cc6934873151",
+          "thermotwin/material_catalog.py": "381adcd8aecc97866d6a3da683131cab86fdd03391f9317919498799f6b32181",
+          "thermotwin/material_geometry_codesign.py": "d1f9890b66ce88caf9a1ad1ea5bdbf2f9b7abfb3a16fc7025e2a3320366e47df",
+          "thermotwin/material_geometry_codesign_report.py": "c926b1d43466d297ec6e12f8228e5825d89ae1446084369c9bbbc4d8aa81e22c",
+          "thermotwin/measurement_bias.py": "6de9e186d0ff092449ed206bc7f3d834dc2e1c61ff044e560a0b2e798b18bff5",
+          "thermotwin/measurement_lag.py": "94f5501f14f593bc59625f382d5bb87345747325463c5fd7a8852f29c900743b",
+          "thermotwin/measurement_missingness.py": "1da2ddc5131e4a8c7d6e191587b089861b7fa1e3cd72aab0235490871391be06",
+          "thermotwin/measurement_noise.py": "fcf13ced26ce04af11b9d4b62427a0a7b1de680df286a32f157824807d511258",
+          "thermotwin/nonlinear_experiment_selection.py": "23ebdf1d85316400925ab54ed74f0685ad4ff48ea4789b308d1df12e0b04470f",
+          "thermotwin/numerics/__init__.py": "18027080d8517dbc12c7beb0d7e05e06f0c2afeb2460b79cc01de42b219e1aca",
+          "thermotwin/numerics/integration.py": "fc376d4bdefd91f7cee170411b9c54cb605b7c507042ca28aada1a308fafc390",
+          "thermotwin/numerics/matrices.py": "5f77f2f5c661ee0c44895289ae620dda2e484afb1d203e434913d458f0799416",
+          "thermotwin/numerics/statistics.py": "74671708b4794bebd803927f823e03e8d69aab493c60ab9c3d9af086e5ea319d",
+          "thermotwin/observations/__init__.py": "ceec2781c69e64ff2cf5e0305f8221b47e632057cebbc0dc54d75099431585c5",
+          "thermotwin/observations/bias.py": "812b8786a5594ea178b24b99726b11852ef080199457077f473b327ee3c66dec",
+          "thermotwin/observations/distributed.py": "5e427207edd6196bb5e4f5ff0c24ebb41a09f7c18d8de9726ce60950c91b67b4",
+          "thermotwin/observations/hardware.py": "be95bb2a7f7e955b82c0be0a3d00f0b987245d21b3f8579db089ac89674b877b",
+          "thermotwin/observations/lag.py": "7aa4f0db4ca60e63b7fe9b504df0b9f06e4b94d9d88c76b1494be5d7ff0d7aae",
+          "thermotwin/observations/metadata.py": "7b2f2499052d446463fb4eb316005189300a3fb4a053654e42a281d2e2cc0c1c",
+          "thermotwin/observations/missingness.py": "f2093b8467de1edcd5aafcaf805bb726ea54aad413ffc8135827d26310c9bf4a",
+          "thermotwin/observations/noise.py": "bef7d76aa451b926e2db42b950cf164665d0e5fdaa121b258709ccdd3471dfcf",
+          "thermotwin/observations/quality.py": "da0a6def4d72d23b960f3985faecda8414c78936f386444f6ea0709eb1317b25",
+          "thermotwin/observations/test_stand.py": "25e63d2e13f14b92a1b67d77380f4d8df126149b4dd96f4f0fd64870ae388661",
+          "thermotwin/operating_decision.py": "648d6d9af248615b4922eb42691e247dc55f37b164a6279b6e3d9504c5b11ff2",
+          "thermotwin/operating_decision_calibration.py": "3bd2409b45625cf79af928f2687fed4fbe714fcb50c9413b9e18ea2d0a722334",
+          "thermotwin/operating_decision_final_evaluation.py": "1d955d218f1354b534af4e4055d9bc7d44b6a9fb2a072aadcc059cd35ff03a2f",
+          "thermotwin/operating_decision_realism.py": "73d5e84d41f12b6cbcd7dfb86bd235fa3d6819b2a172fdceb58bf1d66182e0ad",
+          "thermotwin/operating_decision_replication.py": "637c6b3b99e50dcd9e666f37931ccd0ef01568bbc47d79532f383ba8fff7cd33",
+          "thermotwin/physics/__init__.py": "3ec420fc8587bd357104bb5739e013df7a7298a51e6ef5039c85beb8dea8dfc0",
+          "thermotwin/physics/distributed.py": "847564bac5ae8334b7b1126f736ff3839756f809ca0c12f4358b8fc24306635e",
+          "thermotwin/physics/four_node.py": "e35e272766b08b9198ee07dfaced1a580fdc7b3bf66ffce863c5b3683a76fd18",
+          "thermotwin/physics/planar_contact.py": "f1091a133168ff7c4cdaa463f6dd838ad103d4cee1ffbf54aa612680b8b3abd8",
+          "thermotwin/physics/thermoelectric.py": "d9f447fb701abf07be0e11039cdf5b9f1a0b28a51744714a23e3e2ee1fb20f74",
+          "thermotwin/physics/two_node.py": "bef5f7d9d381662034d48b58852a66a737989fa2ef1ad51b24b8f50f1967c4ba",
+          "thermotwin/piecewise_contact_forward_pinn.py": "babc070caa8f4c110355a700c02177d0a6a1928b799cb4fffc31f89fe16ba5ca",
+          "thermotwin/piecewise_contact_forward_pinn_report.py": "71bef9d66c744998c04b921c75f01fdbbdbaf12ef2165e03672c7c28905e61b2",
+          "thermotwin/piecewise_inverse_contact_resistance.py": "dadf770c136c0df949c0f1d9601ad43d0a30ae74b50f9e06f7d523aa382c0add",
+          "thermotwin/piecewise_inverse_contact_resistance_report.py": "8ab59e9d35fa67ac198cd57a71075e47a680c80166eef0bd68b32b00dab9f72b",
+          "thermotwin/pinn/__init__.py": "3d3bfe6b355b1c9fbe83423a1a434057fedd791e9870001d533b9a1c10f67f60",
+          "thermotwin/pinn/distributed_forward.py": "6c6d060f60a1d84ff28d170bc7858ed9e4cdc12829c997f79111009856323dc0",
+          "thermotwin/pinn/distributed_inverse.py": "738fcb4b26bfdfc97d4613ebcd879fa8b71d55e91fc254684c7666c1fc88b1c0",
+          "thermotwin/pinn/energy_closure.py": "b6ddd208d2c120f255c0d45c92821c6515a32548946bf1e566bbfad3ec7c3a61",
+          "thermotwin/pinn/forward_four_node.py": "63ae4fee009b303539a65d8f46196785ceb981f3fb369616f357653fa3220c85",
+          "thermotwin/pinn/forward_piecewise.py": "183fcf2d86e3c55c5e170570acab0a086ac96327eb527420d3885c495913896d",
+          "thermotwin/pinn/forward_two_node.py": "fb566869300c182c182568c9bc99f07df65e53bb3d47367be58ca4beeea699af",
+          "thermotwin/pinn/inverse_contact_resistance.py": "039c0cc6cd2663354aa6ac17910232967ec7913b5c36f21aa1f507221db6afd8",
+          "thermotwin/pinn/inverse_piecewise_contact_resistance.py": "2b3bf6c70644b7ccbafa0d8908b72fc428dedc3a134292ba6268274fd7d4802b",
+          "thermotwin/pinn/inverse_thermal_conductance.py": "6612433be79a46b4ca76f6fb712c809a268ee4e08e826b16eed3ae163c63a5ee",
+          "thermotwin/pinn/planar_contact_consistent.py": "ff9593ae2f5a96a01f70d10700c3c94c0b1629c31d2e01a239ffa7fa848ea8ae",
+          "thermotwin/pinn/planar_contact_continuity.py": "27c5a1cf741565128375c1da1b2e889e323bf8ac47c8f64338156ae5a396a8bd",
+          "thermotwin/pinn/planar_contact_graded.py": "7c9cf21c52e3bcffff880b6a70cb6f18a765c8d3e0f3cf1a651c69c153a4f1de",
+          "thermotwin/pinn/planar_contact_inverse.py": "a8e183b4f43b3ca0ba41918cf43982c9d2e6034064f564388c603532366300e5",
+          "thermotwin/pinn/planar_contact_optimized.py": "2b471b75e13549c9db9274b8d34246bcef0615974556300f5eee39ced2f7786a",
+          "thermotwin/pinn/planar_contact_revision.py": "c58498e96765b6cf50f3502743d67544891a27c652601621049e7dc6edf49894",
+          "thermotwin/pinn_showcase.py": "14db4747b7978fa1db0dde209e88e74c1e49e582a3d6b3ae4ec32dd44c2023d1",
+          "thermotwin/pulse_operating_map.py": "68efa0381366336851a1b4f782eab255ab1692e1359d2ea084aa2fd6a7af3cbc",
+          "thermotwin/pulse_operating_map_report.py": "b11c1c62f77a87e1041fd7b9c02c501c5efb2ce8749598730640229802c3ba4d",
+          "thermotwin/pwm_power_electronics.py": "7d7c74ed2d1b7e411c21eac572f3f98cc995cb15ebcde10f1332051d435d74d8",
+          "thermotwin/pwm_power_electronics_report.py": "47d44e1ee32fade1c2ab7987241aae1d8e935e211dbcf4e90b0a6fb231f42390",
+          "thermotwin/release_audit.py": "83a0d52cc1d256d450017c692bd3d63052826655fb9efedb02a76881c9e77aca",
+          "thermotwin/reports/__init__.py": "78f516d3a97442c241c2810582cfb6ee4aff765bac3531a8d95c241e52e3eaf9",
+          "thermotwin/reports/adaptive_experiment_campaign.py": "69e63632ecba34d609c05ebb93dcf2efabe551a3764bca1e110f1b1adc499bbb",
+          "thermotwin/reports/ag2se_substitution.py": "d4d91c5a717416985facc55a62d19ca16f35f2c3ab93cef06088b19e8a12d93e",
+          "thermotwin/reports/assembly_fingerprint.py": "179992a9d1a58c85f033c61bddb4e5fea7346076686effe89c4a6f7a19e65b51",
+          "thermotwin/reports/contact_model.py": "fa998f46afe64b54ee0daf5fd57f7783d11a2b654b7dffb40601ba465c8b1da6",
+          "thermotwin/reports/contact_process_window.py": "addbe2f9dcec3e3b6de695c52305060daf8d29c1cbb58a143f7c9bd64a1e8911",
+          "thermotwin/reports/control_comparison.py": "2da96a5a84253404e07c20e28d7b3b660bd3b4c09b4c924d3466a842ccd6f63e",
+          "thermotwin/reports/cop_map.py": "5ea41bccf92fe6f135e765b2ba41016eb85dc3a59c64b8962669636cab7e96a7",
+          "thermotwin/reports/dataset_quality.py": "cf31594c7474b452dff6c60f052118a2b53a271f1f4d107f0005ab724825fb04",
+          "thermotwin/reports/distributed_independent_validation.py": "8849f5130ebc14f5f823fa7e273c6385f66cef459b4adec534a3e64464813ac6",
+          "thermotwin/reports/distributed_inverse_robustness.py": "9d9589706286713827c385998500a022bea29535c79e2fb5797eded5cd0273ed",
+          "thermotwin/reports/distributed_observation_identifiability.py": "15a7d0a07125f3628ac3b49f8f1b9922611678d7c133f64874d30b8f9dd695cb",
+          "thermotwin/reports/distributed_pinn_training_audit.py": "69401d5ccd8cc615139a166d015bec242b336d421e694e23fead4cff1325b531",
+          "thermotwin/reports/distributed_profile_coverage.py": "38d89287f475750216806a3cb82beddcea54ab7c732394e92b9492380c21f618",
+          "thermotwin/reports/distributed_properties.py": "60106799971032f5e042d30d80e83b71b79284eefc14214a64a09b6f4d5c0909",
+          "thermotwin/reports/distributed_withheld_validation.py": "53ab69db62ec81535022c8a48453d41209dd3746cdd10d9ef98caced254c5ee6",
+          "thermotwin/reports/engineering_showcase.py": "2359390685de937d6af61118b1ffb808c88d7fe8f0317cf4cfb98c1cbf9969d8",
+          "thermotwin/reports/experiment_selection.py": "2c10c7b2d98612405a2425d22c37bc58184149177d084fe951ef1d91602410cd",
+          "thermotwin/reports/experiment_selection_summary.py": "403a50b4d8b2581331dd826a5575927435d0764c308f33b1899cfa6b05e68365",
+          "thermotwin/reports/forward_four_node_pinn.py": "6a23a3cdbeb586f68523a9a84c0b2811e72cf7540a6fcbf25f2f477012169651",
+          "thermotwin/reports/forward_piecewise_pinn.py": "4bf502bd59c8ba9b34c690de03a2d3e524f6c4954284e207eba802e90270309e",
+          "thermotwin/reports/forward_reconstruction_comparison.py": "2f2d6b1b0d4c71a42e76c59ed360b8549a36aa729c62659995d35a1c2ea95f68",
+          "thermotwin/reports/forward_two_node_pinn.py": "821eb307a4aa22089331a112e04a4ba59a0a0479c8ee54d2a7dd7412e3037097",
+          "thermotwin/reports/generate_all.py": "90038a1b27e79e263405bf714a4e42cb42a5a0ce5ec9008dfc68906f125b603e",
+          "thermotwin/reports/hax_research_bundle.py": "f581bd90b202381891885c6ebb86fb6a9c57deacdde3f1c8f4e043849fc1a454",
+          "thermotwin/reports/imperfect_inverse_pinn.py": "781a3183f5049179d44bc137950fad44ee1d14ebfdd573434c08a01288a94cba",
+          "thermotwin/reports/inverse_contact_pinn.py": "106172ec6762dfed4c20dfb9c13197542b365558738451cd5511324cc045661f",
+          "thermotwin/reports/inverse_piecewise_pinn.py": "29c032665bbc9ed00d03774c5cba6af4fe0ac1787c57c5196f4751253fd82555",
+          "thermotwin/reports/material_codesign.py": "2dbd0fde4ce2b2e678e1cae135bfe067ab8dc31c31e17f08af83688e86d403fd",
+          "thermotwin/reports/next_experiment_story.py": "60e565a126cba0fb849e64f6fb6f095c9c6047bab8abe35314eb7f4f99f5fd22",
+          "thermotwin/reports/next_experiment_story_corrected.py": "01b346e5ba527ffeac4467513251423fdd0ca7f53435cfbbd1875771c0fa7db7",
+          "thermotwin/reports/nonlinear_experiment_selection.py": "deed0af781cd7a6212732a7a962a35ed2c5d7ad2bd93579921f6a4ba128449fc",
+          "thermotwin/reports/nonlinear_experiment_selection_old.py": "af4ebb528997e78e1abe78a09ea8348ca71d8d77380bada6fbeaf4111a7d06dd",
+          "thermotwin/reports/nonlinear_experiment_selection_paired.py": "1e0911009fd2c664a85c1ed14a08e9afa445a0aa065248778f0ef4ac35788549",
+          "thermotwin/reports/operating_decision.py": "81af877f105be23281d67259ad5974a0f015db1a6253cfcd3181c4e047472c88",
+          "thermotwin/reports/operating_decision_calibration.py": "c2aa4e2b242d1df66fdff91eca3ffdea3b4642f37a2079ae66b820764010a365",
+          "thermotwin/reports/operating_decision_final_evaluation.py": "a096713332ecbc5c1029c17fd5b2c7b70888fc7f0a539285a4e7a183c8d94ad6",
+          "thermotwin/reports/operating_decision_prospective_development.py": "bba20401b9e6422fec7421693d57155967c8ee5fcb6ee3dab925a232808d2717",
+          "thermotwin/reports/operating_decision_prospective_phase_d2.py": "4cd380f9007d67d7ad1f0a1bd307453945ac9487c953728c937f3c01ea9881ba",
+          "thermotwin/reports/operating_decision_prospective_phase_d3.py": "a00ccd6fab6dbaf3cb1e81c1832f10ee97109fbf548b032a80376d747a0bb470",
+          "thermotwin/reports/operating_decision_prospective_phase_d4.py": "6ad109b8078b9b22702577a5b2084ff6cdeb2db7a337493af1beae0201eb667f",
+          "thermotwin/reports/operating_decision_prospective_phase_d5.py": "d2e60b3877bc338579955823fa37509a64236f1317c396db81dd6f0887250882",
+          "thermotwin/reports/operating_decision_prospective_phase_d6.py": "a53c199fe44db05c675e767ce5bd99ec210fa2380f6eb53584c77cd5add7f9f6",
+          "thermotwin/reports/operating_decision_prospective_phase_e.py": "385eed550a647db435568a1b4a73e345d4ffe5ff98c7f168fa71bd50d42a9805",
+          "thermotwin/reports/operating_decision_prospective_phase_f.py": "a18ded77fed6fc98da0a88e825e4b098f848d8e06e8da5169e9b755efbf95a24",
+          "thermotwin/reports/operating_decision_prospective_pilot.py": "c734cc4466761655448b8a784777683e0966b46556efedbdf3d5de62b720231f",
+          "thermotwin/reports/operating_decision_realism.py": "db950a39d22de5eb9c54c16604a150482850edff4eddf905ee8f83fcba304174",
+          "thermotwin/reports/operating_decision_replication.py": "1fbffa4d248106b18a560d01e6ddd884ad68368f538097d2d5d04a9329354052",
+          "thermotwin/reports/paths.py": "83764025e1ffd708539287436aed37d63b703f4e41a952ef8285003518e63057",
+          "thermotwin/reports/pinn_evidence_summary.py": "89b9698ec24557ca1ba76b64b04ec571dac57177328be58eb4c62504d6314289",
+          "thermotwin/reports/pinn_showcase.py": "6917fac2470f71db78fd3eacd0d34669f880e731dce3efc9c6efda2fbae48f76",
+          "thermotwin/reports/pinn_spatial_continuity.py": "2ce68167861c219c677238c2be02abfe9b2f2dfbcafabbeeb4b03d5b6c314362",
+          "thermotwin/reports/pinn_spatial_graded.py": "56c7951bb477b6028b16a36fb1e23e7f1850d8b66af02d62bef3f8a3b0ff906e",
+          "thermotwin/reports/pinn_spatial_optimized.py": "6898788bcba235d7dc2460ea397c48539e352987a859910df852f23af61325c4",
+          "thermotwin/reports/pinn_spatial_revision.py": "23350aed0e6a7ac2083c31c1eda4d85f605d89fae7ac925f9f54c2b50bbea3c5",
+          "thermotwin/reports/pinn_spatial_revision_supervisor.py": "4b7bfeb291b72d7e53fad0aebb4038f527a847816ab5e6223860368209977255",
+          "thermotwin/reports/pinn_spatial_supervisor.py": "a74d05b0bf4fdb8164be1b8e5548232a9f9dfe2e6a594034b752dc2e13126042",
+          "thermotwin/reports/pinn_spatial_validation.py": "0172a4f4553be56d5450f51cd9ca38675847d1ffa38f18f8e180de4dc31c3b15",
+          "thermotwin/reports/pinn_trust_and_limits.py": "b163849ae5c5cde5e2e69872ee68f2d6aae81f27cd8c5fd7d185717b30d30a33",
+          "thermotwin/reports/pulse_map.py": "232559ccc5cfa961eab721eb45d3046851f61828445edd35a69d33e56272d680",
+          "thermotwin/reports/pwm_power_electronics.py": "b5b41e1fb7f0810cdb42099a1438b0a7ab6f2f28dcf47c1e742779e448a12207",
+          "thermotwin/reports/release_audit.py": "92602130206dccddb3f1ef2d5b8c69aa4725f34367233d8177f6a28f05f6e925",
+          "thermotwin/reports/sensor_model_discrimination.py": "95b60fdaa3e9ea163c5e23eca798c7a82a898ad347bb7f8c65db7b71b2fdca38",
+          "thermotwin/reports/sparse_sensor.py": "678541a179e3e74373beb88dda07657e0e685fb2de6bbe7f18b9c72d1a0bd9d9",
+          "thermotwin/sensor_model_discrimination.py": "4b2eb298d9a3c32d4b12073ed1ff2a96651949c1612224d4dcd1b16906e5cc5c",
+          "thermotwin/simulation/__init__.py": "a483276626893c138afa8e511423476717858b60e6ff3614d331313b95c696be",
+          "thermotwin/simulation/controls.py": "787c39f945705e46c21fef0b667291b0eb0f4cb64dfb5708091841a370dc0235",
+          "thermotwin/simulation/distributed.py": "fc9ba81beeea2323437b02a72f0bfe6a4103a2aaddc6a338d38f5d9f60009fb0",
+          "thermotwin/simulation/distributed_independent.py": "4caa8465b2343b5c3a5815b52f6c54f76f4596de6947a028ce434d1a1397e99c",
+          "thermotwin/simulation/four_node_diagnostics.py": "e84e59da9429c0b35dc9f2926ef77eae8cd918ddba79eff1791d04f271e49b59",
+          "thermotwin/simulation/four_node_experiments.py": "0d381191191cd55e235993c9c90537890df1f94bcd42db54be204cce09d64d3f",
+          "thermotwin/simulation/interface_mass_mismatch.py": "ab3df1ee90614afa3fb589bf0b54bce9ce877e0d4fa268586b994ec3055570ec",
+          "thermotwin/simulation/operating_realism.py": "435905ae9a69e4481bf6154691599fff3302c4eac5fba3a8e4f02a4ed65fe1d4",
+          "thermotwin/simulation/temperature_dependent_contact.py": "3f0ad27571b846c48b92d96bc74af40c3a7820a7d31a82bc10468a77a396f28d",
+          "thermotwin/simulation/temporary_face_sensor.py": "65844d45ed1b349fde4d97ebd8c826ac3bcb72f1c1b1f583c59ebc54d625ac10",
+          "thermotwin/simulation/two_node_diagnostics.py": "13f8356e05b32f375b5b92a4411b723e634b4ed72c468190eabb5ac6820364ec",
+          "thermotwin/simulation/two_node_experiments.py": "4c68f90a4162874f974d298f5d06bc363ef0cde2c3987d0c006c16bf20e20b5b",
+          "thermotwin/small_matrix.py": "943c44b087e054d7bc6851630d4837e013f11b0ef638b1594d2bbcb6379d5208",
+          "thermotwin/sparse_sensor_inference.py": "212b67b204b97e7fd145dc949eaeaf4704bcbfe711fc9000bcf59226d8b1c55b",
+          "thermotwin/sparse_sensor_report.py": "47cd388bd6f3653d206727c3926e21f1b811e15dce7e0159aae934b4c565b679",
+          "thermotwin/studies/__init__.py": "67547eb665de278d2de3a74b547031f569940236403a7aaa609e7317e959cf4b",
+          "thermotwin/studies/adaptive_experiment_campaign.py": "69245f79e3b036502128c7097b421fb7bfe725d39a3a675c9ba9f93bbdda72ec",
+          "thermotwin/studies/contact_resistance/__init__.py": "6b9895d16f79d19ac7c99034b892ce0c5db0b597261ea236f4b1d1d9824932be",
+          "thermotwin/studies/contact_resistance/bias.py": "64f8bbc79d8e047db53c4fbe50a450ace3da8b78b07b0ca31da4c6eb3885c8e5",
+          "thermotwin/studies/contact_resistance/combined.py": "e4326b232a7939eae416263f33e048bb4caf164b1f37d51ccedb9d9b55b8eb3d",
+          "thermotwin/studies/contact_resistance/lag.py": "af9f337a6191e0778c8cfb11ee0f23abaca1501b15308164c3e1c793ab7a9fc8",
+          "thermotwin/studies/contact_resistance/missingness.py": "7360a31b51b08b25246a24b1e27c9343226635b29c7925723bc1f769cb5dcfc0",
+          "thermotwin/studies/contact_resistance/noise.py": "d7017b20259d1ae277c200c6d62590cc4470c0062d429e6925f284e9abcfca3e",
+          "thermotwin/studies/contact_resistance/robustness.py": "5156bd9fa33d3de97711b1a2d14bea49773442470c2f0f54f4361d413e816fcf",
+          "thermotwin/studies/contact_resistance/sensors.py": "e24d6f0a1563c9c8353290530be96acb4a071ba9b2f50a6bdfb50bfcde75bff3",
+          "thermotwin/studies/distributed_independent_validation.py": "8118287daef8781be689d948c4b92a0aa07c9cffcf242ef263e2e7bda666729a",
+          "thermotwin/studies/distributed_inverse_robustness.py": "bd1251fa62e186c8dfcf2f336dcc5c3586eb824343038b804276216da5fa8730",
+          "thermotwin/studies/distributed_observation_identifiability.py": "f0e70a13760dd20845489b0eaad4f878195be49a59f6effd9c9b3f10555baa20",
+          "thermotwin/studies/distributed_pinn_training_audit.py": "38211377d21b63f62ed016ed821caa596e125e5c3d06a577f01891c06947aba1",
+          "thermotwin/studies/distributed_profile_coverage.py": "e0224c11157f6a1d9d4ce1ef56da0081d2dd47c7e2e460c663697075c095fa5b",
+          "thermotwin/studies/distributed_withheld_validation.py": "85b81956ef39b4dd20b30a487150d4adc0130ad72342585e2ee50d184a0730e0",
+          "thermotwin/studies/forward_reconstruction_comparison.py": "90698d4dafea94ed96b0053ecd815dcd53a49b318cc14629215f9786417eb723",
+          "thermotwin/studies/imperfect_inverse_pinn.py": "3d41ce8f28ef0846efe7e51b478684a6cc871a233d9816fc3221aadccc848e6c",
+          "thermotwin/studies/nonlinear_experiment_selection.py": "10394cc9838fe73c5582d3988b5ec2924954fcd71e47f797b2d0ce1bbb698f80",
+          "thermotwin/studies/operating_decision.py": "4b2e3220803495850a356380fd30c50f3376114c0a815c230d293fa01566d208",
+          "thermotwin/studies/operating_decision_calibration.py": "86f6eead3161b03ecb0d300a2f61b55e868d27e1ea68bc9cc225d66a72e2044f",
+          "thermotwin/studies/operating_decision_diagnostics.py": "693c31a8dd3eda6ba623a684a3effba66c32877276fac6d6989841a06f955b49",
+          "thermotwin/studies/operating_decision_final_evaluation.py": "caca0c5194a605659794b7fcf27dba014cbe20b87ef1519eff00e7b97f9dc225",
+          "thermotwin/studies/operating_decision_prospective.py": "28970649c34d70640a6b2acc0fb22e75b50d405c2a8e67f40017fef5354d8300",
+          "thermotwin/studies/operating_decision_prospective_calibration_freeze.py": "927d390992e4de1deb78036cfd1378ea7e5619c5344f770f4fbbf5737aad1fd5",
+          "thermotwin/studies/operating_decision_prospective_costs.py": "a2aa8c3fa18b41b8b1fa16fe46c1464ce210b8a3e05de35659f81390dc061d34",
+          "thermotwin/studies/operating_decision_prospective_phase_c_freeze.py": "9fa1d3e1b62d7636fdf3620be14bcb464e110e177ddb2c54ad60a83f4caab979",
+          "thermotwin/studies/operating_decision_prospective_phase_d.py": "55ed3235775fc0a14e4e730908d53c8bf026913a3ad2be53a864a344b6098544",
+          "thermotwin/studies/operating_decision_prospective_phase_d2_offsets.py": "55d0e7804e52f84f8258ede245aef35ea125ca037678f154f4267e9e806b0a89",
+          "thermotwin/studies/operating_decision_prospective_phase_d3_grid.py": "b206348c3b64f3281be94593a8221ddc415128e0088d7bc00647f20e27395545",
+          "thermotwin/studies/operating_decision_prospective_phase_d4_sensitivity.py": "f5654f5151a9021db855a1c92f08c6a32d585045a35dac017444f4d767c896fd",
+          "thermotwin/studies/operating_decision_prospective_phase_d5_maps.py": "c0f9da222d616e50ad6b25d7725ce6f36f71ff4f48f72ef0054ef6affd6d8bae",
+          "thermotwin/studies/operating_decision_prospective_phase_d6_internal_check.py": "f639615465529a54b30829e4e877ac8fa163a5b292afe5608dffec3eb198e134",
+          "thermotwin/studies/operating_decision_prospective_phase_d_final_freeze.py": "0f887190545a2d02748f8c1cb9c24c55cd390d5c82a817ea56b51d0e47396dc1",
+          "thermotwin/studies/operating_decision_prospective_phase_d_freeze.py": "269b104fb803823b4000ea93e6888c88013e5c8b20121069c1c3ee0c847a2427",
+          "thermotwin/studies/operating_decision_prospective_phase_d_resources.py": "f7901736fbfd0ef24ee6ae0b91b9ac3baa5c7a210b5965dac70b71c833a775cc",
+          "thermotwin/studies/operating_decision_prospective_phase_d_tuning.py": "85ad0482fed05b2a01d09e55ccf1ed6b5ca54c98a9aa883a29adc041f1ca3b08",
+          "thermotwin/studies/operating_decision_prospective_phase_e.py": "099e8a502be35ba80edf56a27da1e18c82ccdb60d9cf5f63c3c9c3ebddc653c8",
+          "thermotwin/studies/operating_decision_prospective_phase_e_analysis.py": "071c50d647ef6e4b3591ad6e8cfa58e3fddaf8c50faa530bbe578ff8bb37097d",
+          "thermotwin/studies/operating_decision_prospective_phase_e_calibration.py": "56a148246162bbc86da271f247849133990853defbe5ad9128eba63e57ed4222",
+          "thermotwin/studies/operating_decision_prospective_phase_e_execution.py": "459cedb2a2ce42b0044486230fcfd8a0fc02fe323461f718b93aeb3160997d87",
+          "thermotwin/studies/operating_decision_prospective_phase_f.py": "266475cbcebea7af53da9438553679302bd88725ee552fb6fa318286e8f966f1",
+          "thermotwin/studies/operating_decision_prospective_phase_f_decisions.py": "009e47aba93f7f295f12c5afc2feaa5ce7f1bb0d6d2f30997d538897bd9f6d45",
+          "thermotwin/studies/operating_decision_prospective_phase_f_execution.py": "f898caef23d94bed61fe3e18e57cf0f0a675d0b93a16d8f69c18ae42ac36520c",
+          "thermotwin/studies/operating_decision_prospective_phase_f_worker.py": "94e8951e1ad24c8e339a53a0ebe6dad10c79aba4e7b7839bc5ba27a5926f6447",
+          "thermotwin/studies/operating_decision_prospective_pilot.py": "8bb240ad4681b57b1260251fea3d0cda86b91317d8114b6ca11d718e32e7bca7",
+          "thermotwin/studies/operating_decision_prospective_random_streams.py": "130eced9b745c8191794d1d22b627a6281afdb88fe78e7f5fe02cae40e981665",
+          "thermotwin/studies/operating_decision_prospective_uncertainty.py": "3d154e9133511507828139a658f8ac024ae813015712ba3bc1f2254aafbf1842",
+          "thermotwin/studies/operating_decision_provenance.py": "f2c555fecacf051c982dab08493f20166ed3913e4a8b9be5355fa9f683a77c51",
+          "thermotwin/studies/operating_decision_random_streams.py": "ced8579dbd440f14727f14619a03283a2050ec0569f7318d26e54e2870801f0a",
+          "thermotwin/studies/operating_decision_realism.py": "12a14f115981ae753d95f034c37d0656da057c12da924bb01fbb47417184489e",
+          "thermotwin/studies/operating_decision_replication.py": "df8906b1040701f7e59ba49735cc019bcd92ca19e10302f0dc43c8b5192055c2",
+          "thermotwin/studies/operating_decision_replication_calibration.py": "caad46c2a57a8bfe15b1e4405abb2126b0ce0bb8404071abe312238bdc3970a5",
+          "thermotwin/studies/operating_decision_replication_guard.py": "e43b1442888f7631be99b31096a4f8a9aa1724b9cd1e677b98b7ba36e174e250",
+          "thermotwin/studies/operating_decision_replication_protocol.py": "d49970910e4671912a18fd52cfa3202bc9336024731993e5f2e1c84b11a0a69a",
+          "thermotwin/studies/operating_decision_resources.py": "6e65595732d6de8ca27cc95915d46a4d7073516a10bb5ba8d30aaf634cfb84e1",
+          "thermotwin/studies/pinn_spatial_2d.py": "746d7a28d9d3a674a40fee4d4d461326b6b6a9d4d8e7bba13fffd915fa8b32a3",
+          "thermotwin/studies/pinn_spatial_consistent.py": "c90c0d7dce26d8eb1865e8445e556c35c4476a02eabfa6ce17a3f710cea69484",
+          "thermotwin/studies/pinn_spatial_continuity.py": "fddf36f14b72731ba963fbc865cbb92ec70e9fbf8b0aa86f36a74e84ad610f36",
+          "thermotwin/studies/pinn_spatial_fresh_1d.py": "ba131135caa8e4737f56164809ef9209311b852fc8d8545e05a3c16570ceefdb",
+          "thermotwin/studies/pinn_spatial_graded.py": "e9df846b33d34f5608cd919b3a1ce05d496c268e3a8e33faf7aebfbce4e28161",
+          "thermotwin/studies/pinn_spatial_optimized.py": "f89e9a7d471d99e7f1cac6a23e4da97244a63246b7b3924e05aa68233b4a244f",
+          "thermotwin/studies/pinn_spatial_revision.py": "3f3d614489e185128b710af6e7c8173c6c1331665d100536e96e6b6fd6a09efb",
+          "thermotwin/studies/pinn_spatial_revision_1d.py": "5387af1e6e1891e3b26b9e70b9921315ac3b4ef4d167a1b7970fbb08fb0dcaa0",
+          "thermotwin/studies/pinn_spatial_revision_inverse.py": "de86a3a446f208c1e313e7f133d5dae0d75bd1fc799623f86b811575245c7b1d",
+          "thermotwin/studies/pinn_spatial_validation.py": "0327451024cb81984ef2b6a00cf706364b0d5661c6d21c87177cab5833adfe43",
+          "thermotwin/studies/sensor_model_discrimination.py": "06d547c778b9d567ced335d853a1cdb3103a31d38dc7156b2b95f469414db949",
+          "thermotwin/thermoelectric.py": "9302e9f138ef54527cf3cecf152e7854467e7a09e56379eefe4cbff5da8e8665",
+          "thermotwin/transient.py": "c89ca5a1276d5bff9113b9155428c7a02ea1716be58662ad42736d931c97755e",
+          "thermotwin/virtual_test_stand.py": "312d2f29774975bee201f678a5b4ac9145dafe6f05308a2108dac26b8f0e972f"
+        },
+        "exit_code": 0,
+        "wall_seconds": 1309.5861217919737,
+        "finished_utc": "2026-10-22T21:52:54.604221+00:00",
+        "source_unchanged": true,
+        "tests": 1117,
+        "unittest_reported_seconds": 1299.676,
+        "terminal_log_summary": "OK"
+      },
+      "test_count": 1117,
+      "passed": true,
+      "log_read": true,
+      "log_path": "reports/pinn-spatial-validation/optimization-validation/full-suite.log",
+      "log_sha256": "0cbc20a77a1fca54ba7dd80cb8b04bbdb25520b72b85519337620927be433e04",
+      "unittest_reported_seconds": 1299.676,
+      "terminal_log_summary": "OK",
+      "source_records_match_current": true
+    },
+    "overlap_policy": "Separate invocations are reported independently; overlapping focused tests are not added to the full-suite count.",
+    "exact_head_ci": "Not asserted; verify after the resulting source commit."
+  },
+  "preservation": {
+    "identical_before_and_after": true,
+    "before_identity_digest": "bdfd18185fa27b01bc6c1d203d45658faf1812f770998ec7e9776074485bc511",
+    "after_identity_digest": "bdfd18185fa27b01bc6c1d203d45658faf1812f770998ec7e9776074485bc511",
+    "proof": "reports/pinn-spatial-validation/optimized-result-finalization/preservation-after.json",
+    "campaign_before": {
+      "directory": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimized-v6-development",
+      "files": 54,
+      "artifact_index_sha256": "5477ec6976ae143a62e8ea63a94d37cdcf515b4fb66cbed25f90eb7bf587366f",
+      "plan_sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+      "optimizer_history": "persistent",
+      "fixed_optimizer_updates": 320,
+      "reused_dataset_count": 4,
+      "tracked_plan": "thermotwin/PINN_SPATIAL_OPTIMIZATION_PLAN.json",
+      "tracked_plan_sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+      "artifact_index_digest": "771214d6015e0dbf4cd4fd9515282803fa5dbb0f07c41f6ce11abd9da0864e61"
+    },
+    "campaign_after": {
+      "directory": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimized-v6-development",
+      "files": 54,
+      "artifact_index_sha256": "5477ec6976ae143a62e8ea63a94d37cdcf515b4fb66cbed25f90eb7bf587366f",
+      "plan_sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+      "optimizer_history": "persistent",
+      "fixed_optimizer_updates": 320,
+      "reused_dataset_count": 4,
+      "tracked_plan": "thermotwin/PINN_SPATIAL_OPTIMIZATION_PLAN.json",
+      "tracked_plan_sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+      "artifact_index_digest": "771214d6015e0dbf4cd4fd9515282803fa5dbb0f07c41f6ce11abd9da0864e61"
+    }
+  },
+  "source_unchanged": true,
+  "saved_scope_flags": {
+    "inverse_opened": false,
+    "fresh_evaluation_opened": false,
+    "three_d_opened": null
+  },
+  "no_inverse_or_reserved_or_three_d_declared": true,
+  "finalizer": {
+    "path": "reports/pinn-spatial-validation/finalize-optimized-result.py",
+    "archive_path": "tools/pinn_spatial/finalize-optimized-result.py",
+    "sha256": "1bd9b64b6ac0a541a480382767ae7f3f9494ec5eab0708e8fccffc5a0a231f62",
+    "archive_sha256": "1bd9b64b6ac0a541a480382767ae7f3f9494ec5eab0708e8fccffc5a0a231f62"
+  },
+  "interpretation_limits": [
+    "Every pass/fail is a saved coordinator gate; this helper never fits, scores, re-gates, or selects a checkpoint.",
+    "All four declared cases remain in the denominator, including failed or unrun cases.",
+    "The rule jointly changes learning rate, optimizer history and fixed budget relative to the 80-update log-off baseline; this is not an isolated causal test of optimizer history.",
+    "Training-only probes and fresh initializations reuse already opened development datasets; no independent replication or fresh-cohort generalization is claimed.",
+    "Fixed final updates are budget endpoints and do not certify convergence.",
+    "Near-interface and near-bottom audits remain report only, even when their values exceed primary limits.",
+    "Full coordinate arrays, readout records and update trajectories remain in indexed raw reports; compact hashes and JSON pointers bind them.",
+    "No inverse recovery, untouched reserved-cohort evaluation, hardware validation, or 3D validation is established."
+  ]
+}

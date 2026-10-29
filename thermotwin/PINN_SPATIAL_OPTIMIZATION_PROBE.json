@@ -1,0 +1,1844 @@
+{
+  "schema": "training_only_optimizer_probe_summary_v1",
+  "status": "completed",
+  "development_only": true,
+  "training_only": true,
+  "reference_fields_used": false,
+  "independent_diagnostics_used_for_selection": false,
+  "directional_plan": {
+    "schema": "training_only_optimization_direction_probe_v1",
+    "created_utc": "2026-10-22T21:18:26.006661+00:00",
+    "source_sha256": {
+      "pyproject.toml": "01b0ee6e83096856e09559aa4f7577c6a6c75da5de17dbf80d791ef4985cd165",
+      "tests/test_pinn_spatial_continuity.py": "ab149fcb47f008c16aa0831d49d07e3dc36259c3fdb1847e344da3ff9e653498",
+      "tests/test_pinn_spatial_continuity_report.py": "b690a01357905c0a7d10964a7296fa714a9f33fd1aca810e5b57613f4431f519",
+      "tests/test_pinn_spatial_graded.py": "43dede33366e508c5a3abefb90844a5f3602007638302723437a3a87d83f48aa",
+      "tests/test_planar_contact_consistent.py": "c546403ce4be3785e01e313b3b5d2de072d2e99cb838f10d980497f22f11de8f",
+      "tests/test_planar_contact_continuity.py": "a1436feed28b93241ba3b9b743bfa9e731eec1d9f340389d1ac141df026786ba",
+      "tests/test_planar_contact_graded.py": "62fbe1ad995548be1175fabe991f8d64b1c3b9fb15506315b3da6c4ef64d2e5c",
+      "thermotwin/physics/planar_contact.py": "f1091a133168ff7c4cdaa463f6dd838ad103d4cee1ffbf54aa612680b8b3abd8",
+      "thermotwin/pinn/planar_contact_consistent.py": "ff9593ae2f5a96a01f70d10700c3c94c0b1629c31d2e01a239ffa7fa848ea8ae",
+      "thermotwin/pinn/planar_contact_continuity.py": "27c5a1cf741565128375c1da1b2e889e323bf8ac47c8f64338156ae5a396a8bd",
+      "thermotwin/pinn/planar_contact_graded.py": "7c9cf21c52e3bcffff880b6a70cb6f18a765c8d3e0f3cf1a651c69c153a4f1de",
+      "thermotwin/pinn/planar_contact_inverse.py": "a8e183b4f43b3ca0ba41918cf43982c9d2e6034064f564388c603532366300e5",
+      "thermotwin/reports/pinn_spatial_continuity.py": "2ce68167861c219c677238c2be02abfe9b2f2dfbcafabbeeb4b03d5b6c314362",
+      "thermotwin/studies/pinn_spatial_consistent.py": "c90c0d7dce26d8eb1865e8445e556c35c4476a02eabfa6ce17a3f710cea69484",
+      "thermotwin/studies/pinn_spatial_continuity.py": "fddf36f14b72731ba963fbc865cbb92ec70e9fbf8b0aa86f36a74e84ad610f36",
+      "thermotwin/studies/pinn_spatial_graded.py": "e9df846b33d34f5608cd919b3a1ce05d496c268e3a8e33faf7aebfbce4e28161",
+      "reports/pinn-spatial-validation/optimization-directional-probe.py": "e72fb63d6399e9beabab4c8607f642aa2dabb6b64b7d33cec9a8976d120e1a80"
+    },
+    "runtime": {
+      "implementation": "CPython",
+      "python": "3.10.12",
+      "packages": {
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "torch": "2.9.1"
+      },
+      "float": "float64",
+      "threads": 1
+    },
+    "cases": [
+      "t02",
+      "t04"
+    ],
+    "inputs": {
+      "t02": {
+        "final_checkpoint.pt": {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development/log_off/t02/final_checkpoint.pt",
+          "sha256": "83d870eca761be3044dce1e7d79f755b4f16235b33cdd7e4cc5f24a278fdb45a"
+        },
+        "training-report.json": {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development/log_off/t02/training-report.json",
+          "sha256": "f66afbc9b0708fafcd2dff4e3a5f5944d079ef95cba200f84b742a2017ec9702"
+        },
+        "observations.npz": {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development/log_off/t02/observations.npz",
+          "sha256": "ea6a236c98683cb3ea4f9c5a85c2d94d81d96f280d958a2a9643cceac214be76"
+        }
+      },
+      "t04": {
+        "final_checkpoint.pt": {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development/log_off/t04/final_checkpoint.pt",
+          "sha256": "245f6f61d8a85cacd5d076e3133573a02955994d85a0a5935f07255353030bb3"
+        },
+        "training-report.json": {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development/log_off/t04/training-report.json",
+          "sha256": "a3f4e3c9003f541c33633a1835ea4331f1c1aacafa1f03ad2b354a40df25960e"
+        },
+        "observations.npz": {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development/log_off/t04/observations.npz",
+          "sha256": "ed3ed01de8cfca67c531ddf8bc5bcace1aa3e1ca7f8386f793794099a4c29c6d"
+        }
+      }
+    },
+    "old_comparison_plan_sha256": "7d3847b0c1bf2aeb1233051e580dbd60c66958e232adc03db1aa2639fd7f5d0e",
+    "old_comparison_artifact_index_sha256": "70ffe39f5032c51bfa49cefdc273eef9d735fcd9e831de984886ac196016b03b",
+    "training_only": true,
+    "reference_fields_used": false,
+    "independent_diagnostics_used_for_selection": false,
+    "fresh_adam_base_learning_rate": 0.0001,
+    "gradient_clip": 1.0,
+    "multipliers": [
+      1.0,
+      4.0,
+      16.0,
+      64.0
+    ],
+    "fd_epsilons_Linf": [
+      1e-05,
+      1e-06
+    ],
+    "maximum_readout_solves_per_case": 9,
+    "maximum_wall_seconds": 900.0,
+    "maximum_rss_bytes": 2147483648,
+    "threads": 1,
+    "automatic_retries": 0,
+    "checkpoint_policy": "copies only; every trial starts at same saved final state; no new checkpoint retained",
+    "selection_rule": "eligible only if finite strict complete-objective decrease on both cases; minimize worst-case objective ratio, ties prefer smaller multiplier",
+    "finite_difference_role": "diagnostic only; compare fixed-head proposal derivative to re-solved objective, no exact profiled-gradient assertion",
+    "followup_history_probe": {
+      "arms": [
+        "reset",
+        "persistent"
+      ],
+      "updates_per_case_per_arm": 8,
+      "cases": [
+        "t02",
+        "t04"
+      ],
+      "maximum_backtracks": 4,
+      "maximum_trial_readout_solves": 160,
+      "additional_baseline_readout_solves": 4,
+      "maximum_wall_seconds": 1800.0,
+      "maximum_rss_bytes": 2147483648,
+      "learning_rate": "materialize the common directional-probe selection only",
+      "selection_rule": "persistent only if finite monotone trajectories, no worse on both cases within relative 1e-8, and worst terminal objective ratio improves by at least 1e-4; otherwise reset; reject followup if neither is finite monotone on both"
+    },
+    "four_case_followup": {
+      "start_policy": "fresh matched log-off initialization in every case; probe checkpoint states are not reused",
+      "fixed_updates": 320,
+      "maximum_backtracks": 4,
+      "maximum_wall_seconds": 14400.0,
+      "maximum_rss_bytes": 2147483648,
+      "threads": 1,
+      "automatic_retries": 0,
+      "architecture_grid_loss_cutoff_and_gates": "unchanged log-off baseline",
+      "checkpoint_policy": "final state only, retained before independent scoring"
+    },
+    "failure_rule": "retain every failed trial; no new case, seed, cutoff, grid, loss, gate, or retry"
+  },
+  "directional_result": {
+    "status": "completed",
+    "plan_sha256": "24a7080a08f685b1029743f6a57e20157ce236be58d8da3b1fe121ad542af8ef",
+    "training_only": true,
+    "reference_fields_used": false,
+    "independent_diagnostics_used_for_selection": false,
+    "cases": [
+      {
+        "case": "t02",
+        "baseline_objective": 4.225882496472446,
+        "baseline_projection": {
+          "accepted": true,
+          "objective_before": 4.225882496472446,
+          "objective_proposed": 4.225882496472446,
+          "proposed_objective_finite": true,
+          "objective_after": 4.225882496472446,
+          "rows": 9252,
+          "columns": 550,
+          "rank": 508,
+          "rank_rcond": 1e-07,
+          "resolved_condition": 6244853.9948292095,
+          "smallest_singular_value": 5.105579168028863e-13,
+          "coefficient_norm_proposed": 3103.4876557062594,
+          "coefficient_norm_returned": 3103.4876557062594,
+          "algebraic_objective_proposed": 4.22588249647454,
+          "wall_seconds": 7.729991874890402,
+          "system": {
+            "families": [
+              {
+                "name": "interior",
+                "rows": 8192,
+                "row_scale": 0.11048543456039805
+              },
+              {
+                "name": "bottom_contact",
+                "rows": 512,
+                "row_scale": 0.4419417382415922
+              },
+              {
+                "name": "bottom_insulated",
+                "rows": 512,
+                "row_scale": 0.4419417382415922
+              },
+              {
+                "name": "observations",
+                "rows": 36,
+                "row_scale": 8.333333333333332
+              }
+            ],
+            "coefficient_count": 550
+          },
+          "solver": "float64 column-scaled SVD least squares; no normal equations"
+        },
+        "gradient_norm_before_clip": 2.0475452295108045,
+        "fresh_adam_max_parameter_step": 9.999999357301892e-05,
+        "finite_differences": [
+          {
+            "epsilon_Linf": 1e-05,
+            "plus": {
+              "status": "completed",
+              "objective": 4.225210414222146,
+              "objective_ratio": 0.9998409604973966,
+              "training_family_mse": {
+                "interior": 0.0317602059858739,
+                "bottom_contact": 0.004292139473294118,
+                "bottom_insulated": 0.002670844940078963
+              },
+              "projection": {
+                "accepted": true,
+                "objective_before": 1434.6360677944008,
+                "objective_proposed": 4.225210414222146,
+                "proposed_objective_finite": true,
+                "objective_after": 4.225210414222146,
+                "rows": 9252,
+                "columns": 550,
+                "rank": 508,
+                "rank_rcond": 1e-07,
+                "resolved_condition": 6248627.693498761,
+                "smallest_singular_value": 5.107217813246327e-13,
+                "coefficient_norm_proposed": 3104.8013449114546,
+                "coefficient_norm_returned": 3104.8013449114546,
+                "algebraic_objective_proposed": 4.22521041430608,
+                "wall_seconds": 5.246326207998209,
+                "system": {
+                  "families": [
+                    {
+                      "name": "interior",
+                      "rows": 8192,
+                      "row_scale": 0.11048543456039805
+                    },
+                    {
+                      "name": "bottom_contact",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "bottom_insulated",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "observations",
+                      "rows": 36,
+                      "row_scale": 8.333333333333332
+                    }
+                  ],
+                  "coefficient_count": 550
+                },
+                "solver": "float64 column-scaled SVD least squares; no normal equations"
+              },
+              "wall_seconds": 5.38210375001654
+            },
+            "minus": {
+              "status": "completed",
+              "objective": 4.226557071709847,
+              "objective_ratio": 1.0001596294355,
+              "training_family_mse": {
+                "interior": 0.03176745488954788,
+                "bottom_contact": 0.004296538432079303,
+                "bottom_insulated": 0.0026720938355600916
+              },
+              "projection": {
+                "accepted": true,
+                "objective_before": 1434.7515002106138,
+                "objective_proposed": 4.226557071709847,
+                "proposed_objective_finite": true,
+                "objective_after": 4.226557071709847,
+                "rows": 9252,
+                "columns": 550,
+                "rank": 508,
+                "rank_rcond": 1e-07,
+                "resolved_condition": 6241088.952940949,
+                "smallest_singular_value": 5.105509075803038e-13,
+                "coefficient_norm_proposed": 3102.179958759753,
+                "coefficient_norm_returned": 3102.1799587597525,
+                "algebraic_objective_proposed": 4.226557071684914,
+                "wall_seconds": 4.874997874954715,
+                "system": {
+                  "families": [
+                    {
+                      "name": "interior",
+                      "rows": 8192,
+                      "row_scale": 0.11048543456039805
+                    },
+                    {
+                      "name": "bottom_contact",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "bottom_insulated",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "observations",
+                      "rows": 36,
+                      "row_scale": 8.333333333333332
+                    }
+                  ],
+                  "coefficient_count": 550
+                },
+                "solver": "float64 column-scaled SVD least squares; no normal equations"
+              },
+              "wall_seconds": 5.007743334048428
+            },
+            "profiled_directional_derivative": -67.33287438502877,
+            "fixed_head_directional_derivative": -67.3663460610068
+          },
+          {
+            "epsilon_Linf": 1e-06,
+            "plus": {
+              "status": "completed",
+              "objective": 4.225815175906844,
+              "objective_ratio": 0.9999840694658079,
+              "training_family_mse": {
+                "interior": 0.0317634559796259,
+                "bottom_contact": 0.004294119397206604,
+                "bottom_insulated": 0.0026714075257042533
+              },
+              "projection": {
+                "accepted": true,
+                "objective_before": 18.53043712617564,
+                "objective_proposed": 4.225815175906844,
+                "proposed_objective_finite": true,
+                "objective_after": 4.225815175906844,
+                "rows": 9252,
+                "columns": 550,
+                "rank": 508,
+                "rank_rcond": 1e-07,
+                "resolved_condition": 6245230.974897233,
+                "smallest_singular_value": 5.106805864619855e-13,
+                "coefficient_norm_proposed": 3103.6187534574606,
+                "coefficient_norm_returned": 3103.61875345746,
+                "algebraic_objective_proposed": 4.22581517590604,
+                "wall_seconds": 4.802713790908456,
+                "system": {
+                  "families": [
+                    {
+                      "name": "interior",
+                      "rows": 8192,
+                      "row_scale": 0.11048543456039805
+                    },
+                    {
+                      "name": "bottom_contact",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "bottom_insulated",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "observations",
+                      "rows": 36,
+                      "row_scale": 8.333333333333332
+                    }
+                  ],
+                  "coefficient_count": 550
+                },
+                "solver": "float64 column-scaled SVD least squares; no normal equations"
+              },
+              "wall_seconds": 4.936022332985885
+            },
+            "minus": {
+              "status": "completed",
+              "objective": 4.2259498419734784,
+              "objective_ratio": 1.0000159364348367,
+              "training_family_mse": {
+                "interior": 0.031764180871237314,
+                "bottom_contact": 0.004294559293960932,
+                "bottom_insulated": 0.0026715324157859394
+              },
+              "projection": {
+                "accepted": true,
+                "objective_before": 18.530685943993255,
+                "objective_proposed": 4.2259498419734784,
+                "proposed_objective_finite": true,
+                "objective_after": 4.2259498419734784,
+                "rows": 9252,
+                "columns": 550,
+                "rank": 508,
+                "rank_rcond": 1e-07,
+                "resolved_condition": 6244477.101831739,
+                "smallest_singular_value": 5.105261391377593e-13,
+                "coefficient_norm_proposed": 3103.35661528228,
+                "coefficient_norm_returned": 3103.3566152822805,
+                "algebraic_objective_proposed": 4.225949841992373,
+                "wall_seconds": 4.807490875013173,
+                "system": {
+                  "families": [
+                    {
+                      "name": "interior",
+                      "rows": 8192,
+                      "row_scale": 0.11048543456039805
+                    },
+                    {
+                      "name": "bottom_contact",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "bottom_insulated",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "observations",
+                      "rows": 36,
+                      "row_scale": 8.333333333333332
+                    }
+                  ],
+                  "coefficient_count": 550
+                },
+                "solver": "float64 column-scaled SVD least squares; no normal equations"
+              },
+              "wall_seconds": 4.938610040931962
+            },
+            "profiled_directional_derivative": -67.33303331740714,
+            "fixed_head_directional_derivative": -67.3663460610068
+          }
+        ],
+        "step_trials": [
+          {
+            "status": "completed",
+            "objective": 4.219275362316252,
+            "objective_ratio": 0.9984365078390824,
+            "training_family_mse": {
+              "interior": 0.03172879341169241,
+              "bottom_contact": 0.004272308573282002,
+              "bottom_insulated": 0.0026651697644424306
+            },
+            "projection": {
+              "accepted": true,
+              "objective_before": 142993.92492558243,
+              "objective_proposed": 4.219275362316252,
+              "proposed_objective_finite": true,
+              "objective_after": 4.219275362316252,
+              "rows": 9252,
+              "columns": 550,
+              "rank": 508,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 6282987.428598529,
+              "smallest_singular_value": 5.11690569848364e-13,
+              "coefficient_norm_proposed": 3116.905146377483,
+              "coefficient_norm_returned": 3116.905146377483,
+              "algebraic_objective_proposed": 4.219275362387844,
+              "wall_seconds": 4.754001000081189,
+              "system": {
+                "families": [
+                  {
+                    "name": "interior",
+                    "rows": 8192,
+                    "row_scale": 0.11048543456039805
+                  },
+                  {
+                    "name": "bottom_contact",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "bottom_insulated",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "observations",
+                    "rows": 36,
+                    "row_scale": 8.333333333333332
+                  }
+                ],
+                "coefficient_count": 550
+              },
+              "solver": "float64 column-scaled SVD least squares; no normal equations"
+            },
+            "wall_seconds": 4.8930909999180585,
+            "multiplier": 1.0,
+            "learning_rate": 0.0001
+          },
+          {
+            "status": "completed",
+            "objective": 4.20102299414905,
+            "objective_ratio": 0.9941173228682655,
+            "training_family_mse": {
+              "interior": 0.03163844559328338,
+              "bottom_contact": 0.00420596056162638,
+              "bottom_insulated": 0.0026458098163483906
+            },
+            "projection": {
+              "accepted": true,
+              "objective_before": 2285095.7727241297,
+              "objective_proposed": 4.20102299414905,
+              "proposed_objective_finite": true,
+              "objective_after": 4.20102299414905,
+              "rows": 9252,
+              "columns": 550,
+              "rank": 508,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 6403031.025022301,
+              "smallest_singular_value": 5.127393316996254e-13,
+              "coefficient_norm_proposed": 3161.4220312503608,
+              "coefficient_norm_returned": 3161.4220312503608,
+              "algebraic_objective_proposed": 4.201022994165723,
+              "wall_seconds": 4.825907374965027,
+              "system": {
+                "families": [
+                  {
+                    "name": "interior",
+                    "rows": 8192,
+                    "row_scale": 0.11048543456039805
+                  },
+                  {
+                    "name": "bottom_contact",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "bottom_insulated",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "observations",
+                    "rows": 36,
+                    "row_scale": 8.333333333333332
+                  }
+                ],
+                "coefficient_count": 550
+              },
+              "solver": "float64 column-scaled SVD least squares; no normal equations"
+            },
+            "wall_seconds": 4.961565333069302,
+            "multiplier": 4.0,
+            "learning_rate": 0.0004
+          },
+          {
+            "status": "completed",
+            "objective": 4.149823811964396,
+            "objective_ratio": 0.9820017038875217,
+            "training_family_mse": {
+              "interior": 0.03145412221540701,
+              "bottom_contact": 0.003945149420780435,
+              "bottom_insulated": 0.002582134160174317
+            },
+            "projection": {
+              "accepted": true,
+              "objective_before": 36384789.39606695,
+              "objective_proposed": 4.149823811964396,
+              "proposed_objective_finite": true,
+              "objective_after": 4.149823811964396,
+              "rows": 9252,
+              "columns": 550,
+              "rank": 508,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 7006095.817436922,
+              "smallest_singular_value": 4.824486656872614e-13,
+              "coefficient_norm_proposed": 3430.2802692104124,
+              "coefficient_norm_returned": 3430.2802692104124,
+              "algebraic_objective_proposed": 4.149823811997629,
+              "wall_seconds": 4.804929584031925,
+              "system": {
+                "families": [
+                  {
+                    "name": "interior",
+                    "rows": 8192,
+                    "row_scale": 0.11048543456039805
+                  },
+                  {
+                    "name": "bottom_contact",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "bottom_insulated",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "observations",
+                    "rows": 36,
+                    "row_scale": 8.333333333333332
+                  }
+                ],
+                "coefficient_count": 550
+              },
+              "solver": "float64 column-scaled SVD least squares; no normal equations"
+            },
+            "wall_seconds": 4.9395411249715835,
+            "multiplier": 16.0,
+            "learning_rate": 0.0016
+          },
+          {
+            "status": "completed",
+            "objective": 4.077978115978541,
+            "objective_ratio": 0.9650003565841294,
+            "training_family_mse": {
+              "interior": 0.031400825678228335,
+              "bottom_contact": 0.003293581456724661,
+              "bottom_insulated": 0.0025677503356708424
+            },
+            "projection": {
+              "accepted": true,
+              "objective_before": 570580158.5416565,
+              "objective_proposed": 4.077978115978541,
+              "proposed_objective_finite": true,
+              "objective_after": 4.077978115978541,
+              "rows": 9252,
+              "columns": 550,
+              "rank": 508,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 8336179.117834727,
+              "smallest_singular_value": 2.501219716518192e-13,
+              "coefficient_norm_proposed": 3081.5685117502453,
+              "coefficient_norm_returned": 3081.5685117502458,
+              "algebraic_objective_proposed": 4.077978115978199,
+              "wall_seconds": 4.805405207909644,
+              "system": {
+                "families": [
+                  {
+                    "name": "interior",
+                    "rows": 8192,
+                    "row_scale": 0.11048543456039805
+                  },
+                  {
+                    "name": "bottom_contact",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "bottom_insulated",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "observations",
+                    "rows": 36,
+                    "row_scale": 8.333333333333332
+                  }
+                ],
+                "coefficient_count": 550
+              },
+              "solver": "float64 column-scaled SVD least squares; no normal equations"
+            },
+            "wall_seconds": 4.940284125041217,
+            "multiplier": 64.0,
+            "learning_rate": 0.0064
+          }
+        ],
+        "copied_weights_restored_exactly": true,
+        "new_checkpoints_written": 0
+      },
+      {
+        "case": "t04",
+        "baseline_objective": 7.850607532733248,
+        "baseline_projection": {
+          "accepted": true,
+          "objective_before": 7.850607532733248,
+          "objective_proposed": 7.850607532733248,
+          "proposed_objective_finite": true,
+          "objective_after": 7.850607532733248,
+          "rows": 9252,
+          "columns": 550,
+          "rank": 508,
+          "rank_rcond": 1e-07,
+          "resolved_condition": 7107455.545005138,
+          "smallest_singular_value": 4.3949723488332345e-13,
+          "coefficient_norm_proposed": 3253.7079356248896,
+          "coefficient_norm_returned": 3253.7079356248887,
+          "algebraic_objective_proposed": 7.85060753277262,
+          "wall_seconds": 4.8818860000465065,
+          "system": {
+            "families": [
+              {
+                "name": "interior",
+                "rows": 8192,
+                "row_scale": 0.11048543456039805
+              },
+              {
+                "name": "bottom_contact",
+                "rows": 512,
+                "row_scale": 0.4419417382415922
+              },
+              {
+                "name": "bottom_insulated",
+                "rows": 512,
+                "row_scale": 0.4419417382415922
+              },
+              {
+                "name": "observations",
+                "rows": 36,
+                "row_scale": 8.333333333333332
+              }
+            ],
+            "coefficient_count": 550
+          },
+          "solver": "float64 column-scaled SVD least squares; no normal equations"
+        },
+        "gradient_norm_before_clip": 5.157726952827544,
+        "fresh_adam_max_parameter_step": 9.999999578408358e-05,
+        "finite_differences": [
+          {
+            "epsilon_Linf": 1e-05,
+            "plus": {
+              "status": "completed",
+              "objective": 7.849209167959781,
+              "objective_ratio": 0.9998218781454001,
+              "training_family_mse": {
+                "interior": 0.05990467969692963,
+                "bottom_contact": 0.010354679266613081,
+                "bottom_insulated": 0.004710953969238327
+              },
+              "projection": {
+                "accepted": true,
+                "objective_before": 384.16941158168834,
+                "objective_proposed": 7.849209167959781,
+                "proposed_objective_finite": true,
+                "objective_after": 7.849209167959781,
+                "rows": 9252,
+                "columns": 550,
+                "rank": 508,
+                "rank_rcond": 1e-07,
+                "resolved_condition": 7112152.457855292,
+                "smallest_singular_value": 4.396964919731876e-13,
+                "coefficient_norm_proposed": 3255.4281284501967,
+                "coefficient_norm_returned": 3255.4281284501963,
+                "algebraic_objective_proposed": 7.849209167975682,
+                "wall_seconds": 4.802163750049658,
+                "system": {
+                  "families": [
+                    {
+                      "name": "interior",
+                      "rows": 8192,
+                      "row_scale": 0.11048543456039805
+                    },
+                    {
+                      "name": "bottom_contact",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "bottom_insulated",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "observations",
+                      "rows": 36,
+                      "row_scale": 8.333333333333332
+                    }
+                  ],
+                  "coefficient_count": 550
+                },
+                "solver": "float64 column-scaled SVD least squares; no normal equations"
+              },
+              "wall_seconds": 4.934778208029456
+            },
+            "minus": {
+              "status": "completed",
+              "objective": 7.852008314619933,
+              "objective_ratio": 1.0001784297432836,
+              "training_family_mse": {
+                "interior": 0.05992073081784057,
+                "bottom_contact": 0.010365044199446897,
+                "bottom_insulated": 0.004712172045897396
+              },
+              "projection": {
+                "accepted": true,
+                "objective_before": 384.15157198723716,
+                "objective_proposed": 7.852008314619933,
+                "proposed_objective_finite": true,
+                "objective_after": 7.852008314619933,
+                "rows": 9252,
+                "columns": 550,
+                "rank": 508,
+                "rank_rcond": 1e-07,
+                "resolved_condition": 7102770.096547914,
+                "smallest_singular_value": 4.392542170966888e-13,
+                "coefficient_norm_proposed": 3251.993104744177,
+                "coefficient_norm_returned": 3251.9931047441764,
+                "algebraic_objective_proposed": 7.852008314621866,
+                "wall_seconds": 4.793771750060841,
+                "system": {
+                  "families": [
+                    {
+                      "name": "interior",
+                      "rows": 8192,
+                      "row_scale": 0.11048543456039805
+                    },
+                    {
+                      "name": "bottom_contact",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "bottom_insulated",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "observations",
+                      "rows": 36,
+                      "row_scale": 8.333333333333332
+                    }
+                  ],
+                  "coefficient_count": 550
+                },
+                "solver": "float64 column-scaled SVD least squares; no normal equations"
+              },
+              "wall_seconds": 4.936666458030231
+            },
+            "profiled_directional_derivative": -139.95733300760094,
+            "fixed_head_directional_derivative": -140.04118266047533
+          },
+          {
+            "epsilon_Linf": 1e-06,
+            "plus": {
+              "status": "completed",
+              "objective": 7.8504675875292875,
+              "objective_ratio": 0.9999821739650878,
+              "training_family_mse": {
+                "interior": 0.05991188993268581,
+                "bottom_contact": 0.010359344318069681,
+                "bottom_insulated": 0.004711502346225869
+              },
+              "projection": {
+                "accepted": true,
+                "objective_before": 11.613576661508285,
+                "objective_proposed": 7.8504675875292875,
+                "proposed_objective_finite": true,
+                "objective_after": 7.8504675875292875,
+                "rows": 9252,
+                "columns": 550,
+                "rank": 508,
+                "rank_rcond": 1e-07,
+                "resolved_condition": 7107924.71895686,
+                "smallest_singular_value": 4.3953293205487453e-13,
+                "coefficient_norm_proposed": 3253.8797161978578,
+                "coefficient_norm_returned": 3253.8797161978587,
+                "algebraic_objective_proposed": 7.850467587517501,
+                "wall_seconds": 4.816543875029311,
+                "system": {
+                  "families": [
+                    {
+                      "name": "interior",
+                      "rows": 8192,
+                      "row_scale": 0.11048543456039805
+                    },
+                    {
+                      "name": "bottom_contact",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "bottom_insulated",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "observations",
+                      "rows": 36,
+                      "row_scale": 8.333333333333332
+                    }
+                  ],
+                  "coefficient_count": 550
+                },
+                "solver": "float64 column-scaled SVD least squares; no normal equations"
+              },
+              "wall_seconds": 4.952261458034627
+            },
+            "minus": {
+              "status": "completed",
+              "objective": 7.850747502106908,
+              "objective_ratio": 1.0000178291136166,
+              "training_family_mse": {
+                "interior": 0.05991349504178361,
+                "bottom_contact": 0.010360380812550966,
+                "bottom_insulated": 0.004711624154800181
+              },
+              "projection": {
+                "accepted": true,
+                "objective_before": 11.613836103549037,
+                "objective_proposed": 7.850747502106908,
+                "proposed_objective_finite": true,
+                "objective_after": 7.850747502106908,
+                "rows": 9252,
+                "columns": 550,
+                "rank": 508,
+                "rank_rcond": 1e-07,
+                "resolved_condition": 7106986.485510996,
+                "smallest_singular_value": 4.3946645871395523e-13,
+                "coefficient_norm_proposed": 3253.536214917349,
+                "coefficient_norm_returned": 3253.53621491735,
+                "algebraic_objective_proposed": 7.850747502072188,
+                "wall_seconds": 4.952878374955617,
+                "system": {
+                  "families": [
+                    {
+                      "name": "interior",
+                      "rows": 8192,
+                      "row_scale": 0.11048543456039805
+                    },
+                    {
+                      "name": "bottom_contact",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "bottom_insulated",
+                      "rows": 512,
+                      "row_scale": 0.4419417382415922
+                    },
+                    {
+                      "name": "observations",
+                      "rows": 36,
+                      "row_scale": 8.333333333333332
+                    }
+                  ],
+                  "coefficient_count": 550
+                },
+                "solver": "float64 column-scaled SVD least squares; no normal equations"
+              },
+              "wall_seconds": 5.092193417018279
+            },
+            "profiled_directional_derivative": -139.95728881033287,
+            "fixed_head_directional_derivative": -140.04118266047533
+          }
+        ],
+        "step_trials": [
+          {
+            "status": "completed",
+            "objective": 7.836732095951569,
+            "objective_ratio": 0.9982325652220131,
+            "training_family_mse": {
+              "interior": 0.05983371149227192,
+              "bottom_contact": 0.010307958969988273,
+              "bottom_insulated": 0.00470545333902735
+            },
+            "projection": {
+              "accepted": true,
+              "objective_before": 37649.13473946297,
+              "objective_proposed": 7.836732095951569,
+              "proposed_objective_finite": true,
+              "objective_after": 7.836732095951569,
+              "rows": 9252,
+              "columns": 550,
+              "rank": 508,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 7154950.708762861,
+              "smallest_singular_value": 4.417204865724971e-13,
+              "coefficient_norm_proposed": 3271.155563805177,
+              "coefficient_norm_returned": 3271.1555638051777,
+              "algebraic_objective_proposed": 7.836732095896577,
+              "wall_seconds": 4.902965832967311,
+              "system": {
+                "families": [
+                  {
+                    "name": "interior",
+                    "rows": 8192,
+                    "row_scale": 0.11048543456039805
+                  },
+                  {
+                    "name": "bottom_contact",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "bottom_insulated",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "observations",
+                    "rows": 36,
+                    "row_scale": 8.333333333333332
+                  }
+                ],
+                "coefficient_count": 550
+              },
+              "solver": "float64 column-scaled SVD least squares; no normal equations"
+            },
+            "wall_seconds": 5.035996374906972,
+            "multiplier": 1.0,
+            "learning_rate": 0.0001
+          },
+          {
+            "status": "completed",
+            "objective": 7.796513923385595,
+            "objective_ratio": 0.9931096276151739,
+            "training_family_mse": {
+              "interior": 0.05961122575796529,
+              "bottom_contact": 0.010151556422594743,
+              "bottom_insulated": 0.0046871449096036
+            },
+            "projection": {
+              "accepted": true,
+              "objective_before": 602762.153963727,
+              "objective_proposed": 7.796513923385595,
+              "proposed_objective_finite": true,
+              "objective_after": 7.796513923385595,
+              "rows": 9252,
+              "columns": 550,
+              "rank": 508,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 7304983.799761404,
+              "smallest_singular_value": 4.468338210355534e-13,
+              "coefficient_norm_proposed": 3326.9946854908976,
+              "coefficient_norm_returned": 3326.994685490897,
+              "algebraic_objective_proposed": 7.796513923393874,
+              "wall_seconds": 4.871170917060226,
+              "system": {
+                "families": [
+                  {
+                    "name": "interior",
+                    "rows": 8192,
+                    "row_scale": 0.11048543456039805
+                  },
+                  {
+                    "name": "bottom_contact",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "bottom_insulated",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "observations",
+                    "rows": 36,
+                    "row_scale": 8.333333333333332
+                  }
+                ],
+                "coefficient_count": 550
+              },
+              "solver": "float64 column-scaled SVD least squares; no normal equations"
+            },
+            "wall_seconds": 5.003379500005394,
+            "multiplier": 4.0,
+            "learning_rate": 0.0004
+          },
+          {
+            "status": "completed",
+            "objective": 7.654490838903429,
+            "objective_ratio": 0.9750189150314665,
+            "training_family_mse": {
+              "interior": 0.058887785763088944,
+              "bottom_contact": 0.00953094674297877,
+              "bottom_insulated": 0.00462744534497415
+            },
+            "projection": {
+              "accepted": true,
+              "objective_before": 9675319.932367684,
+              "objective_proposed": 7.654490838903429,
+              "proposed_objective_finite": true,
+              "objective_after": 7.654490838903429,
+              "rows": 9252,
+              "columns": 550,
+              "rank": 508,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 8067673.223480114,
+              "smallest_singular_value": 4.342988135657633e-13,
+              "coefficient_norm_proposed": 3617.8578199834146,
+              "coefficient_norm_returned": 3617.8578199834146,
+              "algebraic_objective_proposed": 7.65449083891989,
+              "wall_seconds": 4.843498416943476,
+              "system": {
+                "families": [
+                  {
+                    "name": "interior",
+                    "rows": 8192,
+                    "row_scale": 0.11048543456039805
+                  },
+                  {
+                    "name": "bottom_contact",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "bottom_insulated",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "observations",
+                    "rows": 36,
+                    "row_scale": 8.333333333333332
+                  }
+                ],
+                "coefficient_count": 550
+              },
+              "solver": "float64 column-scaled SVD least squares; no normal equations"
+            },
+            "wall_seconds": 4.989794541965239,
+            "multiplier": 16.0,
+            "learning_rate": 0.0016
+          },
+          {
+            "status": "completed",
+            "objective": 7.4482982311185175,
+            "objective_ratio": 0.9487543734752636,
+            "training_family_mse": {
+              "interior": 0.05845292174422513,
+              "bottom_contact": 0.007853633281477111,
+              "bottom_insulated": 0.004683169151492688
+            },
+            "projection": {
+              "accepted": true,
+              "objective_before": 156710681.0756293,
+              "objective_proposed": 7.4482982311185175,
+              "proposed_objective_finite": true,
+              "objective_after": 7.4482982311185175,
+              "rows": 9252,
+              "columns": 550,
+              "rank": 508,
+              "rank_rcond": 1e-07,
+              "resolved_condition": 8673713.082397033,
+              "smallest_singular_value": 2.0376020989708582e-13,
+              "coefficient_norm_proposed": 3090.7414510456647,
+              "coefficient_norm_returned": 3090.7414510456647,
+              "algebraic_objective_proposed": 7.448298231208248,
+              "wall_seconds": 5.051010750001296,
+              "system": {
+                "families": [
+                  {
+                    "name": "interior",
+                    "rows": 8192,
+                    "row_scale": 0.11048543456039805
+                  },
+                  {
+                    "name": "bottom_contact",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "bottom_insulated",
+                    "rows": 512,
+                    "row_scale": 0.4419417382415922
+                  },
+                  {
+                    "name": "observations",
+                    "rows": 36,
+                    "row_scale": 8.333333333333332
+                  }
+                ],
+                "coefficient_count": 550
+              },
+              "solver": "float64 column-scaled SVD least squares; no normal equations"
+            },
+            "wall_seconds": 5.215601083007641,
+            "multiplier": 64.0,
+            "learning_rate": 0.0064
+          }
+        ],
+        "copied_weights_restored_exactly": true,
+        "new_checkpoints_written": 0
+      }
+    ],
+    "selection_rule": "eligible only if finite strict complete-objective decrease on both cases; minimize worst-case objective ratio, ties prefer smaller multiplier",
+    "selected_multiplier": 64.0,
+    "selected_learning_rate": 0.0064,
+    "selected_worst_objective_ratio": 0.9650003565841294,
+    "wall_seconds": 97.19008562504314,
+    "peak_rss_bytes": 1001046016,
+    "input_and_source_preserved": true,
+    "scientific_fits_started": 0
+  },
+  "history_plan": {
+    "schema": "training_only_optimizer_history_probe_v1",
+    "created_utc": "2026-10-22T21:21:18.741934+00:00",
+    "directional_plan_sha256": "24a7080a08f685b1029743f6a57e20157ce236be58d8da3b1fe121ad542af8ef",
+    "directional_result_sha256": "4046536aecac67261b3ca1bea2b2a5568fe3ad2332988b2ce9a2b722c322e4f2",
+    "source_sha256": {
+      "pyproject.toml": "01b0ee6e83096856e09559aa4f7577c6a6c75da5de17dbf80d791ef4985cd165",
+      "tests/test_pinn_spatial_continuity.py": "ab149fcb47f008c16aa0831d49d07e3dc36259c3fdb1847e344da3ff9e653498",
+      "tests/test_pinn_spatial_continuity_report.py": "b690a01357905c0a7d10964a7296fa714a9f33fd1aca810e5b57613f4431f519",
+      "tests/test_pinn_spatial_graded.py": "43dede33366e508c5a3abefb90844a5f3602007638302723437a3a87d83f48aa",
+      "tests/test_planar_contact_consistent.py": "c546403ce4be3785e01e313b3b5d2de072d2e99cb838f10d980497f22f11de8f",
+      "tests/test_planar_contact_continuity.py": "a1436feed28b93241ba3b9b743bfa9e731eec1d9f340389d1ac141df026786ba",
+      "tests/test_planar_contact_graded.py": "62fbe1ad995548be1175fabe991f8d64b1c3b9fb15506315b3da6c4ef64d2e5c",
+      "thermotwin/physics/planar_contact.py": "f1091a133168ff7c4cdaa463f6dd838ad103d4cee1ffbf54aa612680b8b3abd8",
+      "thermotwin/pinn/planar_contact_consistent.py": "ff9593ae2f5a96a01f70d10700c3c94c0b1629c31d2e01a239ffa7fa848ea8ae",
+      "thermotwin/pinn/planar_contact_continuity.py": "27c5a1cf741565128375c1da1b2e889e323bf8ac47c8f64338156ae5a396a8bd",
+      "thermotwin/pinn/planar_contact_graded.py": "7c9cf21c52e3bcffff880b6a70cb6f18a765c8d3e0f3cf1a651c69c153a4f1de",
+      "thermotwin/pinn/planar_contact_inverse.py": "a8e183b4f43b3ca0ba41918cf43982c9d2e6034064f564388c603532366300e5",
+      "thermotwin/reports/pinn_spatial_continuity.py": "2ce68167861c219c677238c2be02abfe9b2f2dfbcafabbeeb4b03d5b6c314362",
+      "thermotwin/studies/pinn_spatial_consistent.py": "c90c0d7dce26d8eb1865e8445e556c35c4476a02eabfa6ce17a3f710cea69484",
+      "thermotwin/studies/pinn_spatial_continuity.py": "fddf36f14b72731ba963fbc865cbb92ec70e9fbf8b0aa86f36a74e84ad610f36",
+      "thermotwin/studies/pinn_spatial_graded.py": "e9df846b33d34f5608cd919b3a1ce05d496c268e3a8e33faf7aebfbce4e28161",
+      "reports/pinn-spatial-validation/optimization-directional-probe.py": "e72fb63d6399e9beabab4c8607f642aa2dabb6b64b7d33cec9a8976d120e1a80",
+      "reports/pinn-spatial-validation/optimization-history-probe.py": "4cc04b036c394f348ffc7e8515ff4d5600e6b379d0295f82425801e826312b8f",
+      "tests/test_planar_contact_optimized.py": "0716d1bfc23e9c1c55804152e54ede795b499151b3e3ebe532b26f906d78fcc7",
+      "thermotwin/pinn/planar_contact_optimized.py": "2b471b75e13549c9db9274b8d34246bcef0615974556300f5eee39ced2f7786a"
+    },
+    "runtime": {
+      "implementation": "CPython",
+      "python": "3.10.12",
+      "packages": {
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "torch": "2.9.1"
+      },
+      "float": "float64",
+      "threads": 1
+    },
+    "specification": {
+      "arms": [
+        "reset",
+        "persistent"
+      ],
+      "updates_per_case_per_arm": 8,
+      "cases": [
+        "t02",
+        "t04"
+      ],
+      "maximum_backtracks": 4,
+      "maximum_trial_readout_solves": 160,
+      "additional_baseline_readout_solves": 4,
+      "maximum_wall_seconds": 1800.0,
+      "maximum_rss_bytes": 2147483648,
+      "learning_rate": "materialize the common directional-probe selection only",
+      "selection_rule": "persistent only if finite monotone trajectories, no worse on both cases within relative 1e-8, and worst terminal objective ratio improves by at least 1e-4; otherwise reset; reject followup if neither is finite monotone on both"
+    },
+    "four_case_followup": {
+      "start_policy": "fresh matched log-off initialization in every case; probe checkpoint states are not reused",
+      "fixed_updates": 320,
+      "maximum_backtracks": 4,
+      "maximum_wall_seconds": 14400.0,
+      "maximum_rss_bytes": 2147483648,
+      "threads": 1,
+      "automatic_retries": 0,
+      "architecture_grid_loss_cutoff_and_gates": "unchanged log-off baseline",
+      "checkpoint_policy": "final state only, retained before independent scoring"
+    },
+    "learning_rate": 0.0064,
+    "inputs": {
+      "t02": {
+        "final_checkpoint.pt": {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development/log_off/t02/final_checkpoint.pt",
+          "sha256": "83d870eca761be3044dce1e7d79f755b4f16235b33cdd7e4cc5f24a278fdb45a"
+        },
+        "training-report.json": {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development/log_off/t02/training-report.json",
+          "sha256": "f66afbc9b0708fafcd2dff4e3a5f5944d079ef95cba200f84b742a2017ec9702"
+        },
+        "observations.npz": {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development/log_off/t02/observations.npz",
+          "sha256": "ea6a236c98683cb3ea4f9c5a85c2d94d81d96f280d958a2a9643cceac214be76"
+        }
+      },
+      "t04": {
+        "final_checkpoint.pt": {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development/log_off/t04/final_checkpoint.pt",
+          "sha256": "245f6f61d8a85cacd5d076e3133573a02955994d85a0a5935f07255353030bb3"
+        },
+        "training-report.json": {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development/log_off/t04/training-report.json",
+          "sha256": "a3f4e3c9003f541c33633a1835ea4331f1c1aacafa1f03ad2b354a40df25960e"
+        },
+        "observations.npz": {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development/log_off/t04/observations.npz",
+          "sha256": "ed3ed01de8cfca67c531ddf8bc5bcace1aa3e1ca7f8386f793794099a4c29c6d"
+        }
+      }
+    },
+    "training_only": true,
+    "reference_fields_used": false,
+    "independent_diagnostics_used_for_selection": false,
+    "checkpoint_policy": "each arm starts from a separate copy of the same saved final log-off checkpoint; no new scientific checkpoint written",
+    "accepted_backtrack_state": "commit the once-updated Adam moments and counter with accepted scaled parameter displacement; rollback all state on rejection",
+    "automatic_retries": 0
+  },
+  "history_rows": [
+    {
+      "case": "t02",
+      "arm": "reset",
+      "status": "completed",
+      "config": {
+        "width": 24,
+        "layers": 2,
+        "adam_epochs": 8,
+        "projection_every": 1,
+        "interior_points": 8192,
+        "bottom_points": 512,
+        "learning_rate": 0.0064,
+        "gradient_clip": 1.0,
+        "max_backtracks": 4,
+        "physics_weight": 100.0,
+        "observation_weight": 1.0,
+        "rank_rcond": 1e-07,
+        "projection_chunk": 128,
+        "bottom_log_feature": false,
+        "bottom_log_scale": 0.001,
+        "corner_enrichment": true,
+        "duration": 120.0,
+        "initial_temperature": 300.0,
+        "temperature_scale": 5.0,
+        "ramp_seconds": 10.0,
+        "bath_drop_kelvin": 5.0,
+        "top_flux_watts_per_square_metre": 500.0,
+        "interface_temperature_scale": 0.1,
+        "optimizer_history": "reset"
+      },
+      "baseline_objective": 4.225882496472446,
+      "baseline_projection": {
+        "accepted": true,
+        "objective_before": 4.225882496472446,
+        "objective_proposed": 4.225882496472446,
+        "proposed_objective_finite": true,
+        "objective_after": 4.225882496472446,
+        "rows": 9252,
+        "columns": 550,
+        "rank": 508,
+        "rank_rcond": 1e-07,
+        "resolved_condition": 6244853.9948292095,
+        "smallest_singular_value": 5.105579168028863e-13,
+        "coefficient_norm_proposed": 3103.4876557062594,
+        "coefficient_norm_returned": 3103.4876557062594,
+        "algebraic_objective_proposed": 4.22588249647454,
+        "wall_seconds": 7.098033834015951,
+        "system": {
+          "families": [
+            {
+              "name": "interior",
+              "rows": 8192,
+              "row_scale": 0.11048543456039805
+            },
+            {
+              "name": "bottom_contact",
+              "rows": 512,
+              "row_scale": 0.4419417382415922
+            },
+            {
+              "name": "bottom_insulated",
+              "rows": 512,
+              "row_scale": 0.4419417382415922
+            },
+            {
+              "name": "observations",
+              "rows": 36,
+              "row_scale": 8.333333333333332
+            }
+          ],
+          "coefficient_count": 550
+        },
+        "solver": "float64 column-scaled SVD least squares; no normal equations"
+      },
+      "terminal_objective": 3.804358197871584,
+      "terminal_objective_ratio": 0.9002517701444068,
+      "training_family_mse": {
+        "interior": 0.029070906884583733,
+        "bottom_contact": 0.003182869009618473,
+        "bottom_insulated": 0.0023794032831248005
+      },
+      "wall_seconds": 87.92637158301659,
+      "monotone": true,
+      "copied_weights_restored_exactly": true,
+      "new_checkpoints_written": 0,
+      "accepted_updates": 8,
+      "rejected_updates": 0,
+      "backtracks": 7,
+      "objective_trajectory": [
+        4.077978115987474,
+        3.9889782894894226,
+        3.9529565004150715,
+        3.9233386676865067,
+        3.867873606963295,
+        3.8674439409290904,
+        3.8099718445976034,
+        3.804358197871584
+      ],
+      "optimizer_step_counts": [
+        [
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1
+        ]
+      ]
+    },
+    {
+      "case": "t02",
+      "arm": "persistent",
+      "status": "completed",
+      "config": {
+        "width": 24,
+        "layers": 2,
+        "adam_epochs": 8,
+        "projection_every": 1,
+        "interior_points": 8192,
+        "bottom_points": 512,
+        "learning_rate": 0.0064,
+        "gradient_clip": 1.0,
+        "max_backtracks": 4,
+        "physics_weight": 100.0,
+        "observation_weight": 1.0,
+        "rank_rcond": 1e-07,
+        "projection_chunk": 128,
+        "bottom_log_feature": false,
+        "bottom_log_scale": 0.001,
+        "corner_enrichment": true,
+        "duration": 120.0,
+        "initial_temperature": 300.0,
+        "temperature_scale": 5.0,
+        "ramp_seconds": 10.0,
+        "bath_drop_kelvin": 5.0,
+        "top_flux_watts_per_square_metre": 500.0,
+        "interface_temperature_scale": 0.1,
+        "optimizer_history": "persistent"
+      },
+      "baseline_objective": 4.225882496472446,
+      "baseline_projection": {
+        "accepted": true,
+        "objective_before": 4.225882496472446,
+        "objective_proposed": 4.225882496472446,
+        "proposed_objective_finite": true,
+        "objective_after": 4.225882496472446,
+        "rows": 9252,
+        "columns": 550,
+        "rank": 508,
+        "rank_rcond": 1e-07,
+        "resolved_condition": 6244853.9948292095,
+        "smallest_singular_value": 5.105579168028863e-13,
+        "coefficient_norm_proposed": 3103.4876557062594,
+        "coefficient_norm_returned": 3103.4876557062594,
+        "algebraic_objective_proposed": 4.22588249647454,
+        "wall_seconds": 4.990161333000287,
+        "system": {
+          "families": [
+            {
+              "name": "interior",
+              "rows": 8192,
+              "row_scale": 0.11048543456039805
+            },
+            {
+              "name": "bottom_contact",
+              "rows": 512,
+              "row_scale": 0.4419417382415922
+            },
+            {
+              "name": "bottom_insulated",
+              "rows": 512,
+              "row_scale": 0.4419417382415922
+            },
+            {
+              "name": "observations",
+              "rows": 36,
+              "row_scale": 8.333333333333332
+            }
+          ],
+          "coefficient_count": 550
+        },
+        "solver": "float64 column-scaled SVD least squares; no normal equations"
+      },
+      "terminal_objective": 3.5362139306372447,
+      "terminal_objective_ratio": 0.8367989250976804,
+      "training_family_mse": {
+        "interior": 0.026973882198425593,
+        "bottom_contact": 0.002856279131397704,
+        "bottom_insulated": 0.002180567362789653
+      },
+      "wall_seconds": 47.93190016702283,
+      "monotone": true,
+      "copied_weights_restored_exactly": true,
+      "new_checkpoints_written": 0,
+      "accepted_updates": 8,
+      "rejected_updates": 0,
+      "backtracks": 0,
+      "objective_trajectory": [
+        4.077978115987474,
+        3.9825343822828287,
+        3.845014628142223,
+        3.7556602193008537,
+        3.7074379948710043,
+        3.630894266829194,
+        3.591444083322448,
+        3.5362139306372447
+      ],
+      "optimizer_step_counts": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ],
+        [
+          8
+        ]
+      ]
+    },
+    {
+      "case": "t04",
+      "arm": "reset",
+      "status": "completed",
+      "config": {
+        "width": 24,
+        "layers": 2,
+        "adam_epochs": 8,
+        "projection_every": 1,
+        "interior_points": 8192,
+        "bottom_points": 512,
+        "learning_rate": 0.0064,
+        "gradient_clip": 1.0,
+        "max_backtracks": 4,
+        "physics_weight": 100.0,
+        "observation_weight": 1.0,
+        "rank_rcond": 1e-07,
+        "projection_chunk": 128,
+        "bottom_log_feature": false,
+        "bottom_log_scale": 0.001,
+        "corner_enrichment": true,
+        "duration": 120.0,
+        "initial_temperature": 300.0,
+        "temperature_scale": 5.0,
+        "ramp_seconds": 10.0,
+        "bath_drop_kelvin": 5.0,
+        "top_flux_watts_per_square_metre": 500.0,
+        "interface_temperature_scale": 0.1,
+        "optimizer_history": "reset"
+      },
+      "baseline_objective": 7.850607532733248,
+      "baseline_projection": {
+        "accepted": true,
+        "objective_before": 7.850607532733248,
+        "objective_proposed": 7.850607532733248,
+        "proposed_objective_finite": true,
+        "objective_after": 7.850607532733248,
+        "rows": 9252,
+        "columns": 550,
+        "rank": 508,
+        "rank_rcond": 1e-07,
+        "resolved_condition": 7107455.545005138,
+        "smallest_singular_value": 4.3949723488332345e-13,
+        "coefficient_norm_proposed": 3253.7079356248896,
+        "coefficient_norm_returned": 3253.7079356248887,
+        "algebraic_objective_proposed": 7.85060753277262,
+        "wall_seconds": 5.192541165975854,
+        "system": {
+          "families": [
+            {
+              "name": "interior",
+              "rows": 8192,
+              "row_scale": 0.11048543456039805
+            },
+            {
+              "name": "bottom_contact",
+              "rows": 512,
+              "row_scale": 0.4419417382415922
+            },
+            {
+              "name": "bottom_insulated",
+              "rows": 512,
+              "row_scale": 0.4419417382415922
+            },
+            {
+              "name": "observations",
+              "rows": 36,
+              "row_scale": 8.333333333333332
+            }
+          ],
+          "coefficient_count": 550
+        },
+        "solver": "float64 column-scaled SVD least squares; no normal equations"
+      },
+      "terminal_objective": 6.965289938897843,
+      "terminal_objective_ratio": 0.8872294163038902,
+      "training_family_mse": {
+        "interior": 0.05463174696053707,
+        "bottom_contact": 0.007227402140554182,
+        "bottom_insulated": 0.004357468169070497
+      },
+      "wall_seconds": 84.6693864580011,
+      "monotone": true,
+      "copied_weights_restored_exactly": true,
+      "new_checkpoints_written": 0,
+      "accepted_updates": 8,
+      "rejected_updates": 0,
+      "backtracks": 7,
+      "objective_trajectory": [
+        7.448298231114467,
+        7.348291788118935,
+        7.296247794990688,
+        7.204979974517577,
+        7.136341121832008,
+        7.06253947804635,
+        7.034310190809716,
+        6.965289938897843
+      ],
+      "optimizer_step_counts": [
+        [
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1
+        ]
+      ]
+    },
+    {
+      "case": "t04",
+      "arm": "persistent",
+      "status": "completed",
+      "config": {
+        "width": 24,
+        "layers": 2,
+        "adam_epochs": 8,
+        "projection_every": 1,
+        "interior_points": 8192,
+        "bottom_points": 512,
+        "learning_rate": 0.0064,
+        "gradient_clip": 1.0,
+        "max_backtracks": 4,
+        "physics_weight": 100.0,
+        "observation_weight": 1.0,
+        "rank_rcond": 1e-07,
+        "projection_chunk": 128,
+        "bottom_log_feature": false,
+        "bottom_log_scale": 0.001,
+        "corner_enrichment": true,
+        "duration": 120.0,
+        "initial_temperature": 300.0,
+        "temperature_scale": 5.0,
+        "ramp_seconds": 10.0,
+        "bath_drop_kelvin": 5.0,
+        "top_flux_watts_per_square_metre": 500.0,
+        "interface_temperature_scale": 0.1,
+        "optimizer_history": "persistent"
+      },
+      "baseline_objective": 7.850607532733248,
+      "baseline_projection": {
+        "accepted": true,
+        "objective_before": 7.850607532733248,
+        "objective_proposed": 7.850607532733248,
+        "proposed_objective_finite": true,
+        "objective_after": 7.850607532733248,
+        "rows": 9252,
+        "columns": 550,
+        "rank": 508,
+        "rank_rcond": 1e-07,
+        "resolved_condition": 7107455.545005138,
+        "smallest_singular_value": 4.3949723488332345e-13,
+        "coefficient_norm_proposed": 3253.7079356248896,
+        "coefficient_norm_returned": 3253.7079356248887,
+        "algebraic_objective_proposed": 7.85060753277262,
+        "wall_seconds": 4.919202834018506,
+        "system": {
+          "families": [
+            {
+              "name": "interior",
+              "rows": 8192,
+              "row_scale": 0.11048543456039805
+            },
+            {
+              "name": "bottom_contact",
+              "rows": 512,
+              "row_scale": 0.4419417382415922
+            },
+            {
+              "name": "bottom_insulated",
+              "rows": 512,
+              "row_scale": 0.4419417382415922
+            },
+            {
+              "name": "observations",
+              "rows": 36,
+              "row_scale": 8.333333333333332
+            }
+          ],
+          "coefficient_count": 550
+        },
+        "solver": "float64 column-scaled SVD least squares; no normal equations"
+      },
+      "terminal_objective": 6.479394724374678,
+      "terminal_objective_ratio": 0.8253367267894525,
+      "training_family_mse": {
+        "interior": 0.051111920398604314,
+        "bottom_contact": 0.006109773112653023,
+        "bottom_insulated": 0.004070947444542132
+      },
+      "wall_seconds": 47.302606542012654,
+      "monotone": true,
+      "copied_weights_restored_exactly": true,
+      "new_checkpoints_written": 0,
+      "accepted_updates": 8,
+      "rejected_updates": 0,
+      "backtracks": 0,
+      "objective_trajectory": [
+        7.448298231114467,
+        7.3463548532839065,
+        7.068026458444604,
+        6.911125316791821,
+        6.768660453917875,
+        6.651374404873716,
+        6.568988949020188,
+        6.479394724374678
+      ],
+      "optimizer_step_counts": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ],
+        [
+          8
+        ]
+      ]
+    }
+  ],
+  "history_wall_seconds": 270.2254742080113,
+  "history_peak_rss_bytes": 1267810304,
+  "decision": {
+    "status": "approved_for_forward_development",
+    "training_only": true,
+    "reference_fields_used": false,
+    "independent_diagnostics_used_for_selection": false,
+    "selected_config": {
+      "width": 24,
+      "layers": 2,
+      "adam_epochs": 320,
+      "projection_every": 1,
+      "interior_points": 8192,
+      "bottom_points": 512,
+      "learning_rate": 0.0064,
+      "gradient_clip": 1.0,
+      "max_backtracks": 4,
+      "physics_weight": 100.0,
+      "observation_weight": 1.0,
+      "rank_rcond": 1e-07,
+      "projection_chunk": 128,
+      "bottom_log_feature": false,
+      "bottom_log_scale": 0.001,
+      "corner_enrichment": true,
+      "duration": 120.0,
+      "initial_temperature": 300.0,
+      "temperature_scale": 5.0,
+      "ramp_seconds": 10.0,
+      "bath_drop_kelvin": 5.0,
+      "top_flux_watts_per_square_metre": 500.0,
+      "interface_temperature_scale": 0.1,
+      "optimizer_history": "persistent"
+    },
+    "probe_evidence": [
+      {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimization-directional-probe/plan.json",
+        "sha256": "24a7080a08f685b1029743f6a57e20157ce236be58d8da3b1fe121ad542af8ef"
+      },
+      {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimization-directional-probe/result.json",
+        "sha256": "4046536aecac67261b3ca1bea2b2a5568fe3ad2332988b2ce9a2b722c322e4f2"
+      },
+      {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimization-history-probe/plan.json",
+        "sha256": "60afb5cc00ab4d406320ffe608cbfee6915009e9cfde4ab2d4a40ef41c2a7314"
+      },
+      {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimization-history-probe/result.json",
+        "sha256": "764bf3c8bf1cf1cd29493acd85f48970a53990627d99db925655c5fe3a6ee9f1"
+      }
+    ],
+    "start_policy": "fresh matched log-off initialization in every case; probe checkpoint states are not reused",
+    "maximum_wall_seconds": 14400.0,
+    "maximum_rss_bytes": 2147483648,
+    "selection_rule": "persistent only if finite monotone trajectories, no worse on both cases within relative 1e-8, and worst terminal objective ratio improves by at least 1e-4; otherwise reset; reject followup if neither is finite monotone on both",
+    "no_guarantee_of_forward_gate_success": true
+  },
+  "limits": "two already-open partial development datasets; short checkpoint continuation probes do not predict a converged fresh fit or independent replication",
+  "four_case_plan_sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+  "executed_script_archives": [
+    {
+      "executed_path": "reports/pinn-spatial-validation/optimization-directional-probe.py",
+      "tracked_archive_path": "tools/pinn_spatial/optimization-directional-probe.py",
+      "sha256": "e72fb63d6399e9beabab4c8607f642aa2dabb6b64b7d33cec9a8976d120e1a80",
+      "byte_identical": true
+    },
+    {
+      "executed_path": "reports/pinn-spatial-validation/optimization-history-probe.py",
+      "tracked_archive_path": "tools/pinn_spatial/optimization-history-probe.py",
+      "sha256": "4cc04b036c394f348ffc7e8515ff4d5600e6b379d0295f82425801e826312b8f",
+      "byte_identical": true
+    },
+    {
+      "executed_path": "reports/pinn-spatial-validation/prepare-and-launch-optimized.py",
+      "tracked_archive_path": "tools/pinn_spatial/prepare-and-launch-optimized.py",
+      "sha256": "9132cdb9592927a1f3c825c3cb1c71c3309fcd8426b4b000fb9f03631d8d45fe",
+      "byte_identical": true
+    }
+  ]
+}

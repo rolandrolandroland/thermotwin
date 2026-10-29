@@ -1,0 +1,733 @@
+{
+  "schema": "bounded_step_control_forward_v7",
+  "candidate_id": "training-only-step-controller-v7-log-off",
+  "cases": [
+    {
+      "id": "t01",
+      "geometry": "full_contact",
+      "known_h": 800.0
+    },
+    {
+      "id": "t02",
+      "geometry": "partial_contact",
+      "known_h": 800.0
+    },
+    {
+      "id": "t03",
+      "geometry": "full_contact",
+      "known_h": 1400.0
+    },
+    {
+      "id": "t04",
+      "geometry": "partial_contact",
+      "known_h": 1400.0
+    }
+  ],
+  "model_config": {
+    "width": 24,
+    "layers": 2,
+    "adam_epochs": 320,
+    "projection_every": 1,
+    "interior_points": 8192,
+    "bottom_points": 512,
+    "learning_rate": 0.0064,
+    "gradient_clip": 1.0,
+    "max_backtracks": 4,
+    "physics_weight": 100.0,
+    "observation_weight": 1.0,
+    "rank_rcond": 1e-07,
+    "projection_chunk": 128,
+    "bottom_log_feature": false,
+    "bottom_log_scale": 0.001,
+    "corner_enrichment": true,
+    "duration": 120.0,
+    "initial_temperature": 300.0,
+    "temperature_scale": 5.0,
+    "ramp_seconds": 10.0,
+    "bath_drop_kelvin": 5.0,
+    "top_flux_watts_per_square_metre": 500.0,
+    "interface_temperature_scale": 0.1,
+    "optimizer_history": "persistent",
+    "maximum_trial_solves": 480,
+    "controller_reduction": 0.5,
+    "controller_minimum_lr": 1e-07,
+    "controller_max_failures": 8,
+    "controller_carry_backtracks": 2,
+    "controller_growth_streak": 8,
+    "controller_growth_factor": 2.0
+  },
+  "source_sha256": {
+    "pyproject.toml": "01b0ee6e83096856e09559aa4f7577c6a6c75da5de17dbf80d791ef4985cd165",
+    "reports/pinn-spatial-validation/optimization-directional-probe.py": "e72fb63d6399e9beabab4c8607f642aa2dabb6b64b7d33cec9a8976d120e1a80",
+    "reports/pinn-spatial-validation/optimization-history-probe.py": "4cc04b036c394f348ffc7e8515ff4d5600e6b379d0295f82425801e826312b8f",
+    "reports/pinn-spatial-validation/prepare-and-launch-optimized.py": "9132cdb9592927a1f3c825c3cb1c71c3309fcd8426b4b000fb9f03631d8d45fe",
+    "tests/test_pinn_spatial_continuity.py": "ab149fcb47f008c16aa0831d49d07e3dc36259c3fdb1847e344da3ff9e653498",
+    "tests/test_pinn_spatial_continuity_report.py": "b690a01357905c0a7d10964a7296fa714a9f33fd1aca810e5b57613f4431f519",
+    "tests/test_pinn_spatial_graded.py": "43dede33366e508c5a3abefb90844a5f3602007638302723437a3a87d83f48aa",
+    "tests/test_pinn_spatial_optimized.py": "aae25f25f98fb54ac2e8d9055a4b8837a52acdbd151c16352cd9c8d3004c35f5",
+    "tests/test_pinn_spatial_step_control.py": "1e8f8c51ae4c9a81dad72e9f701562f657bb55e11004e88a4aac420ee727c10d",
+    "tests/test_pinn_spatial_step_control_report.py": "1b0ff737cb4cf828978684628182371e006a75bcaf77c57cad692f51ace4384a",
+    "tests/test_planar_contact_consistent.py": "c546403ce4be3785e01e313b3b5d2de072d2e99cb838f10d980497f22f11de8f",
+    "tests/test_planar_contact_continuity.py": "a1436feed28b93241ba3b9b743bfa9e731eec1d9f340389d1ac141df026786ba",
+    "tests/test_planar_contact_graded.py": "62fbe1ad995548be1175fabe991f8d64b1c3b9fb15506315b3da6c4ef64d2e5c",
+    "tests/test_planar_contact_optimized.py": "0716d1bfc23e9c1c55804152e54ede795b499151b3e3ebe532b26f906d78fcc7",
+    "tests/test_planar_contact_step_control.py": "424d9bd2f6a5ba36bdcb84096d1513c0ce3c6263f29ec509f52344392cf89d18",
+    "thermotwin/physics/planar_contact.py": "f1091a133168ff7c4cdaa463f6dd838ad103d4cee1ffbf54aa612680b8b3abd8",
+    "thermotwin/pinn/planar_contact_consistent.py": "ff9593ae2f5a96a01f70d10700c3c94c0b1629c31d2e01a239ffa7fa848ea8ae",
+    "thermotwin/pinn/planar_contact_continuity.py": "27c5a1cf741565128375c1da1b2e889e323bf8ac47c8f64338156ae5a396a8bd",
+    "thermotwin/pinn/planar_contact_graded.py": "7c9cf21c52e3bcffff880b6a70cb6f18a765c8d3e0f3cf1a651c69c153a4f1de",
+    "thermotwin/pinn/planar_contact_inverse.py": "a8e183b4f43b3ca0ba41918cf43982c9d2e6034064f564388c603532366300e5",
+    "thermotwin/pinn/planar_contact_optimized.py": "2b471b75e13549c9db9274b8d34246bcef0615974556300f5eee39ced2f7786a",
+    "thermotwin/pinn/planar_contact_step_control.py": "70feee0ef6f013b841d1ef186b47a5cd568f8be425b439c18f209c6bffbfca02",
+    "thermotwin/reports/pinn_spatial_continuity.py": "2ce68167861c219c677238c2be02abfe9b2f2dfbcafabbeeb4b03d5b6c314362",
+    "thermotwin/reports/pinn_spatial_step_control.py": "bc46a6e7c3e0501fb337165f99a721a02fcdab091e478deb8ad9ea6170155a36",
+    "thermotwin/studies/pinn_spatial_consistent.py": "c90c0d7dce26d8eb1865e8445e556c35c4476a02eabfa6ce17a3f710cea69484",
+    "thermotwin/studies/pinn_spatial_continuity.py": "fddf36f14b72731ba963fbc865cbb92ec70e9fbf8b0aa86f36a74e84ad610f36",
+    "thermotwin/studies/pinn_spatial_graded.py": "e9df846b33d34f5608cd919b3a1ce05d496c268e3a8e33faf7aebfbce4e28161",
+    "thermotwin/studies/pinn_spatial_optimized.py": "f89e9a7d471d99e7f1cac6a23e4da97244a63246b7b3924e05aa68233b4a244f",
+    "thermotwin/studies/pinn_spatial_step_control.py": "29c3a1aa5b34e427c07a2371832efde0a6896b846d456727f2bb768871076357",
+    "tools/pinn_spatial/prepare-and-launch-step-control.py": "accc12e83146be516a685d383f7af13530bc80a11a106c8c53db30962dbfb852",
+    "tools/pinn_spatial/step-control-probe.py": "e74368d99fa57c4226b40cebb5b852987bdf5d96ad2a349aede0ac5524158830",
+    "tools/pinn_spatial/step-control-terminal-probe.py": "c301a38386e237fc6ab8c38e0e7980ad93cd1b9175c92766e65e530f51e769a4"
+  },
+  "runtime": {
+    "implementation": "CPython",
+    "python": "3.10.12",
+    "packages": {
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "torch": "2.9.1"
+    },
+    "float": "float64",
+    "threads": 1
+  },
+  "seeds": {
+    "noise": 2026102201,
+    "neural": 2026102202,
+    "sampling": 2026102203,
+    "diagnostic": 2026102204
+  },
+  "gates": {
+    "normalized_observation_mse": 2.0,
+    "each_normalized_residual_rms": 0.05,
+    "field_rmse_K": 0.05,
+    "field_maximum_error_K": 0.15,
+    "interface_temperature_scale_K": 0.1,
+    "flux_scale_W_m2": 500.0,
+    "interior_scale_K_s": 0.041666666666666664
+  },
+  "workers": {
+    "t01": {
+      "directory": "t01",
+      "plan_sha256": "f3fc60db1cc9f71edf4f04e960d11c0d9d0dba50d421936ee018d757cb0a957a"
+    },
+    "t02": {
+      "directory": "t02",
+      "plan_sha256": "a90b2a51d5238d8c6b5d760da2f8c512d041c7003b56a45f7c2c4a7decb6d9b3"
+    },
+    "t03": {
+      "directory": "t03",
+      "plan_sha256": "e3a4e49215c88c79c574ae031808b8a60a7cb47f48297e8896c10fca1a6d109b"
+    },
+    "t04": {
+      "directory": "t04",
+      "plan_sha256": "8f9c55740b66e3cbcbbf065a745f7c70d4c1f17f6386ffa21dae49d622b167a5"
+    }
+  },
+  "waves": [
+    [
+      "t01",
+      "t02"
+    ],
+    [
+      "t03",
+      "t04"
+    ]
+  ],
+  "maximum_method_fits": 4,
+  "reused_paired_datasets": 4,
+  "independent_noise_replications_claimed": false,
+  "topology": {
+    "maximum_concurrent_workers": 2,
+    "threads_per_worker": 1,
+    "rss_bytes_per_worker": 2147483648,
+    "aggregate_child_rss_bytes": 4294967296,
+    "seconds_per_worker": 3000.0,
+    "top_seconds": 7200.0
+  },
+  "allowed_training_stop_reasons": [
+    "fixed_budget_exhausted",
+    "consecutive_failure_stop",
+    "learning_rate_floor_stop",
+    "unchanged_proposal_stop",
+    "projection_budget"
+  ],
+  "automatic_retries": 0,
+  "paired_evidence": {
+    "t01": {
+      "observations.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/t01/observations.npz",
+        "sha256": "0dd9d9ca82a1fb598187a5bb4700b5234887e6af0d82bf658fa846413d224019"
+      },
+      "field_scoring.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/t01/field_scoring.npz",
+        "sha256": "96f084f550d7f6fe114581d2058a1208da1f33aae230a607fe80c2673a636d9d"
+      }
+    },
+    "t02": {
+      "observations.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/t02/observations.npz",
+        "sha256": "ea6a236c98683cb3ea4f9c5a85c2d94d81d96f280d958a2a9643cceac214be76"
+      },
+      "field_scoring.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/t02/field_scoring.npz",
+        "sha256": "d0f4c85e2503feb18c00e201b5b174215fa74a97cfc3fd95fcdf867cfa0f6ce9"
+      }
+    },
+    "t03": {
+      "observations.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/resource-continuation/t03/observations.npz",
+        "sha256": "1c0bfd94a71d4cde7058996a171c89dc63473a7dab426ee6d4fbc8dd7752e7f3"
+      },
+      "field_scoring.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/resource-continuation/t03/field_scoring.npz",
+        "sha256": "b274b380ed05aa631894964ce8f13b2a73a3313e91f1a212a214bd9e78a71246"
+      }
+    },
+    "t04": {
+      "observations.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/resource-continuation/t04/observations.npz",
+        "sha256": "ed3ed01de8cfca67c531ddf8bc5bcace1aa3e1ca7f8386f793794099a4c29c6d"
+      },
+      "field_scoring.npz": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/revision-v2-development/two-d/resource-continuation/t04/field_scoring.npz",
+        "sha256": "e8a9019a429117911b2c75818a6d876b8172b3cb0b6388522245c330687304e3"
+      }
+    }
+  },
+  "step_control_provenance": {
+    "graded_comparison": {
+      "directory": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/graded-log-development",
+      "context": {
+        "artifact_index_sha256": "70ffe39f5032c51bfa49cefdc273eef9d735fcd9e831de984886ac196016b03b",
+        "plan_sha256": "7d3847b0c1bf2aeb1233051e580dbd60c66958e232adc03db1aa2639fd7f5d0e",
+        "files": 125,
+        "method_fit_count": 8,
+        "reused_dataset_count": 4
+      },
+      "plan_sha256": "7d3847b0c1bf2aeb1233051e580dbd60c66958e232adc03db1aa2639fd7f5d0e"
+    },
+    "prior_optimized_campaign": {
+      "directory": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimized-v6-development",
+      "context": {
+        "directory": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimized-v6-development",
+        "files": 54,
+        "artifact_index_sha256": "5477ec6976ae143a62e8ea63a94d37cdcf515b4fb66cbed25f90eb7bf587366f",
+        "plan_sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+        "optimizer_history": "persistent",
+        "fixed_optimizer_updates": 320,
+        "reused_dataset_count": 4
+      },
+      "plan_sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b"
+    }
+  },
+  "preserved_v6_attempt": {
+    "directory": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimized-v6-development",
+    "evidence": {
+      "directory": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/optimized-v6-development",
+      "files": 54,
+      "artifact_index_sha256": "5477ec6976ae143a62e8ea63a94d37cdcf515b4fb66cbed25f90eb7bf587366f",
+      "plan_sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+      "optimizer_history": "persistent",
+      "fixed_optimizer_updates": 320,
+      "reused_dataset_count": 4
+    },
+    "plan_sha256": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+    "files": {
+      "artifact-index.json": "5477ec6976ae143a62e8ea63a94d37cdcf515b4fb66cbed25f90eb7bf587366f",
+      "final-forward-selection.json": "5c7c7c98ed1116ab0ad011f98a72d17d14f6d053f07a3260922ef5284203613f",
+      "partial-results.json": "3cd5d928b171a527f7266521778f4703fac13d42f6de7ede7c2d2bb54d909514",
+      "plan.json": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+      "run.lock": "9da82963280e7e580a0dc126ff025750271345e0adf7c9ef7522a14d6fe0c0da",
+      "source-snapshot/pyproject.toml": "01b0ee6e83096856e09559aa4f7577c6a6c75da5de17dbf80d791ef4985cd165",
+      "source-snapshot/reports/pinn-spatial-validation/optimization-directional-probe.py": "e72fb63d6399e9beabab4c8607f642aa2dabb6b64b7d33cec9a8976d120e1a80",
+      "source-snapshot/reports/pinn-spatial-validation/optimization-history-probe.py": "4cc04b036c394f348ffc7e8515ff4d5600e6b379d0295f82425801e826312b8f",
+      "source-snapshot/reports/pinn-spatial-validation/prepare-and-launch-optimized.py": "9132cdb9592927a1f3c825c3cb1c71c3309fcd8426b4b000fb9f03631d8d45fe",
+      "source-snapshot/tests/test_pinn_spatial_continuity.py": "ab149fcb47f008c16aa0831d49d07e3dc36259c3fdb1847e344da3ff9e653498",
+      "source-snapshot/tests/test_pinn_spatial_continuity_report.py": "b690a01357905c0a7d10964a7296fa714a9f33fd1aca810e5b57613f4431f519",
+      "source-snapshot/tests/test_pinn_spatial_graded.py": "43dede33366e508c5a3abefb90844a5f3602007638302723437a3a87d83f48aa",
+      "source-snapshot/tests/test_pinn_spatial_optimized.py": "aae25f25f98fb54ac2e8d9055a4b8837a52acdbd151c16352cd9c8d3004c35f5",
+      "source-snapshot/tests/test_planar_contact_consistent.py": "c546403ce4be3785e01e313b3b5d2de072d2e99cb838f10d980497f22f11de8f",
+      "source-snapshot/tests/test_planar_contact_continuity.py": "a1436feed28b93241ba3b9b743bfa9e731eec1d9f340389d1ac141df026786ba",
+      "source-snapshot/tests/test_planar_contact_graded.py": "62fbe1ad995548be1175fabe991f8d64b1c3b9fb15506315b3da6c4ef64d2e5c",
+      "source-snapshot/tests/test_planar_contact_optimized.py": "0716d1bfc23e9c1c55804152e54ede795b499151b3e3ebe532b26f906d78fcc7",
+      "source-snapshot/thermotwin/physics/planar_contact.py": "f1091a133168ff7c4cdaa463f6dd838ad103d4cee1ffbf54aa612680b8b3abd8",
+      "source-snapshot/thermotwin/pinn/planar_contact_consistent.py": "ff9593ae2f5a96a01f70d10700c3c94c0b1629c31d2e01a239ffa7fa848ea8ae",
+      "source-snapshot/thermotwin/pinn/planar_contact_continuity.py": "27c5a1cf741565128375c1da1b2e889e323bf8ac47c8f64338156ae5a396a8bd",
+      "source-snapshot/thermotwin/pinn/planar_contact_graded.py": "7c9cf21c52e3bcffff880b6a70cb6f18a765c8d3e0f3cf1a651c69c153a4f1de",
+      "source-snapshot/thermotwin/pinn/planar_contact_inverse.py": "a8e183b4f43b3ca0ba41918cf43982c9d2e6034064f564388c603532366300e5",
+      "source-snapshot/thermotwin/pinn/planar_contact_optimized.py": "2b471b75e13549c9db9274b8d34246bcef0615974556300f5eee39ced2f7786a",
+      "source-snapshot/thermotwin/reports/pinn_spatial_continuity.py": "2ce68167861c219c677238c2be02abfe9b2f2dfbcafabbeeb4b03d5b6c314362",
+      "source-snapshot/thermotwin/studies/pinn_spatial_consistent.py": "c90c0d7dce26d8eb1865e8445e556c35c4476a02eabfa6ce17a3f710cea69484",
+      "source-snapshot/thermotwin/studies/pinn_spatial_continuity.py": "fddf36f14b72731ba963fbc865cbb92ec70e9fbf8b0aa86f36a74e84ad610f36",
+      "source-snapshot/thermotwin/studies/pinn_spatial_graded.py": "e9df846b33d34f5608cd919b3a1ce05d496c268e3a8e33faf7aebfbce4e28161",
+      "source-snapshot/thermotwin/studies/pinn_spatial_optimized.py": "f89e9a7d471d99e7f1cac6a23e4da97244a63246b7b3924e05aa68233b4a244f",
+      "state.json": "d00b1630b322452f3af8ffa14d3b82dd8c6c471f8b35647ff65d1c4907a80686",
+      "t01/declared-config.json": "8d65d6ca3e55d2b91e1d567498a9e60b949d3e5a2992ee0191b0872c6fb72d90",
+      "t01/field_scoring.npz": "1191da99b8bedced8ae4b24d359baae38b8a70ba84adbd93823b7aeaed4d7c19",
+      "t01/final_checkpoint.pt": "c740ee73e4e5584d0354e4b8f88f0796fcd62575922700f8a573d0b0dfdcf2cc",
+      "t01/independent-diagnostics.json": "65ae43f0155bf958ed31aab2307878859e49a847c0ce9f9138fea736294fd7f2",
+      "t01/near-bottom-audit-points.npz": "9607114cbf0f3623edc87e923249df46fd8e743b72c2ee356075bc508253ca9b",
+      "t01/near-bottom-audit.json": "47a0203cd3aca85ab55c1ee2efde41bd09ebfe2764eb3f190cb0a97fbf2baf44",
+      "t01/near-interface-audit.json": "f724a482dda6552f9e5cc0ada3724cbd66bbff0705b8886c549bcae6175af094",
+      "t01/observations.npz": "0dd9d9ca82a1fb598187a5bb4700b5234887e6af0d82bf658fa846413d224019",
+      "t01/progress.jsonl": "bfbdf5fc9c93ace6273bfc4dbf1de46cc764ffcba3e4cd5d8883906d28446df8",
+      "t01/result.json": "8c98bb49bb4b86737ad816816e02782513553e3641c03b09f02ed920d6c256fc",
+      "t01/training-report.json": "1ebf221b5dc033ebe96e9aeec2c74a9069d2a6c67e7155ea1f5ed7c72a0bed6e",
+      "t02/declared-config.json": "2f6ec8b82b339e5274a75dc4f34b27556b525c6c8d48a82c843cebec3313476b",
+      "t02/field_scoring.npz": "2dea15bb729b5faaa316c11e602b6520ca8753b3f3f181240dd4a15b2e441da9",
+      "t02/final_checkpoint.pt": "91261cf2222ca6ef169c9cc9cb4a2a574dc851486f4772122e36c32f79817c48",
+      "t02/independent-diagnostics.json": "1aa8407b08b1dbf0c8ce41557aef997c9c1aa352855eb0c71c6f754e82d67096",
+      "t02/near-bottom-audit-points.npz": "9607114cbf0f3623edc87e923249df46fd8e743b72c2ee356075bc508253ca9b",
+      "t02/near-bottom-audit.json": "43b97c90faaa84256461d7da7d0523caa05c2f54dc00f8130b4bc1fcff38e986",
+      "t02/near-interface-audit-points.npz": "a12c79129743728d853f95d62866feaa2c9cbc0a4cf33aba55cb239b3a2dd0b6",
+      "t02/near-interface-audit.json": "a5acc77e638e8ab825b92305c59ffddac6bfb8418483f051ec871c9e3b63689c",
+      "t02/observations.npz": "ea6a236c98683cb3ea4f9c5a85c2d94d81d96f280d958a2a9643cceac214be76",
+      "t02/progress.jsonl": "c25b71ce5f9c9ecae551a3aa53c6502e7a8f2943bb8c9cfc6c92757746fff315",
+      "t02/result.json": "9c542ef085816e0cfb08b707fed46cb4dac6a5ec0c083fa9c00f38fc58d44872",
+      "t02/training-report.json": "f9258c76194f5a830c267720bb2de18d4eaed70810b53ec1161b149364812632",
+      "t03/declared-config.json": "c232d44cfbdf984525fd0d34362d64adbf96e3983f7280cb29a77d2f44a89b6d",
+      "t03/failure.json": "74d0f0bf1c5a54b7b3524b4e2cb8be6d2ae118254dfd4f8606483778dddee000",
+      "t03/observations.npz": "1c0bfd94a71d4cde7058996a171c89dc63473a7dab426ee6d4fbc8dd7752e7f3",
+      "t03/progress.jsonl": "074f6255fc53b9fbfa1a8f30aaa767bcf67c6da63baff6aa4bf55f50b3ed5ec2"
+    }
+  },
+  "protected_files": {
+    "thermotwin/PINN_SPATIAL_CONTINUITY_REPAIR_RESULT.json": "5230e6263bee6b29b0c922ba5933021a9391c17c028e4d1b77d5331eb5e8bdd6",
+    "thermotwin/PINN_SPATIAL_CONTINUITY_V3_PLAN.json": "325e9c468c57ccc18e8c530bd937d4c347f17c181984176ac1d5115a3a9f7d8f",
+    "thermotwin/PINN_SPATIAL_CONTINUITY_V4_PLAN.json": "917fb60ccc9d868148925ebec70027aa87af63644a5dd7d565d990f8b12ace7f",
+    "thermotwin/PINN_SPATIAL_GRADED_LOG_PLAN.json": "7d3847b0c1bf2aeb1233051e580dbd60c66958e232adc03db1aa2639fd7f5d0e",
+    "thermotwin/PINN_SPATIAL_GRADED_LOG_RESULT.json": "a44cb059e94b22260fc45094628e6be32e04ff0f748d81f34ff1b22e01fa0746",
+    "thermotwin/PINN_SPATIAL_OPTIMIZATION_PLAN.json": "dbd86371ac170aae688bd41dbecc99d6aced12036425dc42879439f0bde03b7b",
+    "thermotwin/PINN_SPATIAL_OPTIMIZATION_PROBE.json": "6105a27d94c2394342e1f1467f3ce720cdbc9411f6922201b7523bc7c09466e2",
+    "thermotwin/PINN_SPATIAL_OPTIMIZATION_RESULT.json": "5aa03db225c33cbe105a4e543fa54784b77a5795ee70c3a44908c0eb34b544aa"
+  },
+  "decision": {
+    "path": "reports/pinn-spatial-validation/step-control-terminal-probe/decision.json",
+    "sha256": "dee30655d2f23017ab55e8073ce4a02b019555b7f3ea027a31f30e79e2a6e093",
+    "decision": {
+      "status": "approved_for_forward_development",
+      "training_only": true,
+      "reference_fields_used": false,
+      "independent_diagnostics_used_for_selection": false,
+      "selected_config": {
+        "width": 24,
+        "layers": 2,
+        "adam_epochs": 320,
+        "projection_every": 1,
+        "interior_points": 8192,
+        "bottom_points": 512,
+        "learning_rate": 0.0064,
+        "gradient_clip": 1.0,
+        "max_backtracks": 4,
+        "physics_weight": 100.0,
+        "observation_weight": 1.0,
+        "rank_rcond": 1e-07,
+        "projection_chunk": 128,
+        "bottom_log_feature": false,
+        "bottom_log_scale": 0.001,
+        "corner_enrichment": true,
+        "duration": 120.0,
+        "initial_temperature": 300.0,
+        "temperature_scale": 5.0,
+        "ramp_seconds": 10.0,
+        "bath_drop_kelvin": 5.0,
+        "top_flux_watts_per_square_metre": 500.0,
+        "interface_temperature_scale": 0.1,
+        "optimizer_history": "persistent",
+        "maximum_trial_solves": 480,
+        "controller_reduction": 0.5,
+        "controller_minimum_lr": 1e-07,
+        "controller_max_failures": 8,
+        "controller_carry_backtracks": 2,
+        "controller_growth_streak": 8,
+        "controller_growth_factor": 2.0
+      },
+      "followup": {
+        "cases": [
+          {
+            "id": "t01",
+            "geometry": "full_contact",
+            "known_h": 800.0
+          },
+          {
+            "id": "t02",
+            "geometry": "partial_contact",
+            "known_h": 800.0
+          },
+          {
+            "id": "t03",
+            "geometry": "full_contact",
+            "known_h": 1400.0
+          },
+          {
+            "id": "t04",
+            "geometry": "partial_contact",
+            "known_h": 1400.0
+          }
+        ],
+        "start_policy": "all four original fresh matched log-off initializations",
+        "maximum_attempts_per_case": 320,
+        "maximum_trial_solves_per_case": 480,
+        "maximum_case_wall_seconds": 3000.0,
+        "maximum_case_rss_bytes": 2147483648,
+        "parallel_workers": 2,
+        "worker_threads": 1,
+        "aggregate_worker_rss_bytes": 4294967296,
+        "waves": [
+          [
+            "t01",
+            "t02"
+          ],
+          [
+            "t03",
+            "t04"
+          ]
+        ],
+        "maximum_supervisor_wall_seconds": 7200.0,
+        "automatic_retries": 0,
+        "acceptance_thresholds": {
+          "normalized_observation_mse": 2.0,
+          "each_normalized_residual_rms": 0.05,
+          "field_rmse_K": 0.05,
+          "field_maximum_error_K": 0.15,
+          "interface_temperature_scale_K": 0.1,
+          "flux_scale_W_m2": 500.0,
+          "interior_scale_K_s": 0.041666666666666664
+        },
+        "checkpoint_policy": "controller-returned final state retained before unchanged scoring, including declared early stopping"
+      },
+      "probe_evidence": [
+        {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-recovery-probe/plan.json",
+          "sha256": "8fe8da92ee10bfdde548f0142150b4c5c8f80919b4e198eb48736d4bf3197e30"
+        },
+        {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-recovery-probe/result.json",
+          "sha256": "9ceaafc9dd44356a41b173ddf8c5b53b6ae0aa2d98aae9841985916952e589aa"
+        },
+        {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-terminal-probe/plan.json",
+          "sha256": "f65ec46d569592a6562a5faa519898bda6caa32990c7b9fe7ccebf665179872d"
+        },
+        {
+          "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/step-control-terminal-probe/result.json",
+          "sha256": "e2fbc3dc0a93ac1ba06f86654f941f209bd4ab5f0e43620e0466b59b81772329"
+        }
+      ],
+      "previous_probe_C_strict_recovery_passed": false,
+      "mechanics_valid": true,
+      "scientific_recovery_supported": true,
+      "development_comparison_only": true,
+      "no_further_optimizer_search": true,
+      "no_guarantee_of_forward_gate_success": true,
+      "decision_basis": "if mechanics valid freeze this one max8 controller uniformly for one all-four development comparison regardless recovery classification; no further optimizer probes or outcome-driven extensions"
+    }
+  },
+  "preflight_by_case": {
+    "t01": {
+      "initialization": {
+        "arm": "off",
+        "neural_seed": 2026102202,
+        "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+        "shared_function_sha256": "4446cc633af1a8fdd46fc1e12a1945c4a2a2546f878378aa9f973e7890a81836",
+        "complete_state_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+        "log_column_zero": null,
+        "on_only_log_column_initially_zero": true,
+        "log_column_present": false,
+        "probe_agreement": {
+          "basis_max_abs": 1.1102230246251565e-16,
+          "temperature_max_abs": 0.0,
+          "normalized_gradient_max_abs": 2.7755575615628914e-17,
+          "normalized_hessian_max_abs": 2.7755575615628914e-16,
+          "physical_gradient_max_abs": 1.0658141036401503e-14,
+          "physical_hessian_max_abs": 8.185452315956354e-12,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance": 1e-10,
+          "passed": true
+        }
+      },
+      "training_grid": {
+        "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+        "point_identities": {
+          "bottom_contact": {
+            "shape": [
+              512,
+              3
+            ],
+            "sha256": "c9e95a246c4c6ec815e76611d6914028aeb23f34ec9e178cf6315b647d07c94a"
+          },
+          "interior": {
+            "shape": [
+              8192,
+              3
+            ],
+            "sha256": "4904a8aa084b9d8402f062c87570db2b7873b5a8acad45f4c1a4a88a34cf5b60"
+          }
+        },
+        "point_counts": {
+          "interior": 8192,
+          "bottom_contact": 512
+        },
+        "strata": [
+          {
+            "name": "bulk",
+            "start": 0,
+            "stop": 6144,
+            "count": 6144,
+            "mean_weight": 0.75
+          },
+          {
+            "name": "bottom_band",
+            "start": 6144,
+            "stop": 8192,
+            "count": 2048,
+            "mean_weight": 0.25
+          }
+        ],
+        "interior_min_height_m": 4e-06,
+        "interior_max_height_m": 0.0038397794084484714,
+        "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+      }
+    },
+    "t02": {
+      "initialization": {
+        "arm": "off",
+        "neural_seed": 2026102202,
+        "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+        "shared_function_sha256": "0021f602dc935855a43f9cfef864aee2286699453a65a0f1a9c4b20dd7e9d967",
+        "complete_state_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+        "log_column_zero": null,
+        "on_only_log_column_initially_zero": true,
+        "log_column_present": false,
+        "probe_agreement": {
+          "basis_max_abs": 5.551115123125783e-17,
+          "temperature_max_abs": 0.0,
+          "normalized_gradient_max_abs": 8.673617379884035e-18,
+          "normalized_hessian_max_abs": 4.440892098500626e-16,
+          "physical_gradient_max_abs": 7.105427357601002e-15,
+          "physical_hessian_max_abs": 7.275957614183426e-12,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance": 1e-10,
+          "passed": true
+        }
+      },
+      "training_grid": {
+        "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+        "point_identities": {
+          "bottom_contact": {
+            "shape": [
+              512,
+              3
+            ],
+            "sha256": "395155e99704ba7f475abf6fd0880ba6e98a0a045a3655141a6d552f6a88fc13"
+          },
+          "bottom_insulated": {
+            "shape": [
+              512,
+              3
+            ],
+            "sha256": "30882613e482fb3b1cae210de9926c8f633ec990ccafea00aaa6fe9172770e2d"
+          },
+          "interior": {
+            "shape": [
+              8192,
+              3
+            ],
+            "sha256": "0cbf5d84eb8d10174e69e39c6775454ba05d5aabb6bee5763dc209080ae1a9e5"
+          }
+        },
+        "point_counts": {
+          "interior": 8192,
+          "bottom_contact": 512,
+          "bottom_insulated": 512
+        },
+        "strata": [
+          {
+            "name": "bulk",
+            "start": 0,
+            "stop": 4096,
+            "count": 4096,
+            "mean_weight": 0.5
+          },
+          {
+            "name": "bottom_band",
+            "start": 4096,
+            "stop": 6144,
+            "count": 2048,
+            "mean_weight": 0.25
+          },
+          {
+            "name": "corner_patch",
+            "start": 6144,
+            "stop": 8192,
+            "count": 2048,
+            "mean_weight": 0.25
+          }
+        ],
+        "interior_min_height_m": 7.803612880645129e-07,
+        "interior_max_height_m": 0.003923141121612922,
+        "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+      }
+    },
+    "t03": {
+      "initialization": {
+        "arm": "off",
+        "neural_seed": 2026102202,
+        "common_weights_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+        "shared_function_sha256": "800f52d279afccbbb2a4b04b534d539d0ec7c30c0a7f1a82274ea8b45c3b8566",
+        "complete_state_sha256": "7ea7f4b950c4b10a2bcde0c5f84ce403cb63e1721579b6b6bcfe1e06a1198685",
+        "log_column_zero": null,
+        "on_only_log_column_initially_zero": true,
+        "log_column_present": false,
+        "probe_agreement": {
+          "basis_max_abs": 1.1102230246251565e-16,
+          "temperature_max_abs": 0.0,
+          "normalized_gradient_max_abs": 2.7755575615628914e-17,
+          "normalized_hessian_max_abs": 2.7755575615628914e-16,
+          "physical_gradient_max_abs": 1.0658141036401503e-14,
+          "physical_hessian_max_abs": 8.185452315956354e-12,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance": 1e-10,
+          "passed": true
+        }
+      },
+      "training_grid": {
+        "point_digest": "1fddc6eabc510bf2de081dc6f90bed1167218e1d0c84b5f88601010502bd0cbf",
+        "point_identities": {
+          "bottom_contact": {
+            "shape": [
+              512,
+              3
+            ],
+            "sha256": "c9e95a246c4c6ec815e76611d6914028aeb23f34ec9e178cf6315b647d07c94a"
+          },
+          "interior": {
+            "shape": [
+              8192,
+              3
+            ],
+            "sha256": "4904a8aa084b9d8402f062c87570db2b7873b5a8acad45f4c1a4a88a34cf5b60"
+          }
+        },
+        "point_counts": {
+          "interior": 8192,
+          "bottom_contact": 512
+        },
+        "strata": [
+          {
+            "name": "bulk",
+            "start": 0,
+            "stop": 6144,
+            "count": 6144,
+            "mean_weight": 0.75
+          },
+          {
+            "name": "bottom_band",
+            "start": 6144,
+            "stop": 8192,
+            "count": 2048,
+            "mean_weight": 0.25
+          }
+        ],
+        "interior_min_height_m": 4e-06,
+        "interior_max_height_m": 0.0038397794084484714,
+        "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+      }
+    },
+    "t04": {
+      "initialization": {
+        "arm": "off",
+        "neural_seed": 2026102202,
+        "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+        "shared_function_sha256": "749292f2450628148816f40e2123e98bb7b68d31bc37f0e6c37167d063a2808f",
+        "complete_state_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+        "log_column_zero": null,
+        "on_only_log_column_initially_zero": true,
+        "log_column_present": false,
+        "probe_agreement": {
+          "basis_max_abs": 5.551115123125783e-17,
+          "temperature_max_abs": 0.0,
+          "normalized_gradient_max_abs": 8.673617379884035e-18,
+          "normalized_hessian_max_abs": 4.440892098500626e-16,
+          "physical_gradient_max_abs": 7.105427357601002e-15,
+          "physical_hessian_max_abs": 7.275957614183426e-12,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance": 1e-10,
+          "passed": true
+        }
+      },
+      "training_grid": {
+        "point_digest": "a962d27cd5122563f4eee5d466546eb568312ef2c28b61a9983d13028f2a02ea",
+        "point_identities": {
+          "bottom_contact": {
+            "shape": [
+              512,
+              3
+            ],
+            "sha256": "395155e99704ba7f475abf6fd0880ba6e98a0a045a3655141a6d552f6a88fc13"
+          },
+          "bottom_insulated": {
+            "shape": [
+              512,
+              3
+            ],
+            "sha256": "30882613e482fb3b1cae210de9926c8f633ec990ccafea00aaa6fe9172770e2d"
+          },
+          "interior": {
+            "shape": [
+              8192,
+              3
+            ],
+            "sha256": "0cbf5d84eb8d10174e69e39c6775454ba05d5aabb6bee5763dc209080ae1a9e5"
+          }
+        },
+        "point_counts": {
+          "interior": 8192,
+          "bottom_contact": 512,
+          "bottom_insulated": 512
+        },
+        "strata": [
+          {
+            "name": "bulk",
+            "start": 0,
+            "stop": 4096,
+            "count": 4096,
+            "mean_weight": 0.5
+          },
+          {
+            "name": "bottom_band",
+            "start": 4096,
+            "stop": 6144,
+            "count": 2048,
+            "mean_weight": 0.25
+          },
+          {
+            "name": "corner_patch",
+            "start": 6144,
+            "stop": 8192,
+            "count": 2048,
+            "mean_weight": 0.25
+          }
+        ],
+        "interior_min_height_m": 7.803612880645129e-07,
+        "interior_max_height_m": 0.003923141121612922,
+        "objective_weights": "uniform mean over all interior rows; each bottom family retains its own uniform mean"
+      }
+    }
+  },
+  "near_bottom_audit_digest": "3fd7f485582a179c0ec2d0f4e7aaab42f0afd166e80c7a463a0d57868f84228a",
+  "checkpoint_rule": "training-returned terminal state retained before any independent diagnostic or hidden-field score",
+  "initialization_policy": "fresh original common weights; no probe or prior-campaign continuation",
+  "selection_boundary": "training-only controller termination; unchanged acceptance; no winner or reserved evaluation"
+}
