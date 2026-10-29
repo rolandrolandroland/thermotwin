@@ -1,0 +1,103 @@
+{
+  "artifact_digest": "121f2f0415e22b1c0ebdf7bbf2a98ae641afbcabfd99776e99620c03a3899381",
+  "development_map_is_not_reserved_confirmation": true,
+  "development_scientific_result_digest": "b26352040b44c595f86d76003dd55bd7a2d8b43c0ccf9b825dda53c0a6edf4f3",
+  "figure_input_artifact_digest": "84c6dd44c75a678e528f791b2bd8b0af4f89087e3fae1a6e9b4235add7bd47a0",
+  "figure_input_file": {
+    "bytes": 258364,
+    "sha256": "0953ed3fb16dc974fe5eff46eb6cef5a75599eb45f1f361d5172198d66a039c0"
+  },
+  "figures": [
+    {
+      "figure": "figure_1_decision_story",
+      "outputs": [
+        {
+          "bytes": 486518,
+          "format": "png",
+          "path": "figure_1_decision_story.png",
+          "sha256": "cfd463ec850466f086e2efc2569a83a711c3ed6e6ae0deead8697417d3562f3b"
+        },
+        {
+          "bytes": 40522,
+          "format": "pdf",
+          "path": "figure_1_decision_story.pdf",
+          "sha256": "7518b51b9a700fd1a31b73776252e429619fd7421afaf35dac342842a6a85d48"
+        },
+        {
+          "bytes": 278558,
+          "format": "svg",
+          "path": "figure_1_decision_story.svg",
+          "sha256": "ce03fb2b3c898b07e304b49de7ded8de3196a4e408effbaafa3d25c5efdd8edb"
+        }
+      ],
+      "size_inches": [
+        15.4,
+        9.4
+      ]
+    },
+    {
+      "figure": "figure_2_reserved_comparison",
+      "outputs": [
+        {
+          "bytes": 384050,
+          "format": "png",
+          "path": "figure_2_reserved_comparison.png",
+          "sha256": "60a599c44816ff06e2e271782d49a3246b07da23ac48f5a2068f13474e6b2ba1"
+        },
+        {
+          "bytes": 35589,
+          "format": "pdf",
+          "path": "figure_2_reserved_comparison.pdf",
+          "sha256": "39a0134f3d31013bc55d82c6999a70731f177a8adcdf126eea299622562c40aa"
+        },
+        {
+          "bytes": 262427,
+          "format": "svg",
+          "path": "figure_2_reserved_comparison.svg",
+          "sha256": "7a50e3249ea2f903b892cd9631bbedef56ee63115f2f3bb90c7df4444209774d"
+        }
+      ],
+      "size_inches": [
+        14.3,
+        12.9
+      ]
+    },
+    {
+      "figure": "figure_3_development_map",
+      "outputs": [
+        {
+          "bytes": 335896,
+          "format": "png",
+          "path": "figure_3_development_map.png",
+          "sha256": "78607962b06f57399722464709c17595595b1eb34563229f1f99d410f90ee899"
+        },
+        {
+          "bytes": 35673,
+          "format": "pdf",
+          "path": "figure_3_development_map.pdf",
+          "sha256": "c0ea10a2a34e3ea78a9138419ff2d48a77f84aab3c53756d260554a429340659"
+        },
+        {
+          "bytes": 343237,
+          "format": "svg",
+          "path": "figure_3_development_map.svg",
+          "sha256": "2baa6156048987f53a705ee664da138d9627b8ec4219fa6f7af5d77348a267fc"
+        }
+      ],
+      "size_inches": [
+        15.2,
+        9.2
+      ]
+    }
+  ],
+  "matplotlib_version": "3.10.8",
+  "new_fits_simulations_or_observations_in_renderer": false,
+  "primary_success": false,
+  "renderer_file": {
+    "bytes": 22495,
+    "sha256": "bc85182be7360f5ccbc402dbbd24b37acecd5821c4b38b6f7680b46054bbd71f"
+  },
+  "reserved_scientific_result_digest": "d565c0c6368b602eeb3d2721c128aab88221bce9a6b5abe68fcda4c727d4edf0",
+  "schema_version": 1,
+  "version": "operating_decision_final_figures_v1"
+}

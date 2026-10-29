@@ -172,7 +172,8 @@ verifier against the retained outputs; it requires the archive, plan, source
 roots and passing test logs. Neither operation changes the accepted source,
 selector, corrections, sample size or primary conclusion.
 
-Final scientific figures, the full report, presentation and reproducibility/
-deposit package remain separate closeout work. The historical result artifact's
+The [three final scientific figures](OPERATING_DECISION_FINAL_FIGURES.md)
+are now complete. The full report, presentation and reproducibility/deposit
+package remain separate closeout work. The historical result artifact's
 pending-closeout flags describe its creation time; the
 [project status](OPERATING_DECISION_PROJECT_STATUS.md) records later completion.

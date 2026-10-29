@@ -600,8 +600,10 @@ heat-transfer parameter.
   This motivates a future decision-resolution objective; no redesign is
   validated. The bounded Phase H replay subsequently reproduced 15 policy
   refits, six predictive draws and 116 calibrated decisions exactly; independent
-  evidence reload and 1,199 existing plus seven new tests passed. Final
-  figures/report/presentation and archival packaging remain. See
+  evidence reload and 1,199 existing plus seven new tests passed. The three
+  final figures are complete, with nine byte-reproduced exports and 48 passing
+  focused tests. Full report, presentation and archival packaging remain. See
+  `docs/thermotwin/OPERATING_DECISION_FINAL_FIGURES.md`,
   `docs/thermotwin/OPERATING_DECISION_PHASE_H_REPLAY.md`,
   `docs/thermotwin/OPERATING_DECISION_ABSTENTION_DIAGNOSIS.md`,
   `docs/thermotwin/OPERATING_DECISION_PHASE_F_RESULT.md` and
