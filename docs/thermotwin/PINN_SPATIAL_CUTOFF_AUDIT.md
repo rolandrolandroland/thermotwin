@@ -72,6 +72,12 @@ thresholds. No replacement method or new neural campaign was launched by this
 diagnostic. The completed forward result remains two of four passing, so
 inverse fitting and 3D remain blocked.
 
+The separately declared [regularized-readout follow-up](PINN_SPATIAL_REGULARIZED_READOUT.md)
+has since passed its training-only method verification and completed its frozen
+four-case comparison. It retains two passes, an unscored resource failure and
+a severe partial-contact physics/field regression. Its results are separate
+from this diagnostic; it does not clear forward validation.
+
 ## Fixed protocol
 
 - Use copies of the two terminal partial-contact checkpoints, h=800 and

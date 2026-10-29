@@ -1,0 +1,1171 @@
+{
+  "schema": "fixed_ridge_training_gradient_result_v1",
+  "status": "completed",
+  "plan_sha256": "204c115f893971aecafb276863d4d94552641b457ad164f877d86e6ec90ef82a",
+  "method_checks_passed": true,
+  "counters": {
+    "calibrations": 2,
+    "head_solves": 14
+  },
+  "cases": [
+    {
+      "case": "t02",
+      "status": "completed",
+      "calibration": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/regularized-gradient-probe/t02-calibration.json",
+        "sha256": "9f0fee4030d52313c89cf2a649735181ae944236188f2b6f7f74bb80cb26527a",
+        "bytes": 19999
+      },
+      "calibration_sha256": "7699cd0b6590c85517e156708b066fb1ae8ab0e3d755f7d5dcd95e9f393f62fa",
+      "fixed_lambda": 7.484755790894266e-07,
+      "calibration_spectral_calculations": 1,
+      "initialization": {
+        "arm": "off",
+        "neural_seed": 2026102202,
+        "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+        "shared_function_sha256": "0021f602dc935855a43f9cfef864aee2286699453a65a0f1a9c4b20dd7e9d967",
+        "complete_state_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+        "log_column_zero": null,
+        "on_only_log_column_initially_zero": true,
+        "log_column_present": false,
+        "probe_agreement": {
+          "basis_max_abs": 5.551115123125783e-17,
+          "temperature_max_abs": 0.0,
+          "normalized_gradient_max_abs": 8.673617379884035e-18,
+          "normalized_hessian_max_abs": 4.440892098500626e-16,
+          "physical_gradient_max_abs": 7.105427357601002e-15,
+          "physical_hessian_max_abs": 7.275957614183426e-12,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance": 1e-10,
+          "passed": true
+        }
+      },
+      "direction": {
+        "ad_directional_derivative": -6.651731799722207,
+        "gradient_max_abs": 0.1759784955794057,
+        "gradient_clipped": false,
+        "direction_sha256": "6e423bb60b11618339c60d44fc8d44e76942c818a2586ed8243a02ec7d0c069c"
+      },
+      "samples": [
+        {
+          "case": "t02",
+          "kind": "baseline",
+          "radius": 0.0,
+          "sign": 0,
+          "status": "solved",
+          "solve_number": 1,
+          "total_objective": 2.797964861692844,
+          "physical_objective": 2.79389360212625,
+          "penalty": 0.004071259566594012,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 2.8067681174253334,
+            "objective_after": 2.797964861692844,
+            "objective_proposed": 2.797964861692844,
+            "unpenalized_objective": 2.79389360212625,
+            "regularization_penalty": 0.004071259566594012,
+            "algebraic_objective": 2.7979648616704504,
+            "algebraic_objective_abs_difference": 2.2393642495899257e-11,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 18496839.06647378,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 2.277174694303805e-12,
+            "stationarity_absolute_normal_residual": 1.4300982619322446e-09,
+            "stationarity_augmented_gradient_l2": 2.8601965238644893e-09,
+            "stationarity_denominator": 628.0142957453096,
+            "augmented_residual_l2": 1.6727118286394855,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 2153.841285418392,
+            "scaled_coefficient_norm": 85248.50295054288,
+            "fixed_lambda": 7.484755790894266e-07,
+            "column_scale_sha256": "aba77d3d465ad39aa4726db38e797da4d7269011fccd9446a7aa6aa90cea288d",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 5.580850083031692
+          }
+        },
+        {
+          "case": "t02",
+          "kind": "perturbation",
+          "radius": 0.0001,
+          "sign": -1,
+          "status": "solved",
+          "solve_number": 2,
+          "total_objective": 2.798779525217656,
+          "physical_objective": 2.794689076416456,
+          "penalty": 0.004090448801200137,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 288.1626173389596,
+            "objective_after": 2.798779525217656,
+            "objective_proposed": 2.798779525217656,
+            "unpenalized_objective": 2.794689076416456,
+            "regularization_penalty": 0.004090448801200137,
+            "algebraic_objective": 2.7987795251894165,
+            "algebraic_objective_abs_difference": 2.8239632854365482e-11,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 18497122.634919688,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 6.052756497479481e-13,
+            "stationarity_absolute_normal_residual": 3.8011888627250717e-10,
+            "stationarity_augmented_gradient_l2": 7.602377725450143e-10,
+            "stationarity_denominator": 628.0095464451579,
+            "augmented_residual_l2": 1.6729553267165913,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 2161.8366438792855,
+            "scaled_coefficient_norm": 85449.16940789935,
+            "fixed_lambda": 7.484755790894266e-07,
+            "column_scale_sha256": "aba77d3d465ad39aa4726db38e797da4d7269011fccd9446a7aa6aa90cea288d",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 5.888470208039507
+          }
+        },
+        {
+          "case": "t02",
+          "kind": "perturbation",
+          "radius": 0.0001,
+          "sign": 1,
+          "status": "solved",
+          "solve_number": 3,
+          "total_objective": 2.7974507067891037,
+          "physical_objective": 2.7933988670546075,
+          "penalty": 0.0040518397344962865,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 288.35182355253454,
+            "objective_after": 2.7974507067891037,
+            "objective_proposed": 2.7974507067891037,
+            "unpenalized_objective": 2.7933988670546075,
+            "regularization_penalty": 0.0040518397344962865,
+            "algebraic_objective": 2.7974507067899195,
+            "algebraic_objective_abs_difference": 8.15791878494565e-13,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 18496555.49277899,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 2.0323407369302784e-12,
+            "stationarity_absolute_normal_residual": 1.2763486943412715e-09,
+            "stationarity_augmented_gradient_l2": 2.552697388682543e-09,
+            "stationarity_denominator": 628.0190477651474,
+            "augmented_residual_l2": 1.6725581325592003,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 2145.9967071464384,
+            "scaled_coefficient_norm": 85044.94303264174,
+            "fixed_lambda": 7.484755790894266e-07,
+            "column_scale_sha256": "aba77d3d465ad39aa4726db38e797da4d7269011fccd9446a7aa6aa90cea288d",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 5.244965875055641
+          }
+        },
+        {
+          "case": "t02",
+          "kind": "perturbation",
+          "radius": 1e-05,
+          "sign": -1,
+          "status": "solved",
+          "solve_number": 4,
+          "total_objective": 2.798032880848773,
+          "physical_objective": 2.7939596907946798,
+          "penalty": 0.004073190054093216,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 5.652528867060812,
+            "objective_after": 2.798032880848773,
+            "objective_proposed": 2.798032880848773,
+            "unpenalized_objective": 2.7939596907946798,
+            "regularization_penalty": 0.004073190054093216,
+            "algebraic_objective": 2.7980328808809896,
+            "algebraic_objective_abs_difference": 3.221645172857279e-11,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 18496867.42353256,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 2.0191465113828392e-12,
+            "stationarity_absolute_normal_residual": 1.2680519151521735e-09,
+            "stationarity_augmented_gradient_l2": 2.536103830304347e-09,
+            "stationarity_denominator": 628.0138206928488,
+            "augmented_residual_l2": 1.6727321605328782,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 2154.6342819073934,
+            "scaled_coefficient_norm": 85268.71188862962,
+            "fixed_lambda": 7.484755790894266e-07,
+            "column_scale_sha256": "aba77d3d465ad39aa4726db38e797da4d7269011fccd9446a7aa6aa90cea288d",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 5.2752422919729725
+          }
+        },
+        {
+          "case": "t02",
+          "kind": "perturbation",
+          "radius": 1e-05,
+          "sign": 1,
+          "status": "solved",
+          "solve_number": 5,
+          "total_objective": 2.797899847993263,
+          "physical_objective": 2.793830521246132,
+          "penalty": 0.004069326747130955,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 5.65258636905636,
+            "objective_after": 2.797899847993263,
+            "objective_proposed": 2.797899847993263,
+            "unpenalized_objective": 2.793830521246132,
+            "regularization_penalty": 0.004069326747130955,
+            "algebraic_objective": 2.797899847980741,
+            "algebraic_objective_abs_difference": 1.2521983450142216e-11,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 18496810.709372185,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 3.269752732949474e-12,
+            "stationarity_absolute_normal_residual": 2.053453013237575e-09,
+            "stationarity_augmented_gradient_l2": 4.10690602647515e-09,
+            "stationarity_denominator": 628.0147708249675,
+            "augmented_residual_l2": 1.6726923949073063,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 2153.0497955328965,
+            "scaled_coefficient_norm": 85228.26480020254,
+            "fixed_lambda": 7.484755790894266e-07,
+            "column_scale_sha256": "aba77d3d465ad39aa4726db38e797da4d7269011fccd9446a7aa6aa90cea288d",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 5.2663523339433596
+          }
+        },
+        {
+          "case": "t02",
+          "kind": "perturbation",
+          "radius": 1e-06,
+          "sign": -1,
+          "status": "solved",
+          "solve_number": 6,
+          "total_objective": 2.7979715284374898,
+          "physical_objective": 2.7939000757159094,
+          "penalty": 0.0040714527215803984,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 2.8265173457378165,
+            "objective_after": 2.7979715284374898,
+            "objective_proposed": 2.7979715284374898,
+            "unpenalized_objective": 2.7939000757159094,
+            "regularization_penalty": 0.0040714527215803984,
+            "algebraic_objective": 2.797971528444494,
+            "algebraic_objective_abs_difference": 7.0041750177551876e-12,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 18496841.90221838,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 5.734817959320536e-13,
+            "stationarity_absolute_normal_residual": 3.6015473895092836e-10,
+            "stationarity_augmented_gradient_l2": 7.203094779018567e-10,
+            "stationarity_denominator": 628.0142482388397,
+            "augmented_residual_l2": 1.6727138214424173,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 2153.920519390886,
+            "scaled_coefficient_norm": 85250.52517215008,
+            "fixed_lambda": 7.484755790894266e-07,
+            "column_scale_sha256": "aba77d3d465ad39aa4726db38e797da4d7269011fccd9446a7aa6aa90cea288d",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 5.637136916979216
+          }
+        },
+        {
+          "case": "t02",
+          "kind": "perturbation",
+          "radius": 1e-06,
+          "sign": 1,
+          "status": "solved",
+          "solve_number": 7,
+          "total_objective": 2.7979582250018984,
+          "physical_objective": 2.79388715860952,
+          "penalty": 0.004071066392378216,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 2.826504232810976,
+            "objective_after": 2.7979582250018984,
+            "objective_proposed": 2.7979582250018984,
+            "unpenalized_objective": 2.79388715860952,
+            "regularization_penalty": 0.004071066392378216,
+            "algebraic_objective": 2.7979582249461514,
+            "algebraic_objective_abs_difference": 5.574696260168821e-11,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 18496836.23077393,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 1.775889363179645e-12,
+            "stationarity_absolute_normal_residual": 1.1152839921055691e-09,
+            "stationarity_augmented_gradient_l2": 2.2305679842111382e-09,
+            "stationarity_denominator": 628.0143432520517,
+            "augmented_residual_l2": 1.6727098448165334,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 2153.762074540243,
+            "scaled_coefficient_norm": 85246.48047963643,
+            "fixed_lambda": 7.484755790894266e-07,
+            "column_scale_sha256": "aba77d3d465ad39aa4726db38e797da4d7269011fccd9446a7aa6aa90cea288d",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 5.672873208066449
+          }
+        }
+      ],
+      "failure": null,
+      "original_state_restored_exactly": true,
+      "checks": {
+        "point_checks": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "directional_differences": [
+          {
+            "radius": 0.0001,
+            "centered_fd": -6.644092142762403
+          },
+          {
+            "radius": 1e-05,
+            "centered_fd": -6.651642775512555
+          },
+          {
+            "radius": 1e-06,
+            "centered_fd": -6.651717795680412
+          }
+        ],
+        "unclipped_ad_directional_derivative": -6.651731799722207,
+        "finest_fd_agrees_with_ad": true,
+        "two_finest_fd_agree": true,
+        "passed": true
+      }
+    },
+    {
+      "case": "t04",
+      "status": "completed",
+      "calibration": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/regularized-gradient-probe/t04-calibration.json",
+        "sha256": "2590964fc0df057c7a67b8536f4e0ea1d1f90cde5421ce51315b3a6fc32dba66",
+        "bytes": 20004
+      },
+      "calibration_sha256": "4f928f19522cccdb4c3fce7221ffa113ace1d34abcd9b1667287ba76c6d284c3",
+      "fixed_lambda": 7.493154750922876e-07,
+      "calibration_spectral_calculations": 1,
+      "initialization": {
+        "arm": "off",
+        "neural_seed": 2026102202,
+        "common_weights_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+        "shared_function_sha256": "749292f2450628148816f40e2123e98bb7b68d31bc37f0e6c37167d063a2808f",
+        "complete_state_sha256": "e3e0f5bb35d8c8a0bf27cd0d428072fa4d554b58b0aefce13ed29daa990fb1c7",
+        "log_column_zero": null,
+        "on_only_log_column_initially_zero": true,
+        "log_column_present": false,
+        "probe_agreement": {
+          "basis_max_abs": 5.551115123125783e-17,
+          "temperature_max_abs": 0.0,
+          "normalized_gradient_max_abs": 8.673617379884035e-18,
+          "normalized_hessian_max_abs": 4.440892098500626e-16,
+          "physical_gradient_max_abs": 7.105427357601002e-15,
+          "physical_hessian_max_abs": 7.275957614183426e-12,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance": 1e-10,
+          "passed": true
+        }
+      },
+      "direction": {
+        "ad_directional_derivative": -8.524842818088787,
+        "gradient_max_abs": 0.2498572075796126,
+        "gradient_clipped": false,
+        "direction_sha256": "0a8613ada5ecaa0dfb8a64827176cc81ab122f37b15637cf0e233b13f3d0f3a5"
+      },
+      "samples": [
+        {
+          "case": "t04",
+          "kind": "baseline",
+          "radius": 0.0,
+          "sign": 0,
+          "status": "solved",
+          "solve_number": 8,
+          "total_objective": 4.886317150975941,
+          "physical_objective": 4.872761759818095,
+          "penalty": 0.01355539115784568,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 4.911167964158325,
+            "objective_after": 4.886317150975941,
+            "objective_proposed": 4.886317150975941,
+            "unpenalized_objective": 4.872761759818095,
+            "regularization_penalty": 0.01355539115784568,
+            "algebraic_objective": 4.886317150994864,
+            "algebraic_objective_abs_difference": 1.8922641231711168e-11,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 15033533.629396373,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 1.446936608481126e-12,
+            "stationarity_absolute_normal_residual": 1.3072868129367693e-09,
+            "stationarity_augmented_gradient_l2": 2.6145736258735386e-09,
+            "stationarity_denominator": 903.4858923840835,
+            "augmented_residual_l2": 2.2105015609573457,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 3172.078980393629,
+            "scaled_coefficient_norm": 155378.64336348025,
+            "fixed_lambda": 7.493154750922876e-07,
+            "column_scale_sha256": "2951c36f183047d14e68f780bc3eb700ea93dcea3449408cdc02ea91e620baf9",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 5.527476084069349
+          }
+        },
+        {
+          "case": "t04",
+          "kind": "perturbation",
+          "radius": 0.0001,
+          "sign": -1,
+          "status": "solved",
+          "solve_number": 9,
+          "total_objective": 4.887391755157448,
+          "physical_objective": 4.8736059830381935,
+          "penalty": 0.01378577211925413,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 225.407019482834,
+            "objective_after": 4.887391755157448,
+            "objective_proposed": 4.887391755157448,
+            "unpenalized_objective": 4.8736059830381935,
+            "regularization_penalty": 0.01378577211925413,
+            "algebraic_objective": 4.88739175521787,
+            "algebraic_objective_abs_difference": 6.042188971377982e-11,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 15033428.989222635,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 1.1823380414375262e-12,
+            "stationarity_absolute_normal_residual": 1.068227538356222e-09,
+            "stationarity_augmented_gradient_l2": 2.136455076712444e-09,
+            "stationarity_denominator": 903.4874130053663,
+            "augmented_residual_l2": 2.2107446155578137,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 3205.6783289463615,
+            "scaled_coefficient_norm": 156693.4510878656,
+            "fixed_lambda": 7.493154750922876e-07,
+            "column_scale_sha256": "2951c36f183047d14e68f780bc3eb700ea93dcea3449408cdc02ea91e620baf9",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 5.492910584085621
+          }
+        },
+        {
+          "case": "t04",
+          "kind": "perturbation",
+          "radius": 0.0001,
+          "sign": 1,
+          "status": "solved",
+          "solve_number": 10,
+          "total_objective": 4.885687703055518,
+          "physical_objective": 4.872361504076415,
+          "penalty": 0.013326198979103022,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 225.40553683050638,
+            "objective_after": 4.885687703055518,
+            "objective_proposed": 4.885687703055518,
+            "unpenalized_objective": 4.872361504076415,
+            "regularization_penalty": 0.013326198979103022,
+            "algebraic_objective": 4.8856877030612225,
+            "algebraic_objective_abs_difference": 5.704769989733904e-12,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 15033638.19853095,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 1.2687119626479047e-12,
+            "stationarity_absolute_normal_residual": 1.1462614490664026e-09,
+            "stationarity_augmented_gradient_l2": 2.292522898132805e-09,
+            "stationarity_denominator": 903.4843863803901,
+            "augmented_residual_l2": 2.210359179649593,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 3138.4418648679325,
+            "scaled_coefficient_norm": 154059.48613312907,
+            "fixed_lambda": 7.493154750922876e-07,
+            "column_scale_sha256": "2951c36f183047d14e68f780bc3eb700ea93dcea3449408cdc02ea91e620baf9",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 5.357599082984962
+          }
+        },
+        {
+          "case": "t04",
+          "kind": "perturbation",
+          "radius": 1e-05,
+          "sign": -1,
+          "status": "solved",
+          "solve_number": 11,
+          "total_objective": 4.886404625139121,
+          "physical_objective": 4.872826245541226,
+          "penalty": 0.013578379597893963,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 7.091601899217319,
+            "objective_after": 4.886404625139121,
+            "objective_proposed": 4.886404625139121,
+            "unpenalized_objective": 4.872826245541226,
+            "regularization_penalty": 0.013578379597893963,
+            "algebraic_objective": 4.88640462518318,
+            "algebraic_objective_abs_difference": 4.405897868764441e-11,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 15033523.168694774,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 2.5101178659715193e-12,
+            "stationarity_absolute_normal_residual": 2.2678564601692465e-09,
+            "stationarity_augmented_gradient_l2": 4.535712920338493e-09,
+            "stationarity_denominator": 903.4860437884228,
+            "augmented_residual_l2": 2.2105213469186813,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 3175.441187220259,
+            "scaled_coefficient_norm": 155510.34002486803,
+            "fixed_lambda": 7.493154750922876e-07,
+            "column_scale_sha256": "2951c36f183047d14e68f780bc3eb700ea93dcea3449408cdc02ea91e620baf9",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 5.296278542024083
+          }
+        },
+        {
+          "case": "t04",
+          "kind": "perturbation",
+          "radius": 1e-05,
+          "sign": 1,
+          "status": "solved",
+          "solve_number": 12,
+          "total_objective": 4.886234128781516,
+          "physical_objective": 4.8727017141314155,
+          "penalty": 0.013532414650100667,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 7.091431624705724,
+            "objective_after": 4.886234128781516,
+            "objective_proposed": 4.886234128781516,
+            "unpenalized_objective": 4.8727017141314155,
+            "regularization_penalty": 0.013532414650100667,
+            "algebraic_objective": 4.886234128789022,
+            "algebraic_objective_abs_difference": 7.505995824885758e-12,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 15033544.089417186,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 1.3572219105829855e-12,
+            "stationarity_absolute_normal_residual": 1.2262306437554062e-09,
+            "stationarity_augmented_gradient_l2": 2.4524612875108123e-09,
+            "stationarity_denominator": 903.4857411259203,
+            "augmented_residual_l2": 2.2104827818350055,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 3168.716401297859,
+            "scaled_coefficient_norm": 155246.90342824862,
+            "fixed_lambda": 7.493154750922876e-07,
+            "column_scale_sha256": "2951c36f183047d14e68f780bc3eb700ea93dcea3449408cdc02ea91e620baf9",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 6.719569209031761
+          }
+        },
+        {
+          "case": "t04",
+          "kind": "perturbation",
+          "radius": 1e-06,
+          "sign": -1,
+          "status": "solved",
+          "solve_number": 13,
+          "total_objective": 4.8863256980940895,
+          "physical_objective": 4.8727680085932095,
+          "penalty": 0.013557689500880364,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 4.908377671815499,
+            "objective_after": 4.8863256980940895,
+            "objective_proposed": 4.8863256980940895,
+            "unpenalized_objective": 4.8727680085932095,
+            "regularization_penalty": 0.013557689500880364,
+            "algebraic_objective": 4.886325698049644,
+            "algebraic_objective_abs_difference": 4.4445336300213967e-11,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 15033532.58338401,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 1.6465469774856205e-12,
+            "stationarity_absolute_normal_residual": 1.4876319902245162e-09,
+            "stationarity_augmented_gradient_l2": 2.9752639804490324e-09,
+            "stationarity_denominator": 903.4859075179395,
+            "augmented_residual_l2": 2.2105034942405415,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 3172.4152269722076,
+            "scaled_coefficient_norm": 155391.81518133928,
+            "fixed_lambda": 7.493154750922876e-07,
+            "column_scale_sha256": "2951c36f183047d14e68f780bc3eb700ea93dcea3449408cdc02ea91e620baf9",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 5.953099750098772
+          }
+        },
+        {
+          "case": "t04",
+          "kind": "perturbation",
+          "radius": 1e-06,
+          "sign": 1,
+          "status": "solved",
+          "solve_number": 14,
+          "total_objective": 4.886308648359948,
+          "physical_objective": 4.872755555366721,
+          "penalty": 0.0135530929932263,
+          "projection": {
+            "accepted": true,
+            "head_policy": "unconditional unique stationary ridge readout",
+            "objective_before": 4.908360622350732,
+            "objective_after": 4.886308648359948,
+            "objective_proposed": 4.886308648359948,
+            "unpenalized_objective": 4.872755555366721,
+            "regularization_penalty": 0.0135530929932263,
+            "algebraic_objective": 4.886308648328802,
+            "algebraic_objective_abs_difference": 3.114575264362429e-11,
+            "rank": 550,
+            "columns": 550,
+            "rows": 9252,
+            "augmented_rows": 9802,
+            "hard_singular_value_truncation": false,
+            "rank_rcond": null,
+            "resolved_condition": null,
+            "qr_diagonal_ratio": 15033534.675436726,
+            "condition_metric": "R diagonal ratio is not a spectral condition estimate",
+            "stationarity_relative": 3.957605600859467e-12,
+            "stationarity_absolute_normal_residual": 3.5756407681087146e-09,
+            "stationarity_augmented_gradient_l2": 7.151281536217429e-09,
+            "stationarity_denominator": 903.4858772516893,
+            "augmented_residual_l2": 2.2104996377128865,
+            "stationarity_definition": "||C.T@(C@z-d)||2/max(1,||C.T@d||2)",
+            "stationarity_tolerance": 1e-08,
+            "coefficient_norm_returned": 3171.742752016904,
+            "scaled_coefficient_norm": 155365.47145154944,
+            "fixed_lambda": 7.493154750922876e-07,
+            "column_scale_sha256": "2951c36f183047d14e68f780bc3eb700ea93dcea3449408cdc02ea91e620baf9",
+            "solver": "float64 augmented column-scaled pivoted QR and full-rank triangular solve; no normal equations or spectral cutoff",
+            "system": {
+              "families": [
+                {
+                  "name": "interior",
+                  "rows": 8192,
+                  "row_scale": 0.11048543456039805
+                },
+                {
+                  "name": "bottom_contact",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "bottom_insulated",
+                  "rows": 512,
+                  "row_scale": 0.4419417382415922
+                },
+                {
+                  "name": "observations",
+                  "rows": 36,
+                  "row_scale": 8.333333333333332
+                }
+              ],
+              "coefficient_count": 550
+            },
+            "head_solve_calls": 1,
+            "wall_seconds": 5.701472917106003
+          }
+        }
+      ],
+      "failure": null,
+      "original_state_restored_exactly": true,
+      "checks": {
+        "point_checks": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "directional_differences": [
+          {
+            "radius": 0.0001,
+            "centered_fd": -8.520260509650157
+          },
+          {
+            "radius": 1e-05,
+            "centered_fd": -8.524817880228852
+          },
+          {
+            "radius": 1e-06,
+            "centered_fd": -8.524867070924813
+          }
+        ],
+        "unclipped_ad_directional_derivative": -8.524842818088787,
+        "finest_fd_agrees_with_ad": true,
+        "two_finest_fd_agree": true,
+        "passed": true
+      }
+    }
+  ],
+  "calibration_attempts": [
+    {
+      "case": "t02",
+      "attempt": 1,
+      "status": "completed",
+      "calibration": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/regularized-gradient-probe/t02-calibration.json",
+        "sha256": "9f0fee4030d52313c89cf2a649735181ae944236188f2b6f7f74bb80cb26527a",
+        "bytes": 19999
+      },
+      "metadata_sha256": "7699cd0b6590c85517e156708b066fb1ae8ab0e3d755f7d5dcd95e9f393f62fa",
+      "calibration_spectral_calculations": 1
+    },
+    {
+      "case": "t04",
+      "attempt": 2,
+      "status": "completed",
+      "calibration": {
+        "path": "/Users/rolandbennett/projects/thermotwin/reports/pinn-spatial-validation/regularized-gradient-probe/t04-calibration.json",
+        "sha256": "2590964fc0df057c7a67b8536f4e0ea1d1f90cde5421ce51315b3a6fc32dba66",
+        "bytes": 20004
+      },
+      "metadata_sha256": "4f928f19522cccdb4c3fce7221ffa113ace1d34abcd9b1667287ba76c6d284c3",
+      "calibration_spectral_calculations": 1
+    }
+  ],
+  "training_only": true,
+  "neural_training_updates": 0,
+  "new_checkpoints": 0,
+  "reference_fields_used": false,
+  "independent_diagnostics_used_for_selection": false,
+  "preservation_verified": true,
+  "failure": null,
+  "wall_seconds": 93.25340516597498,
+  "peak_rss_bytes": 1210155008
+}
