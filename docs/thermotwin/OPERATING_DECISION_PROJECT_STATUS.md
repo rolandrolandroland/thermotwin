@@ -11,8 +11,14 @@ made 163/300 definitive decisions (54.3%), with one false approval among 104
 approvals, and used 75.03 J mean simulated diagnostic energy. It saved energy
 against all three fixed measurement policies, but did not qualify on the frozen
 decision-coverage/risk criteria; no fixed policy qualified either. The numerical
-experiment is closed. Exploratory diagnosis, final figures/report/presentation,
-small numerical replay and archival packaging remain.
+experiment is closed. The October 29
+[exploratory abstention diagnosis](OPERATING_DECISION_ABSTENTION_DIAGNOSIS.md)
+is also complete: 98 abstentions arise in raw intervals, 12 first appear after
+development padding, and 27 after final calibration. Among 125 selected
+measurements, 116 narrow the interval and 85 of those still abstain. This
+motivates a future decision-resolution objective, without validating a redesign.
+Final figures/report/presentation, small numerical replay and archival packaging
+remain.
 
 ## Execution history
 
@@ -326,7 +332,7 @@ comparator metrics are recorded in the [D6 result](OPERATING_DECISION_PHASE_D6_R
 | D — selector development and maps | Complete through D6; 24/30 definitive decisions, zero observed errors, no redesign trigger; final design frozen | Preserve the closed development evidence and final Phase D artifact. |
 | E — analysis freeze and calibration | Complete: 100/100 blocks; five finite corrections; frozen-source and independent arithmetic validation passed | Preserve the accepted calibration artifact and closed cohort. Record interrupted-run resource limitations; the separate F3 gate governs reserved opening. |
 | F — reserved evaluation | Complete: 100 blocks; original independent validation passed October 21; [result](OPERATING_DECISION_PHASE_F_RESULT.md) and independent arithmetic audit recorded October 29 | Preserve the closed cohort and accepted non-success on the primary criterion. No regeneration, retuning or reactive extension. |
-| G — interpretation | Primary classification and independent statistical verification complete | Keep energy savings, decisiveness shortfall and inconclusive risk assurance distinct; perform the bounded exploratory abstention diagnosis. |
+| G — interpretation | Complete for the primary classification, independent statistical verification and [bounded exploratory abstention diagnosis](OPERATING_DECISION_ABSTENTION_DIAGNOSIS.md) | Preserve the primary non-success and label the diagnosis post hoc. A decision-aware redesign remains a hypothesis requiring a separate protocol and fresh partitions. |
 | H — final reporting and archive | Pending | Complete the small numerical replay, three figures, final report, presentation and reproducibility/deposit package. |
 
 Phase B records the following boundaries for the pilot and later development:

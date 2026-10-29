@@ -595,8 +595,13 @@ heat-transfer parameter.
   among 104 approvals. Energy savings against fixed measurement policies passed
   their named checks, but the full primary criterion was not met: no procedure
   qualified on decision coverage and approval-risk assurance. The cohort is
-  closed; final diagnosis, figures/report/presentation and archival packaging
-  remain. See `docs/thermotwin/OPERATING_DECISION_PHASE_F_RESULT.md` and
+  closed. The subsequent bounded abstention diagnosis is complete: 116/125
+  selected measurements narrow the interval, but 85 of those still abstain.
+  This motivates a future decision-resolution objective; no redesign is
+  validated. Final figures/report/presentation, small numerical replay and
+  archival packaging remain. See
+  `docs/thermotwin/OPERATING_DECISION_ABSTENTION_DIAGNOSIS.md`,
+  `docs/thermotwin/OPERATING_DECISION_PHASE_F_RESULT.md` and
   `docs/thermotwin/OPERATING_DECISION_PROJECT_STATUS.md`.
 
 ---

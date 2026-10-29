@@ -199,8 +199,9 @@ the original scoring implementation or regenerates reserved observations.
 
 This completes the validated Phase F result record and the independent
 arithmetic/statistical check. The original campaign is not reopened. The
-remaining Phase G/H work is the explicitly exploratory abstention diagnosis,
-predetermined small numerical replay, three final figures, final report,
+subsequent [exploratory abstention diagnosis](OPERATING_DECISION_ABSTENTION_DIAGNOSIS.md)
+is now complete and leaves this primary result unchanged. Remaining Phase H
+work is the predetermined small numerical replay, three final figures, final report,
 presentation, and reproducibility/deposit package. Any redesigned selector
 requires a new version and fresh development, calibration and reserved
 partitions; this exposed cohort cannot confirm its performance.
